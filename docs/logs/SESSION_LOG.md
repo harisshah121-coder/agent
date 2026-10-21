@@ -8,3 +8,5 @@
 - Wrote spec, plan, CLAUDE.md, STATE.md, logs, PROJECT_MASTER v0, research briefs. Copied the white paper into docs/source and extracted text.
 - Started build123d install in a container venv (/home/user/.venvs/cad) to validate the code-CAD toolchain.
 - Dispatched research agents R01–R17 (see RESEARCH_LOG.md).
+- 06:30 UTC: all 17 research agents stopped on an account session limit (HTTP 429, reset 06:30 UTC). Partial report skeletons were saved. The first build123d install was killed at its 20-minute background limit before finishing.
+- 06:46 UTC: owner said "resume"; all 17 agents resumed from their saved transcripts; build123d install restarted with a 2-hour limit and a log in the scratchpad.
