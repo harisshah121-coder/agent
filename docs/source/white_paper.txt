@@ -1,0 +1,3010 @@
+TECHNICAL + COMMERCIAL WHITE PAPER
+
+
+
+
+AI-directed
+roll-to-garment
+manufacturing
+A programmable industrial system for conventional fabrics,
+complete construction and flexible small-batch production.
+
+
+
+
+MECHANICS / AI / CAPABILITIES / INDUSTRY / ECONOMICS
+
+Research snapshot: 19 October 2026 • Version 1.0
+
+Research-grounded concept. Proposed functions and economic scenarios require engineering and commercial validation.
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+Contents / System and technology
+Scope and evidence first; physical workflows and software follow the material through the cell.
+
+Executive synthesis                                                                                4
+
+01 | Purpose, scope and evidence                                                                   6
+
+02 | The product: one controlled material-to-garment process                                       7
+
+03 | Why the engineering direction is credible                                                     8
+
+04 | Physical architecture and module interfaces                                                  10
+
+05 | Materials, roll handling and dimensional stability                                           11
+
+06 | Cutting, nesting, extraction and scrap                                                       13
+
+07 | Manipulation: controlling cloth rather than commanding coordinates                           14
+
+08 | Stitching, ribbing, closures and construction tools                                          16
+
+09 | Complete garment workflows and product breadth                                               18
+
+10 | The conversational design and production workspace                                           21
+
+11 | The garment model and design-to-machine compiler                                             22
+
+12 | AI, robotics and deterministic control                                                       24
+
+13 | Scheduling, capacity and scalable output                                                     26
+
+14 | Optional printing, embroidery and other processes                                            27
+
+15 | Quality, reliability and honest autonomy                                                     29
+
+16 | Safety, maintenance, deployment and data protection                                          30
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                2
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+Contents / Application and economics
+Commercial comparisons, explicit financial assumptions and the evidence required to validate the product.
+
+17 | Use cases and deployment models                                                                                    32
+
+18 | Comparable companies and competitive positioning                                                                   33
+
+19 | Implications for minimum orders and the industry                                                                   35
+
+20 | Machine cost, selling price and supplier margin                                                                    37
+
+21 | Garment cost: a transparent premium T-shirt model                                                                  39
+
+22 | Sensitivities, profit boundaries and decision tests                                                                41
+
+23 | Validation and product-development sequence                                                                        43
+
+24 | Conclusions and unresolved questions                                                                               44
+
+Appendix A | Requirements and verification matrix                                                                       46
+
+Appendix B | Example machine-readable garment record                                                                    47
+
+Appendix C | Equations and financial definitions                                                                        48
+
+Appendix D | Assumption register and information still required                                                         49
+
+Appendix E | Glossary                                                                                                   50
+
+References | Primary-source register                                                                                    51
+
+Reading routes
+For the complete product: Executive synthesis, Sections 02–04 and 09. For controls and software: Sections 10–12 and
+Appendix B. For capacity and autonomy: Sections 13–16. For comparison and economics: Sections 17–22. For validation:
+Sections 23–24 and Appendices A–D.
+
+Numbered citations link to the primary-source register. All original diagrams describe proposed functions, not fabricated
+hardware. Financial tables distinguish supplier contribution from garment-operator operating profit.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         3
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+Executive synthesis
+The proposed system is an AI-directed roll-to-garment production cell: a user develops and approves a
+garment in a conversational, visually grounded workspace, loads qualified fabric rolls and construction
+materials, and receives complete cut-and-sewn garments. The base process includes material
+preparation, cutting, component identification, robotic handling, sewing, required construction finishing,
+inspection and discharge. Embroidery, printing and other processes can be added as complete,
+integrated modules.
+This is a product definition and engineering synthesis, not a description of an existing prototype. Its
+central hypothesis is that a common garment representation, reusable construction skills and mechanics
+designed for observable, recoverable handling can make a wide range of supported garments economical
+in smaller batches. The intended scope includes T-shirts, blouses, sweatshirts, hoodies and other tops,
+with longer garments added when their specific handling requirements are established.
+The evidence supports taking that hypothesis seriously. Commercial equipment already addresses roll-
+fed single-layer cutting and individual sewing operations; vendor demonstrations connect cutter
+metadata to robotic component collection. Research demonstrates fixture-free sewing, controlled
+feeding of unequal fabric lengths, panel transport, CAD-assisted alignment and multimodal generation of
+parametric garment patterns. These are restricted capabilities with different starting conditions, not
+proof of a complete production cell. [01–10]
+The hardest integration work is maintaining control of a garment as it changes from separate flat pieces
+into a connected three-dimensional object. A valid architecture must preserve or recover the intended
+edges, isolate the correct layers, support unused fabric, maintain sewing access, avoid trapping fixtures
+inside closed sections and release the finished item. AI can choose and correct actions only where the
+hardware provides the necessary reach, support and sensing.
+The system is not distinguished merely by using AI. CreateMe explicitly describes mechanics and
+learned control developed together; Silana describes adaptive fabric handling and sewing; SoftWear
+promotes machine-vision garment worklines; and Resonance connects design intent to production
+orchestration. The proposed distinction is a combination to be demonstrated: conventional stitched
+construction, roll-to-output continuity, reusable capabilities across garment families, inexpensive job
+changes and a deployable product for smaller manufacturers. [14–19]
+
+Product and performance objectives
+ Item                            Proposed definition
+
+                                 Qualified body, rib and other fabric rolls; thread, tape, labels, closures and specified
+ Input
+                                 consumables.
+
+                                 Complete construction to an approved garment specification, plus an acceptance
+ Output
+                                 or reject record.
+
+                                 Conversational design with reference uploads, pattern and garment views,
+ User interaction
+                                 technical documents, explicit production approval and live job status.
+
+                                 At least 100 acceptable premium T-shirts per 12-hour shift, measured from a
+ Base production objective
+                                 disclosed loaded state.
+
+                                 200–300 shirts per shift through improved balance and handling; 500 as a
+ Higher-capacity studies
+                                 separately costed configuration. These are scenarios, not ratings.
+
+                                 Approximately US$100,000 for a defined delivered configuration. Cost feasibility is
+ Base selling-price objective
+                                 not established.
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         4
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Item                           Proposed definition
+
+                                No manual construction handoffs during a successful run. Setup, loading,
+ Autonomy boundary
+                                maintenance and exceptional interventions are recorded separately.
+
+                                A modular industrial cell with guarded work zones, not a home appliance or a
+ Physical format
+                                dimensionally validated cabinet.
+
+
+
+What the economics show—and do not show
+Two profit models are kept separate. For the machine supplier, illustrative build-and-test costs of
+$52,000, $83,000 and $140,000 produce very different results at a $100,000 selling price. After
+assumed delivery, warranty and variable selling costs, contribution is respectively $33,000, $2,000 and
+negative $55,000 per system. None of those build costs is a supplier quotation. The comparison shows
+how strongly the price objective depends on physical simplification and repeatable manufacturing.
+For the garment operator, a worked premium blank T-shirt model assumes $6.08 in variable cost per
+acceptable garment and $293.86 in daily fixed operating cost including depreciation. At 100 acceptable
+garments sold per day for an assumed $12 ex-factory price, modeled operating profit is about $298 per
+day, or $74,415 across 250 operating days. At 50 sales per day the same model is approximately break-
+even. These are conditional arithmetic examples, not a margin forecast, market-price claim or guarantee
+of demand. Sections 20–22 expose every material assumption and the effects of lower utilization, higher
+labor and worse yield.
+
+  The project’s commercial test is not simply whether a robot can sew a shirt. It is whether one
+  repeatable system can deliver approved quality, useful variety and competitive total cost across real
+  small orders, without hiding labor or preparation outside the measured process.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                            5
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+01 / Purpose, scope and evidence
+A research compilation, not a product certification
+This white paper establishes a common technical and commercial definition for the proposed system. It
+brings the mechanics, software, garment requirements, production model, competitive landscape and
+unit economics into one document. All monetary amounts are in United States dollars unless otherwise
+stated; prices and rates in the numerical models are explicit assumptions rather than quoted market
+offers.
+The research snapshot is 19 October 2026. Public product pages can describe intentions as well as
+shipping functionality. Research abstracts and author pages demonstrate only the tasks they report.
+Where a source starts with already aligned pieces, a person loading a hemmer or chemically stiffened
+fabric, those conditions are retained in the analysis rather than silently removed.
+
+Evidence language used throughout
+ Label                           Meaning in this paper
+
+                                 An existing commercial process or equipment function, described within its actual
+ Established process
+                                 operating scope.
+
+                                 A reported experiment on specified materials, tasks and starting conditions; not a
+ Research demonstration
+                                 product warranty.
+
+                                 A manufacturer’s public description, not an independent audit of output,
+ Vendor claim
+                                 autonomy, economics or sustainability.
+
+                                 An architecture, workflow or requirement synthesized for this project; it must be
+ Proposed design
+                                 engineered and tested.
+
+                                 Transparent arithmetic using declared assumptions. It establishes a relationship
+ Illustrative model
+                                 between variables, not measured performance.
+
+Schematics in this document are original functional diagrams. They are not dimensioned fabrication
+drawings, collision-checked layouts, licensed supplier designs or images of working hardware. A block
+labeled “collar station” names work that must be accomplished; it does not establish that the complete
+mechanism has been solved.
+
+Terminology that prevents misleading comparisons
+A complete garment has all construction operations in its approved specification finished. An acceptable
+garment also meets the agreed inspection criteria. A production attempt can end in acceptance,
+rejection or an interrupted cycle. A recipe is a versioned, qualified combination of design limits, material
+profile, tools, construction sequence and quality checks.
+Autonomous assembly means no person manipulates the garment between the defined operations.
+Unattended batch operation additionally requires sufficient supplies, waste and output capacity, and
+acceptable handling of faults without intervention. An automated changeover is a separate capability: a
+machine can assemble a batch autonomously yet still require an operator to change rolls or thread
+before the next batch.
+A completion interval is the time between outputs of a running pipeline. Lead time is the elapsed time
+for one garment to pass through the cell. Accepted output is not equivalent to needle cycles, completed
+hems or nominal robot speed. Contribution is revenue less specified variable costs; it is not company net
+profit. These distinctions are applied consistently to the performance and economic scenarios.
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                   6
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Scope of the conclusion
+The synthesis identifies a credible engineering route based on existing process technology and
+demonstrated manipulation capabilities. It does not establish unrestricted garment support, a $100,000
+delivered system, a particular footprint, specified shift output or commercially sufficient reliability. The
+development program must establish those properties together. A negative result on one architecture is
+evidence to redesign that architecture, not proof that intelligent garment manufacturing as a category is
+physically impossible.
+
+
+
+02 / The product: one controlled material-to-
+garment process
+The proposed product is a coordinated industrial system rather than a collection of independently
+operated machines. A single application manages the approved garment, production recipe, material
+inventory, cutting layout, component identity, station scheduling, inspection results and output record.
+Different modules can work on different garments simultaneously, but their handoffs share a defined
+control contract.
+
+
+
+
+Figure 1. Base-system scope. The proposed unattended run excludes hidden manual construction; setup and retail handling
+remain explicitly visible.
+
+
+What is inside the base process
+The base system accepts qualified conventional textiles and construction materials, performs the
+necessary preparation, cuts the actual pattern components, extracts them without losing identity,
+assembles them and completes the required finishing. It must handle scrap, defective pieces and
+incomplete jobs rather than depend on an operator to sort them during a successful run.
+The user can be required to load rolls into specified positions, thread or fit approved supply cartridges
+before Start, confirm material identity and approve a production job. A deliberate setup process is
+compatible with autonomous production. Conversely, repeated human placement of a neckline, manual
+fabric turning or a final hand-sewn closure is not autonomous assembly simply because the needle
+movement is automated.
+
+ Function                       Base requirement                              Boundary to disclose
+
+                                Controlled unwind, registration, inspection   Qualified incoming dimensional stability or
+ Material preparation           and any preparation required by the           measured in-cell preparation; no concealed
+                                supported recipe.                             off-cell labor.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         7
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Function                         Base requirement                              Boundary to disclose
+
+                                  Layout, single-ply cutting, notches and
+                                                                                Maximum width, roll formats, tools and
+ Pattern cutting                  necessary markings, cut verification and
+                                                                                validated materials.
+                                  waste removal.
+
+                                  Extract and identify every required panel,
+                                                                                No externally pre-sewn collar or manually
+ Component preparation            rib piece and trim; support it for the next
+                                                                                sorted kit presented as raw-roll input.
+                                  operation.
+
+                                  Alignment, feeding, joining, trimming,        Permitted seam types, tool combinations,
+ Assembly
+                                  transfer and required turning.                sizes and bulk.
+
+                                                                                A buttoned blouse requires a configuration
+                                  Hems, reinforcement, labels, closures and
+ Construction finishing                                                         that also completes its buttonholes and
+                                  construction-required pressing/fusing.
+                                                                                button attachment.
+
+                                                                                Destructive wash and seam tests qualify
+                                  Defined checks, reject isolation and a
+ Inspection and discharge                                                       recipes; they are not performed on every
+                                  retrievable finished garment.
+                                                                                saleable item.
+
+
+
+What is outside the baseline
+Fabric manufacture, yarn production, dyeing, special garment washes and broad chemical finishing are
+outside the baseline. Retail folding, packaging and shipping can be external or optional. A garment
+needing pressing or fusing to complete its actual construction cannot be advertised as complete while
+that step is excluded. Decoration modules have their own process requirements, utility limits and
+throughput ratings.
+The term “any fabric” is not used. A released configuration must identify the material formats and
+properties it supports. Open-width jersey, woven fabric and ribbing are different handling cases; tubular
+ribbing, very slippery cloth, coated textiles or heavy seam stacks require explicit qualification. A target
+garment family is an intended capability, not evidence that every material and detail within that family is
+supported.
+
+Operator experience
+The intended journey is: create a project; upload references and specifications; select a qualified
+material; refine the garment; approve the technical record; load or verify supplies; authorize the batch;
+and retrieve accepted garments with a production record. The system should present a reasoned
+alternative when a request exceeds its capabilities before fabric is cut. It should never quietly simplify a
+neckline, replace a stitch with adhesive or omit a detail to make the physical task easier.
+
+
+
+03 / Why the engineering direction is credible
+The positive case comes from several independently developed capabilities. They reduce the number of
+physical principles that must be invented, but they do not eliminate the need for system integration. The
+table intentionally separates the evidence from the additional work required here.
+
+ Capability and source             Demonstrated or advertised scope             Additional requirement for this platform
+
+                                   Commercial single-layer cutting with         Verified extraction, identity-preserving
+ Roll-fed cutting: Lectra Virga
+                                   automatic roll-out and camera-assisted       handoff and coordination with
+ Fashion [01]
+                                   positioning.                                 downstream assembly.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                          8
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Capability and source          Demonstrated or advertised scope                Additional requirement for this platform
+
+                                Cutter metadata supports picking and
+ Cut-to-kit transfer:                                                           Transfer in a controlled pose directly into
+                                sorting T-shirt components. Its example
+ RobotFactory RPT 130 [02]                                                      autonomous garment construction.
+                                sends them to a sewing department.
+
+                                Two manipulators guide prepared, aligned
+ Fixture-free sewing: Tang et   fabric pairs through an ordinary sewing         Seam preparation, all connected-garment
+ al. [03]                       machine using learned edge detection and        handoffs and complete finishing.
+                                layered control.
+
+                                Independently driven rollers sew
+ Unequal-length feed: Jin et    stretchable layers of different lengths         Automatic loop formation, loading, curved
+ al. [04]                       along a straight line; leading ends begin       neckline handling and release.
+                                positioned at the foot.
+
+                                Motorized rollers and suction roll up
+ Supported panel transport:                                                     Compatibility with the intended materials
+                                fabric; coordinated units manage tension
+ RollUP [05]                                                                    and with already-sewn assemblies.
+                                during transport.
+
+                                Observed fabric and known geometry
+ CAD-assisted alignment:        align edges and sewing lines, including         Recovery from wrinkles, folds and
+ Dong et al. [06]               partial occlusion; starts with flat, wrinkle-   topology changes in a growing garment.
+                                free panels.
+
+                                Vision and touch support edge grasping
+ Edge recovery: Sunil et al.                                                    Reliable manufacturing-specific skills with
+                                and sliding toward corners in deformable
+ [07]                                                                           controlled quality outcomes.
+                                cloth.
+
+ Pattern representation:
+                                                                                Physical manufacturability, process
+ GarmentCode and                Parametric pattern programs and
+                                                                                planning, material calibration and machine
+ Design2GarmentCode             multimodal design-to-pattern generation.
+                                                                                qualification.
+ [08,09]
+
+                                                                                Automatic loading, orientation, release
+ Tubular finishing: JUKI        Automated hemming and stacking after an
+                                                                                and integration with the remaining
+ bottom hemmer [10]             operator loads the garment.
+                                                                                operations.
+
+
+
+The integration problem is state continuity
+Each module must receive something it can actually work with. A cutting system may know a piece’s
+location at the instant of cutting, but extraction changes its shape. A sewing head may accept two
+aligned layers, but the previous operation may deliver a partially closed garment with the relevant edge
+underneath another panel. A hemmer may sew a tube reliably after loading, yet loading that tube is itself
+a manipulation task.
+The proposed platform therefore treats each transition as a first-class operation. It must know which
+object is present, where the next edge should be, which supports currently control it, which layers
+belong under the needle and whether the receiving station is ready. A motion command is not sufficient
+evidence that the intended transfer happened.
+
+Why an industrial cell is a better initial physical format
+Dedicated work zones allow permanently threaded sewing functions, accessible fixtures, material
+buffers and serviceable modules. A single-purpose industrial head can be retained while its loading and
+unloading are automated. This avoids requiring every process to be miniaturized and combined in one
+compact enclosure at the same time that the handling method is being developed.
+That is an architectural advantage, not a claim that the proposed price is easy. More stations can
+increase cost, floor area, calibration effort and shared-transport demand. A larger cell still needs a
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                           9
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+complete garment motion study, a timing model and a service plan. The evidence justifies investigating
+the system; it does not permit adding nominal component capacities together and calling the sum a
+garment-production rate.
+
+
+
+04 / Physical architecture and module interfaces
+The starting architecture is a hybrid modular cell. Predictable operations use simple supports and
+fixtures where those reduce complexity; variable operations use active grippers and sensor feedback.
+Neither “no fixtures” nor “maximum robots” is a requirement. The objective is controlled fabric access at
+acceptable cost, with as little garment-specific rebuilding as practicable.
+
+
+
+
+Figure 2. Relational layout of the proposed cell. Module positions convey workflow, not dimensions or a verified robot reach
+envelope.
+
+
+Functional zones
+The front end contains roll loading, controlled feed, inspection, conditioning where required and a
+supported cutting area. A registered buffer holds identified parts and growing garments. Construction
+modules provide structural joining, rib and neckline operations, hems, closures and required forming or
+fusing. An output zone separates accepted garments, rejects and recoverable work. Utilities include
+controls, guarding, air or vacuum generation or declared plant connections, lint extraction, waste
+collection and maintenance access.
+A gantry can provide repeatable planar coverage while an articulated manipulator offers lifting and
+reorientation. Opening carriers can retain panel identity and support selected regions. The appropriate
+combination depends on the largest parts, seam access, material response, payload with tooling, transfer
+time and the ability to release a closed garment. Selection should follow real-fabric trials and kinematic
+analysis, not the visual appeal of a robot arm.
+
+Every handoff needs a contract
+ Interface field                       Required meaning
+
+                                       Job, garment, panel or subassembly, material lot, recipe revision and tool
+ Identity
+                                       configuration.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                            10
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Interface field                Required meaning
+
+                                Actual observed pose or supported boundary, face and grain orientation, known
+ Geometric state
+                                seam locations and uncertainty.
+
+                                Which carrier, gripper or surface currently holds each relevant region; permitted
+ Support state
+                                release order.
+
+                                Maximum permitted tension, contact force, stretch or temperature for the
+ Material limits
+                                operation.
+
+                                Receiving station available, correct tooling present, supplies sufficient and safe
+ Readiness
+                                state confirmed.
+
+ Acceptance                     Sensor-confirmed layer count, grasp, edge access and transfer success.
+
+                                Retry limit, permitted recovery, reject route, recut request and safe-stop
+ Failure response
+                                conditions.
+
+The receiving module acknowledges control before the source releases fabric. The controller records a
+transition from one verified state to the next, not merely “robot move completed.” A failed
+acknowledgment should not leave a garment unsupported between machines.
+
+Space, mass and utilities
+No exact footprint or weight is assigned at this stage. A layout must include roll diameter and mass,
+maximum fabric width, cutting travel, panel swept volumes, tool reach, output accumulation, guarding
+and maintenance clearance. Holding a panel does not establish that the joined garment can rotate or
+escape the same workspace. Additional floor area may be required for loaded rolls and safe loading
+equipment even if they are outside the guarded moving zone.
+Utilities must be measured for the complete system. Sewing motors, extraction, compressed air, vacuum
+hold-down and compute draw power differently; printing or fusing can add heat and ventilation
+requirements. Shared plant air is not “free” simply because it is absent from the machine cabinet. The
+supplier specification should identify peak demand, average duty, heat rejection, air quality and service
+isolation requirements.
+
+Buy, adapt or build
+Established process modules can accelerate a prototype, while purpose-designed mechanisms may be
+necessary for a viable repeat-build cost. Each outsourced module needs an accessible control interface,
+fault reporting, maintenance documentation and a defined support boundary. Research availability is not
+permission to reproduce patented hardware or commercially redistribute code. Supplier integration
+rights and licensing require separate review; no clearance determination is made here.
+
+
+
+05 / Materials, roll handling and dimensional
+stability
+“Load a roll” is an input format, not proof that the material is ready for accurate manufacture. Oshima’s
+preparation documentation identifies retained tension from production, finishing, storage and transport
+as a reason to relax fabric before cutting. The necessary method and duration depend on the material. A
+fast in-cell feeder cannot be assumed to replace all conditioning. [11]
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                  11
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+Figure 3. Proposed roll-to-panel front end. Material identity is preserved while actual position and geometry are measured
+again after cutting.
+
+
+A qualified material profile
+The material record should include composition where known, construction, mass per area, thickness,
+usable width, lot, face and grain directions, stretch under a defined test load, recovery, surface friction,
+edge curl, porosity, shrinkage after the agreed wash protocol and sensitivity to pressure or heat. These
+are proposed qualification fields, not values inferred confidently from a photograph or fabric trade name.
+For each profile the system needs acceptable ranges and handling settings. “Cotton jersey, 280 gsm” is
+not a complete robotics specification. Two materials carrying that description can require different grip
+pressure, tension, blade settings or seam feed. A new supplier lot may be accepted through a defined
+verification procedure or require a new profile rather than silent reuse of the old one.
+
+Controlled material delivery
+A candidate feed path uses a roll cradle, controlled unwind, tension measurement, edge guidance and an
+accumulation section before the cutting surface. The system must detect end-of-roll, skew, folds,
+unusable width and relevant visible defects. A supported material may require a longer preparation
+buffer or an explicitly stabilized incoming roll. The stated production time must include whatever
+preparation the cell actually performs.
+The cutter should receive stable fabric without pulling it into an incorrect shape. Low tension is not the
+same as uncontrolled slack: excessive slack can introduce wrinkles and placement errors. Closed-loop
+feed should keep the material inside its qualified handling envelope. The control policy must be tested
+when roll diameter changes and when a fresh roll is loaded, not only at one convenient state.
+
+Multiple materials and colors
+A shirt may use body fabric, rib, tape and labels from different supplies. A woven blouse may add
+interfacing and closures. The system therefore needs separate input identities and synchronization. A
+production job reserves all required components before irreversible work begins, reducing the chance of
+cutting a body that cannot be completed because its matching rib is unavailable.
+Automatic switching between rolls, thread colors and trim cartridges is an additional mechanical
+capability. A basic configuration can require disclosed setup before a compatible batch while still being
+autonomous during that batch. The software should expose those restrictions when estimating a mixed-
+order schedule. A user selecting a new color on screen does not establish that a roll and every matching
+thread path have changed themselves.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                          12
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Consumption and batch capacity
+The model must count input material used for nested shapes, cut waste, failed parts, quality rejects,
+setup pieces and rework. Remaining roll length should be tracked with uncertainty and checked against
+the next batch. A system intended to operate unattended also needs sufficient rib, thread, tape, label and
+output capacity. End-of-supply detection is necessary but does not by itself provide automatic
+replenishment.
+Section 21 gives a mass-balanced example. Under its assumptions, 100 acceptable heavyweight T-shirts
+consume approximately 43.2 kg of body and rib fabric including layout waste and rejects. That is a model
+result, not a general material requirement; actual pattern areas, weights and yields determine the
+number. Roll logistics must be sized to those actual requirements rather than the headline count of
+garments.
+
+
+
+06 / Cutting, nesting, extraction and scrap
+The proposed starting process is supported single-layer knife cutting, chosen for study because it can
+place different sizes and approved designs in a shared layout. Multi-ply cutting may be attractive for
+larger repeated orders, but it introduces stack registration and singulation requirements. The
+architecture should compare both against the intended order mix rather than declare either universally
+superior.
+Lectra advertises automated roll-out, camera-assisted positioning and a 120 m/min cutting-path speed
+for Virga Fashion. That number is neither garment throughput nor fabric-roll consumption. Notches,
+curves, acceleration, feed, material support and offloading all contribute to cycle time. RobotFactory’s
+textile application demonstrates the distinct next step: using cutter metadata to collect and sort
+identified T-shirt pieces before they go to sewing. [01,02]
+
+Nesting is constrained optimization
+A marker must respect grain direction, stretch direction, face, nap, print placement, pattern matching,
+usable width, known defects and seam allowances. A layout with high area utilization is not acceptable if
+it rotates a sleeve against the approved grain. A cutting optimizer also needs to consider downstream
+demand: cutting many panels for blocked stations can create excessive work in process and bury
+components required for urgent jobs.
+Each cut component receives a digital identity linked to its garment and material lot. That identity need
+not require a permanent visible mark. Known cutting location, temporary machine-readable labels where
+approved, controlled carriers and verified transfer can maintain identity. Physical labeling decisions must
+consider garment appearance, adhesive residue, washing and any later cutting or sewing operation.
+
+Extraction is not just picking something up
+After cutting, the system must determine whether the perimeter is complete, separate the panel from
+surrounding waste and lift it without excessive distortion. Small notches, bridges, curled edges and
+adjacent pieces can complicate pickup. A panel-shaped vacuum pattern may help on some materials but
+leak or lift unwanted layers on others. A pinch or hybrid gripper requires safe contact regions and
+reliable edge access.
+Scrap removal is coordinated with pickup. Pulling away the unused web must not drag a completed
+piece into the waste stream or move remaining components beyond recognition. The production
+controller should track extraction outcomes and distinguish an absent panel from a panel that was
+picked and misidentified. A recut must use a new part identity tied to the same garment need, so the
+rejected original cannot accidentally re-enter assembly.
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                        13
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+What the cutter hands to assembly
+The key output is not a bin of fabric. It is a verified component in a usable supported state, with identity,
+orientation, actual geometry, known defects and a clear next operation. This is a proposed extension
+beyond cutter-linked sorting. It reduces ambiguity at the assembly entry point while acknowledging that
+geometry changes whenever cloth is lifted, folded or released.
+A buffer should store components in a way that preserves access and avoids flattening one garment
+under many unrelated kits. There may be separate buffers for flat pieces and sewn subassemblies. Their
+sizes follow the timing model and fault behavior, not an arbitrary number of trays. A full buffer must
+cause controlled upstream slowing or replanning rather than physical overflow.
+
+Cutting-related validation
+Acceptance tests should cover largest and smallest parts, narrow rib strips, notches, local curves, roll
+skew, empty areas, varying porosity, visible defects and incomplete-cut recovery. Record geometric
+error after release, extraction success, material damage, lost identity, recut workload and scrap fraction.
+A cutter capable of accurate flat patterns is useful evidence; autonomous transfer in the condition
+needed for sewing is the additional system milestone.
+
+
+
+07 / Manipulation: controlling cloth rather than
+commanding coordinates
+The proposed controller operates on the observed cloth state. It uses the known garment and
+completed-seam record to narrow the task, then cameras and contact feedback to establish where the
+material actually is. A fixed coordinate can be a starting estimate; it is not a substitute for checking that
+the intended edge is present and the correct layers are controlled.
+
+
+
+
+Figure 4. Proposed verified handoff. The receiving grip, support and seam access are checked before source release.
+
+
+Selection of handling mechanisms
+ Mechanism to evaluate           Potential role                                 Main limitation to test
+
+ Pinch gripper with local                                                       Double layers, fabric marking, difficult
+                                 Isolate an edge, regrip or lift a panel.
+ compliance                                                                     access and slipping.
+
+ Vacuum or distributed           Hold broad areas and stabilize pieces on a     Porosity, wrinkles, leakage, energy use and
+ suction support                 surface.                                       unintended pickup.
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                        14
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Mechanism to evaluate      Potential role                               Main limitation to test
+
+                            Reduce unsupported panel length during       Unrolling accuracy, edge curl and
+ Rolling support
+                            transfer.                                    incompatibility with bulky sewn regions.
+
+ Opening or segmented       Preserve registration and expose selected    Access after topology changes; avoidance
+ carrier                    seams.                                       of trapped fixtures.
+
+                                                                         Limits in local stretch, curvature, contact
+ Driven edge rollers        Meter and align layers near a sewing head.
+                                                                         force and lead-end introduction.
+
+                            Support inactive fabric during joining and   Entanglement, transfer delay and reliable
+ Movable garment cradle
+                            turning.                                     separation of layers.
+
+This is a comparison agenda, not a selected bill of materials. RollUP provides research precedent for
+rolling and suction-assisted transport, while visuotactile work supports edge interaction under partial
+occlusion. Neither supplies an unrestricted gripper for the proposed garment range. [05,07]
+
+Recovering the next edge
+A folded edge is not automatically a terminal failure. A qualified skill can observe, lift a known region,
+expose an edge, grasp it and verify the result. But the mechanism needs the necessary degrees of
+freedom, free space and support. If a carrier blocks access or a garment is trapped around a solid
+support, the solution requires a different fixture or assembly order, not merely a more confident model
+prediction.
+The controller should separate uncertainty about identity from uncertainty about pose. It may know
+which panel is present but not exactly where its edge lies. It may instead see a plausible edge but be
+unable to confirm whether it is a hem, a folded layer or a matching seam. Those conditions warrant
+different probes and stop thresholds. Force or tactile checks should be used where they add
+discrimination rather than treated as decorative sensors.
+
+Entry conditions and bounded skills
+A reusable skill has a required starting state, tools, observations, adjustable parameters, success test and
+permitted recovery path. For example, “align and sew” requires known mating edges, controlled layer
+count, an accessible lead-in, adequate thread and support for unused cloth. It must not begin simply
+because the next line in a program says “sew.”
+A skill library can cover exposure, pickup, flattening, tensioning, alignment, feeding, folding, turning,
+transfer and release. Generality comes from parameters and observed state, but only within an
+evaluated envelope. New garment sizes and materials should be tested against those limits. A novel
+combination of familiar skills can still fail because one operation leaves the next without access or
+adequate support.
+
+Learning and physical data
+Training records should include unsuccessful grasps, doubles, slip, occlusion, malformed seams and
+recovery attempts, not only ideal runs. Physical data must connect sensor observations to action,
+material, geometry and outcome. Simulation can help explore reach, scheduling and candidate policies,
+but real textile response and seam quality require physical testing. A learned policy is released as a
+versioned component; improvements are evaluated offline before replacing a qualified production
+version.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                    15
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+08 / Stitching, ribbing, closures and construction
+tools
+The base system preserves conventional cut-and-sew construction. Its capability derives from the
+combination of stitch-forming mechanisms and autonomous material presentation. A sewing head’s
+ability to create a stitch does not establish that the robot can introduce the correct layers, follow the
+seam, avoid neighboring cloth, finish the thread path and remove the garment.
+
+A proposed process toolbox
+Structural knit seams call for appropriate overlock capability; visible knit hems call for coverstitch
+capability; many woven assemblies and topstitch details call for lockstitch capability. Those functions
+can be implemented as separate permanently threaded modules in the initial industrial architecture.
+Buttonholes, button attachment, bartacks, selected zipper operations and fusing require their own
+qualified tools or modules where included in a released garment configuration.
+Automatic needle or thread conversion is not presumed. Multiple heads may simplify process changes
+but add space, thread paths, maintenance and transport. Automatic thread trimming and break detection
+do not eliminate all thread faults. Any necessary bobbin, looper-thread, needle or tool intervention is
+either automated and validated, completed before the run or included as an interruption.
+
+
+
+
+Figure 5. Split-support ribbed-neckline concept. A possible support-and-release arrangement; its geometry and full loop
+handling are unproven.
+
+
+The ribbed collar as an integrated benchmark
+A complete collar module must cut the strip from the designated rib supply, join its ends where required,
+establish face and orientation, form the fold, present it to the neckline, distribute local stretch, sew the
+approved seam, perform tape or topstitch steps and release the garment. It cannot receive a manually
+prepared loop while being described as roll-to-garment automation.
+The differential-feed research demonstrates controlled sewing of unequal-length stretchable layers, but
+its prepared leading ends and straight seam are narrower than this complete task. It supports studying an
+independent feed mechanism; it does not validate automatic circular installation. [04]
+For a numerical illustration, a 50 cm body neckline with a 42.5 cm relaxed rib seam line has a nominal
+ratio of 0.85. That is not a universal rib rule. Rib recovery, stretch force, desired appearance, seam
+allowance and the actual material pair determine the approved relationship. The system must control
+local distribution rather than simply stretch the entire loop to a target length once.
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                       16
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+A proposed opening support would retract or split after sewing. It must leave the rest of the shirt
+supported while the neckline is unloaded. Cameras and contact checks should distinguish a correctly
+placed loop from a twist or an unwanted captured layer. A collar looking symmetrical under tension is
+not enough; geometry, recovery and seam appearance should be checked after release and during wash
+qualification.
+
+Turning, fusing and closures
+A woven collar or cuff may require shaped joining, trimming, turning, pressing and topstitching. Those
+are different manipulations from feeding a flat seam. Facings and interfacing introduce additional layers
+and material compatibility. A module must provide a controlled way to apply and release heat or
+pressure without damaging the garment or creating a fire or entanglement hazard.
+Closures require defined supply formats and presentation. A button must be oriented, placed and
+attached; its corresponding buttonhole must exist and be verified. A zipper requires accurate tape
+placement, allowance management and the specified end treatment. A drawcord operation involves
+feeding, locating ends and verifying the result. These operations should appear in the recipe and costing
+rather than disappear into a generic “attach trims” label.
+
+Finishing equivalence matters
+An open-flat hem before side closure can differ at the seam intersection from a specified tubular hem
+completed afterward. A simpler neckline construction can differ from a folded rib collar. The compiler
+may propose a more machine-friendly method, but the customer must approve any resulting
+construction change. Software optimization is constrained by the actual garment specification, not
+merely by an approximate silhouette.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                      17
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+09 / Complete garment workflows and product
+breadth
+The platform should be validated through complete garment recipes, not a collage of successful
+operations on unrelated test pieces. The first premium T-shirt gives a specific integration target; woven
+and bulky-rib tasks should challenge the same architecture early enough to prevent a permanently
+single-purpose design.
+
+
+
+
+Figure 6. Candidate premium T-shirt route. Exact seam order is open to engineering, but every dependency and finishing
+requirement must be preserved.
+
+
+Premium heavyweight T-shirt reference recipe
+The initial sample specification should freeze a particular cotton jersey in the proposed 240–300 gsm
+range, a matched rib, shoulder or neck reinforcement, structural seams, sleeve and body hems, labels
+and approved dimensions. This range defines an intended test category, not identical behavior across all
+textiles of that weight.
+
+ Stage                          Required operations                            Completion evidence
+
+                                Verify body and rib lots; provide required     Qualified material state and enough supply
+ Prepare materials
+                                relaxation; reserve tape, labels and thread.   for the disclosed batch.
+
+                                Cut front, back, sleeves and rib; extract      All components identified, oriented and
+ Cut and identify
+                                pieces; manage scrap; associate trims.         held in usable states.
+
+                                Align shoulders; apply specified
+                                                                               Correct seam allowance, layer count and
+ Build upper body               reinforcement; join with the approved
+                                                                               reinforcement location.
+                                seam.
+
+                                Form rib loop and fold; introduce to
+                                                                               Untwisted, released collar with correct
+ Construct neckline             neckline; distribute feed; sew and
+                                                                               geometry and no caught body layer.
+                                complete agreed tape/topstitch.
+
+                                Match sleeve and body edges, controlling       Approved sleeve orientation, seam and
+ Attach sleeves
+                                curvature and any permitted easing.            attachment shape.
+
+                                Join side and underarm paths; include          Correct layers, unblocked openings and
+ Close body
+                                seam-integrated labels where specified.        complete seams.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                      18
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Stage                           Required operations                            Completion evidence
+
+                                 Load sleeve and body openings onto
+                                                                                Consistent hem width and approved seam-
+ Finish hems                     suitable supports; fold and coverstitch;
+                                                                                intersection construction.
+                                 finish joins.
+
+                                 Trim threads, perform necessary turning,       Wearable garment meeting the agreed
+ Complete and release
+                                 inspect and discharge.                         checks or an identified reject.
+
+The reference route is not a claim that every step must occur in that order. A revised sequence is
+acceptable when the physical construction and quality remain equivalent. All changes need a support-
+and-access analysis: what holds the garment, which edge is reachable, how unintended layers remain
+clear, and how the item leaves the tool.
+
+Woven blouse reference family
+A defined blouse recipe starts from a selected woven material, the relevant interfacing and closures.
+Candidate preparation includes darts or shaping seams, placket formation, facing or collar subassemblies,
+necessary fusing, shoulder and sleeve construction, side closure, cuffs, hems, buttonholes, buttons and
+turning or pressing. The exact list depends on the approved design; no garment should inherit
+unnecessary operations merely because another blouse uses them.
+This family stresses precise folding, small components, layer stacking, turning corners and closure
+positioning. A new visual design may reuse an approved placket and collar; a genuinely different collar
+construction may require a new tool or skill. Lightweight transparent, slippery or bias-cut fabrics need
+their own material qualification rather than being treated as ordinary stable woven panels.
+
+Sweatshirts, hoodies and longer garments
+Sweatshirts add bulk, thick seam crossings and rib cuffs or waistbands. Hoodies add hood assembly and
+attachment, pockets and optional cords or zippers. A pullover hoodie without a zipper is a different
+process configuration from a lined zip-front style. A machine’s ability to attach a rib neck does not by
+itself establish that it can feed and release a much smaller cuff opening at the required seam thickness.
+Sweatpants introduce long panels, crotch geometry, pockets, leg tubes and waist elastic or drawcord
+handling. The common platform may reuse skills, but reach, support and access must be demonstrated
+on those actual assemblies. Longer parts do not necessarily require a flat bed equal to their full length,
+yet any folded or rolled support strategy becomes part of the validated mechanism.
+
+
+
+
+Figure 7. Versatility through construction families. Common handling and information structures support different tool and
+recipe combinations.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                          19
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Released capability matrix
+ Family                      Intended common capabilities                Additional configuration or qualification
+
+ T-shirts and related knit   Knit structural seams, sleeve attachment,   Neckline variants, size range, fabric
+ tops                        rib neck, hems and labels.                  response and sleeve-length handling.
+
+                                                                         Cuffs, waistbands and maximum seam-
+ Sweatshirts                 Shared knit operations and rib feeding.
+                                                                         stack thickness.
+
+                             Shared body assembly and selected pocket    Hood geometry, cord channels, closures or
+ Hoodies
+                             skills.                                     lining where specified.
+
+                             Cutting, identity, manipulation and         Darts, fusing, shaped collars/cuffs,
+ Woven blouses
+                             lockstitch workflows.                       plackets, buttons and buttonholes.
+
+ Sweatpants and similar      Shared feeding, hems, labels and            Longer-piece support, crotch access, leg
+ bottoms                     inspection.                                 turning and elastic installation.
+
+                                                                         Complete print or embroidery module and
+ Decorative variants         Approved base garment plus routing.
+                                                                         a separate production rating.
+
+A useful breadth test is a withheld, supported design variation executed through existing skills without
+manually programming each trajectory. A stronger test spans two construction families on the same core
+handling system. The final report must distinguish changed parameters, changed tooling, new software
+and manual setup. “Same machine” should not hide replacement of most of the mechanism between
+demonstrations.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                  20
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+10 / The conversational design and production
+workspace
+The user interface is the primary entry point, but it is not the entire intelligence of the system. Its
+purpose is to turn intent into a consistent approved garment, expose manufacturing constraints early
+and preserve the connection between design changes and physical production. It should be chat-led and
+visually grounded rather than a text-only sequence of prompts.
+
+
+
+
+Figure 8. Proposed application workspace: context, conversational revision, engineering tools and production status linked to
+one approved record.
+
+
+Persistent projects and reference handling
+A project can contain photographs, sketches, pattern files, measurement tables, fabric documentation,
+prior technical packs, sample feedback and production results. The reference archive is searchable and
+persistent; the currently approved garment is a separate structured record. Older images should not
+silently override an explicit later decision. Each extracted fact should retain its source and confidence
+where uncertainty affects manufacture.
+A photograph can suggest a silhouette or detail but does not establish an exact dimension, fabric
+composition or tested stretch profile. The application must request missing measurements or label
+estimates before approval. Extensive stored context does not imply unlimited active model context or
+perfect memory. Relevant retrieval, structured decisions and version history are the proposed means of
+managing large projects reliably.
+
+Interactive design functions
+The workspace should display the garment, pattern geometry and technical specification together. A
+user might select a sleeve and request a two-centimeter length change, compare necklines, specify a rib
+width or choose between approved construction alternatives. The change should update every
+dependent output, not only a rendering. GarmentCode and Design2GarmentCode provide evidence for
+parameterized pattern construction and multimodal pattern-program generation; the physical
+production checks remain an additional layer. [08,09]
+The interface distinguishes a concept preview, an engineering-checked design, a physically qualified
+recipe and an approved production job. These are different states. A visually convincing garment can
+have mismatched seam lengths or require a tool the cell lacks. A physically qualified base recipe can
+become unqualified after a significant material or construction change.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         21
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Technical documentation generated from the record
+Proposed outputs include a versioned technical pack, measurement and tolerance table, panel list,
+material and trim specification, grain/face annotations, seam map, stitch requirements, cutting marker,
+construction sequence, labeling instructions, machine configuration and inspection plan. Documents are
+generated from the same source data used by the execution system. A rendering or narrative description
+is not a substitute for actual cutting geometry.
+Before production, the app should show estimated material consumption, required input rolls,
+machine/tool compatibility, expected setup, order quantity and the assumptions underlying time and
+cost. A visible approval action authorizes a fixed revision. Later changes create a new revision and
+cannot silently modify jobs already in progress.
+
+Production and exception experience
+The user should see jobs waiting, cutting, assembled, inspected, accepted or rejected, with reason codes
+for interruptions. Operators need actionable instructions for authorized setup and service, not opaque
+model output. A remote person guiding a robot through a failure is still an intervention and must be
+recorded as such.
+Where multiple customers share a production cell, access controls separate their design files,
+measurements and outputs. Reference permissions, retention choices and deletion requirements should
+be explicit. A customer’s private design must not automatically become training data for other users.
+Production telemetry can be useful without retaining every identifiable reference or body-measurement
+file indefinitely.
+
+
+
+11 / The garment model and design-to-machine
+compiler
+The proposed canonical garment record is the engineering bridge between an expressive interface and
+controlled manufacture. It specifies what the garment is, how its pieces relate and which verified
+processes can construct it. The record is not a single image or a long prompt; it is structured geometry,
+topology, material information, decisions and constraints.
+
+
+
+
+Figure 9. A shared garment record drives the design, cutting files, technical documents and execution state. Dependencies are
+revalidated after a change.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         22
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Proposed record structure
+ Record group                Representative fields
+
+                             Project, garment family, revision, approval, creator permissions and referenced
+ Identity and provenance
+                             evidence.
+
+                             Parametric panel boundaries, seam lines, allowances, notches, internal markings, darts
+ Geometry
+                             and dimensions.
+
+                             Roll/lot, profile revision, face, grain/stretch direction, thickness, permitted tension and
+ Material
+                             conditioning state.
+
+                             Which edges join, their correspondence, seam type, orientation, easing or differential-
+ Topology
+                             feed relationship.
+
+                             Labels, tape, interfacing, closures, reinforcement, decoration and exact attachment
+ Trims and details
+                             requirements.
+
+                             Dependency graph, proposed sequence, intermediate garment states and
+ Construction
+                             support/release requirements.
+
+                             Required tool and skill versions, size/material limits, known exclusions and setup
+ Capability
+                             requirements.
+
+                             Measurement tolerances, seam criteria, approved sample, recipe qualification and
+ Quality
+                             inspection rules.
+
+                             Cut-piece IDs, station assignments, observations, actions, faults, material use and
+ Production
+                             accepted/rejected outputs.
+
+A seam graph connects specific panel edges rather than assuming that two nearby visible boundaries
+should be sewn. Edge correspondence can include notches and local easing constraints. Different seam
+lengths are not automatically errors: intentional rib stretch or easing must be represented explicitly.
+Unintentional mismatch must not be “fixed” by the robot stretching a layer until it fits.
+
+Compilation and validation stages
+The compiler first checks geometry, complete panel definitions, allowances and edge correspondences.
+It then checks material and tool compatibility, generates a candidate assembly dependency graph and
+evaluates whether each step can be supported, reached and released. Station allocation and cutting
+preparation follow only when the recipe can be executed on the actual cell configuration.
+Physical access is the crucial extra check beyond pattern validity. A proposed seam order may close a
+tube before a required label or cuff is installed, trap a carrier, hide an edge from every gripper or require
+a turn the mechanism cannot perform. The compiler should search permitted alternative sequences and
+explain unsupported requests. It cannot certify real-cloth behavior solely from geometric simulation.
+
+Change propagation
+A neckline edit changes the panel edge, rib geometry, length relationship, cutting layout and
+construction parameters. A material substitution may affect shrinkage compensation, gripping, feed,
+pressing and quality qualification even when the silhouette is unchanged. A closure change can alter
+both the part count and assembly order. The system should invalidate dependent outputs until the
+relevant checks pass again.
+Software-only variation is a desired outcome, not an assumption. Within an approved parameter range, a
+new size might reuse tools and skills. Outside that range, the machine may need a different support or
+qualification. The application must make that boundary visible to the user before an order is promised.
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                        23
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Executable jobs and module contracts
+A job package should include signed or otherwise integrity-protected recipe and policy versions, material
+identities, station requirements, entry conditions, allowed parameter ranges, recovery limits, quality
+checks and a log schema. Each module accepts only instructions compatible with its capabilities and
+current state. Type-checked interfaces reduce ambiguity but do not replace physical validation.
+The compiler and scheduler can use search, rules, optimization and learned models where appropriate.
+The most valuable output is a verifiable plan, not the presence of an LLM in every software layer. A
+repeat order should reuse an approved recipe while adapting to measured cloth conditions rather than
+re-invent its construction from free-form text.
+
+
+
+12 / AI, robotics and deterministic control
+The system is designed around adaptive physical execution, not a chatbot directly driving motors.
+Learned models can interpret references, estimate cloth state, select manipulation skills and predict
+outcomes. Deterministic software can enforce geometry, interfaces and scheduling constraints. Local
+controllers execute synchronized motion, while independent safety functions can inhibit it regardless of
+model output.
+
+
+
+
+Figure 10. Proposed control stack. The safety path is independent of conversational inference and cloud connectivity.
+
+
+What “designed for AI” should mean
+The hardware should make relevant material states observable and recoverable: cameras need useful
+sight lines; grippers need ways to expose edges; supports need controlled release; and tools need
+measurable entry conditions. Mechanical simplification and sensing can reduce the uncertainty that a
+learned policy must handle. The goal is not to remove all structure and demand that a general model
+solve an arbitrary pile of cloth.
+This principle is not unique to the project. The competitive comparison later describes other approaches
+that explicitly combine hardware and intelligence. The proposed engineering advantage must be
+demonstrated in reduced setup, broader supported variation, fewer interventions or better cost, not
+inferred from the phrase “AI-native.”
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                     24
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Skill execution and recovery
+
+
+
+
+Figure 11. Proposed skill-level control. Retries are bounded and unsuccessful attempts remain visible in the production record.
+
+A skill checks its preconditions, executes an action while observing material state and tests the outcome.
+Recoverable deviations can lead to re-observation, a controlled regrip, recut or rerouting. An uncertain
+or dangerous state leads to a safe stop. The retry budget should consider fabric damage and elapsed
+time; unlimited attempts can destroy both quality and shift output.
+Research on phase-conditioned imitation learning reports autonomous recovery in T-shirt hanging and
+removal. This is useful evidence that recovery can be part of a learned controller, but it is not a
+demonstration of repairing sewn defects or operating this cell. The manufacturing skill set requires its
+own data, checks and validation. [29]
+
+Training, simulation and deployment
+A practical development process collects demonstrations and failures on representative fabrics, parts
+and intermediate assemblies. Simulation supports geometric checks, policy exploration and scheduling,
+with a measured gap to real materials. A test set should include withheld parameter combinations,
+changes in illumination, material lots, edge curl and plausible misalignment. Good performance on
+repeated training pieces does not establish generalization.
+Policies and models remain versioned. Production machines should not autonomously rewrite their
+qualified behavior after each garment. New versions are tested offline, compared with baselines,
+released deliberately and reversible. Controlled remote updates, rollback and a local ability to stop safely
+are product requirements. Model confidence must be calibrated against actual error, especially where a
+false-positive quality check could pass a defective garment.
+
+Latency and failure independence
+Critical motion and sewing synchronization remain local. Network loss should not create uncontrolled
+movement or leave the plant unable to reach a safe state. A local execution package can continue an
+already approved job when that behavior is explicitly designed and qualified; otherwise it pauses safely.
+Cloud services can provide design inference, retrieval, fleet analytics and planning without being the
+only path to safety.
+The general AI risk-management process should document foreseeable failures, data limitations,
+monitoring and release controls. NIST’s AI Risk Management Framework is a useful voluntary
+governance reference, not machinery certification or proof of safe robot behavior. [26]
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                          25
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+13 / Scheduling, capacity and scalable output
+A production cell can work on several garments at once. One item may be receiving a collar while
+another is cut and another is hemmed. This separates the elapsed time for an individual garment from
+the interval between completed outputs. The proposed architecture should exploit that overlap without
+exceeding shared transport or buffer capacity.
+
+
+
+
+Figure 12. Illustrative pipeline. A–D are different garments; windows are not timed claims. A real model must reserve every
+station and shared handling resource.
+
+
+Output arithmetic
+For a simplified steady-state model, let H be available shift minutes, A the fraction effectively available
+for production, Y the acceptable yield and c the running interval between completed attempts. Then
+acceptable output is approximately G = H x A x Y / c. The factors must be defined so a delay or reject is
+not deducted twice. If c already measures the all-in achieved interval, additional availability or
+performance deductions may be inappropriate.
+
+ Accepted shirts per 12-hour         Average accepted interval over the         Required running completion interval at A
+ shift                               full shift                                 = 0.80 and Y = 0.95
+
+ 100                                 7 min 12 sec                               5 min 28 sec
+
+ 200                                 3 min 36 sec                               2 min 44 sec
+
+ 300                                 2 min 24 sec                               1 min 49 sec
+
+ 500                                 1 min 26 sec                               1 min 6 sec
+
+ 1,000                               43 sec                                     33 sec
+
+These are capacity requirements, not production forecasts. The base 100-shirt objective is a first
+validation milestone, not a calculated ceiling. The higher scenarios need their own physical configuration,
+material capacity, cost and reliability evidence. They do not imply the same $100,000 system will deliver
+every rate.
+
+Resource capacity and bottlenecks
+For each resource, calculate total active occupancy per garment, including repeated visits, load/unload
+and required setup. Divide by the number of genuinely parallel copies. The largest resulting workload is a
+lower bound on the running completion interval; synchronization, failures and queues can make actual
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                           26
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+performance worse. A robot shared across stations can be the bottleneck even when every sewing head
+is individually fast.
+For illustration, suppose a collar module requires five minutes per shirt while all other resources can
+sustain a two-minute interval. One collar station limits the simplified model to about 109 acceptable
+shirts per shift; two independently operating collar stations reduce that bottleneck to 2.5 minutes and
+allow about 219. Reducing the limiting interval to two minutes permits about 274 under the same
+assumed losses. These are synthetic operation times, not measured collar performance.
+JUKI advertises 2,400–3,000 bottom-hemming operations in nine hours with one operator and one
+machine. This concerns one finishing step with human loading, not complete shirts. It illustrates why
+local sewing capacity can exceed the intended cell rate while handling and other construction operations
+remain limiting. [10]
+
+Cold starts, buffers and unfinished work
+A full-shift test begins from a declared state: loaded rolls, conditioned or unconditioned inputs, threaded
+tools, empty or pre-filled buffers and installed software versions. Required in-cell preparation, pipeline
+filling and end-of-shift work in process affect completed output. A steady-state interval measured after
+the cell is already full is not the same as a cold-start roll-to-output count.
+Buffers absorb variation but consume space and material. In a stable hypothetical pipeline completing an
+attempt every two minutes with a 20-minute manufacturing lead time, average work in process is
+approximately ten garments. That relationship is a planning example; actual routing, rejects and multiple
+visits can require different capacities. An additional buffer does not increase capacity when a single
+resource remains fully occupied.
+
+Mixed orders and changeover classes
+ Change class                        Proposed treatment
+
+ Same material, tools and recipe;    Recompile parameters and marker; confirm changes remain inside the qualified
+ new approved size                   range.
+
+ Same construction, new fabric lot   Verify material profile and any required calibration before release.
+
+                                     Reserve corresponding rolls, threads and supplies; perform disclosed manual or
+ New color or trim
+                                     automatic setup.
+
+ New construction feature            Check tooling, support access, skill availability, quality and recipe qualification.
+
+                                     Reserve complete process capacity, dwell and cooling; use a separate output
+ Decoration enabled
+                                     rating.
+
+The commercial benchmark should compare one order of 100 with ten orders of ten using defined
+differences. Record preparation, physical changes, blocked time and accepted output. A faster sewing
+operation does not eliminate expensive style setup. Conversely, maintaining high capacity by
+suppressing all design variation would defeat the intended small-batch proposition.
+
+
+
+14 / Optional printing, embroidery and other
+processes
+Optional modules extend the process without making the undecorated base garment incomplete. Each
+module needs material compatibility, automatic presentation, supplies, safe handling, quality checks and
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         27
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+a timed interface to the rest of the cell. The production scheduler reserves its capacity before cutting
+work that depends on it.
+
+
+
+
+Figure 13. Proposed panel-decoration branches. The undecorated path bypasses optional equipment; required preparation and
+fixing remain inside each branch.
+
+
+Embroidery
+A suitable panel can be embroidered before it becomes difficult to access in a closed garment. The
+complete process includes design digitization, stitch and density checks, correct backing, automatic
+clamping or hooping, thread management, stitching, trim operations, backing finishing where necessary
+and release. The location must be registered to the actual panel and sewing allowances.
+Commercial multi-needle embroidery equipment provides a process precedent; Tajima’s SAI, for
+example, has eight needles and specified frames. That does not supply automatic panel loading,
+stabilization or downstream garment transfer. Those remain integration work, and machine compatibility
+with thicker stacks or particular backing materials must be tested. [12]
+The design must not create an unhandled manual backing-removal step. Thread breaks, color changes,
+needles and empty supplies also matter to unattended operation. Dense embroidery may dominate cycle
+time; adding a second head helps only when loading, power, frames and transport can support
+concurrent work. The base shirt’s output rating cannot be applied to arbitrary embroidery.
+
+Direct print, transfers and roll print
+Candidate routes include printing a flat panel before sewing, printing qualified roll material before
+cutting, or using a finished-garment station where loading is feasible. The chosen route depends on
+artwork, substrate, registration, heat exposure and the desired finish. Ordinary cotton garments cannot
+simply be assumed compatible with every print chemistry.
+Brother’s GTX300 documentation describes pretreatment and drying requirements, including
+pretreatment for white-ink direct-to-garment work. Therefore a proposed print module must include all
+required treatment, printing, fixing, cooling and inspection for the selected process, not only a printhead.
+Specific temperature and dwell settings are recipe-dependent and must be validated on the actual
+material and equipment. [13]
+Transfer-based processes add adhesive or powder handling, placement and pressing requirements
+where used. Roll printing can change the material’s dimensions or surface before cutting, requiring
+subsequent registration and conditioning. Hot, wet or uncured panels must not be sent directly into
+grippers or sewing stations without a qualified handling state.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                    28
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Other functions and process ownership
+Decorative stitching, selected heat transfers, special closures, retail pressing, folding and packaging are
+possible modules to study. A garment requiring a closure or interfacing to complete construction must
+include that operation in its advertised production configuration even if the machinery is physically
+modular. “Optional” should mean optional to the chosen product, not missing from its promised output.
+Each add-on specification declares input state, material range, consumables, heat or air requirements,
+exhaust, cycle-time distribution, inspection, fault paths and release state. A bypass should maintain base
+operation when a decoration module is absent or unavailable, provided the current job does not require
+it. Routing a decorated job around a failed module and calling it complete would be a specification
+failure.
+
+
+
+15 / Quality, reliability and honest autonomy
+Quality is defined against an approved sample and technical record. A garment that resembles the
+intended shape can still fail on seam placement, collar recovery, puckering, skipped stitches, trim
+location or dimensions. Online inspection and offline qualification have different functions; neither can
+be replaced by a persuasive image.
+
+
+
+
+Figure 14. Three independent measurement systems: machinery performance, garment quality and customer economics.
+
+
+Inspection and qualification
+The proposed inline checks include identity and lot verification, cut geometry, layer count, seam path,
+thread presence, visible defects, collar/cuff symmetry, labels and completed construction. Confidence
+thresholds and known blind spots are documented. Some defects require tactile or force observations;
+others are not reliably observable from the installed cameras and must be managed through process
+qualification and sampling.
+Offline tests should evaluate dimensions and appearance after a defined wash/dry protocol, seam
+integrity, stretch recovery, fastening performance and decoration durability as relevant. ISO 6330
+provides a reference framework for domestic washing and drying procedures for textile testing; citing its
+public scope does not establish compliance or select a complete acceptance protocol. A competent
+textile laboratory and garment specialist should define the actual methods. [25]
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                29
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Fault classes and accounting
+ Event                       Proposed system response                       Performance consequence
+
+ Edge shift or uncertain     Re-observe, expose and regrip within a         Recovery time is included even when the
+ grasp                       tested limit.                                  garment succeeds.
+
+ Wrong or damaged cut        Isolate it; request an identified recut;       Material loss, recut time and blocked
+ component                   preserve garment tracking.                     downstream capacity.
+
+                             Reject or use an explicitly qualified repair   Manual repair cannot count as
+ Sewn defect
+                             route.                                         autonomous success.
+
+ Thread, needle or           Detect and enter a defined safe state;         Any required person counts as an
+ mechanical fault            restart only through a validated recovery.     intervention and affects availability.
+
+                             Predict from job requirements and sensed       Refill and clearing time must match the
+ Low supply or full output
+                             remaining capacity; stop safely if needed.     advertised operating model.
+
+                             Hold for designated review rather than         Pending review is not an accepted unit at
+ Uncertain quality
+                             silently accept.                               shift end.
+
+A machine may remain unattended by rejecting a problem garment and continuing, but accepted yield
+falls. A remote operator recovering a job is still human participation. A safety stop is responsible
+behavior; it simply cannot be hidden when reporting a twelve-hour unattended batch.
+
+Why small failure probabilities accumulate
+Under an illustrative independent-trial model, if each garment has a 1% chance of requiring a person, the
+probability that 100 garments finish without such an intervention is approximately 36.6%. Across 500
+garments it falls to 0.66%. At a 0.1% per-garment intervention probability, those batch probabilities are
+approximately 90.5% and 60.6% respectively.
+To achieve a 95% chance of an intervention-free 500-garment batch under that simplified model, the
+per-garment probability must be about 0.0103% or lower. Actual faults can cluster by material lot, tool
+wear or environment, so this is not a reliability prediction. It shows why “usually works” is insufficient for
+an unattended-shift claim.
+Test reports should retain every attempt and log cold-start conditions, software and hardware versions,
+fabric lots, setup, total work time, recovery, operator minutes, rejects and accepted garments. Results on
+repeated identical cloth should be separated from mixed lots and recipes. A short highlight video or a
+sequence with failures removed is not a capacity or reliability dataset.
+
+
+
+16 / Safety, maintenance, deployment and data
+protection
+The proposed cell contains needles, cutting tools, driven rollers, moving supports, robots and potentially
+heat, pressurized air, chemicals and stored energy. A machine using a robot marketed as collaborative is
+not automatically safe as a complete cutting-and-sewing system. Guarding and safe access must reflect
+the integrated hazards, including foreseeable misuse and maintenance.
+ISO 10218-2:2025 provides a public-scope reference for industrial robot applications and cell
+integration. ISO 12100 provides the general machinery risk-assessment and risk-reduction framework.
+These references guide engineering review; this white paper is not a compliance assessment, and
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                     30
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+applicable standards and legal requirements must be confirmed for the deployment jurisdiction and final
+equipment configuration. [23,24]
+
+Proposed safeguards and service requirements
+ Area                            Requirement to establish in engineering
+
+                                 Guarded zones, controlled access, emergency stop behavior and verified stopping
+ Moving and cutting hazards
+                                 functions.
+
+                                 Safe isolation and release for electrical, pneumatic, vacuum, spring and thermal
+ Stored energy
+                                 sources during service.
+
+                                 Detection and safe clearing of wrap, trapped garment, double feed and pulled
+ Fabric entanglement
+                                 thread paths.
+
+                                 Qualified temperatures, ventilation, exposure control, fire protection and
+ Hot or chemical processes
+                                 compatible handling.
+
+                                 Accessible collection, cleaning intervals, blockage detection and containment near
+ Lint and waste
+                                 moving or hot parts.
+
+ Roll handling                   Maximum load, lifting/support procedure, loading access and secure roll retention.
+
+                                 Permissioned commands, locally enforced limits and no unsafe dependence on
+ Remote operation
+                                 network or model availability.
+
+                                 Replaceable wear parts, calibrated replacements, service instructions and recovery
+ Maintenance
+                                 testing after work.
+
+Thread paths, blades, needles, gripper surfaces, cameras and filters need inspection and replacement. A
+cost model that excludes routine servicing is incomplete. Where cleaning or consumable service is
+required during a shift, the advertised operating model must include it. The machine must be designed
+so a technician can reach the fault safely rather than dismantle a large portion of the line for a routine
+repair.
+
+Commissioning and acceptance
+A factory acceptance test verifies the supplied configuration before shipment. A site acceptance test
+confirms installation, utilities, guards, calibration, example recipes and production records under site
+conditions. Neither is replaced by a supplier video. The delivered system should include the exact
+capabilities, setup conditions, exclusions, spare-parts list, support expectations and a process for
+qualifying new materials or tools.
+The product should separate user-adjustable parameters from protected machine and safety
+configuration. Production changes require an audit trail. A restored backup must preserve approved
+recipes and the physical calibration to which they refer. A replaced camera or gripper can invalidate prior
+calibration even if the software version is unchanged.
+
+Data, security and customer confidence
+Patterns, measurements, reference images and production records can be commercially or personally
+sensitive. Role-based access, encryption where appropriate, controlled retention and explicit training-
+data permission are proposed requirements. Project separation matters when one manufacturer serves
+competing labels. Firmware and policy updates need authenticated delivery, version compatibility and
+rollback.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                 31
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Telemetry should help diagnose faults without unnecessarily exposing customer designs. The machine
+should record its own observations and decisions in a usable form; unexplained model output is a weak
+service interface. Safety-critical controls remain independent of the conversational system, while general
+model-risk documentation can follow a governance framework such as NIST AI RMF. [26]
+
+
+
+17 / Use cases and deployment models
+The most useful customer is not necessarily the person most excited by automatic clothing. It is an
+operator with identifiable orders, an approved garment specification and a measurable reason to change
+production methods. Use cases should be evaluated against real alternatives: a capable conventional
+sewing team, outsourced small-batch production, decorated blanks or a specialist automated service.
+
+Priority use cases to investigate
+ Use case                  Proposed value                               Conditions for a convincing deployment
+
+                                                                        Sufficient aggregate demand, compatible
+ Small contract            Pool orders from multiple labels and
+                                                                        materials, repeatable recipes and service
+ manufacturer              reduce recurring setup and handling work.
+                                                                        capability.
+
+                           Replenish proven styles in smaller           A stable core assortment, known quality
+ Established independent
+                           quantities and adjust sizes or fit without   standards and volume sufficient to use the
+ label
+                           ordering a large finished inventory.         equipment.
+
+                           Produce supported size variations and        Material consistency, approved
+ Uniform or teamwear
+                           recurring replacements, with optional        colors/trims and decoration capacity
+ supplier
+                           decoration.                                  matched to orders.
+
+                           Serve several brands near their customers,   Competitive total cost including materials,
+ Regional production hub   coordinating shared raw material and         labor, energy, logistics and any required
+                           capacity.                                    finishing.
+
+                                                                        Broad enough tooling and high value from
+ Product-development or    Convert approved design changes into
+                                                                        iteration; throughput alone may not justify
+ sampling center           repeatable physical samples more quickly.
+                                                                        ownership.
+
+                                                                        Appropriate supervision, safe access and a
+ Fashion education or      Explore computational design, production
+                                                                        budget justified by learning or research
+ research facility         planning and textile robotics.
+                                                                        rather than garment margin.
+
+These are hypotheses for customer testing, not estimates of demand. Interviews should collect actual
+order files, samples, costs, minimums, delivery constraints and reject experience. Interest in a universal
+clothing machine does not validate the restricted first configuration. A useful customer commitment
+identifies the required garment, quantity, quality, operating involvement and price conditions that would
+make adoption rational.
+
+Ownership and production-service models
+A manufacturer can buy a cell and sell garments or production services. An operator can own several
+cells and pool work from brands. An established brand can own equipment for repeat products and
+outsource unsupported constructions. The technology supplier can sell hardware, software and service
+without operating garment factories itself. These models have different risks and profit pools; their
+margins should not be combined as if they accrue to the same business without added costs.
+A production-as-a-service offer can reduce the buyer’s responsibility for maintenance and utilization, but
+those costs move to the service operator. A hardware sale can give a manufacturer more control, but it
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                 32
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+requires installation, trained staff, spares and a dependable service route. This paper models a hardware
+supplier and a garment-producing operator separately rather than assuming one model dominates.
+
+Situations where the system may be a poor fit
+A business with infrequent orders, a different unsupported construction every day or no verified
+demand may have low utilization. Very large repetitive orders may favor established dedicated
+equipment. Products whose economics are dominated by custom fabric development or special washing
+may gain little from automating sewing alone. Couture-like one-off handling, highly unusual textiles and
+complex tailored construction are outside any unqualified claim of general capability.
+The appropriate comparison is a matched basket of garments and service requirements. A machine
+making plain knit tops cannot be compared with the price of fully decorated, washed and packed retail
+products. Similarly, a cheaper outsourced quote may omit shipping, duties, inspection, sampling or
+inventory commitments. The test must normalize the scope without assuming that local automated
+production always wins.
+
+
+
+18 / Comparable companies and competitive
+positioning
+The opportunity is not based on an absence of innovation. Several companies address automated
+garment construction, flexible production or design-to-manufacturing software. Their public descriptions
+differ in joining method, material starting state, autonomy boundary and commercial offer. The following
+is a research snapshot, not a ranking or independent performance audit.
+
+ Company or approach        Publicly described direction                  Relevance and boundary of comparison
+
+                                                                          Directly relevant to adaptive sewn
+                                                                          garments. The reviewed offer emphasizes
+                            Machine-vision sewing worklines and on-
+ SoftWear Automation [14]                                                 sourcing through enabled factories; it does
+                            demand T-shirt production.
+                                                                          not establish this paper’s turnkey price and
+                                                                          full configuration.
+
+                                                                          A close mechanical competitor. Its page
+                            Cutting, robotic layer separation and         also states one worker per ten machines;
+ Silana [15]                adaptive autonomous sewing without            advertised automation should not be
+                            templates or fixtures.                        treated as verified zero-intervention
+                                                                          lifetime operation.
+
+                                                                          Explicitly co-designs mechanics and
+                                                                          intelligence. Bonding differs from the
+                            Robotic assembly centered on digital          proposed conventional stitching. Its
+ CreateMe [16,17]           adhesives, specialized tooling and Physical   research page labels Gen 1 in production
+                            AI.                                           and Gen 2 in development; its brands page
+                                                                          advertises minimum order/color quantities
+                                                                          of 100.
+
+                                                                          Closely overlaps the digital design-to-
+                            Design intent compiled into manufacturing
+ Resonance / CreateOne                                                    production thesis. Public claims do not
+                            instructions, with production-network
+ [18]                                                                     establish an equivalent standalone fully
+                            orchestration and feedback.
+                                                                          autonomous cut-and-sew cell.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                  33
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Company or approach              Publicly described direction                   Relevance and boundary of comparison
+
+                                                                                 A meaningful process redesign, but it adds
+                                                                                 a material-treatment route outside the
+                                  Temporarily stiffens fabric so industrial
+                                                                                 proposed untreated-textile baseline. Its
+ Sewbo [19]                       robots can handle and sew it, followed by
+                                                                                 site says development and partner trials
+                                  removal of the treatment.
+                                                                                 continue and the technology is not yet
+                                                                                 available for purchase.
+
+                                                                                 An important digital garment-
+ SHIMA SEIKI                                                                     manufacturing alternative, but not a
+                                  Whole-garment knitting directly from yarn.
+ WHOLEGARMENT [20]                                                               substitute for every conventional woven or
+                                                                                 jersey cut-and-sewn product.
+
+                                                                                 Demonstrates an accessible low-minimum
+                                  No-minimum customization within
+                                                                                 service model. A product catalogue is not
+ Printful [21]                    selected products, including all-over-print
+                                                                                 unrestricted customer control of patterns,
+                                  cut-and-sew offerings.
+                                                                                 fabric and assembly.
+
+                                                                                 Potential suppliers, integration partners or
+                                  Cutting, component sorting, material
+ Process suppliers                                                               adjacent alternatives. Individual functions
+                                  preparation, sewing, printing and
+ [01,02,10–13]                                                                   do not demonstrate the complete
+                                  embroidery equipment.
+                                                                                 proposed cell.
+
+
+
+Why “built for AI” is not a sufficient distinction
+CreateMe’s research description is particularly relevant: it links single-sided access, tooling, grippers and
+bonding to learning-based control. That directly contradicts a claim that competitors have only added AI
+superficially to legacy machines. Its stated roadmap must still be distinguished from demonstrated broad
+capability. [16]
+The same discipline applies to every company. Public marketing language is not proof of rated speed,
+material breadth or cost; a company’s silence about a feature is not proof it lacks it. No source reviewed
+here establishes an independently verified equivalent matching all of this paper’s requirements at
+approximately $100,000. That is a limit of the reviewed public evidence, not a claim that no private
+development exists.
+
+The proposed differentiation to establish
+ Proposed distinction                   Evidence needed to make it credible
+
+ Complete roll-to-output                A run including necessary preparation, cutting, component extraction, assembly,
+ continuity                             finishing and discharge without hidden handling.
+
+ Conventional stitched                  Garments matching specified seams, ribbing, fabrics and appearance rather than
+ construction                           substituting another joining process without approval.
+
+                                        Materially different supported designs on the same core platform, with
+ Reusable skills across garments
+                                        documented setup, tooling and qualification changes.
+
+                                        Measured job preparation and changeovers across a mixed-order shift, not only
+ Low small-order overhead
+                                        fast identical-item production.
+
+ Deployable product for smaller         A costed delivered configuration, accessible service, transparent utilities and
+ operators                              installation requirements.
+
+                                        Design edits correctly update patterns, technical records and production jobs;
+ End-to-end digital consistency
+                                        physical observations remain linked to the approved revision.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                         34
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+These distinctions form a comparison agenda, not established competitive superiority. The strongest
+demonstration would benchmark a representative order mix against both conventional small-batch
+production and relevant automated alternatives using the same garments, material quality, delivery
+scope and human involvement.
+
+
+
+19 / Implications for minimum orders and the
+industry
+The most important economic effect could be reducing the cost of beginning another small job. Faster
+stitch formation alone is not sufficient. Pattern approval, material procurement, machine setup, labor
+allocation, decoration and order administration all contribute to small-order cost. Some are addressable
+by the proposed system; others remain upstream or outside its process boundary.
+
+
+
+
+Figure 15. Proposed pooled-production model. Small orders can share qualified raw materials and capacity without sharing an
+identical finished blank.
+
+
+Which minimums can change
+A software-qualified design variation can potentially reuse a construction recipe and reduce setup.
+Automated cutting and identified transfer can reduce manual kit preparation. Compatible jobs can share
+a marker and be scheduled around common materials and tools. These are proposed routes to lower
+per-order work, not proof that every new style needs no preparation.
+Fabric and trim minimums do not disappear. Pine Crest Fabrics, for example, distinguishes a 15-yard
+minimum for stocked fabrics from typically 300–500 yards for made-to-order materials. This illustrates
+the difference between drawing from shared stock and commissioning a dedicated upstream run. The
+proposed machine changes garment production, not the mill’s process. [22]
+
+ Constraint                     Possible effect of the proposed system         Residual issue
+
+                                                                               Fit and construction still require
+                                Parametric tools and reusable approved
+ New pattern or fit                                                            qualification; photographs do not establish
+                                recipes can reduce repeated drafting work.
+                                                                               exact measurements.
+
+                                Configurable supports, skills and tooling      Unsupported seams and materials may
+ Sewing setup
+                                can reduce style-specific preparation.         need new physical development.
+
+                                Integrated layout and extraction reduce        Material preparation, scrap and pickup
+ Cutting and kit preparation
+                                manual handoffs.                               reliability remain real work.
+
+ Fabric color or                Shared stock can pool demand from              Custom material runs and shade
+ development                    several customers.                             requirements retain upstream constraints.
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                        35
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Constraint                 Possible effect of the proposed system        Residual issue
+
+ Decoration and special     Qualified modules can reduce coordination     Their own setup, dwell, consumables and
+ finishes                   and some handling.                            material minimums remain.
+
+                            Consistent jobs and traceability can reduce   Customer approval, exceptions, payment
+ Order management
+                            administrative repetition.                    and quality disputes still have a cost.
+
+
+
+The setup-cost mechanism
+As a simplified illustration, $200 of style-preparation cost adds $10 per item to a 20-piece batch, but
+only $1 to a 200-piece batch. Reducing that preparation to $20 reduces those additions to $1 and $0.10
+respectively. The value comes from lowering setup, not merely distributing the same setup over more
+units. These values are not industry benchmarks.
+The cell’s scheduling rules should therefore aim to minimize the expensive changes that actually exist:
+rolls, thread colors, tools, cure conditions or unqualified construction details. Jobs can be grouped when
+compatible without changing the customer’s approved garment.
+
+Inventory and working stock
+Smaller finished-garment runs can shift some stock from style-specific finished goods toward reusable
+fabric and trims. That does not eliminate inventory risk; the operator or supplier now carries more
+shared material and can still face obsolete colors, excess widths or unused specialty trims. The economic
+test includes remaining roll value, unused cut pieces, minimum purchasing quantities and carrying costs
+where material.
+Smaller replenishment may reduce unsold finished stock or cash tied to large orders. Measure those
+customer-specific effects from actual demand; do not add assumed retail margin to the manufacturing
+benefit.
+
+Labor, skills and production geography
+The proposed system changes the allocation of work rather than establishing a labor-free factory. Setup,
+garment engineering, material qualification, quality review, maintenance, logistics and customer
+operations remain. The operator model in this paper deliberately includes paid work. Whether
+automated assembly reduces total labor cost depends on how much service and exception handling it
+introduces.
+Local or regional production becomes attractive only when total economics support it. Energy, rent,
+service, material supply, utilization and logistics still matter. A modular cell may enable a different
+production footprint, but it does not guarantee lower landed cost in every country or displace all large-
+scale conventional manufacturing.
+
+Environmental effects require measurement
+Potential benefits include lower finished-goods overproduction, fewer unnecessary transfers and better
+traceability. Potential costs include energy for robotics, vacuum, air and heat, electronic equipment,
+reject fabric, additional chemistry and more frequent small shipments. Easier production can also
+stimulate more consumption. No percentage reduction in emissions or waste is assumed.
+An evaluation should compare the full lifecycle and product durability, not only factory electricity or one
+shipping leg. UNEP’s textile value-chain roadmap treats sustainability as a chain-wide issue; automation
+is one possible contributor rather than a complete solution. Measure material utilization, rejected mass,
+energy per acceptable garment, consumables, shipment patterns, repairability and garment life under a
+consistent boundary. [27]
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                 36
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+20 / Machine cost, selling price and supplier
+margin
+The approximately $100,000 selling price is a design objective for a defined complete base
+configuration, not an engineering quotation. Cutting, extraction, construction, required controls and
+guarding must be included. Optional decoration, unusual site work and additional high-capacity modules
+need separate stated prices. A lower price achieved by quietly excluding automatic collar preparation or
+final construction would not meet the product definition.
+
+What these estimates mean
+The following is an illustrative should-cost envelope prepared to expose cost pressure. It is not a bill of
+materials, a set of current vendor quotes, a probability range or proof that the lowest figures are
+achievable. All three columns intend the same core end-to-end scope; they represent different
+procurement and integration outcomes, not different levels of advertised autonomy.
+The optimized column assumes substantial integration, repeatable assembly and carefully selected
+custom mechanisms. The reference column allows more complete bought-in subsystems. The
+conservative column represents more expensive equipment and integration. None presumes a specified
+production volume until suppliers validate it. Costs must eventually be quoted at explicit build quantities
+and include documented interfaces and service obligations.
+
+                                                 Optimized repeat-    Reference             Conservative
+ Base-system cost category
+                                                 build objective      integration case      procurement case
+
+ Roll handling and material preparation                      $4,000                $7,000             $12,000
+
+ Single-ply cutting and hold-down                            $8,000               $14,000             $25,000
+
+ Part extraction, grippers and buffer                        $5,000                $8,000             $14,000
+
+ Manipulation and shared transport                           $8,000               $14,000             $25,000
+
+ Sewing, trim and common forming/closure tools              $10,000               $15,000             $25,000
+
+ Vision, sensors, control and compute                        $4,000                $6,000               $9,000
+
+ Frame, guarding and base utilities                          $6,000                $9,000             $15,000
+
+ Assembly, calibration, acceptance test and
+                                                             $7,000               $10,000             $15,000
+ packaging
+
+ Factory build-and-test cost                                $52,000               $83,000            $140,000
+
+The tooling allowance is particularly uncertain. A configuration claiming specific blouse closures, rib cuffs
+or construction fusing must contain those functions. If selected tools exceed the allowance, the cost
+model changes; required operations cannot be reclassified as manual work to preserve the price. Long-
+duration material conditioning or autonomous roll/thread changes may also demand more equipment
+than these allocations support.
+A low advertised robot price is not an adequate basis for estimating the cell. UFACTORY’s Lite 6 is
+advertised from $2,999, but its published payload is 600 g and reach is 440 mm. Its suitability depends
+on tooling mass, cloth load, reach and dynamics. The price is a useful example of why a component
+headline must be read with its limits, not a component selection for this design. [28]
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                            37
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Contribution at a $100,000 system price
+Assume factory build costs as above, $6,000 per unit for delivery and commissioning, a warranty
+provision equal to 5% of selling price and variable selling/channel costs of 4%. These are model
+assumptions. They are not validated freight, installation, warranty or dealer terms.
+
+ Per delivered system                                Optimized case         Reference case        Conservative case
+
+ Selling price                                                 $100,000               $100,000              $100,000
+
+ Factory build and test                                         ($52,000)             ($83,000)            ($140,000)
+
+ Delivery and commissioning                                      ($6,000)              ($6,000)              ($6,000)
+
+ Warranty provision                                              ($5,000)              ($5,000)              ($5,000)
+
+ Variable selling/channel allowance                              ($4,000)              ($4,000)              ($4,000)
+
+ Contribution before fixed company costs                         $33,000                $2,000              ($55,000)
+
+ Contribution as a share of revenue                                   33%                    2%                −55%
+
+The contribution must still cover sustaining engineering, software operations, fixed service capacity,
+administration and other company expenses. Original development expense, taxes and any financing
+costs are not recovered by merely labeling contribution “profit.” Early field failures, rework, returns or
+unplanned installation can make the allowance inadequate.
+
+Price sensitivity and a cost ceiling
+With these assumptions, contribution is 0.91 x selling price − factory cost − $6,000. To obtain a 30%
+contribution rate, the required selling price is approximately (factory cost + $6,000) / 0.61.
+
+ Factory-cost scenario                Price for 30% contribution under this model
+
+ $52,000 factory cost                                                                                        $95,082
+
+ $83,000 factory cost                                                                                       $145,902
+
+ $140,000 factory cost                                                                                      $239,344
+
+For the reference $83,000 factory cost, a $125,000 selling price produces $24,750 contribution, or
+19.8%. A $150,000 selling price produces $47,500, or 31.7%. Those numbers are arithmetic, not
+proposed market prices or evidence of willingness to pay. They show that the $100,000 target requires
+a credible path to a significantly lower factory cost than the reference case.
+At a $100,000 selling price, the model permits a factory cost of roughly $55,000 if a 30% contribution
+rate is required. That should become a subsystem allocation and supplier-quotation exercise. Reducing
+hardware spend is not a success if it causes more service calls, lower accepted output or hidden manual
+steps.
+
+Repeatability, recurring service and company profitability
+The manufacturer’s economics depend on repeatable installation rather than a new bespoke engineering
+project for each site. Common hardware, controlled configurations, calibration procedures, spare parts
+and remote diagnostics can reduce cost variability; those advantages must be demonstrated across
+installations.
+For an illustrative annual scale check, 50 systems at $33,000 contribution generate $1.65 million before
+fixed company expenses. At $2,000 contribution they generate only $100,000. If annual fixed operating
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                   38
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+expense were $1.5 million, those scenarios would leave $150,000 and negative $1.4 million respectively
+before omitted development recovery and other excluded items. The sales volume and overhead are
+assumptions, not a forecast or a development plan.
+A separately priced software/service package could contribute revenue, but it also incurs compute,
+updates, service staff and support costs. For illustration, a $3,000 annual package costing $1,800 to
+deliver contributes $1,200 before fixed costs. Warranty coverage and paid service must be defined so
+the same work is not charged or costed twice. Recurring fees should not be used to conceal an
+unserviceable machine or assume that every buyer will pay indefinitely.
+
+
+
+21 / Garment cost: a transparent premium T-shirt
+model
+This section models the operator who produces garments, not the equipment supplier. It uses a fully
+disclosed premium blank T-shirt example. It is intentionally not based on a $60–$100 retail selling price:
+a factory’s manufacturing value and a brand’s retail margin are different. Actual material quotes, staffing,
+utilities and customer orders must replace the assumptions before commercial decisions.
+
+Model boundary
+The garment is an undecorated heavyweight cotton T-shirt with ribbing, normal labels/reinforcement
+and approved conventional construction. Body and rib material are purchased; their cutting waste and
+rejected attempts are included. The assumed ex-factory selling price is $12 per acceptable garment.
+Taxes, debt service, customer delivery, brand marketing and specialty finishing are outside this example.
+Basic packaging is included even though it is outside the proposed automated construction boundary.
+The model assumes 250 operating days per year. Each day includes the stated paid work and overhead
+whether 25 or 100 shirts sell. Output variables below mean acceptable garments both produced and
+sold, not merely machine capacity. The quality loss is already inside variable cost and must not be
+deducted again from those accepted-unit counts.
+
+Input assumptions and material mass balance
+ Input                                                Assumption
+
+ Net body-panel cut area, including seam allowances   1.15 m² per shirt
+
+ Body fabric mass per area                            0.280 kg/m², equivalent to 280 gsm
+
+ Net rib cut area                                     0.075 m² per shirt
+
+ Rib mass per area                                    0.360 kg/m²
+
+ Area utilization of each cutting marker                                                                        85%
+
+ Body and rib purchase prices                         $12/kg and $14/kg respectively; unquoted scenario values
+
+ Trim allowance per attempted garment                 $0.45 for labels, reinforcement and related specified trims
+
+ Thread and routine small consumables                 $0.15 per attempted garment
+
+ Final acceptable yield                               95%; rejected garments receive no salvage credit
+
+ Basic packaging                                      $0.20 per acceptable garment
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                 39
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Body material required per attempt is 1.15 x 0.280 / 0.85 = 0.3788 kg. Rib material required is 0.075 x
+0.360 / 0.85 = 0.0318 kg. Their combined purchase cost is $4.9906 per attempt. Adding trims and
+routine consumables gives $5.5906. Dividing by the 95% acceptable yield and adding packaging
+produces $6.0848 per acceptable garment, rounded to $6.08.
+This is a conservative full-attempt reject model with no salvage credit. In practice, an early detected cut
+defect can cost less than a fully rejected garment, while a late defect, partial recut or manual rework can
+have a different cost. A production model should replace this simplification with event-level material and
+time records.
+The modeled input body-plus-rib fabric per acceptable shirt is approximately 0.4322 kg. At 100
+accepted shirts, that is 43.22 kg including marker loss and quality rejects. It is not the weight of the
+finished garment. This distinction matters for material supply, roll capacity, scrap handling and cost
+claims.
+
+Daily operating costs
+ Expense                      Basis                                                                 Daily allowance
+
+                              6 hours at $20/hour, including setup, replenishment, inspection,
+ Paid work                                                                                                     $120.00
+                              packing and allocated order handling
+
+ Electricity                  5 kW average across 12 hours at $0.15/kWh                                           $9.00
+
+ Space, insurance and basic
+                              Allocated daily cost                                                              $70.00
+ administration
+
+ Maintenance reserve          $5,000 per year across 250 operating days                                         $20.00
+
+ Software/service             $3,000 per year across 250 operating days                                         $12.00
+
+ Daily fixed cash operating
+                                                                                                               $231.00
+ cost
+
+                              $110,000 equipment plus site basis, seven-year life, zero residual,
+ Depreciation                                                                                                   $62.86
+                              250 days/year
+
+ Daily fixed cost including
+                                                                                                               $293.86
+ depreciation
+
+The $110,000 depreciation basis comprises an assumed $100,000 delivered machine plus $10,000 of
+site preparation. This is an accounting illustration, not tax advice or a validated installation quote. The
+supplier’s delivery allowance and the operator’s site work are different items. The model excludes a
+financing arrangement and any location-specific tax or duty treatment.
+Six paid hours do not mean a person sews for six hours inside an autonomous run. They recognize that
+loading, inspection, packaging, order management and service availability still require paid effort. The
+exact staffing arrangement must provide safe access and adequate response; higher labor is tested in
+Section 22. The 5 kW average is an energy assumption, not a measured system specification, and
+excludes thermal decoration modules.
+
+Cost and operating profit at different sales volumes
+Operating cost per acceptable shirt is $6.0848 + $293.8571 / daily accepted sales. Daily operating
+profit at the assumed $12 ex-factory price is accepted sales x ($12 − $6.0848) − $293.8571.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                   40
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+ Accepted shirts sold per   Modeled total cost per                                  Operating profit per 250-day
+                                                       Operating profit per day
+ day                        shirt                                                   year
+
+ 25                                           $17.84                    ($145.98)                        ($36,494)
+
+ 50                                           $11.96                       $1.90                             $475
+
+ 75                                           $10.00                     $149.78                          $37,445
+
+ 100                                           $9.02                     $297.66                          $74,415
+
+ 150                                           $8.04                     $593.42                        $148,354
+
+ 200                                           $7.55                     $889.18                        $222,294
+
+This table isolates the effect of volume while holding equipment, daily staffing and other assumptions
+fixed. The 150- and 200-shirt rows are sensitivity cases, not evidence that the same cell and labor
+achieve those outputs. If extra modules, labor, hours, maintenance or power are needed, those rows
+must be re-costed. Unsold output does not create the revenue shown here.
+At 100 accepted sales per day, daily cash operating surplus before depreciation is approximately
+$360.52, while modeled operating profit after depreciation is $297.66. Neither is after-tax company
+profit. A crude purchase-cost payback based only on the modeled surplus would be misleading without
+considering demand, ramp-up, working stock, service reserves and the buyer’s actual alternative. Those
+items should be modeled explicitly for a real deployment.
+
+
+
+22 / Sensitivities, profit boundaries and decision
+tests
+The operator model’s most important lesson is the dependence on accepted, sold volume and total cost,
+not a particular profit number. Several plausible changes can erase or materially reduce the modeled
+margin. These calculations hold all other assumptions fixed and therefore show sensitivities, not
+independent forecasts.
+
+Selling price and utilization
+At 100 accepted shirts sold per day, the modeled total cost remains $9.02 per shirt. The assumed ex-
+factory selling price changes the result as follows.
+
+ Ex-factory price per
+                            Operating profit per day                    Operating profit per year
+ accepted shirt
+
+ $8                                                         ($102.34)                                    ($25,585)
+
+ $10                                                          $97.66                                      $24,415
+
+ $12                                                         $297.66                                      $74,415
+
+At the $12 selling-price assumption, break-even is approximately 49.7 accepted sales per day. At $10 it
+is approximately 75.1. A machine capable of producing 200 units but selling only 50 should be evaluated
+at 50 sales with any excess inventory costs, not at nameplate capacity. Conversely, demand greater than
+capacity does not create profit until the system can supply it reliably.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                41
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Material, yield and labor sensitivity
+                                         Total cost per shirt at
+ One change from the baseline                                      Interpretation
+                                         100 accepted sales/day
+
+                                                                   Requires an actual equivalent-quality material
+ Body fabric $10/kg instead of $12/kg                     $8.23
+                                                                   quote.
+
+                                                                   Material cost can dominate the automation
+ Body fabric $16/kg                                      $10.62
+                                                                   benefit.
+
+                                                                   Includes increased body and rib input, not a
+ Marker utilization 75% instead of 85%                    $9.72
+                                                                   second quality deduction.
+
+                                                                   Must preserve grain, matching and defect
+ Marker utilization 90%                                   $8.73
+                                                                   exclusions.
+
+                                                                   Full-attempt reject model; actual fault location
+ Acceptable yield 85% instead of 95%                      $9.72
+                                                                   changes the cost.
+
+                                                                   Must be measured, not assumed from visual
+ Acceptable yield 98%                                     $8.84
+                                                                   examples.
+
+ Paid work 12 hours instead of 6
+                                                         $10.22    Adds $120/day at the same hourly assumption.
+ hours/day
+
+ Delivered machine $150,000 plus                                   Higher depreciation only; any changed capacity
+                                                          $9.31
+ $10,000 site work                                                 or service cost is not credited.
+
+Real changes can be correlated. A more difficult fabric can reduce marker utilization, slow handling and
+increase rejects together. A higher output configuration can require more labor and electricity.
+Combining only favorable independent sensitivities would overstate profit. A mature model should use
+measured cycle-time and defect distributions by material and recipe.
+
+Decoration and branded-product economics
+Decoration contributes a separate selling price and separate costs: ink or thread, backing, pretreatment,
+transfer media, heat, dwell, module depreciation, rejects and handling. A $5 decoration surcharge is not
+$5 of profit. If the decoration station constrains output, it also changes the fixed-cost allocation of the
+entire cell. A higher-value garment can justify slower production, but only when buyers actually pay the
+corresponding price.
+A brand selling a garment at retail must still pay for customer acquisition, transactions, fulfillment,
+returns, customer service, design and inventory. The operator’s modeled $12 ex-factory revenue is not
+automatically the brand’s manufacturing cost in every arrangement, and the brand’s retail price cannot
+be used as a proxy for factory savings. Profit should be attributed to the business that performs the
+work and carries the risk.
+
+Benchmarking the alternative
+The comparison with outsourced production should match fabric, construction, quantity, quality, lead
+time, decoration, packaging and delivery terms. The comparison with an internal conventional team
+should include its actual productivity, overhead and flexibility. New-machine benefits may include lower
+minimums, faster repeat orders, traceability or less finished inventory, but these should be quantified
+separately rather than used to excuse a weak manufacturing-cost calculation.
+A deployment decision should use at least three scenarios: low demand and elevated fault cost; realistic
+recurring orders; and higher utilization with its required staffing and equipment. The evidence should
+show what happens when the system is unavailable for several days, a material lot fails qualification or a
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                   42
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+customer changes a specification after cutting. Reserves and service coverage should reflect those
+events.
+
+Two different economic conclusions
+Under the reference supplier cost, the $100,000 selling price leaves little contribution even when the
+operator model appears profitable. Under the optimized supplier cost, the machine business can have
+room to cover fixed costs, but the operator still needs sufficient accepted sales and a competitive total
+garment cost. Both models must work; one cannot be used as proof of the other.
+The appropriate next costing artifact is a supplier-backed bill of materials and installation scope,
+accompanied by a production-cost model populated with measured garment trials and real customer
+orders. The numerical examples here make those questions explicit. They do not establish a profitable
+product in advance of that evidence.
+
+
+
+23 / Validation and product-development
+sequence
+The technical program should progress from the hardest unsupported transitions to complete garments,
+then to repeatable mixed-order production. It should not begin by optimizing a visually attractive
+enclosure or treating successful straight seams as proof of a full system. Several construction families
+must influence the architecture before hardware choices make breadth prohibitively difficult.
+
+
+
+
+Figure 16. Evidence-led development sequence. Each stage has measurable outputs; higher speed and broader materials require
+separate qualification.
+
+
+Stage 1: close the physical gaps
+Produce a full support-and-access map for the reference shirt and representative woven and bulky-rib
+operations. Build real-fabric rigs for extraction, an uncertain edge, a partly assembled garment, a collar or
+cuff opening, and a turning or closure task. Demonstrate how the source releases and the destination
+retains control. Compare mechanisms on realistic materials rather than selecting one from a polished
+drawing.
+The output is a chosen architecture with reasons, alternatives and identified limits. Necessary design
+files include kinematics, tool interfaces, support geometry, sensing, safe-stop behavior and a tentative
+cost allocation. A manual demonstration can help establish reach and access, but any hand movement
+not provided by the proposed mechanisms remains an unresolved automation requirement.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                     43
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Stage 2: connect an uninterrupted complete route
+Integrate a defined garment recipe from loaded rolls through accepted or rejected output. Preserve
+piece identities and material lots across cutting and sewing. Include rib-loop preparation, labels,
+reinforcement, actual hems, turning and required final construction. Log every operator action. The
+software should generate the same geometry and recipe used by the cell, not a separate demonstration
+design.
+One successful garment establishes an important integration result but not production reliability. The
+cell may be slow and use costly prototype equipment at this stage; the report should identify which
+components need redesign for the intended delivered product and why replacing them is technically
+credible.
+
+Stage 3: demonstrate repeatability and variation
+Agree a test matrix before trials. Include repeated runs, size variations, changed material lots and
+selected new constructions. Retain failures, reject garments and recovery logs. Assess output after
+release and after the agreed offline wash and durability tests. A sample-specific adjustment performed
+between every run must be disclosed; it is not evidence of a general recipe.
+A cross-family test should use the same core transport and support architecture on meaningful knit,
+woven and bulky-rib tasks. Document which changes were parameters, tools, material profiles or new
+mechanisms. This makes “programmable” a measurable property rather than a marketing label.
+
+Stage 4: measure complete shifts and economic performance
+Run repeated 12-hour trials from declared starting conditions. Test both a repeated garment and a
+mixed-order workload. Record accepted output, startup, pipeline draining, roll preparation, changeover,
+consumed supplies, energy, paid operator time, automatic recoveries, manual interventions and quality
+holds. Validate installation and service procedures on more than one physical build before claiming
+repeatable deployment.
+Compare measured costs with the supplier and operator models. Revise price, configuration, output
+rating or product scope when evidence requires it. Do not retain an attractive target by excluding
+inconvenient operations or changing the definition of an acceptable garment.
+
+Required technical records
+The final engineering record should include mechanical CAD, wiring, module interface descriptions,
+safety analysis, calibration and maintenance procedures, recipe and policy versioning, a supplier-backed
+costed parts list, process qualification, full trial data, software tests and known limitations. Customer-
+facing documentation should state input conditions, setup, supported products, capacity basis, utilities,
+service and exclusions in plain language.
+
+
+
+24 / Conclusions and unresolved questions
+The research and existing process equipment support a credible route toward an integrated, software-
+directed garment-production cell. The proposed product does not require a new textile or a new
+principle of stitch formation. It does require a substantial advance in connecting cutting, material control,
+garment topology, sewing access and recoverable execution in a repeatable system.
+The industrial format provides useful physical freedom: independent sewing processes, accessible
+supports, parallel work and modular expansion. The AI contribution is meaningful when it reduces
+uncertainty and setup effort, preserves design-to-production consistency or recovers from material
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                       44
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+variation. AI does not remove physical constraints, replace all deterministic control or establish unlimited
+designs.
+Several relevant companies are pursuing parts of the same ambition, and some explicitly co-design
+learning and mechanics. The differentiating case therefore rests on measured capabilities: conventional
+stitch quality, end-to-end scope, useful garment breadth, transparent autonomy, low small-order
+overhead, cost and serviceability. The paper does not establish a first-in-category claim.
+The $100,000 selling-price objective is demanding. Under the illustrative reference supplier cost it
+leaves almost no contribution, whereas an optimized build could leave materially more room. Garment-
+operator profitability is similarly sensitive to utilization, material cost, yield and labor. The economic
+models demonstrate what would need to be true, not what is already true.
+
+Questions that must be answered by evidence
+ Open question                         Decisive evidence
+
+ Can the entire garment remain
+                                       Complete real-fabric sequence including closed openings, regripping and release.
+ controlled and accessible?
+
+ Can the premium finish be             Accepted garments matching the technical pack, including wash and durability
+ preserved?                            qualification.
+
+ Does the same architecture            Meaningful design and construction variations without hidden redesign or manual
+ generalize?                           rescue.
+
+ Can the cell run productively for a   Repeated declared-start trials with all faults, interventions, consumables and
+ full shift?                           rejects recorded.
+
+ Are low minimum orders                Mixed-order preparation and changeover results, compared with actual customer
+ economically useful?                  alternatives.
+
+ Can a repeat-build product            Supplier quotes, production assembly data, installation cost and field-service
+ support the target price?             evidence.
+
+ Will customers use enough             Real recurring orders and accepted quality/price conditions, not interest in an
+ capacity?                             unrestricted ideal machine.
+
+
+  The project is best understood as a proposed manufacturing platform whose value comes from
+  joining known processes with new, verified transitions. Its strongest outcome would be economical,
+  high-quality production of many supported designs in small quantities—not an unbounded promise
+  that any image becomes any garment automatically.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                       45
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+Appendix A / Requirements and verification
+matrix
+The following requirements translate the concept into evidence that can be checked. They are proposed
+acceptance categories; quantitative limits and sample counts must be established with the selected
+design and product specification before formal trials.
+
+ ID      Requirement                                      Verification method
+
+         Roll-to-output baseline includes cutting and     Observe complete runs from declared loaded state;
+ R01
+         component preparation.                           reconcile every material and human handoff.
+
+                                                          Audit incoming materials, recipe and output; inspect
+ R02     No hidden pre-assembly or final construction.
+                                                          collars, hems, labels and closures.
+
+         Design, patterns and machine job remain          Change representative parameters and verify all
+ R03
+         consistent.                                      dependent artifacts and physical outputs.
+
+ R04     Material qualification is explicit.              Lot/profile checks and trials at declared operating limits.
+
+                                                          Trace random panels through extraction, buffer, recut,
+ R05     Each component retains identity.
+                                                          sewing and output.
+
+                                                          Instrument transfer acknowledgment; test misalignment
+ R06     Handoffs preserve support and access.
+                                                          and uncertain-grip scenarios.
+
+                                                          Full sequence with closed openings and support removal;
+ R07     Garment release is mechanically possible.
+                                                          no manual extraction.
+
+                                                          Inline checks plus offline dimensions, appearance, seam
+ R08     Quality matches the approved specification.
+                                                          and wash testing.
+
+                                                          Fault injection with time, damage, retry and safe-stop
+ R09     Recovery is bounded and observable.
+                                                          records.
+
+         Full-shift output counts acceptable finished     Timed cold-start and steady-state reports with rejects and
+ R10
+         garments.                                        work in process separated.
+
+                                                          Compare repeated and mixed jobs, recording tool,
+ R11     Mixed-order setup is transparent.
+                                                          material, thread and approval changes.
+
+                                                          Cross-family tests and documented hardware/software
+ R12     Multiple garment families inform the platform.
+                                                          changes.
+
+                                                          Decoration trial from untreated input to qualified released
+ R13     Optional modules complete their whole process.
+                                                          panel or garment.
+
+         Safety is independent of general AI and          Risk review and validated safe-state testing by qualified
+ R14
+         connectivity.                                    personnel.
+
+                                                          Acceptance at multiple builds/sites; measure repair
+ R15     Service and installation are repeatable.
+                                                          access, calibration and downtime.
+
+         Price and profit assumptions are replaced by     Costed supplier parts, installation, support and actual
+ R16
+         evidence.                                        operator production records.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                     46
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Suggested trial record
+Each attempt should record job ID, garment/recipe revision, material lot/profile, tool versions,
+timestamps, station occupancy, observations relevant to failure, retry events, interventions, material
+consumption, reject reason and final inspection. Each shift adds setup time, starting buffer state, roll
+readiness, energy, paid work and final unfinished inventory. Record whether any off-cell preparation
+occurred and who performed it.
+No fixed number of successful demonstrations is treated as sufficient for every claim. The required
+sample size depends on the failure-rate confidence, material diversity, consequence of failure and
+intended operating claim. Rare unattended failures need much larger evidence sets than one hundred
+convenient cycles.
+
+
+
+Appendix B / Example machine-readable garment
+record
+This schema is an illustrative information contract, not executable machine control. Identifiers,
+measurements and recipe names are examples; an implementation would require formal types, unit
+handling, geometry storage, validation and authenticated authorization.
+
+ Field group                     Example content and validation
+
+ garment_id / revision           TEE-DEMO-001 / 7; immutable once a job is approved.
+
+ design_family                   crewneck_knit_top; must map to an available construction family.
+
+                                 front, back, left_sleeve, right_sleeve, neck_rib; each with true boundary, seam line,
+ panels
+                                 allowance and orientation.
+
+ material_assignments            BODY-LOT-12 with approved jersey profile; RIB-LOT-04 with approved rib profile.
+
+ seam_edges                      Explicit edge pairs, directions, seam type and local correspondence/notches.
+
+                                 Validated relaxed rib length, body neckline length and permitted local stretch
+ rib_relationship
+                                 distribution.
+
+                                 Tape, labels and other parts with supply identity, placement and operation
+ trims
+                                 dependency.
+
+ process_requirements            Overlock, coverstitch, approved rib tool, thread colors and size limits.
+
+                                 Ordered dependencies with alternative routes allowed only inside the qualified
+ assembly_graph
+                                 recipe.
+
+                                 Required supports, exposed seam, observed layer count, ready receiving station
+ entry_contracts
+                                 and material state.
+
+                                 Sample reference, dimensions/tolerances, seam limits and relevant offline
+ quality_profile
+                                 qualification.
+
+                                 Approved revision, cell configuration, allowed quantity, permitted policy versions
+ job_authorization
+                                 and operator approval.
+
+                                 Accepted/rejected outputs, observations, faults, consumption and actual
+ results
+                                 setup/intervention record.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                   47
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Example skill contract: transfer a joined upper body
+The source holds a garment with completed shoulder seams. The target requires the neckline exposed
+on an opening support with no unrelated body layer in the sewing path. The skill verifies identity, checks
+source support, estimates pose, exposes the neckline, positions the receiving support, confirms
+grip/layers, transfers control and only then releases the source.
+Permitted recovery might re-observe, lift a known region or regrip within a limited tension envelope. A
+twisted or unidentifiable garment goes to a reject/hold route or safe stop. Successful motion without
+the target condition is not success. The result updates the garment state so the collar operation receives
+a verified input rather than an assumption.
+
+
+
+Appendix C / Equations and financial definitions
+ Quantity                           Definition used in this paper
+
+ Simplified accepted shift output   G = H x A x Y / c, with losses defined to avoid double counting.
+
+ Running interval required for a
+                                    c = H x A x Y / G.
+ target
+
+                                    Per-garment active workload divided by parallel copies, including every required
+ Shared-resource lower bound
+                                    visit; take the largest resource value.
+
+ Mean work in process in a stable   WIP = throughput rate x mean manufacturing lead time, using consistent
+ flow                               attempt/accepted units.
+
+ Independent no-intervention
+                                    B = (1 − p)^N; actual correlations require a different model.
+ batch probability
+
+                                    Net cut area x material mass/area divided by marker utilization, summed by
+ Raw material per attempt
+                                    material.
+
+ Variable cost per acceptable       Attempt-related material/consumables divided by acceptable yield, plus accepted-
+ garment                            unit expenses.
+
+ Operator cost per accepted sale    v + F/n, where F includes the declared daily fixed expense and depreciation.
+
+ Operator operating profit          n x (selling price − v) − F.
+
+                                    Selling price − factory cost − delivery − warranty provision − variable selling
+ Supplier contribution
+                                    expense.
+
+ Modelled supplier contribution
+                                    0.91 x selling price − factory cost − $6,000.
+ here
+
+ Price for 30% supplier
+                                    (Factory cost + $6,000) / 0.61.
+ contribution here
+
+Factory cost is the modeled cost to build, test and package the equipment. Supplier contribution
+deducts the specified per-sale costs but not fixed company overhead. Operating profit in the operator
+model deducts the declared daily costs and depreciation but excludes taxes, financing and any
+unmodeled business expense. Cash operating surplus adds back depreciation only; it does not account
+for changes in working stock or equipment replacement.
+Yield is defined at the relevant stage. Marker utilization is an area-allocation measure; acceptable-
+garment yield is an output-quality measure. They are distinct losses and are both included once in the
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                    48
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+material model. Where a measured rate already includes the loss, applying the same factor again would
+understate output or overstate cost.
+Money is rounded for presentation; calculations use unrounded values. Annual operator results use 250
+operating days. No exchange-rate assumption is required because the examples are entirely in USD. Tax,
+import treatment, local labor rules and jurisdiction-specific product requirements require separate local
+analysis.
+
+
+
+Appendix D / Assumption register and
+information still required
+ Model or design
+                              Current status                        Evidence needed to replace it
+ assumption
+
+ $100,000 base delivered                                            Delivered-scope definition, supplier
+                              Design objective
+ price                                                              costing and customer comparison.
+
+                                                                    BOM, build quantity, vendor quotes,
+ $52k / $83k / $140k
+                              Illustrative allocations              integration labor, yield and acceptance
+ factory cases
+                                                                    cost.
+
+ Delivery $6k; warranty 5%;                                         Route/site quotes, service experience,
+                              Scenario allowances
+ selling 4%                                                         channel terms and return exposure.
+
+ 100 accepted shirts per 12                                         Complete-shift tests from disclosed
+                              Validation objective
+ hours                                                              starting conditions.
+
+ 200–300 and 500 higher-                                            Station timings, parallel hardware,
+                              Configuration studies
+ output cases                                                       additional cost and full-shift results.
+
+ 80% effective running and                                          Consistently defined measured availability,
+                              Capacity-sizing assumptions
+ 95% quality yield                                                  performance and yield.
+
+                                                                    Actual approved cutting geometry and
+ 1.15 m² body; 0.075 m² rib   Example pattern areas
+                                                                    marker outputs.
+
+ 280 / 360 gsm; 85% marker                                          Material tests, usable width, grain, defects
+                              Example material and nesting inputs
+ use                                                                and real layouts.
+
+ $12/kg body and $14/kg                                             Equivalent-quality quotes at intended
+                              Unquoted purchase assumptions
+ rib                                                                purchasing quantities and terms.
+
+                                                                    Work measurement, coverage needs,
+ Six paid hours/day at
+                              Operating scenario                    exception frequency and local loaded labor
+ $20/hour
+                                                                    cost.
+
+                                                                    Metered duty cycle including air/vacuum;
+ 5 kW average; $0.15/kWh      Energy scenario
+                                                                    actual tariffs and added process loads.
+
+ Seven-year depreciation;                                           Expected service life, replacement plan and
+                              Accounting illustration
+ zero residual                                                      local accounting policy.
+
+                                                                    Customer orders for the exact garment and
+ $12 ex-factory shirt sales   Illustrative selling price
+                                                                    delivery scope.
+
+                                                                    Module quotes, quality tests, consumables,
+ Optional process pricing     Not established
+                                                                    cycle times and demand.
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                            49
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+Procurement and engineering questions
+Ask suppliers for exact input/output conditions, control interfaces, fault states, software access,
+licensing, supported material limits, maintenance intervals and service lead times. Require full costs for
+necessary air, vacuum, guarding and calibration. Clarify whether advertised cycle time includes loading,
+cutting, offloading, cleaning and thread changes. Verify that the component can carry its gripper and
+material at the required reach, not merely its nominal payload.
+Ask pilot operators for matched samples, historical order quantities, setup time, reject and rework costs,
+fabric and trim quotes, actual staffing, floor and utility costs, delivery expectations and willingness to
+accept disclosed capability limits. This replaces speculative market enthusiasm with a testable process
+and profit comparison.
+
+
+
+Appendix E / Glossary
+ Term                            Meaning
+
+                                 Software translating a structured garment into a checked, machine-specific
+ Assembly compiler
+                                 production plan.
+
+                                 The approved structured source for geometry, materials, construction, quality and
+ Canonical garment record
+                                 production identity.
+
+ Construction family             A group of garments using a related set of qualified operations and tooling.
+
+                                 Construction from cut textile panels joined through the specified sewing
+ Cut-and-sew
+                                 operations.
+
+                                 Controlled relative advancement of fabric layers to preserve alignment or an
+ Differential feed
+                                 intended length relationship.
+
+ Garment topology                How panels, seams, openings and enclosed sections are connected.
+
+                                 Grams per square meter, a fabric mass-per-area measure; not a complete handling
+ GSM
+                                 specification.
+
+                                 Required identity, pose, support, readiness and success conditions when material
+ Handoff contract
+                                 changes control.
+
+                                 Arrangement of pattern components within usable fabric area while respecting
+ Marker / nesting
+                                 constraints.
+
+                                 Minimum order quantity / minimum color quantity; constraints can arise at
+ MOQ / MCQ
+                                 different supply-chain stages.
+
+                                 Learned perception, planning or control interacting with the material world; not a
+ Physical AI
+                                 safety certification or proof of generality.
+
+                                 Versioned, qualified material, geometry, tooling, construction and inspection
+ Recipe
+                                 configuration.
+
+                                 Separating the intended individual layer or component from a stack or surrounding
+ Singulation
+                                 material.
+
+                                 An operation-by-operation account of how the garment is held, reached and
+ Support-and-access map
+                                 released.
+
+                                 Work in process: material or garments that have started but are not complete
+ WIP
+                                 accepted output.
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                   50
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+
+References / Primary-source register
+Sources below were reviewed for the 19 October 2026 research snapshot. Public manufacturer pages
+are attributed descriptions, not independent verification. Research sources are used only for their stated
+task and preparation conditions. Some sources provide abstracts or public summaries rather than full
+methodology; their use is correspondingly limited. Standards references concern public scope only. No
+cited organization is represented as a partner, endorser or licensor of the proposed system.
+
+[01] Lectra. Virga Fashion: on-demand automatic single-ply fabric cutting solution.
+Manufacturer documentation: rollout, positioning and cutting; downstream autonomous sewing is outside the advertised
+cutter function.
+Open primary source | Accessed 19 October 2026
+
+[02] RobotFactory. RPT 130 Textile Gripper application.
+Vendor application: cutter-linked T-shirt component pickup and sorting; example components then go to a sewing
+department.
+Open primary source | Accessed 19 October 2026
+
+[03] Tang, K., et al. (2025). Fixture-Free Automated Sewing System Using Dual-Arm Manipulator and High-Speed Fabric
+Edge Detection.
+IEEE Robotics and Automation Letters 10(9), 8962–8969. DOI: 10.1109/LRA.2025.3592145. Prepared aligned fabric-pair
+sewing; public research record and abstract.
+Open primary source | Accessed 19 October 2026
+
+[04] Jin, B., et al. (2025). Automated Straight-Line Sewing of Stretchable Fabrics With Different Lengths.
+Author manuscript publicly posted July 2026; IEEE Robotics and Automation Letters. DOI: 10.1109/LRA.2025.3619791.
+Leading ends start under the presser foot; straight-seam experiments.
+Open primary source | Accessed 19 October 2026
+
+[05] Kobayashi, A., et al. (2025). RollUP: Rolling-Up End-Effector for Fabric Handling.
+IEEE Robotics and Automation Letters 10(11), 11204–11211. DOI: 10.1109/LRA.2025.3609086. Rolling and suction-
+assisted panel transport; public research record.
+Open primary source | Accessed 19 October 2026
+
+[06] Dong, W., et al. (2026). Robotic Fabric Alignment System for Sewing Using Global Local Weighted ICP.
+IEEE Transactions on Automation Science and Engineering 23, 13391–13406. DOI: 10.1109/TASE.2026.3713128. CAD-
+assisted alignment starting with flat, wrinkle-free panels.
+Open primary source | Accessed 19 October 2026
+
+[07] Sunil, N., et al. (2022). Visuotactile Affordances for Cloth Manipulation with Local Control.
+Conference on Robot Learning; vision and tactile cloth-edge manipulation, not complete garment sewing.
+Open primary source | Accessed 19 October 2026
+
+[08] Korosteleva, M., and Sorkine-Hornung, O. (2023). GarmentCode: Programming Parametric Sewing Patterns.
+ACM Transactions on Graphics / SIGGRAPH Asia. DOI: 10.1145/3618351. Component-oriented parametric pattern
+construction.
+Open primary source | Accessed 19 October 2026
+
+[09] Zhou, F., et al. (2025). Design2GarmentCode: Turning Design Concepts to Tangible Garments Through Program
+Synthesis.
+CVPR 2025; arXiv:2412.08603. Multimodal design inputs to parameterized garment programs and sewing patterns.
+Open primary source | Accessed 19 October 2026
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                               51
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+[10] JUKI. JTR-MF7923/BHA bottom-hemming automat.
+Manufacturer specifications: an operator-loaded bottom-hemming process. Published capacity is one operation, not
+complete shirts.
+Open primary source | Accessed 19 October 2026
+
+[11] OSHIMA. Fabric preparation and relaxing machines.
+Manufacturer explanation of residual fabric tension and material-dependent relaxation before cutting.
+Open primary source | Accessed 19 October 2026
+
+[12] Tajima. SAI embroidery machine.
+Manufacturer description of eight-needle equipment and frames; automatic hooping and backing handling are not
+established by this source.
+Open primary source | Accessed 19 October 2026
+
+[13] Brother. GTX300 direct-to-garment process and specifications.
+Manufacturer requirements for pretreatment and fixing/drying in the selected printing workflow.
+Open primary source | Accessed 19 October 2026
+
+[14] SoftWear Automation. Sewbots and on-demand garment worklines.
+Company description of machine-vision garment production and sourcing. Public claims are not independently audited
+here.
+Open primary source | Accessed 19 October 2026
+
+[15] Silana. Product: autonomous, local, cost-competitive manufacturing.
+Company-described cutting, singulation and adaptive sewing. Broad performance and autonomy claims are not treated as
+audited results.
+Open primary source | Accessed 19 October 2026
+
+[16] CreateMe. Physical AI research and development.
+Company-described hardware/control co-design, bonded assembly and generation status; a development roadmap is not
+a completed capability demonstration.
+Open primary source | Accessed 19 October 2026
+
+[17] CreateMe. Brand manufacturing offering.
+Company page describing small-batch bonded manufacturing and advertised 100-unit minimum order/color quantities.
+Open primary source | Accessed 19 October 2026
+
+[18] Resonance. The technology behind Resonance / CreateOne.
+Company account of design-to-production software and manufacturing-network orchestration; not verification of an
+equivalent standalone autonomous cell.
+Open primary source | Accessed 19 October 2026
+
+[19] Sewbo. Robotic garment assembly technology and frequently asked questions.
+Temporary fabric stiffening, robotic sewing and treatment removal; public status describes continuing development and
+partner trials.
+Open primary source | Accessed 19 October 2026
+
+[20] SHIMA SEIKI. WHOLEGARMENT.
+Manufacturer description of whole-garment knitting from yarn, an adjacent process rather than roll-fed cut-and-sew.
+Open primary source | Accessed 19 October 2026
+
+[21] Printful. How to make custom all-over-print shirts.
+Service-provider description of selected customization and cut-and-sew products; not unrestricted physical garment
+automation.
+Open primary source | Accessed 19 October 2026
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                     52
+ROLL-TO-GARMENT / TECHNICAL AND COMMERCIAL WHITE PAPER
+
+
+
+[22] Pine Crest Fabrics. Frequently asked questions.
+Supplier-stated stock and made-to-order fabric minimums; not a source for the modeled material prices.
+Open primary source | Accessed 19 October 2026
+
+[23] ISO. ISO 10218-2:2025: Robotics — Safety requirements — Part 2: Industrial robot applications and robot cells.
+Official public scope only. The complete standard and jurisdiction-specific requirements require qualified engineering
+review.
+Open primary source | Accessed 19 October 2026
+
+[24] ISO. ISO 12100:2010: Safety of machinery — General principles for design — Risk assessment and risk reduction.
+Official public scope; this paper does not perform a conformity assessment.
+Open primary source | Accessed 19 October 2026
+
+[25] ISO. ISO 6330:2021: Textiles — Domestic washing and drying procedures for textile testing.
+Official public scope. Actual garment acceptance methods and tolerances must be specified separately.
+Open primary source | Accessed 19 October 2026
+
+[26] NIST. AI Risk Management Framework.
+Voluntary AI-risk governance reference, not industrial-machinery safety certification.
+Open primary source | Accessed 19 October 2026
+
+[27] United Nations Environment Programme (2023). Sustainability and Circularity in the Textile Value Chain: A Global
+Roadmap.
+Official roadmap summary; used for the value-chain evaluation boundary, not for a quantified environmental benefit of
+this system.
+Open primary source | Accessed 19 October 2026
+
+[28] UFACTORY. Lite 6 collaborative robot.
+Manufacturer-advertised starting price, payload and reach; illustrative warning against comparing robot prices without
+their operating limits.
+Open primary source | Accessed 19 October 2026
+
+[29] Chen, D., et al. (2026). Phase-Conditioned Imitation Learning with Autonomous Failure Recovery for Robust
+Deformable Object Manipulation.
+Author research report on T-shirt hanging and removal; not autonomous seam repair or complete production-cell
+recovery.
+Open primary source | Accessed 19 October 2026
+
+
+
+
+RESEARCH SNAPSHOT / 19 OCTOBER 2026                                                                                      53
+
