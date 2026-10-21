@@ -26,6 +26,7 @@ Phase 1: research and master build guides. Code, CAD and purchasing are later ph
 5. Finalize master document; push; draft PR.
 
 ## Open decisions for the owner
+- The GitHub repository has no default branch yet, so no pull request can be opened: create `main` on GitHub (empty or from this branch) or tell me to push one.
 - Company/product name (placeholder: Roll-to-Garment, R2G).
 - Target first deployment region (affects CE vs UL/NFPA route and supplier choices).
 - Budget tier to design to first ($52k / $83k / $140k scenarios from the white paper).

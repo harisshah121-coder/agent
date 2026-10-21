@@ -19,7 +19,7 @@ Not connected and not needed this phase: Roboflow (dataset labelling; alternativ
 ## Container installs (self-service, no owner action)
 | Harness | Purpose | Status |
 |---|---|---|
-| build123d (venv /home/user/.venvs/cad) | Code-CAD master model | Installing (session 1) |
+| build123d 0.13.0 on cadquery-ocp 8.0.1, Python 3.13 (venv /home/user/.venvs/cad) | Code-CAD master model | Installed and smoke-tested (STEP, glTF, STL export) 2026-10-21 |
 | build123d-mcp, text-to-cad skills, ros-mcp-server, nexar-mcp, partuno, mcp-server-kicad, mujoco, genesis, GarmentCode, onshape-to-robot | See R17 report | R17 verifies and records |
 
 ## Project MCP servers (`.mcp.json`)
