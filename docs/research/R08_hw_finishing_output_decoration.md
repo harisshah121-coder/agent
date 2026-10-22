@@ -4,7 +4,22 @@ Research agent R08 · Roll-to-Garment project · Date of research: 2026-10-21 ·
 
 Prices are as seen on 2026-10-21 unless a date is given; "list" = vendor published price, "reseller" = named reseller page, "est." = order-of-magnitude estimate with basis stated, "quote" = not published. Anything dated before 2023 is flagged "possibly stale".
 
-<!-- SUMMARY_PLACEHOLDER -->
+## Summary
+
+- ST07 baseline should be built, not bought: a backlit inspection/measurement table (Basler ace 2 R 16 MP camera, Advanced Illumination BL2 or tiled EuroBrite backlights, ≈ 0.15 mm/px over an 800 mm field, est.) plus a short mk GUF-P 2000 or Dorner 2200 discharge belt with an accept/reject gate; both conveyor vendors supply STEP/3D CAD from their configurators [S45][S48][S64][S60].
+- No turnkey garment measuring machine is verifiable: the only candidates (Yunji Zhihui 2021, Thullex) are operator-loaded, unpriced and unverified; the method itself is 30 years old (US 5,530,652) [S42][S43][S52].
+- Thread trimming and lint: rely on ST05 auto-trimmers plus ionising air blow-off; a thread-suction station (Ngai Shing NS-3110, WGM AG-90, est. US$0.5–2k) only if trials show visible tails [S54][S56]. No automatic T-shirt turning machine exists; design the sequence to finish right-side-out.
+- Retail folding/bagging is a priced optional module, not baseline: Thermotron STP1000 is US$50,000 (US reseller), 5,500 garments/8 h with an operator, 1.44 kW, 6 bar; PV40 bagger + KL60/TH44 sealer + BC41M label module complete the line (quote). ROQ FOLD/STACK/PACK (700/800/1,200 pcs/h) and a US$13,800 Chinese fold+bag+seal unit are the alternates [S1][S2][S14][S6][S10].
+- Every folder, bagger, DTG printer, heat press and embroidery head found is rated with a human loader; at the cell's ≈ 8–9 shirts/h any of them is 50× oversized, so the selection criteria are integration interface, footprint and price, not throughput.
+- Baggers with documented automation hooks exist: PAC Rollbag R3200 (robot interface ports, 16" bags, 80/min), Autobag 850S (22" bags, next-bag-out imprinter, Ethernet), Sharp MAX (PLC filler handshake) — all quote-only [S19][S22][S28].
+- Labelling: care/brand labels are sewn in ST05; bag/size labels come from the bagger's imprinter or Thermotron BC41/LD70; RFID via Avery Dennison AD Web/AD Belt inlays (≈ US$0.06/tag est.) on a Zebra ZT411 RFID or Avery Dennison ADTP2; no automatic hang-tag attacher exists [S31][S34][S36][S30].
+- Steam/press finishing is not needed for a cotton jersey T-shirt; the cheapest add-on if a "steamed" SKU is sold is the VEIT UF 30 (2 kW, 15 kg/h steam, 60–250 pcs/h) [S73][S74].
+- DTG for panel printing: Brother GTXpro B (42 dark/57 light per h, LAN + SDK with ARXP job push, status, remote stop) with Schulze PRETREATmaker 5 and a Vastex Lo-E2D dryer (4.6 kW, 45 white-ink garments/h) is the selected option (est. US$45–60k trio); Epson F2270 (MSRP US$12,995) is the pilot alternate; Ricoh Ri 4000 removes the pretreat station; Kornit Atlas MAX/PLUS (2,200 kg, quote, est. US$250k+) and Apollo (US$1.8 M) are out of scale [S91][S180][S109][S118][S95][S105][S80][S87].
+- DTF is the easier in-cell decoration: print transfers off-line (Mimaki TxF150-75 US$8,495 or Epson G6070 US$14,995) and press in-cell on a Hotronix Dual Air Fusion IQ (£7,150) or Insta 728 (US$5,495); no press publishes a PLC start input [S134][S141][S128][S130].
+- Embroidery: Tajima TMEZ-SC 1501 (1,200 rpm, 360 × 500 mm, 95 kg, LAN via DG17/PulseID) with an Air Type Clamp Frame loaded by ST04; HappyJapan HCD3e-1501 and ZSK SPRINT 7 (pneumatic clamps, barcode operation) are alternates; the white paper's SAI is entry level (8 needles, 800 rpm, 200 × 300 mm). One head ≈ 8–10 logos/h at ≤ 6,000 stitches (est.), so embroidery, not print, is the first decoration bottleneck [S149][S156][S157][S168][S164][S148].
+- Automation interfaces that are documented: Brother SDK, Epson Garment Creator hot folder/SDK, ColorGATE REST API (Ricoh/Kornit), RasterLink7 hot folders, Tajima DG17/PulseID LAN, HappyLAN, ZSK barcode, bagger PLC handshakes, conveyor 24 V I/O; physical print/embroidery start remains a button on every vendor reviewed (Open question 3–4) [S180][S99][S182][S184][S157].
+- Conflicts with the white paper: no capex line exists for folding/bagging/decoration (STP1000 alone ≈ a third of the reference cell cost); "automatic presentation" has no catalogue precedent; the Brother GTX300 citation should point to GTXpro/GTX600; "retail pressing" can be dropped for T-shirts.
+- CAD is downloadable only from Dorner, mk, FlexLink and Smart Vision Lights; every other vendor needs a STEP request under NDA for the 3D model.
 
 ## Findings
 

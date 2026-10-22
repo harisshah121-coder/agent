@@ -2,7 +2,22 @@
 
 Research agent R13 · Roll-to-Garment project · snapshot date 2026-10-21. Sources are numbered in `## Sources`; inline citations use `[n]`. Prices carry currency, date seen and basis. Anything not confirmed by a source is marked "unverified".
 
-<!-- SUMMARY_PLACEHOLDER -->
+## Summary
+
+- No competitor sells a conventional-stitch, roll-to-garment cell at ~USD 100k. The slot is open: SoftWear sells factory worklines (USD 20M Series B1 led by BESTSELLER, Aug 2025) [1]; CreateMe launched a bonded-seam robotic platform (MeRA/Pixel, 250 garments/h claim, intimates first, tees "near future") in Sep 2025 with undisclosed later-stage funding [20][22]; Silana (Vienna) shares our roll-to-tee thesis but, on public evidence, has not delivered a machine 18 months after its EUR 1.5M seed [13][14]; Theker (Inditex-backed, EUR 18M seed) does handling and folding, not sewing [35].
+- The cautionary precedent investors will raise is SoftWear × Tianyuan: 21 automated lines and 23M tees/yr announced in 2017; a manual plant with 160 workers opened in 2019 with the automated line still "in development" [6][72][73]. Our answer must be a measured, unattended run, not a press claim.
+- Sewbo (stiffener route) remains unfunded and pre-commercial after 10 years; Nike/Flex and Grabit failed on soft-material handling; these set the burden of proof for ST03/ST04 manipulation [9][10][40][42].
+- Physical-AI capital is abundant but concentrated: Genesis AI USD 105M seed, Dyna USD 120M Series A at >USD 600M, Physical Intelligence USD 600M at USD 5.6B, Skild USD 1.4B at >USD 14B, Field AI USD 405M; manipulation specialists (Chef Robotics USD 43.1M = USD 20.6M equity + USD 22.5M equipment debt; Sereact EUR 25M A then USD 110M B) are the structural comps [76][148][83][151][87][82][79][80].
+- Typical 2026 seed terms: median USD 4.5M at USD 23.9M post, 19.4% dilution, mostly post-money SAFEs; pre-seed caps USD 10–15M; hardware was the #2 pre-seed industry by cash in 2025; seed-to-A graduation ~15–20% [91][92][94]. Recommended raise: USD 2–5M at USD 12–25M post, led by Root/Cantos/HAX-SOSV/Pathbreaker-type deep-tech seed with one strategic [95][97][98][96].
+- Seed milestones investors expect for hardware: working prototype, customer LOIs with named champion, price range and success trigger, a data asset, and a scoped safety certification path (ISO 10218/TS 15066, 6–12 months) [99][100][101][102].
+- Market: global apparel USD 1.92T (2026), low single-digit growth; US imports 89% of apparel sold; custom T-shirt printing USD 6.3B (2026) [104][103][118]. US apparel manufacturing employment fell to 94k in 2025 (25k sewing operators in NAICS 315) and output to USD 8.7B; Kearney's 2026 index shows apparel still offshoring despite tariffs [107][106][108][109].
+- Tariffs: trade-weighted US apparel duty went 13% → 54% → 36% in 2025; IEEPA tariffs were struck down 2026-02-20, replaced by a 10% Section 122 surcharge and, from Jul 2026, Section 301 rates of 10% (Bangladesh, Cambodia, Indonesia, Malaysia with TRQs) and 12.5% (Vietnam, China); de minimis ended 2025-08-29; effective duty on Asian cotton tees ~25–37% in 2026 [103][113][114][115][111][112][117].
+- Labour: US sewing operators median USD 17.63/h (May 2025) vs Bangladesh Tk 12,500 (~USD 102–133/month), Vietnam ~USD 180–215/month (est.), Mexico operator cost ~USD 1,030/month; cost per minute USD 1.00 (US) vs 0.10 (Bangladesh) [122][123][125][127][129].
+- Cut-and-make: CMT per basic tee USD 5–10 in LA vs USD 1–2.5 in Asia and ~USD 2–2.6 in Mexico; ex-factory basic tee USD 2.40–3.80 Asia vs USD 12.50–22 US; US reorders 3–5 weeks vs 10–16 weeks from Asia; MOQs 50–200/style domestic vs 300–1,000/style/colour offshore [128][133][134][136][135].
+- The white paper's USD 12 ex-factory price is above landed Asian premium tees (USD 6–10 est.) and at the low end of US small-batch pricing; the cell competes on reorder speed, tiny MOQs and Berry/uniform eligibility, not on price against Asia [F9.5].
+- Beachhead: Berry-Amendment work. DLA Troop Support C&T obligated USD 1.878B in FY2024, USD 624M of it to cut-and-sew apparel contractors; uniforms and workwear are a USD 85–90B global market [145][147].
+- Business-model precedents: Kornit's usage-based AIC model (ARR USD 33.8M at Q2 2026) for a software/service fee; Chef Robotics' equity-plus-equipment-debt structure for RaaS; unspun's machine licensing with a retailer contract (Walmart, 350 machines) [55][82][32].
+- Biggest unknowns: Tianyuan's final outcome, Silana's delivery status and price, CreateMe's funding, and US wholesale heavyweight jersey prices (white paper assumes USD 12/kg, 2–3× Asian jersey).
 
 ## Findings
 

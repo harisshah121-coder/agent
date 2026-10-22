@@ -133,3 +133,96 @@ Suitability for matte white knit (reasoning from the datasheets; no vendor publi
 | Dark-field / bar lights (SVL LXE series, Ai LL series, CCS LDL2) | for seam relief at ST07 | not researched in this pass | unknown; est. USD 300–900 per bar | — | Yes | [S54][S55] |
 
 Lighting plan notes: the cutting bed (bristle/perforated vacuum conveyor) cannot be backlit, so ST02 silhouette contrast comes from a **dark bed surface under diffuse white top light** (or 850 nm NIR with a bandpass filter to reject ambient); backlights are used where the cloth lies on a translucent stage (ST03 buffer, ST04 placement tables, ST06 collar support, ST07 final stage) and as a small insert in the throat-plate area at ST05. All strobed lights run from a Gardasoft RT controller triggered by the camera's exposure-active output; continuous lights use the SVL built-in driver on 24 V. Enclosures: IP67 cameras (Lucid Triton, Basler ace 2 with IP67 housing) or IP54 polycarbonate camera housings with an air purge for lint (the sewing area generates lint that settles on optics within hours: schedule lens wipes and specify sealed housings).
+
+### F7. Edge compute, industrial PCs, training GPUs, NICs
+
+**NVIDIA raised all Jetson prices in July 2026** (memory shortage; quietly, via the Jetson FAQ) [S59]; the NVIDIA marketplace confirms the new prices and shows the AGX Orin developer kit out of stock (2026-10) [S60]. New lower-cost Blackwell modules Thor T3000/T2000 were announced 2026-07-16 and are emulated on the AGX Thor dev kit until they ship [S62].
+
+| Vendor | Model / part number | Key specs | Price (currency, date, basis) | Lead time | CAD available? | Source URL |
+|---|---|---|---|---|---|---|
+| NVIDIA | Jetson AGX Thor Developer Kit | T5000: 2070 FP4 TFLOPS (sparse), 2560-core Blackwell, 14-core Neoverse V3AE, 128 GB LPDDR5X 273 GB/s, 40–130 W, 1 TB NVMe, up to 20 HSB cameras, 243 × 112 × 57 mm | USD 5,499 (was 3,499), NVIDIA marketplace 2026-10, list | in stock (marketplace) | Yes (NVIDIA developer downloads: STEP of module/dev kit) | [S59][S60][S61] |
+| NVIDIA | Jetson T5000 / T4000 modules (1KU+) | 2070 / 1200 TFLOPS; 128 / 64 GB | USD 4,999 / 2,999 (1KU+), from 2,999 / 1,999 | — | Yes | [S59][S61] |
+| NVIDIA | Jetson AGX Orin Developer Kit (64 GB) | 275 TOPS, 2048 CUDA, 12-core A78AE, 64 GB LPDDR5 204.8 GB/s, 15–60 W, 110 × 110 × 72 mm | USD 3,499 (was 1,999), NVIDIA marketplace, **out of stock**; EUR 3,470.25 ex VAT (Aetherix, 3 in stock, same-day) | 0–weeks (reseller) | Yes | [S59][S60][S63] |
+| NVIDIA | Jetson AGX Orin 64 GB / Industrial / 32 GB modules | 275 / 248 / 200 TOPS | USD 2,999 / 3,199 / 1,799 (1KU+), from 1,599 / 2,149 / 899 | — | Yes | [S59] |
+| NVIDIA | Jetson Orin NX 16 GB / 8 GB modules | 157 / 117 TOPS (Super), 10–25 W, 70 × 45 mm | USD 999 / 649 (1KU+), from 599 / 399; Waveshare Orin NX module USD 911–1,461 (reseller) | stock | Yes | [S59][S63] |
+| NVIDIA | Jetson Orin Nano Super Developer Kit | 67 TOPS, 8 GB, 7–25 W | USD 399 (was 249), marketplace list | in stock | Yes | [S59][S60][S61] |
+| Neousys | Nuvo-9160GC | 13th/14th-gen Core (LGA1700), 150 W RTX GPU cassette (RTX 2000 Ada / RTX 4000 SFF Ada), DDR5 up to 64 GB (page says 128 GB), 6 × GigE (4 × PoE+ optional, 100 W budget), 8 × USB3, 8–48 V DC, –25…60 °C, 240 × 225 × 110 mm, 3.89 kg | price not published; quote (Elmark) ; est. USD 3,500–5,000 barebone + GPU (est.) | quote | Yes (Neousys: STEP on request/download) | [S64] |
+| Neousys | Nuvo-10108GC (350 W GPU) / Nuvo-10109GC (600 W Blackwell) / Nuvo-11160GC (Core Ultra 200S) | larger GPU classes | quote | quote | Yes | [S64] |
+| Advantech | MIC-770 V3 (modular fanless IPC, 12/13/14-gen Core, –20…60 °C, 9–36 V DC) | GPU via i-Module expansion; 3D model downloadable from product page | from EUR 1,024 net barebone (Elmark, 2026-10, reseller) | stock | Yes (Advantech "Download 3D Model") | [S65] |
+| Vecow | ECX/RCX GPU IPCs | not captured in this pass | unknown | — | — | — |
+| Beckhoff | C6040-0090 ultra-compact IPC (Intel Core 3/5/7/9 Series 2 up to 12 cores; 132 × 202 × 76 mm; TwinCAT 3 platform level 50–81); C6030 smaller sibling | PLC + HMI + light vision in one box; no discrete GPU | price not published; quote via Beckhoff sales | quote | Yes (Beckhoff product page STEP) | [S66] |
+| NVIDIA | RTX PRO 6000 Blackwell Workstation Edition (training) | 96 GB GDDR7 ECC, 24,064 CUDA, 4000 FP4 TOPS, 600 W (Max-Q 300 W) | est. MSRP USD 10,999 (PNY at Newegg/B&H, June 2026); street Oct 2026 USD 21.8–23.5k (GPU Poet, eBay lowest-3 average; up 25–48 %) | volatile | Yes (Advantech SKY-QUAD page: 3D model) | [S67] |
+| NVIDIA / Advantech | RTX 4000 SFF Ada 20 GB (70 W, single slot) for the edge PC; RTX PRO 4000 SFF Blackwell successor exists | fits Nuvo-9160GC cassette | not captured; est. USD 1,300–1,800 (est.) | stock | Yes | [S67] |
+| NICs | 10GBASE-T (Intel X710-T2L class) for the 24 MP/10GigE camera; 4-port PoE+ GigE Vision card (Neousys PCIe-PoE354at class) for 1GigE cameras | not researched in this pass | unknown; est. USD 300–600 each (est.) | — | — | — |
+
+Compute sizing (arithmetic): 10 cameras at the station plan below produce ≈ 450 MB/s peak (one 24 MP at 5 fps = 120 MB/s; four 12 MP tiles at 2 fps = 100 MB/s; three 1.6–2.3 MP trackers at 250 fps ROI ≈ 150 MB/s; 5 MP stations ≈ 60 MB/s). A single Nuvo-9160GC-class PC with an RTX 4000 SFF Ada handles this plus 10–20 small CNN/segmentation inferences per second; the 200 fps edge-tracking loops should run on the same PC (USB3/2.5GigE, < 10 ms) or on a Jetson Orin NX at each sewing head if cabling forces it. Basler's pylon notes require dual-channel DDR4-3600+ hosts for multi-camera 5GigE/1GigE streaming [S40].
+
+### F8. Other sensors (encoders, photoelectric, laser distance, edge, double-sheet, thread, vacuum, tension, climate)
+
+| Vendor | Model / part number | Key specs | Price (currency, date, basis) | Lead time | CAD available? | Source URL |
+|---|---|---|---|---|---|---|
+| Kübler | Sendix 5020 incremental (Ø50, ≤ 15 mm hollow shaft) | up to 5000 ppr, push-pull/TTL/open collector, IP67, –40…85 °C, 12,000 rpm | price not published; quote (est. USD 250–400) | stock | Yes: STEP ZIP + ePlan on product page | [S68] |
+| Heidenhain | ECN 1313 (768295-03) absolute EnDat01, 8192 pos/rev, 2048 lines 1 Vpp; ERN 1387 (749144-05) incremental 2048 lines | motor-feedback class | USD 521 (768295-03, mtechsupply, backorder); USD 1,042 (768295-06) | backorder | Yes (Heidenhain "CAD Download") | [S69] |
+| Renishaw | RESOLUTE absolute ring/readhead; TONiC incremental (RTLC20 scale, up to 10 m interface) | sub-µm, for gantry axes if needed | USD 1,110–1,652 (RESOLUTE variants, e-motionsupply, 2026-10) | stock | Yes (Renishaw downloads) | [S70] |
+| Posital | IXARC incremental/absolute (programmable PPR) | lower-cost programmable encoders | price not captured (quote) | stock | Yes (Posital configurator STEP) | [S70] |
+| SICK | WTB4S-3P2261 (p/n 1042041) BGS photoelectric 10–180 mm; WTB4S-3P2232 (p/n 1054282) 10–120 mm | PinPoint red, M8 4-pin, 12 × 42 × 17 mm | GBP 178.19 inc VAT (Drive Outlet, independent reseller, 2026-10) ≈ USD 190 | stock | Yes (sick.com CAD) | [S79] |
+| Banner | Q4XTBLAF300-Q8 (p/n 94118) laser BGS 25–300 mm, IP69K; Q4XTILAF300-Q8 analog | ±0.5 mm (25–50 mm) / ±1 % repeatability | USD 433 (Powermatic) / 476.34 (RS US, 133 in stock); analog USD 507.50 (Lesman) | stock | Yes (Banner CAD) | [S79] |
+| Keyence | IL-065 laser displacement head | 55–105 mm range, 2 µm repeatability, 0.33–5 ms sampling, Class 2, IP67, CAD/3D-PDF online | price via Keyence only (est. USD 600–900 head + amplifier) | same-day | Yes | [S71] |
+| Micro-Epsilon | optoNCDT 1220 / 1320 / 1420 laser triangulation | list from EUR 470, up to 8 kHz, repeatability 0.5 µm, integrated controller | EUR 470+ list (Micro-Epsilon, 2026-10) | stock | Yes (ME downloads STEP) | [S72] |
+| Erhardt+Leimer | FR 52 infrared edge sensor (retroreflection) | ±10 mm, 0.02 mm resolution, ±0.1 mm linearity, 200 Hz, 850 nm, IP54, 105 × 50 × 40 mm; explicitly shown "for mesh fabric acquisition"; FR 46 PoE (±2.5 mm, 0.01 mm) | not published; quote (est. USD 800–1,500) | quote | Yes (E+L downloads) | [S73] |
+| Erhardt+Leimer | FE 46 infrared wide-band sensor (textiles) | web edge/centre/width up to 3800 mm operating width, ±1 mm resolution, CAN, 15–30 kg; FR 60 broadband for woven/knitted up to 70 % transparency | quote | quote | Yes | [S73] |
+| Erhardt+Leimer | FX 46 / FX 42 / FX 52 ultrasonic edge sensors | ±3 / ±3 / ±10 mm; **for sound-impervious webs (paper, plastic, metal foil) — not porous knit** | quote | quote | Yes | [S73] |
+| Maxcess / Fife | SE-37A / SE-44 ultrasonic; DSE-17 digital wideband IR (4 edges); SE-38 first-edge (varying opacity "impossible with air or ultrasound"); SE-42 IR; H3662 line-scan IR | textile-capable options are the IR types | not published; quote | quote | Yes (Maxcess downloads) | [S74] |
+| Pepperl+Fuchs | UDC-18GM-400-3E3 ultrasonic double-sheet sensor | 20–60 mm gap (opt. 45 mm), 395 kHz, 10 g/m² to > 2000 g/m², "preferably papers", 3 PNP outputs, no teach-in | USD 1,408 "your price" / 2,011 retail (quicktimeonline, reseller, out of stock); 3 distributors on Octopart | stock varies | Yes (P+F CAD) | [S75] |
+| SICK | UD18-2 (UD18-22CC222 PNP p/n 6058912; NPN 6058913), 2.5 ms; UM18-20014 (p/n 6037880) 37–43 mm, 400 kHz | double layer/splice detection for paper, cardboard, metal, plastic; 4 teachable sensitivity levels | not published; quote (est. USD 700–1,200) | stock | Yes (sick.com) | [S76] |
+| Eltex | Thread sensor 15965 (up to 6 threads, piezoelectric, M12; replaces 15961/15962); Eltex Tension Monitor 14630 (RS422, miniature head) | detects no-movement and continuous-movement faults; insensitive to dust/humidity | not published; quote (est. USD 400–900) | quote | drawings in leaflet | [S77] |
+| Brother | KE430H-TBK thread breakage sensor (machine option) | OEM thread-break option on bar-tack/sewing machines | quote | — | — | [S77] |
+| SMC | ZSE30AF-01-E / -E-P digital vacuum switch | 2-colour display, NPN/PNP, 2.5 ms response | price not captured on smcpneumatics (quote; est. USD 80–130) | stock | Yes (SMC CAD) | [S78] |
+| Montalvo | strain-gauge tension load cells / tension sensing roller | web tension at ST01 unwind | not published; quote (est. USD 800–1,500 per pair) | quote | Yes (Montalvo) | [S78] |
+| Temperature/humidity transmitter (any industrial RH/T, e.g. ifm, Sensirion-based) | material-profile logging (knit shrink/stretch varies with RH) | not researched | unknown; est. USD 100–300 | — | — | — |
+
+Single-ply verification: no vendor confirms ultrasonic double-sheet sensing on air-permeable knit (their stated targets are paper, film, foil, cardboard, metal). Expect weak and porosity-dependent attenuation; the dependable methods are (a) a laser-displacement thickness check against a reference plate at the pick point (IL-065 / optoNCDT, 2 µm vs 0.5–1.2 mm ply), (b) camera top-layer segmentation (see F10), and (c) weight. Treat the ultrasonic option as a bench test, not a design assumption.
+
+### F9. Software pointers (GenICam/GenTL, drivers, ROS 2, calibration)
+
+| Name | Version or date | License | Maturity (stars, last release) | Fit for this project | Source URL |
+|---|---|---|---|---|---|
+| Basler pylon Software Suite | 26.08 (2026-08-20) | proprietary, free | mature; Windows/Linux x86/ARM; GenTL ≤ 1.4 limited | first choice SDK for Basler cameras; pypylon for Python; official pylon-ros-camera (ROS 1/2) and gst-plugin-pylon on GitHub | [S40][S80] |
+| Aravis | main branch, 2,914 commits (2026-10) | LGPL-2.1 | mature, active (Discourse forum, releases on GitHub) | vendor-neutral GigE Vision + USB3 Vision on Linux; Basler documents Aravis samples for blaze ToF; use as the M11 fallback for any GenICam camera | [S80] |
+| Harvesters (genicam/harvesters) | current GitHub | Apache-2.0 (verify on repo) | maintained by GenICam community | Python GenTL consumer over any vendor .cti producer (pylon, Spinnaker, Arena) | [S80] |
+| Teledyne Spinnaker SDK | 4.4.0.248 (docs 2026-08-25) | proprietary, free | mature; GenTL 1.5 producer (.cti) | required for FLIR Blackfly S; ROS 2 via spinnaker_camera_driver | [S81] |
+| ros-drivers/flir_camera_driver (spinnaker_camera_driver, synchronized driver) | ros2-release, updated 2026-05-08 | BSD | MAINTAINED, released for humble/jazzy/kilted/rolling | multi-camera hardware-synchronised capture in ROS 2 | [S81] |
+| Lucid Arena SDK (+ JupyterLab) ; Triton Smart open-source AI toolkit | 2026-08 | proprietary / open toolkit | mature | Lucid cameras; GigE Vision 3.0 RDMA for 10/25GigE | [S14] |
+| Orbbec SDK / OrbbecSDK_ROS2; realsense-ros; zivid-ros; Photoneo ROS 2 | current | Apache/BSD/MIT (vendor repos) | not verified in this pass | needed for the 3D options; verify ROS 2 distro support before purchase | — |
+| Calib.io targets | ChArUco 200 × 150 USD 134; sizes to 800 × 600 × 6 mm (fine 30 mm / coarse 60 mm checkers); checkerboard from EUR 103; Kalibr AprilGrid from EUR 176 (made to order); ceramic small targets | commercial | shipping with US duties prepaid | 800 × 600 ChArUco boards (3–4) as a network across the 1.5 m bed; Calibrator software supports multi-target networks and N-camera bundle adjustment (price not captured) | [S82] |
+| moveit_calibration (hand-eye) | ROS 1 Melodic/Noetic; 120 commits | BSD-3 | stable but ROS 1 | — | [S83] |
+| moveit2_calibration (AndrejOrsula ros2_port) | 145 commits, 45 stars | BSD-3 | community port, not released | ROS 2 hand-eye GUI; alternative: OpenCV calibrateHandEye in a short script, or the Zivid hand-eye API (factory-calibrated point clouds, fewer poses) | [S83][S41] |
+
+### F10. Research pointers (2025–2026, alphaXiv)
+
+| Name | Version or date | License | Maturity | Fit for this project | Source URL |
+|---|---|---|---|---|---|
+| Robotic Fabric Alignment System for Sewing Using Global-Local Weighted ICP | 2026-08-10 (arXiv 2608.09528) | paper | preprint | top/bottom fabric pose estimation before sewing: directly ST04/ST05 alignment | [S84] |
+| Automated Straight-line Sewing of Stretchable Fabrics with Different Lengths | 2026-07-31 (2607.29464) | paper | preprint | differential-length seam control on knits (ST05/ST06 neckband) | [S84] |
+| Seam-to-Graph Reconstruction for Garment Configuration Alignment (HKU) | 2026-06-13 (2606.15171) | paper | preprint | seam-based garment state from partial views (ST06/ST07 inspection) | [S84] |
+| Precise Top-Layer Fabric Segmentation for Fabric Destacking | 2026-08-11 (2608.10648) | paper | preprint | camera-based single-ply/top-layer verification (ST03) | [S84] |
+| Synthetic Data Generation and Vision-based Wrinkle and Keypoint Detection for Bimanual Cloth Manipulation | 2026-06-04 (2606.06292) | paper (code likely) | 12 votes | synthetic training data for M11 cloth-state nets | [S84] |
+| AI Visual Inspection for Garment Production (CityU HK / Intel) | 2026-08-16 (2608.21426) | paper | preprint | ST07 defect inspection architecture | [S84] |
+| Robotic Automation in Apparel Manufacturing (Siemens, Sewbo, Levi's) | 2025-02-28 (2503.00249) | paper | — | end-to-end robotic sewing cell lessons | [S84] |
+| Deployment Case Study in Robotic Apparel Automation: Digital Twin, Interoperability | 2026-06-15 (2606.16078) | paper | — | M13 twin and workforce enablement | [S84] |
+| Vision-Based 6-DoF Grasp Pose Estimation for Robot Cloth Unfolding (Ljubljana/JSI) | 2026-09-25 (2609.31452) | paper | 8 votes | ST03/ST04 grasp selection from depth | [S84] |
+
+### F11. Per-station camera and sensor plan (FOV and resolution math per station)
+
+| Station | Task | Camera (qty) | Lens | Light | Mount / WD | FOV and GSD | Interface → compute | Est. cost (USD, est.) |
+|---|---|---|---|---|---|---|---|---|
+| ST01 roll handling | web defects, holes, stains, skew, end-of-roll; edge guiding; tension | Linea Lite 4k mono (1) encoder-triggered from feed roller (Kübler 5020); E+L FR 52 IR edge sensor (1–2); Montalvo load-cell roller (1) | Kowa LM35XC / line-scan 35–50 mm (M42 adapter) | Ai BL168 line backlight under a glass gap, or dark roller + high-angle bar | 1.2 m above web | 1.6 m web / 4096 px = **0.39 mm/px** (8k: 0.2 mm/px) | GigE PoE → edge PC | 2,500 + 1,500 edge + 1,200 tension |
+| ST02 cutting | cut-geometry check ±0.5 mm, piece ID, incomplete-cut recovery | 4 × 12 MP tiles (Basler a2A4096-… 5GigE/10GigE or Lucid TRT124S 2.5GigE) **or** 1 × 24 MP (a2A5328-49g10m) accepting 0.28 mm/px | Kowa LM25XC (tiles, WD 2.0 m, 0.8 m tile) / LM16XC (single, WD 1.65 m) | diffuse white top light bars, dark bed; strobed by Gardasoft RT220 | frame above bed, 1.65–2.0 m | 4 tiles: 0.8 m / 4096 = **0.20 mm/px**; single 24 MP: 1.5 m / 5328 = 0.28 mm/px | 2.5/5/10GigE → edge PC (X710 NIC) | 4 × 1,200 cams + 4 × 1,000 lenses + 2,500 light + 1,500 calibration targets ≈ 12,700 |
+| ST03 extraction/buffer | top-layer segmentation, grasp point, layer count | 5 MP GigE (Triton TRI050S or IDS GV-5880) (1); Keyence IL-065 thickness check at pick point (1); optional Zivid 2+ MR60 (1) | LM12JC | SOBL 450 × 450 backlight under translucent staging table | 0.6 m | 0.6 × 0.5 m / 2448 = **0.24 mm/px** | GigE PoE | 600 + 150 + 900 + 1,200 (+ 10,000 if Zivid) |
+| ST04 manipulation | ply pose before placement, edge alignment at sewing stations, gripper state | fixed 5 MP per placement stage (2) + eye-in-hand Orbbec Gemini 335 or RealSense D405 (1) | LM12JC | SOBL 300 × 300 backlights in stages | 0.5 m | 0.5 × 0.4 m / 2448 = **0.20 mm/px** | GigE PoE + USB-C on arm | 2 × 600 + 264 + 2 × 900 |
+| ST05 sewing heads (3 heads) | seam/edge tracking at the needle, stitch presence, thread break | a2A1920-160umPRO USB3 (or Triton2 TRT016S 2.5GigE) per head (3) at ≥ 200 fps ROI; Eltex 15965 thread sensor per head (3) | Kowa LM25JC / 25 mm at WD 150 mm | small backlight insert or dark-field ring, strobed | 150 mm | 60 × 40 mm / 1920 = **0.03 mm/px**; 1920 × 200 ROI > 500 fps | USB3 ≤ 3 m to edge PC (or Orin NX per head) | 3 × 620 + 3 × 143 + 3 × 600 thread + 3 × 400 light |
+| ST06 collar/neckband | loop present, twist, captured layer, symmetry | 5 MP GigE (1) over split support | LM12JC | SOBL 150 × 150 backlight in the split support | 0.4 m | 0.35 × 0.3 m / 2448 = 0.14 mm/px | GigE PoE | 600 + 143 + 758 |
+| ST07 finishing/inspection | dimensions, seam path, visible defects, label OCR | 20–24 MP (Triton TRI245S / a2A5328) (1) + low-angle dark-field bars; optional In-Sight 2800 for PLC-native label gate | LM16XC | SOBL 600 × 600 (or BL2) backlit stage + dark-field bars | 1.3 m | 1.0 × 0.8 m / 5320 = **0.19 mm/px** | 2.5/10GigE | 2,800 + 1,055 + 2,500 light |
+| ST09/ST10 compute | all inference, logging, calibration | Neousys Nuvo-9160GC + RTX 4000 SFF Ada (1); optional Jetson Orin NX 16 GB per sewing head (3); training: RTX PRO 6000 workstation or cloud | — | — | cabinet | — | X710-T2L 10GbE + 4-port PoE+ GigE card; NVMe 2–4 TB for image logs | 5,500 (+ 3 × 1,300 Orin NX kits) (+ 11,000–23,000 training GPU) |
+
+Totals (est., list/reseller prices above; excludes PLC/safety/drives): **reference build ≈ USD 38–48k** with one Zivid 2+ and a tiled bed; **minimum build ≈ USD 18–22k** (single 24 MP bed camera at 0.28 mm/px, consumer 3D only, no Jetsons, training in the cloud); training workstation extra. Camera count: 9–13.

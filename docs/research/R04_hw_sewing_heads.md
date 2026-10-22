@@ -2,6 +2,23 @@
 
 Research agent R04 · Roll-to-Garment project · written 2026-10-21. All prices are as seen on the stated date and basis; "est." marks an order-of-magnitude estimate with its basis; "unverified" marks a claim with no source found.
 
+## Summary
+
+- Use three permanently threaded heads for the T-shirt: a 2-needle 4-thread overlock (514) for structural seams, a cylinder-bed coverstitch (406) with left-hand trimmer for hems and neck topstitch, and no lockstitch unless labels or topstitch are in the released spec; this matches the white paper's module split and the industry T-shirt operation maps [89][99].
+- Selected overlock: JUKI MO-6814S class (7,000 sti/min, differential 1:0.6–1:4, 27 kg head, USD 1,550 complete at US resellers) with a documented I/O control box (EFKA AB321A or JUKI SC-922); alternates Pegasus EX5214 (PP pneumatic foot pressure) and Siruba 747N with stepping-motor foot/feed adjustment and UC air anti-curl device [1][9][34][46].
+- Selected coverstitch: JUKI MF-7923-U11-B56/UT51 or H23 hemming subclass (6,000 sti/min, 46 kg, USD 7,226 complete); Jack W4-UT at USD 1,924–2,199 for the first rig; Yamato VG2700-8 on quote [81][85][30].
+- Dürkopp Adler 867 (USD 4,895) is the heavy-duty reference and the only head family with a vendor-documented PLC protocol (DAC ACCESS: serial 115,200 bit/s, read/write stitch length, speed, foot, trimmer, simulated pedal start/stop) [51][54].
+- PLC integration patterns found: OEM box I/O (EFKA in1–i10/M7–M11 with 512-pulse output; JUKI SC-922 CN51 with 8 inputs, 8 NPN outputs, 360-pulse output; Ho Hsing i60 7 in / 8 out), DAC ACCESS serial, replacing the OEM motor with an EtherCAT servo (DLRoSS used Yaskawa SGM7A/SGD7S on a Brother overlock), or a microcontroller shim on the JUKI panel (Siemens/Sewbo) [57][62][64][120][118].
+- No overlock or coverstitch head offers electronic differential feed; stretch distribution for the rib must come from the handling side (expansion rollers, pullers, robot rollers), as the DLRoSS paper did [120].
+- Plan 2,500–4,500 sti/min on jersey for robot-fed seams (est.); automats run at 5,000 sti/min with human loading [80].
+- Collar module: no purchasable autonomous unit exists; the proven operator-loaded pattern is Atlanta Attachment 1996 (meter, cut, close, stack rib bands) plus 1289 expansion-roller collar loader plus a cylinder-arm overlock with electronic edge guiding (1278-6); all quote-only, catalogue from 2017 [87].
+- Bottom hemming benchmark: JUKI JTR-MF7923/BHA, 2,400–3,000 pieces per 9 h with one operator (dealer: about 1,500 per 8 h), EFKA AB221 drive, 23 L/min air [79][80].
+- Template and pattern sewers (JUKI AMS-221F, PS-800; Brother BAS; Jack M5/M7 at USD 17,498–27,500; Richpeace) are fixture-based and unsuitable for stretching rib or curling free edges; do not buy for the T-shirt [69][72][32][120].
+- Consumables: Groz-Beckert SES ball point Nm 65–75 in DC×27, UY128GAS and DB×1 systems; Coats Epic Tex 24 needle and Gramax Tex 18 looper, about 45 m per tee; Eltex 15965 six-thread sensors with PLC output [96][99][105].
+- CAD: no vendor STEP exists for any head; JUKI and Brother manuals give table cut-out drawings; plan on NDA requests to Dürkopp Adler and JUKI Europe, then 3D scanning of purchased heads [42][48][126].
+- Robot-fed overlock of a curling single-jersey free edge with a curved seam is not demonstrated anywhere in the public record; research covers stiffened wovens (Siemens/Sewbo, 90 % success at 180–360 s per trial) and straight stretch seams with hand-placed lead-ins (DLRoSS, <3 mm error); SoftWear and Silana make claims without public data [118][119][120][108][110].
+- Budget tension: three automation-grade heads cost about USD 5,000–11,000 complete, but an operator-loaded collar workstation is estimated at USD 30,000–60,000 (quote-only), which strains the white paper's USD 52,000 scenario unless the collar module is built in-house.
+
 ## Findings
 
 Source numbers in brackets refer to the numbered list in `## Sources`. Price basis: "reseller" = price shown on a dealer web page on the date given; "list" = vendor list price; "quote" = written quotation; "est." = estimate with stated basis.
@@ -218,3 +235,155 @@ Decision 7: consumables. Needles Groz-Beckert DC×27 SES Nm 65–75 (overlock), 
 8. DAC ACCESS applicability: only DA classes with DAC flex or DAC comfort; confirm the Q1/2025 compatible-class list and whether any chainstitch class relevant to knits is included [53].
 9. Atlanta Attachment catalogue data is from 2017; confirm current models, controls and whether the 996/1996 rib units accept the project's rib fabric widths (2¼–8 in) and roll formats.
 10. Head-only purchase: US resellers sell complete units; confirm with JUKI Europe and Jack whether heads without table/motor can be bought for cell integration and at what discount.
+
+## Sources
+
+1. https://www.juki.co.jp/industrial_e/products_e/apparel_e/overlock_e/detail.php?cd=MO-6800S_E — JUKI MO-6800S specs (speed, differential, foot lift, head mass).
+2. https://www.juki.co.jp/industrial_e/download_e/catalog_e/mo6800s.pdf — MO-6800S catalogue, subclass codes, mounting options.
+3. https://jukieurope.com/en/ism/product/mo-6800s-dd-series — MO-6800S/DD direct drive, DD22/DD23 sensors, cover sensors.
+4. https://www.juki.co.jp/industrial_j/download_j/manual_j/mo6800_dd10/menu/pdf/instruction_eg.pdf — MO-6800S(D)/DD10 manual: specs, VA, noise, oil, table mounting.
+5. https://www.juki.co.jp/industrial_j/download_j/manual_j/mo6800s_d/mo6800dd22,23/menu/pdf/instruction_eg.pdf — MO-6800S(D)/DD20 manual, external synchronizer note.
+6. https://www.juki.co.jp/industrial_e/download_e/catalog_e/mo6900s.pdf — MO-6900S specs, MC mounting and auto-lifter options.
+7. https://www.pegasus.co.jp/en/machine/detail/series/s106/M952-A-52 — Pegasus M952 specs and devices.
+8. https://www.pegasus.co.jp/en/imgs/machine/series/pdf/e_M900_DJ.pdf — Pegasus M900/DJ direct drive and safety sensors.
+9. https://www.pegasus.co.jp/en/machine/detail/series/s102/EX5214-M03_333K — Pegasus EX5214 specs and PP/KS/KH/AT/TK/PL devices.
+10. https://www.pegasus.co.jp/en/machine/detail/item/Trainingwear%20Bottom/EXT5214-M03_333 — Pegasus EXT5214 top feed specs.
+11. https://pegasusofamerica.com/product/pp-devices/ — PP pneumatic presser-foot pressure regulator.
+12. https://www.pegasus.co.jp/en/machine/option/PL — PL presser-foot lift device.
+13. https://www.pegasus.co.jp/en/machine/detail/series/s205/W562P-01G — Pegasus W562P flatbed interlock specs and devices.
+14. https://www.pegasus.co.jp/en/machine/series/s206 — Pegasus W600P lineup (W664P-01H 5,500 sti/min).
+15. https://www.goldstartool.com/pegasus-sewing-machines — Pegasus reseller prices (MX5214, W3562P, W3664P).
+16. https://www.yamato-sewing.com/en/product/overlock_safety_stitch/az8000sd-8 — Yamato AZ8000SD-8/AZ8500SD-8 features, 8,000 sti/min.
+17. https://www.yamato-sewing.com/en/product/overlock_safety_stitch/az8000sd-8/specifications/ — Yamato AZ model numbering.
+18. https://www.yamato-sewing.com/en/product/support/az8000-az8500-series — AZ8000/AZ8500 end of production, manuals.
+19. https://www.yamato-sewing.com/en/product/interlock_flatlock/vg-8/specifications/vg2700-8f — VG2700-8F specs.
+20. https://www.yamato-sewing.com/en/product/interlock_flatlock/vf2400-8-vf2500-8/specifications/ — VF2500-8 series specs.
+21. https://www.yamato-sewing.com/en/product/interlock_flatlock/vc2700g-8f/specifications/ — VC2700G-8 specs (differential range).
+22. https://www.yamato-export.de/index.php/products/interlock-machines-2/vg2700 — VG2700-8 export page, Busche workstations, MCA-18, ILD.
+23. http://www.yamato-export.de/index.php/products/overlock-machines-2/azf8500sd-8 — Yamato Export T-shirt model finder (AZ8120SD, AZF8420).
+24. https://www.jack-sewing.com/overlock/jack-C4/index.html — Jack C4 features.
+25. https://www.jack-sewing.com/overlock/jack-C6/index.html — Jack C6 features.
+26. https://www.jack-sewing.com/lockstitch/jack-A5E/index.html — Jack A5E-B.
+27. https://www.jack-sewing.com/lockstitch/jack-A4E/index.html — Jack A4E.
+28. https://www.jack-sewing.com/interlock/jack-W4-D/index.html — Jack W4 features and interlock lineup.
+29. https://www.jack-sewing.com/wp-content/leaflets/W4.pdf — Jack W4 leaflet specs.
+30. https://www.usajacksewing.com/sewing/coverstitch/jack-w4-d — Jack W4-D price USD 1,924, 550 W motor.
+31. https://www.jacksew.com/jack-w4-d-01-02-03-08x364-f-h-direct-drive-3-needle-flatbed-coverstitch-industrial-sewing-machine-complete-unit-with-table-and-stand/ — Jack W4-D price USD 2,199.
+32. https://www.usajacksewing.com/sewing/specials — Jack template/CNC machine prices.
+33. https://www.jacksew.com/siruba-747l-four-thread-semi-dry-head-high-speed-overlock-industrial-serger-with-fully-submerged-table-and-servo-motor — Siruba 747L specs.
+34. https://siruba.com/download/ — Siruba model list incl. 747N stepping-motor control.
+35. https://siruba.com/product/overlock-device — Siruba UC anti-curl, DKL direct drive, BKT, TB-K1.
+36. https://siruba.com/product/interlock-device — Siruba CL/CLA puller, binders, folders.
+37. https://www.ae-sewingmachines.co.uk/collections/siruba — Siruba 747L GBP 950.
+38. https://suprasewing.com/collections/overlock — Supra prices (MO-6714DA, MO-6716S, Siruba 757K), stock.
+39. https://juki.com/ddl-9000c-series — DDL-9000C specs (JUKI America).
+40. https://www.juki.co.jp/industrial_e/products_e/apparel_e/1needle_lock_e/detail.php?cd=DDL-9000CS_E — DDL-9000CS specs, 360° viewer.
+41. https://www.juki.co.jp/industrial_j/download_j/manual_j/ddl9000cs/menu/ddl9000cs/pdf/instruction_eg.pdf — DDL-9000C-S manual (shipped speed, VA, oil).
+42. https://www.juki.co.jp/industrial_j/download_j/manual_j/ddl9000cf/menu/ddl9000cf/pdf/instruction_eg.pdf — DDL-9000C-F manual (table drawing).
+43. https://www.juki.co.jp/industrial_e/products_e/apparel_e/1needle_lock_e/detail.php?cd=DDL-8000A_E — DDL-8000A specs.
+44. https://www.juki.co.jp/industrial_e/admin/pdata/filedata/581/ddl8000c.pdf — DDL-8000C specs.
+45. https://carolinaforestvacuum.com/product/juki-ddl-9000-c-sms-table-and-motor/ — DDL-9000C-SMS price USD 1,980.
+46. https://www.sewingmachinesi.com/products/juki-4-thread-overlock-sewing-machine-wtable.html — MO-6814S complete USD 1,549.99; DDL-9000C USD 1,999.99.
+47. https://industrialsewingmachine.global.brother/en-us/all-products/nexio%20s-7300a — Brother S-7300A specs.
+48. https://download.brother.com/pub/com/ism/pdf/s7250a_in_s_asia.pdf — Brother S-7250A manual (table diagram).
+49. https://www.stocks.co.uk/durkopp-adler-867-190040-m.html — DA 867-190040-M specs, stock.
+50. https://partner.duerkopp-adler.com/en/main/products/MS_02_flatbed_2_ECO/0867-290020-M.html — DA 867 ECO, DAC eco.
+51. https://www.demasewingautomation.com/product/durkopp-867-walking-foot — DA 867-1900-40-M USD 4,895.
+52. https://fllichiesa.com/en/867-m-type-durkopp-adler — DA 867 CLASSIC description.
+53. https://www.duerkopp-adler.com/products/digital-solutions/dac-access — DAC ACCESS overview, parameters, compatible classes.
+54. https://www.duerkopp-adler.com/fileadmin/dag/Media/Downloads/DAC_ACCESS/0791_100713_EN_00.0.pdf — DAC ACCESS instructions (protocol).
+55. https://www.duerkopp-adler.com/fileadmin/dag/Media/Downloads/DAC_ACCESS/DAC-ACCESS-Flyer_EN.pdf — DAC ACCESS flyer.
+56. https://www.duerkopp-adler.com/fileadmin/dag/Media/Downloads/967/0791_967901.pdf — DAC basic/classic parameter list (inputs).
+57. https://www.efka.net/fileadmin/downloads/DC-Antriebe-Drives/AB221A5130/EN_BA_AB221A5130-AB321A5230-AB222A5140-AB322A5240_V1_1__071008_F.pdf — EFKA AB321A manual.
+58. https://www.efka.net/fileadmin/downloads/DC-Antriebe-Drives/AB221A5130/EN_PL_AB221A5130-AB321A5230-AB222A5140-AB322A5240_V1_1__071008_F.pdf — EFKA AB321A parameter list (I/O, modes).
+59. https://www.efka.net/fileadmin/downloads/DC-Antriebe-Drives/DA321G5321/EN_BA_DA321G5321_3_3__151210_O.pdf — EFKA DA321G manual (frequency speed, modules).
+60. https://www.efka.net/fileadmin/user_upload/EN_BA_PF321A6012_240111.pdf — EFKA PF321A6012 manual.
+61. https://www.juki.co.jp/industrial_e/products_e/related_e/controlbox_motor_panel_e/detail.php?cd=SC-921_SC-922_M51N_CP-18_180_E — JUKI SC-921/922 ports.
+62. https://www.juki.co.jp/industrial_j/download_j/manual_j/sc920_921_922_923/menu/sc922/pdf/instruction_eg.pdf — SC-922 manual CN51 I/O pinout.
+63. https://www.manualslib.com/manual/1875913/Juki-Sc-920.html — SC-920 engineer's manual (external I/O).
+64. https://www.hohsing.com/index.php/en/servo-motors-en/i60-en — Ho Hsing i60 specs.
+65. https://www.hohsing.com/index.php/download-sewing-manual-en — Ho Hsing manuals list.
+66. https://globalsew.com/wp-content/uploads/2020/06/folder-ho-hsing-21-edit-red-orange-color-scheme-5.pdf — Ho Hsing G60-2, synchronisers, pedals.
+67. https://globalsew.com/ho-hsing-servo-clutch-motors-taiwan-sewing-machines — Ho Hsing HD40, i60/i70.
+68. https://www.seiko-sewing.co.jp/en/wp-content/uploads/sites/2/2016/10/HVP-i90_series.pdf — HVP-i90M specs.
+69. https://www.juki.co.jp/industrial_e/products_e/apparel_e/cycle_e/detail.php?cd=AMS-221F_E — AMS-221F specs.
+70. https://www.juki.co.jp/industrial_e/products_e/apparel_e/cycle_e/detail.php?cd=AMS-221EN_E — AMS-221EN specs, weight.
+71. https://www.juki.co.jp/industrial_e/products_e/lether_e/cycle_non_e/ — AMS-251, AW-3 bobbin device.
+72. https://www.juki.co.jp/industrial_e/admin/pdata/filedata/592/psseries.pdf — JUKI PS template machines.
+73. https://www.college-sewing.co.uk/media/wysiwyg/Brochures/Juki_Sewing/Juki%20-%20General%20Catalogue%20Non-Apparel%202025.pdf — AMS-251 area/speed.
+74. https://industrialsewingmachine.global.brother/-/media/ap2/ism/pdf/manual-download/es-latam/programmable-electronic/nexio-bas-311hn-nexio-bas-326h_in-en.pdf?rev=6575226054e94fbda2b5fb01005bb379 — BAS-311HN/326H manual.
+75. https://assets.brother.com/asset/e6309c66-b2d0-44fd-97a4-d5cbc76c5df8/7123_BAS311HN326H341H342H_ENG-pdf.pdf — BAS catalogue.
+76. https://www.richpeace.com/cnc_sewing_for_garment-show-1464.html — Richpeace 1300×900 template machine.
+77. https://www.richpeace.com/cnc_sewing_for_garment-show-1157.html — Richpeace garment automatic sewing machines.
+78. https://suprasewing.com/collections/specials — Speedway template with bobbin changer, Jack specials.
+79. https://www.juki.co.jp/industrial_j/download_j/manual_j/jtr_mf7923bha/menu/pdf/instruction_eg.pdf — JTR-MF7923/BHA manual.
+80. https://impall.eu/product/j-tron-jtr-mf7923-bha/ — JTR dealer capacity and specs.
+81. https://www.juki.co.jp/industrial_e/admin/pdata/filedata/363/mf7900.pdf — MF-7900 catalogue (mass, subclasses, control box).
+82. https://www.juki.co.jp/industrial_e/download_e/catalog_e/mf7900.pdf — MF-7900 catalogue (differential, VA).
+83. https://juki.com/mf-7900-h22-series — MF-7900-H22 hemming subclass.
+84. https://juki.com/mf-7500-series-and-mf-7500d-series — MF-7500 specs.
+85. https://www.jacksew.com/juki?page=3 — JUKI coverstitch complete prices.
+86. https://www.jukisewingmachines.co.uk/juki-apparel-machines/juki-industrial-coverstitch-sewing-machines.html — JUKI UK heads, price on request.
+87. https://www.atlatt.com/wp-content/uploads/2018/01/2017-Apparel.pdf — Atlanta Attachment 2017 apparel catalogue.
+88. https://www.atlatt.com/product-category/folders/binding-folders — Atlanta collarette folders.
+89. https://www.kansai-special.com/operation/ — Kansai Special T-shirt operation map.
+90. https://www.kansai-special.de/ — Kansai Special Europe models.
+91. https://www.rowlson.com/en/kansai-special — Kansai WX-8803F split tube binder.
+92. https://www.racing-tw.com/en/products_detail.php?Page=0&nid=41 — Racing PO puller.
+93. https://www.strima.com/en/machine-accessories/2-478 — Strima accessories (Racing items).
+94. https://www.foxsew.com/metering-device-and-sewing-machine-puller — Foxsew pullers.
+95. https://suprasewing.com/collections/guides — edge guide prices.
+96. https://www.groz-beckert.com/mm/media/en/web/pdf/Cloth_points_from_Groz-Beckert.pdf — needle point styles.
+97. https://www.wawak.com/sewing/sewing-needles/industrial-sewing-machine-needles/groz-beckert-regular-point-industrial-machine-needles-b-27-81x1-dcx27-10pack — B-27 needle price.
+98. https://www.wawak.com/sewing/sewing-needles/industrial-sewing-machine-needles/schmetz-light-ball-point-industrial-machine-needles-16x231-ses-dbx1-ses-287-wh-ses-1738-a-ses-10pack — Schmetz SES.
+99. https://www.coats.com/en-us/industries/apparel/applications/sports-and-activewear/t-shirts — Coats T-shirt thread table, consumption.
+100. https://www.coats.com/en-us/industries/apparel/applications/childrens-wear/t-shirts — Coats children's T-shirt table.
+101. https://cdn.coats.com/wp-content/uploads/Soft_and_Secure_Seams.pdf — Coats soft seam thread options.
+102. https://cdn.coats.com/wp-content/uploads/Coats-EcoVerde-Gramax-Product-Information-Sheet-2026.pdf — Gramax looper thread.
+103. https://www.amannusa.com/application/apparel — AMANN Saba/Sabatex and consumption.
+104. https://eltex.se/sewing — Eltex sewing sensors.
+105. https://eltex.se/products/eltex-thread-sensor-15965 — Eltex 15965.
+106. https://pdf.directindustry.com/pdf/eltex-sweden-ab/evg-s-single-yarn-break-sensor/25241-1073976.html — Eltex EVG-s PLC output.
+107. https://softwearautomation.com/softwear-automation-secures-20-million-in-series-b1-funding-round-led-by-strategic-partnership-with-bestseller/ — SoftWear USD 20 M Series B1.
+108. https://finance.yahoo.com/news/softwear-automation-secures-20m-bestseller-150000762.html — SoftWear third-gen workline H1 2026.
+109. http://softwearautomation.com/sewbots — Sewbot vision description, LOWRY trademark.
+110. https://www.silana.com/product — Silana claims and process.
+111. https://www.silana.com/about — Silana team, New York lab.
+112. https://www.eu-startups.com/directory/silana/ — Silana EUR 1.5 M seed.
+113. https://patents.justia.com/patent/20260294017 — Silana patents.
+114. https://www.pfaff-industrial.com/en/portfolio/robotic/kl-500 — KSL KL 500.
+115. https://www.pfaff-industrial.com/en/portfolio/robotic/kl-502 — KSL KL 502 (KUKA, fieldbuses).
+116. https://www.pfaff-industrial.com/de/support/downloads/prospect/industrial_pfaff_ksl.pdf — KSL programme, drive synchronisation.
+117. https://download.beckhoff.com/download/Document/Catalog/Beckhoff_Robotics.pdf — EtherCAT/TwinCAT robot integration.
+118. https://arxiv.org/abs/2503.00249 — Siemens/Sewbo robotic sewing paper.
+119. https://arxiv.org/abs/2606.16078 — deployment case study.
+120. https://arxiv.org/abs/2607.29464 — DLRoSS stretchable fabric sewing.
+121. https://arxiv.org/abs/2608.09528 — GLW-ICP alignment.
+122. https://arxiv.org/abs/2510.00814 — RTFF flattening.
+123. https://arxiv.org/abs/2608.10648 — top-layer segmentation.
+124. https://arxiv.org/abs/2503.18373 — elastic waistband machine.
+125. https://www.3dcontentcentral.com/download-model.aspx?catalogid=171&id=216941 — generic sewing machine CAD.
+126. https://www.stlfinder.com/tag/juki — GrabCAD Juki items (SMT nozzles).
+127. https://sketchfab.com/tags/sewing-machine — Sketchfab scans.
+128. https://www.juki.co.jp/en/business/industrial — JUKI/Pegasus M900/DJ alliance, JTRON.
+129. https://juki.com/products — JUKI JTRON automat list.
+130. https://cdn.shopify.com/s/files/1/0947/2203/1912/files/jack-8009-catalogue.pdf — Jack 8670/8009 catalogue.
+131. https://www.jacksew.com/jack-e4s-4-m03-333-4-thread-direct-drive-overlock-with-complete-fully-submerged-tabling — Jack E4S specs.
+132. https://www.accio.com/plp/used-overlocker-for-sale — aggregated Alibaba prices (unreliable basis).
+133. https://www.directsewingmachines.co.uk/product/jack-w4-cover-stitch-machine — Jack W4 GBP 950, foot lift.
+134. https://suprasewing.com/collections/juki — Supra JUKI stock.
+135. https://www.manualslib.com/manual/1988490/Pegasus-W600-Series.html — Pegasus W600 manuals.
+136. https://pegasusofamerica.com/wp-content/uploads/2016/05/cpmparison_e.pdf — Pegasus device comparison chart.
+137. https://www.coats.com/en/industries/apparel/applications/intimate-and-underwear/mens-briefs/ — Coats knit overlock needle sizes.
+138. https://www.coats.com/en-us/industries/apparel/applications/ladieswear/dresses/ — Coats knitted overlock Nm 65–75.
+139. https://robocata.com/robot/RBC-AR-PR-SEWBOTT — third-party Sewbot listing (unverified).
+140. https://www.atlatt.com/wp-content/uploads/2019/07/213.pdf — Atlanta 213E hemmer.
+141. https://www.jacksew.com/siruba-757k-five-thread-semi-dry-head-high-speed-safety-stitch-overlock-industrial-serger-with-fully-submerged-table-and-servo-motor — Siruba 757K specs.
+142. http://www.yamato-export.de/index.php/products/interlock-machines-2/vt1513 — Yamato Export T-shirt model list.
+143. https://www.juki.co.jp/industrial_e/products_e/all.php — JUKI model list (MF subclasses, SC boxes).
+144. https://amleusa.us/products/jack-c4-4-thread-overlock-sewing-machine — Jack C4 US reseller.
+145. https://www.pegasus.co.jp/en/machine/detail/series/s102/EX5214-24_445 — Pegasus EX5214-24/445.
+146. https://www.yamato-export.de/index.php/products/overlock-machines-2/azf8500sd-8 — Yamato AZF8500SD-8 top feed.
+147. https://tracxn.com/d/companies/silana/__YRTTIk3zysKgndETT7wdGJoGMILpzNbiYB32rxq1Dms — Silana funding tracker.
+148. https://www.bizjournals.com/atlanta/news/2025/08/27/softwear-automation-20-million-series-b1.html — SoftWear raise coverage.
+149. https://www.kansai-special.com/wp-content/uploads/2017/01/KansaiSpecial-General-Catalog-201608.pdf — Kansai Special general catalogue.
