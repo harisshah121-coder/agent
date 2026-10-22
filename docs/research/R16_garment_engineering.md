@@ -189,3 +189,95 @@ The T-shirt parameter file `assets/design_params/t-shirt.yaml` (fetched 2026-10-
 
 What M03 must add for a manufacturable tee: (1) a stretched ring component for the rib neckband with a length ratio and width parameter (not in GarmentCode); (2) seam allowances per edge (overlock 1.0–1.5 cm, hems 2.5–3 cm) and hem fold lines; (3) notches at shoulder points, centre front/back and sleeve cap; (4) stitch class and seam class per edge pair (ISO 4915/4916) for M06; (5) a size table driven by finished-measurement grade rules (F5) rather than only body measurements; (6) shrinkage compensation per material profile (M05). The MIT licence permits all of this.
 
+### F7. Quality plan: AQL practice, defects, test methods, labelling
+
+Table F7-A. Standards and regulations for the quality plan.
+
+| Name | Version or date | License | Maturity | Fit for this project | Source URL |
+|---|---|---|---|---|---|
+| ISO 2859-1 Sampling procedures for inspection by attributes — AQL-indexed lot-by-lot schemes | 2026-01, Edition 3 (replaces 1999 edition) | Paid, CHF 227 | Current, just revised | Lot acceptance sampling for the human audit of each shift lot and for buyer inspection | https://www.iso.org/standard/85464.html |
+| ANSI/ASQ Z1.4-2003 (R2018) Sampling procedures and tables for inspection by attributes | 2018 reaffirmation | Paid, USD 229 (ANSI PDF), USD 199 list (ASQ print) | Current US edition; same master tables | US buyers cite this | https://webstore.ansi.org/standards/asq/ansiasqz12003r2018 ; https://asq.org/quality-press/display-item?item=T1164 |
+| ISO 6330:2021 Domestic washing and drying procedures for textile testing | 2021-11, Edition 4; 16 Type A (front-loader) procedures, 6 drying procedures | Paid, CHF 181 | Current | Wash/dry conditioning for dimensional change, appearance, seam and rib recovery checks | https://www.iso.org/standard/75934.html |
+| ISO 3759:2011 Preparation, marking and measuring of fabric specimens and garments for dimensional change | 2011, Edition 5, confirmed 2022 | Paid | Current | Marking/measuring protocol before and after ISO 6330 | https://www.iso.org/standard/57309.html |
+| ISO 5077:2007 Determination of dimensional change in washing and drying | 2007, Edition 2, confirmed 2022 | Paid, CHF 44 | Current | Reports shrinkage % after ISO 6330 | https://www.iso.org/standard/41877.html |
+| AATCC TM135-2025 Dimensional changes of fabrics after home laundering (TM150 for garments, TM179 for skew) | 2025 | Paid (AATCC) | Current | US-market equivalent; TM150 covers finished garments; TM179 covers spirality | https://members.aatcc.org/store/tm135/543/ |
+| ASTM D2594/D2594M-21 Stretch properties of knitted fabrics having low power | 2021 | Paid, USD 69 | Current | Fabric stretch and growth for rib and jersey (neckband recovery) | https://www.astm.org/d2594_d2594m-21.html |
+| ASTM D1683/D1683M-22 Failure in sewn seams of woven fabrics | 2022 | Paid, USD 80 | Current; scope is woven fabrics | Seam strength and seam efficiency; applied to knit seams by agreement only (scope caveat) | https://www.astm.org/d1683_d1683m-22.html |
+| ISO 13935-2:2026 Seam tensile properties — grab method | 2026-04, Edition 3 | Paid, CHF 100 | Current; woven scope, "can be applicable to fabrics produced by other techniques"; straight seams only | Seam rupture force on shoulder/side seam specimens | https://www.iso.org/standard/88344.html |
+| ASTM D3776/D3776M-20 Mass per unit area of fabric | 2020 | Paid, USD 86 | Current | Incoming gsm verification of body and rib lots | https://www.astm.org/d3776_d3776m-20.html |
+| ISO 3758:2023 Care labelling code using symbols | 2023 | Paid | Current | Care symbols in the order wash, bleach, dry, iron, professional care | https://www.iso.org/standard/74401.html |
+| 16 CFR Part 423 Care labeling of textile wearing apparel (FTC) | current eCFR | Free | In force | US care instructions with a "reasonable basis"; ASTM D5489 symbols allowed in lieu of words | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-423 |
+| 16 CFR Part 303 Textile Fiber Products Identification Act rules (FTC) | current eCFR | Free | In force | Fibre content, RN/company name, country of origin on the front of the label (§303.15) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-303 ; https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-303/section-303.15 |
+| Regulation (EU) No 1007/2011 textile fibre names and labelling | 2011, in force | Free | In force | Fibre names and % by weight in descending order; products may only be made available on the market if labelled | https://eur-lex.europa.eu/eli/reg/2011/1007/oj |
+
+AQL practice. Apparel buyers normally specify AQL 2.5 for major defects and 4.0 for minor, critical = 0, at General Inspection Level II, single sampling, normal inspection [54] [87]. The master tables (ISO 2859-1 / ANSI Z1.4, reproduced by QC Advisor and AQF [53] [54]) give, for the lot sizes this cell will produce:
+
+| Lot (shirts) | Level II code, n | AQL 2.5 Ac/Re | AQL 4.0 Ac/Re | AQL 1.0 Ac/Re | Level III code, n (new process) | AQL 2.5 Ac/Re at Level III |
+|---|---|---|---|---|---|---|
+| 51–90 | E, 13 | 0/1 | 1/2 | ↓ G n=32 0/1 | F, 20 | 1/2 |
+| 91–150 (one 12-h shift at 100) | F, 20 | 1/2 | 2/3 | ↓ G n=32 0/1 | G, 32 | 2/3 |
+| 151–280 (two shifts) | G, 32 | 2/3 | 3/4 | 0/1 | H, 50 | 3/4 |
+| 281–500 (one week) | H, 50 | 3/4 | 5/6 | 1/2 | J, 80 | 5/6 |
+| 501–1,200 | J, 80 | 5/6 | 7/8 | 2/3 | K, 125 | 7/8 |
+| 1,201–3,200 | K, 125 | 7/8 | 10/11 | 3/4 | L, 200 | 10/11 |
+| 3,201–10,000 | L, 200 | 10/11 | 14/15 | 5/6 | M, 315 | 14/15 |
+
+Note: one inspection-company page (Tetra) states "L, n=200, AQL 2.5 → Ac 21 / Re 22"; that is the AQL 6.5 plan, and contradicts the master table and the same company's own K example (n=125, Ac 7 / Re 8) [87] [53]. Use the master table. The acceptance decision is on the lot; the cell's own 100% inline inspection is a separate control and does not replace the lot audit.
+
+Common defects on knit tees, causes and where the cell detects them (A&E seam quality defects bulletin [55]; Coats and AMANN on puckering [56] [57]; Uçar 2002 on grinning [86]; ABC Seams 2026 defect guide [58]):
+
+| Defect | Typical cause | Corrective action / detection station |
+|---|---|---|
+| Skipped stitches (looper misses the needle loop) | Wrong needle point/size, bent needle, thread too thick for eye, fabric flagging (plies lifting with the needle), timing | Light ball point Nm 70–80, correct thread, presser pressure, needle change interval (one source: ~8 h needle life); detect by stitch sensor / camera on seam at ST05/ST06; A&E: looper stitches unravel, so a skip is a seam failure |
+| Seam failure / stitch cracking on stretch seams | Too few SPI, wrong stitch type (301 instead of 504/514), weak thread, unbalanced stitch | 14–16 st/3 cm, 504/514 with textured looper thread, balanced tensions; test by stretching seams at ST07 (tactile/force) and offline seam tests |
+| Needle cutting / holes along the stitch line | Sharp point, oversize needle, dry fabric | Ball point, smaller needle, silicone needle cooler (MF-7900 has a silicone oil tank for needle tip) [71]; inspect at ST07 |
+| Seam puckering (feed, tension, displacement, differential shrinkage) | Plies fed unevenly; thread stretched by tension then relaxing; thread too thick for the knit; thread/fabric shrink differently in wash | Differential feed 1:0.9–1:1.8 (MF-7900), lowest workable tension, Tex 24/30 corespun, ISO 6330 wash trial; camera at ST07 (pucker grade), A&E grade 1–5 scale |
+| Seam grin (stitch too loose; seam opens under load) | Low stitch density, extensible thread, rigid fabric, loose looper tension | Raise stitch density, balance tension; 514 grins less than 504 for a given tension; load-and-look check at ST07 |
+| Excessive restitched seams / splices | Thread breaks, thread run-out | Thread-break sensors, cone-level monitoring (WP: supplies monitored); reject or rework |
+| Uneven hem width, twisted hem, hem wave | Guide/trimmer misaligned, overfeed wrong on the cylinder bed | Left-hand fabric trimmer (H22/H23), fixed guide, differential set per fabric; camera measure hem width at ST07 |
+| Twisted or off-centre rib band, band join not at centre back, caught body layer, neckline waviness, rib standing away | Wrong ratio or uneven stretch distribution; loop twisted on loading; layer control lost | ST06 cameras and contact checks before sewing; symmetry check after release (WP requirement); ratio from F5 verified on the physical sample and after wash |
+| Spirality (side seams twisting after wash) | Yarn twist/knitting imbalance in the fabric | Fabric spec: spirality ≤ 5% [12]; AATCC TM179 at material qualification |
+| Oil stains | Lubricated machine heads | Dry-head / semi-dry-head machines (JUKI MF-7900D) [71]; camera at ST07 |
+| Open seams / unravelled chain | Chain cut too short, no back-tack on chain stitches | Chain-off length control, latch-back or tack where required |
+
+Labelling for the tee: a main (brand/size) label at the inside back neck, sewn with 301 under the back-neck tape; a care/content label at the wearer's left side seam about 10 cm above the hem [1]. US content: fibre content (generic names, % by weight), manufacturer/importer identity (name or RN), country of origin on the front of the label [66] [67]; care instructions per 16 CFR 423 with a reasonable basis (wash testing or industry evidence) [65]; EU: fibre names/percentages per Regulation 1007/2011 in the language of the market [68]; care symbols per ISO 3758:2023 [69] (GINETEX symbols are trademarked in some markets; licensing not researched here). Size designation per ISO 8559-2:2025 where exported [39].
+
+### F8. Sewing machine application data relevant to the tee (prices: see R04)
+
+| Vendor | Model / part number | Key specs | Price (currency, date, basis) | Lead time | CAD available? | Source URL |
+|---|---|---|---|---|---|---|
+| JUKI | MF-7900 / MF-7900D series cylinder-bed top-and-bottom coverstitch; subclasses U11 universal, H22 (light) / H23 (medium) hemming with left-hand fabric trimmer, H24/H25 extra light, E11 elastic; MF-7900DRH24 digital top feed | ISO 406/407/602/605; max 6,500 st/min (U11), 5,000–6,000 on hemming subclasses; stitch length 0.9–3.6 mm; differential 1:0.9–1:1.8 (1:0.6–1:1.1 by link change) with micro-adjustment; needle gauge 3.2/4.0/4.8 mm (2-needle), 5.6/6.4 mm (3-needle); presser lift 5 mm (8 mm bottom-cover); needle UY128GAS #9–#12; head 41–51 kg; single-phase 100–240 V, 500 VA with trimmer; air 0.5 MPa; silicone needle cooler; "best suited to hemming of sleeves and bottoms of T-shirts" | Not published; request quote (R04) | Stock at JUKI distributors | Not published by JUKI; 2D drawings in instruction manual; ask distributor for STEP | https://www.juki.co.jp/industrial_j/download_j/manual_j/mf7900/menu/mf_7900/pdf/instruction_eg.pdf ; https://www.juki.co.jp/industrial_e/admin/pdata/filedata/363/mf7900.pdf ; https://juki.com/mf-7900-h22-series ; https://www.juki.co.jp/industrial_e/products_e/apparel_e/cover_e/detail.php?cd=MF-7900D_H24_H25_E |
+| JUKI (JTRON) | JTR-MF7923/BHA bottom hemming automat (MF7923DH23/DH25 head, servo edge trimmer, stacker) | Capacity 2,400–3,000 pcs per 9 h with one operator and one machine, 4,500–5,000 pcs per 9 h with one operator and two machines; air 0.45–0.7 MPa, 23 L/min; reseller: ~1,500 tees per 8 h, hem width 17–30 mm, up to 5,000 st/min, hemmed tube diameter 40–70 cm, start/finish at side seam, thread-break sensor, counter, 230 V | Not published; request quote | — | No | https://www.juki.co.jp/industrial_j/download_j/manual_j/jtr_mf7923bha/menu/pdf/instruction_eg.pdf ; https://impall.eu/product/j-tron-jtr-mf7923-bha/ |
+| Pegasus | M952-A-52 (M900neo), 2-needle 4-thread overlock, bottom feed; M952-A-13 variant with tape-attaching presser foot | 7,000 st/min; needle space 2 mm; overedge width 4 mm; light to medium fabrics; push-button stitch length; lever differential; fully automatic lubrication | Not published; request quote | — | No | https://www.pegasus.co.jp/en/machine/detail/series/s106/M952-A-52 ; https://www.pegasus.co.jp/en/machine/detail/option/TK/M952-A-13 |
+| JUKI | MO-6700DA series overlock / safety stitch | Stitch length 0.8–4 mm (1.5–4 mm on some subclasses), push-button adjustment | Not published; request quote | — | No | https://www.juki.co.jp/industrial_e/products_e/apparel_e/overlock_e/detail.php?cd=MO-6700DA_E |
+| JUKI with Pegasus | M900/DJ overlock developed in alliance with Pegasus | JUKI control on Pegasus stitch-forming mechanism | Not published | — | No | https://www.juki.co.jp/en/business/industrial |
+
+### F9. Takt-time budget per station implied by 100 shirts per 12-hour shift
+
+Arithmetic (white paper §Output arithmetic, reproduced and extended):
+- Shift H = 12 h = 720 min. Gross average interval for 100 accepted shirts = 720 / 100 = 7.20 min = 7 min 12 s.
+- With the white paper's factors, availability A = 0.80 and acceptable yield Y = 0.95: running completion interval c = H × A × Y / G = 720 × 0.80 × 0.95 / 100 = 5.472 min = 5 min 28 s per attempt. Equivalent: 100 / 0.95 = 105.3 attempts in 576 productive minutes.
+- For the higher scenarios: 200 shirts → c = 2.74 min; 300 → 1.82 min; 500 → 1.09 min (same formula; matches the white paper's table to the second).
+- Rule from the white paper: for every resource, total active occupancy per garment (including repeated visits, load/unload and setup) divided by the number of parallel copies must be ≤ c. The largest such occupancy is a lower bound on c.
+- Consequence: the human SAM for a tee (6.5–8.5 min, F1) exceeds c = 5.47 min. A single manipulator reproducing all human handling at human speed cannot meet the base target; the cell must either pipeline (several shirts in process at once, each station ≤ 5.47 min) and keep the shared manipulator's per-shirt occupancy under 5.47 min, or add station-local loading automation. Lead time per shirt may be 15–25 min while the output interval is 5.47 min.
+
+Table F9-A. Budget allocation per station (minutes per shirt; "est. occupancy" is this report's engineering estimate from seam lengths, machine speeds and assumed handling times, labelled est.; "budget" is the proposed design limit leaving ~15–20% reserve against c = 5.47).
+
+| Station | Work content per shirt | Est. occupancy (min) | Budget (min) | Basis and notes |
+|---|---|---|---|---|
+| ST01 Roll handling, unwind, edge guide, feed | Advance ≈ 0.75 m of 180 cm open-width fabric per shirt (1.15 m² ÷ 0.85 ÷ 1.80 m); relaxation done offline 24 h [21][22] or 6–8 h steam [20] | 0.2–0.5 | 0.5 | Overlaps cutting; roll change (every ~55–65 shirts at 20–25 kg rolls, est.) must fit in the A = 0.80 allowance |
+| ST02 Single-ply knife cutting, piece ID | Cut perimeter ≈ 9 m per shirt (front ≈ 2.8 m, back ≈ 2.8 m, two sleeves ≈ 2.4 m, rib strip ≈ 1.0 m, est.); at 0.3–0.5 m/s effective plus registration and conveyor index | 0.8–1.2 | 1.5 | Cutter speed data in R02; the number is an estimate |
+| ST03 Extraction and buffer | 5 piece pick-ups at 10–15 s plus scrap skeleton removal 15–30 s | 1.1–1.8 | 2.0 | Separate from the ST04 arm if ST04 is the bottleneck |
+| ST04 Manipulation (shared gantry/arm) | Transfers and alignments: front+back to shoulder station (≈40 s), body to collar (≈20 s), rib strip to ST06 (≈15 s), two sleeves placed and aligned (≈80 s), body to side-seam station with two fold/align cycles (≈50 s), hem loading (≈65 s), to finishing (≈15 s) | ≈4.8 (est.) | 4.5 | Bottleneck candidate with ST06. Reduce by flat-hemming sleeves before set-in (saves two tubular loads), by station-local fixtures that self-load hems (cf. JTR-MF7923/BHA at 0.18–0.22 min per hem with human loading [73]), or by a second arm |
+| ST05 Overlock head (504/514) | Seam length ≈ 2.9 m (shoulders 0.32 m with tape, sleeves 1.0 m, sides+underarm 1.54 m; rib attach 0.5 m counted at ST06); at 2.0 mm stitch and 3,500 st/min effective ≈ 0.4 min needle time, ×3 for curves, starts, chain-off ≈ 1.3 min, plus 4 load/unload cycles ≈ 1.3 min | ≈2.6 | 3.5 | Rated speeds 6,000–7,000 st/min [98][76]; effective speed on curves is far lower |
+| ST05 Coverstitch head (406/602) | Hems ≈ 1.94 m (two sleeve openings 2 × 0.42 m, bottom 1.10 m); ≈0.3 min needle time at 3,000 st/min effective, ×2.5 for tubular loading and overlap ≈ 0.8 min, plus 3 loads ≈ 1.25 min | ≈2.1 | 3.0 | MF-7900 hemming subclass data [70][71] |
+| ST05 Lockstitch head (301) | Rib ends join 0.07 m, main label 0.08 m, care label 0.06 m; ≈0.25 min sewing plus 3 loads | ≈1.0 | 1.5 | Could be merged into ST06 (rib ends) and ST07 (labels) |
+| ST06 Collar module (rib attach with split support and differential feed) | Cut/receive strip, join ends, fold, form loop, present with quartering, sew 0.5 m at reduced speed, back-neck tape/topstitch 0.55 m, release and check | ≈2.3 (est.) ; white paper illustration 5.0 | 5.0 | Single module acceptable only if measured occupancy ≤ 5.0; the white paper shows that a 5-min module caps the cell at ~109 shirts, and two modules at ~219 |
+| ST07 Finishing, inspection, output | Thread trim (auto-trimmers reduce), turn if needed, camera inspection and measurement, fold, bag, label | ≈1.3 | 2.0 | Inspection time depends on the vision plan (R10/R11) |
+| ST08 Optional decoration | Not in the base takt; DTG print and cure alone is 2–4 min per shirt (est.) | — | 0 in base | Needs its own parallel path if included |
+| Sum (lead time if sequential) | | ≈16–18 min | | Output interval 5.47 min requires ~3–4 shirts in process concurrently |
+
+Checks against the targets: every single-station estimate is below 5.47 min, so 100 shirts/shift is arithmetically feasible with pipelining, with ST04 (≈4.8 min, est.) and ST06 (unmeasured) as the two resources to measure first. For 200 shirts/shift (c = 2.74) ST04, ST05-overlock and ST06 all exceed c, so that scenario needs at least two manipulators, two overlock paths and two collar modules, as the white paper already anticipates. For 300 (c = 1.82) nearly every station must be duplicated or redesigned.
+
+Yield sensitivity: at Y = 0.90 instead of 0.95, c = 5.18 min; at A = 0.70, c = 4.79 min. The budget column leaves ~15–20% headroom so that these cases remain feasible for all stations except ST04/ST06 at their estimates.
+

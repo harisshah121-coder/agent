@@ -157,3 +157,230 @@ Bill-of-materials sketch for a custom 8-needle head (order-of-magnitude est., un
 | Zimmer Group | HWR2000 / HWR manual, WWR1000 and WPR5000 pneumatic, WMR2000 magnetic, FWR automatic (no actuator) tool changers with energy elements for pneumatics, vacuum, signals, IO-Link; storage stations | Family overview | Price not published | Quote | Zimmer product pages (CAD after login) | https://www.zimmer-group.com/en-us/products/components/robotics/tool-changer |
 | Schunk | SWS / SWK-SWA quick-change system | No verified vendor price found (only grey-market listings); request quote | Quote | Quote | Schunk site (CAD) | https://www.accio.com/plp/schunk-sws (grey-market listing; not a source for pricing) |
 | RobotFactory | Gripper quick-connector on Robot PortaTable 130 | Vendor-specific | — | — | — | https://robotfactory.dk/portatable-130 |
+
+### F11. Addendum: the three most relevant 2022–2026 papers, read in full
+
+| Name | Version or date | License | Maturity (stars, last release) | Fit for this project | Source URL |
+|---|---|---|---|---|---|
+| TCAM / RMC2 champion system, WBCD 2026 Track 4 (TermiTech, Shenzhen) | arXiv 2608.10718, 2026-08-11 | Technical report | Competition winner (ICRA WBCD 2026) | Task = pick exactly one T-shirt from a stack, load on a print pallet, align collar, smooth. Hardware: dual-arm ARX X5; custom 3D-printed gripper with (1) hard, non-padded fingertips, (2) hook-side Velcro on one jaw to flip open the top layer, (3) inward-angled tips for retention; four wrist cameras per system: upper fisheye 1920 × 1080 for context and lower RGB 320 × 240 for close-range gripper–cloth contact ("improved top-layer picking and reduced double-picking"). Result: 25 T-shirts in the 30-minute session, 22 smooth, ≈23 s per attempt. Failure modes: missed top-edge grasp, double-picking, garment loss in transport, collar misalignment, wrinkles. Direct template for our ST04 edge gripper and for the "contact camera" idea | https://www.alphaxiv.org/abs/2608.10718 |
+| Learning to Singulate Layers of Cloth using Tactile Feedback (CMU: Tirumala, Weng, Seita, Kroemer, Temel, Held) | arXiv 2207.11196, 2022-07 | Paper, code/data public | 9 votes | ReSkin magnetometer skin (15-D at up to 400 Hz) on one fingertip of a mini-Delta gripper on a Franka; kNN classifier on single readings distinguishes 0/1/2/3 layers; feedback policy adjusts grasp height ±2 mm; single-layer grasp 10/10 on the training towel, 8/10 and 7/10 on unseen cloths versus 3/10 and 2/10 for an image classifier; gripper approaches the stack edge from the side at 30°; cloths were 3–5 mm towels (thicker than jersey). Evidence that a cheap tactile pad counts layers better than a camera | https://www.alphaxiv.org/abs/2207.11196 |
+| Design and Experimental Study of Vacuum Suction Grabbing Technology to Grasp Fabric Piece (Kong, Liu, Kong; CityU HK / GTIIT / HKUST) | arXiv 2408.09504, 2024-08 | Paper | 0 votes | Vacuum pick of single woven pocket pieces (26 × 19 to 30 × 36 cm) for a welting machine: Northmind CV-15HS ejector (−92 kPa, 63 l/min, Ø1.5 mm nozzle), Ø2 mm cups, theoretical holding force of a 2.5 g piece 0.148 N, net −55 kPa at the cups after line losses, 6–12 cups per piece, all 12 test lots passed single-layer pick-up. States explicitly that vacuum suits air-impermeable wovens, that on permeable textiles "vacuum engages the fabric piece below the uppermost", and that knits stretch across the width and are less suited; cites Cubric 2012 (vacuum not suitable for taking one layer from a bundle) and Ebraheem 2021 (needle grippers damage non-porous materials and risk picking several layers; pinch + vacuum combination works for all soft fabrics) | https://www.alphaxiv.org/abs/2408.09504 |
+| FlingBot (Columbia, 2021) and Cloth Funnels real-world hardware | CoRL 2021; ICRA 2023 | Papers, code public | — | FlingBot: two UR5, one with a Schunk WSG50 and one with an OnRobot RG2, 1.35 m apart, RealSense D415; "grasping failures... constituted all of our real-world pipeline failure cases". Cloth Funnels used Google-donated UR5 hardware (gripper not named in the paper text retrieved; unverified). A 2025 follow-up (APS-Net) uses two UR5 with Robotiq 2F-85, Azure Kinect + RealSense D455 | https://arxiv.org/html/2105.03655v3 ; https://clothfunnels.cs.columbia.edu/ ; https://arxiv.org/pdf/2506.22769 |
+
+## Recommendation for this project
+
+The cell's architecture makes the gripper problem tractable: ST02 delivers plies that are already single, flat, located and identified on a bed, so ST03 only has to lift one known ply and ST04 only has to re-grip edges of known plies. Every research system reviewed fails exactly where we never have to go (separating a layer from a stack). The toolbox below is sized for a premium cotton single-jersey T-shirt (front, back, two sleeves, rib neckband) and for 100 garments per 12-hour shift, i.e. about 5–6 picks per minute at the busiest station (est.).
+
+Gripper toolbox (all tools on one tool-changer standard; tool IDs are provisional for this report and must be registered in the spine before use):
+
+| Tool | Selected | Alternates | Reasoning | Main risk |
+|---|---|---|---|---|
+| T1 Wide needle bar for body panels and sleeves (ST03 pick-off-bed, ST04 transfer) | Custom aluminium-profile bar (≈600 mm, est.) carrying 4–6 Schmalz SNG-M 4 0.8 heads (3 mm fixed stroke, 80 g each, spring return) on BEF-PL plates, plus an integral EXAIR 6 in Super Air Knife nose (USD 627 kit) for edge control and blow-off; one 5/2 valve per head group | (a) FIPA GR04.700 heads (0–2 mm knurled stroke, built-in blow-off) where a smaller penetration is needed; (b) Schmalz SNG-V 6 0.8 V-S-5 where variable stroke is wanted; (c) Schmalz FXP-60 / FMP-60 442 mm foam area gripper with SVK check valves as a non-piercing fallback | Needle heads are the only catalogue technology that grips air-permeable knit independent of porosity, hold all the ply during fast moves, and release cleanly with blow-off; multiple small heads spread the load and let a ply be gripped at nest-specific points; spring-return heads retract on air loss (fail-safe for sharps). Single ply on a bed means penetration only has to pass one fabric thickness | Needle marks or snagged loops in fine jersey (no published jersey data: must be tested); needle tips reaching the bed surface (3 mm stroke at 30° ≈ 1.5 mm vertical, est.) so the cutter bed must be bristle/felt or plies must be lifted on an air cushion first; price of Schmalz/FIPA heads is quote-only |
+| T2 Small needle head for rib strips and neckband (ST06 feed) | One Schmalz SNG-M 4 0.8 (or FIPA GR04.740B with piston-position sensor) on a 45° nose with a blow-off port | Zimmer SCH23-B (Ø3 mm needles; too coarse for jersey, keep for heavier trims); Festo DHAS-GF-60 fin-ray fingertips on a small parallel gripper for a non-piercing option | Rib strips are narrow (≈25–40 mm, est.) and stretchy; a 20 × 20 mm 4-needle head with ~1.5 mm penetration holds a strip end without crushing it, and the sensor variant confirms needles-out | Rib knit is more open than jersey, so needle marks are less visible but loop snagging more likely (test) |
+| T3 Pinch/edge gripper with tactile tip and contact camera (ST04 align at sewing heads) | Parallel-jaw gripper body (selected with the arm; not in this report's scope) with custom 3D-printed fingertips copied from WBCD 2026 (hard tips, inward angle, optional hook-Velcro flap) and SpeedFolding (printed teeth), one GelSight Mini (USD 510) or ReSkin pad on the lower tip, one RealSense D405 (USD 272) as wrist camera plus a 320 × 240 close-range RGB contact camera | DIGIT (USD 355) instead of GelSight Mini; Luxonis OAK-SR instead of D405; XELA uSPr pad (quote) | Every leading cloth system uses a simple parallel jaw plus fingertip engineering; tactile layer counting outperforms vision (CMU); the white paper asks for tactile checks exactly where they discriminate (hem vs folded layer) | Fabric sticking to the fingertip after release (Ghent failure mode); gel wear on GelSight Mini; policy still needs the jaw to reach under an edge (sponge or recessed table edge needed) |
+| T4 Vacuum pad for stabilising and short lifts of large areas (ST03 buffer, ST07) | Piab Kenos KCS 150 mm foam gripper with 1–2 COAX SX cartridges (quote; 0.94 kg; ISO flange) fed from a Festo OVEM-14-H-B-QO-CE-N-LK (IO-Link vacuum sensing, 8037696, quote) or the KCS's own cartridges | Schmalz FXP-60-SW70 442 (quote) for a long strip; OnRobot VGC10 (USD 3,917, electric, no air) for bench prototyping; Schmalz SBS 60 HF Bernoulli cups (18.5 N nominal) for lifting one edge off a stack | Foam/area grippers with check valves tolerate uncovered cells and some porosity; the 2024 HK study shows single-piece vacuum pick-up works at −55 kPa with 6–12 cups on wovens, which sets the test protocol for our knits | Porosity of jersey may halve the usable force (unverified); unintended pick-up of a second ply from a buffer stack (documented); vendor sample tests are needed before purchase |
+| T5 Driven-roller edge feeder (ST05/ST06 feeding, phase 2) | Custom build after RollUP / RoTipBot / Stanford roller-grasper designs: two rubber rollers (one driven) in a printed carriage with a ReSkin pad; not a 2026 catalogue item | Robotextile RTX Role gripper (rubber roller, quote; sold separately to machine builders) as a bought-in option after fabric trials | The white paper's "driven edge rollers" function has no catalogue product; the research designs are public and simple | Development time; must prove no marking on jersey |
+| Tool changer | ATI QC-11 (16 kg, 6× M5 air pass-through, 245 g coupled, 0.01 mm repeatability, free 3D CAD; add an A15/M8-011 electrical module or ME10 Ethernet module) with ATI tool stands | OnRobot Quick Changer (USD 713) if OnRobot tools dominate; ATI MC-10 manual changer for the prototype phase; Zimmer WWR1000/HWR2000 (quote) | Industrial pneumatic changer with no-touch locking is the standard for a gantry-mounted toolbox; 6 air ports are not enough for 5–6 needle heads plus vacuum and blow-off, so each tool carries its own small valve manifold and receives one air supply and one IO-Link line | Tool mass and moment add-up; module and stand costs are quote-only |
+| Vacuum generation and sensing | Festo OVEM-14 -LK per vacuum tool (IO-Link, integrated sensor, ejector pulse); SMC ZSE20 (USD 70) or Schmalz VSi (quote) where a separate switch is needed | Piab piCOMPACT 23 SMART (IO-Link, energy saving, quote); SMC ZK2 (89 l/min, RS price) as budget option | Ejectors with integrated IO-Link sensors give the "part present / vacuum achieved" signals the handoff logic needs without extra parts | Air consumption of area grippers (250 l/min per 442 mm FXP) must be added to the cell's compressor sizing (R07) |
+| Deferred | Electroadhesion (Grabit bankrupt 2019–2020; no product); soft food grippers (mGrip, DHEF) | — | No purchasable fabric-grade electroadhesion in 2026; soft form-fit grippers are for 3D objects, not plies | Re-check yearly; HKRITA and SRI remain the research/licensing contacts |
+
+Budget reading against the white paper's "Part extraction, grippers and buffer" line (USD 5,000 / 8,000 / 14,000): T1 and T2 built from 6–8 catalogue needle heads on custom bars fit the optimised case only if quoted needle heads land in the low hundreds of USD each (est.; quotes outstanding); T4 as a Piab KCS or Schmalz FXP-60 plus an OVEM ejector is the next cost block; a single OnRobot VG10 (USD 6,203–7,689) or an FXP 130 mm system would consume most of the optimised line on its own, so the electric cobot vacuum grippers are for bench prototyping, not the production toolbox.
+
+## Integration notes
+
+Mechanical
+- Interface standard: ISO 9409-1-50-4-M6 flange pattern on the ATI QC-11 tool plates (ATI "Euro" variants) so that OnRobot/Robotiq/Piab KCS tools (all ISO-flanged) and our custom bars share one master plate; ATI publishes STEP for master and tool plates. [S-ATI]
+- Needle heads: Schmalz SNG-M/SNG-V mount on a 20 × 20 mm M4 pattern (X1 = Y1 = 20 mm) or via the BEF-PL 31x34x11.5 G1/4-IG plate (10.01.29.00093); FIPA GR04.740B clamps on a Ø14 mm shank; Zimmer SCH23-B mounts through its slotted stroke adjuster. Use 20 × 20 or 30 × 30 aluminium profile for the T1 bar so head spacing can follow the nest. Keep each tool under 2 kg so the arm payload is left for the ply and for acceleration (SNG-M 80 g, SNG-V 265 g, KCS 0.76–0.94 kg, VGC10 0.814 kg, VG10 1.62 kg, D405 60 g).
+- Needle geometry on the bed: at 30° plunge angle a 3 mm stroke gives ≈1.5 mm vertical penetration (est.); single jersey is roughly 0.5–0.9 mm thick (est.), so tips will reach the bed surface. Either specify a bristle/felt cutter bed (coordinate with R01), lift the ply on an air cushion/vacuum release first, or use the FIPA GR04.700 0–2 mm adjustable head.
+- Fingertips for T3: print in PA-CF or ASA on an enclosed printer (Bambu P1S USD 399; Prusa CORE One+ USD 1,299); keep a tactile pad recess and a hook-Velcro flap as in the WBCD 2026 design.
+
+Pneumatic
+- Operating pressures: SNG-M 4–6 bar (single line, spring return); SNG-V 3–7 bar and FIPA GR04 2–8 bar (double-acting, two lines, FIPA GR04.700 adds a blow-off port); Zimmer SCH23-B 4–8 bar (5 cm³/cycle). M5 ports, 4 mm PU tube. Each tool carries a small valve manifold (one 5/2 valve per head group, one 3/2 for blow-off) so that only one 6 mm supply line crosses the tool changer. [S1][S9][S10]
+- Vacuum: OVEM-14 (QS-6/8 fittings, 2–8 bar, 50.5 l/min suction) per vacuum tool, or the Piab KCS's integrated COAX SX cartridges; Schmalz FXP requires a 12/9 mm air hose and draws 250 l/min at nominal pressure per 442 mm unit; the FMP variant takes an external blower for high-flow porous work. Add these flows to the compressor sizing in R07.
+- Air knife: EXAIR Super Air Knife needs a filter/regulator (included in the kit) and an electronic flow control or valve so it only blows during edge lifts.
+
+Electrical
+- 24 V DC throughout; IO-Link Class A for OVEM-LK, Schmalz VSi, Pepperl+Fuchs UDC-18GS; Class B for the electric Schmalz SNGi-AE; M8/M12 connectors. Needle state feedback: FIPA GR04.202P/280P piston-position sensors or Zimmer MFS02-K magnetic field sensors; Schmalz SNG-M/SNG-V have no sensor option in the pages reviewed (use a pressure switch on the extend line, est.).
+- OnRobot VGC10/VG10 need 24 V, up to 1.5 A, via the OnRobot Compute Box or a robot tool flange; Robotiq EPick needs its coupling and URCap (cobot-oriented); neither is a natural fit for a PLC-driven gantry, which is another reason to prefer pneumatic tools with IO-Link ejectors.
+- Pass the IO-Link line and 24 V through an ATI electrical module (A15 or M8-011) or run industrial Ethernet through the ME10 module when the tool carries a camera.
+
+Data and control
+- Gripper state (needles out/in, vacuum level, part present, blow-off done) comes from IO-Link devices into the ST09 PLC and from there to M09; this is the "qualified handling state" the white paper requires before a source releases a ply. Safety: grippers are not safety functions; on e-stop, spring-return heads retract and drop the ply (acceptable), double-acting heads hold position (so no needles are left extended in free space only if the extend line is vented by the safety valve: design this in R05).
+- Sensors on the edge PC (ST10), not the PLC: RealSense D405 (USB 3, RealSense SDK 2.0, open source), the close-range contact camera, GelSight Mini (USB, ROS/ROS2 and PyTouch drivers), ReSkin (microcontroller board, 400 Hz). The CMU layer classifier is a kNN on 15 values and can run on the PLC side if the ReSkin board streams over serial.
+- Double-ply check: P+F UDC-18GS IO-Link at the buffer hand-off gives single/double/air as three bits; its 20–60 mm gap must be built into the buffer edge.
+
+Cables, mounts, consumables
+- Spare needle kits (Schmalz ERS SNG-M 4 0.8 10.01.29.00094; FIPA 4- and 10-needle sets), replacement foam for KCS/FXP, GelSight gels (reformulated 2025), DIGIT gel cartridges (USD 42). Drag chain on the gantry for 6 mm air, M12 IO-Link and USB 3 (active cable above 3 m). ATI tool stands for the toolbox.
+
+## Conflicts with the white paper
+
+- The white paper's "Selection of handling mechanisms" table (lines 721–755) lists pinch grippers, vacuum/distributed suction, rolling support, opening/segmented carriers, driven edge rollers and a movable garment cradle, but never names needle grippers, which are the textile industry's default mechanism for air-permeable knits (Schmalz, FIPA, Zimmer, Robotextile RTX Needle all position them for textiles). This is a gap in the comparison agenda rather than a contradiction; the table should add needle gripping with its stated limitation (puncture marks, bed contact).
+- The white paper's cost line "Part extraction, grippers and buffer USD 5,000 / 8,000 / 14,000" (line 1963) is achievable only with catalogue needle heads on custom bars and one small vacuum pad; the vendor-integrated alternatives (OnRobot VG10 USD 6,203–7,689, Schmalz FXP 130 mm systems, Robotextile cells from EUR 1,500 per month) each exceed or absorb the optimised line. Not a contradiction, but the budget assumes the custom-bar route.
+- The white paper states (line 759) that RollUP and visuotactile work provide precedent but "neither supplies an unrestricted gripper for the proposed garment range"; this research confirms it and adds that no 2026 vendor does either: Robotextile and RobotFactory sell stack-destacking and kitting grippers, not sewing-station edge grippers.
+- No contradiction found on vacuum hold-down, tactile checks or the handoff logic; the CMU and WBCD results support the white paper's position that tactile/contact observation should be used where it discriminates.
+
+## Open questions and unknowns
+
+1. Needle marks on our jersey: unknown. Cheapest check: buy one Schmalz SNG-M 4 0.8 and one FIPA GR04.700 (quotes), run 1,000 pick cycles on 160–200 g/m² cotton single jersey at 1.5 mm and 2 mm penetration, inspect before and after one wash.
+2. Cutter bed compatibility with needle tips: unknown until R01 fixes the bed type (bristle/felt vs belt). Ask the cutter vendor; if belt, use the 0–2 mm FIPA head or lift-first.
+3. Ultrasonic double-sheet detection on knit: unverified. Buy one P+F UDC-18GS-3EP-IO (USD 505) and test 0/1/2 plies of jersey at 45 mm gap; if it fails, fall back to the tactile classifier or vacuum-level signature.
+4. Foam/area vacuum force on jersey: unknown. Send fabric samples to Piab (Kenos offers sample tests) and Schmalz for KCS/FXP-60 SVK trials; ask for measured holding force at −30/−50 kPa.
+5. Robotextile gripper-only purchase price and knit performance: unknown; they require original fabric stacks before a binding offer. Send samples and ask for RTX Role and RTX Airstream AGA quotes.
+6. All Schmalz, FIPA, Zimmer, Festo, Piab, ATI and Zimmer prices: login/quote only. Open business accounts and request quotes for the specific part numbers listed in F1–F10.
+7. Digit 360 availability and price in 2026: unverified (announced for "next year" in Oct 2024). Ask GelSight.
+8. Cloth Funnels' actual gripper: unverified (paper text does not name it); minor.
+9. Tool-changer pass-through: whether the QC-11's 6 M5 ports plus one electrical module suffice once each tool has its own manifold; confirm with ATI's configurator before ordering stands and modules.
+10. Baumer double-sheet sensors: not found; confirm with Baumer whether a product exists (low priority since P+F and SICK cover the need).
+11. Throughput: per-pick cycle times for needle heads (0.2 s extend/retract on Zimmer SCH23-B; Schmalz "minimized cycle times" without figures) are compatible with 5–6 picks per minute (est.), but the arm/gantry motion, not the gripper, will set the takt; confirm in the takt registry.
+
+## Sources
+
+1. Schmalz needle grippers SNG-V family page (India site; specs, part numbers): https://www.schmalz.com/en-in/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/needle-grippers-sng-v-306144
+2. Schmalz SNG-V 10 1.2 V-7 article page (dimensions, 265 g, live CAD): https://www.schmalz.com/en-se/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/needle-grippers-sng-v-306144/10.01.29.00176
+3. Schmalz SNG-V family (DE site, variants): https://www.schmalz.com/en-de/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/needle-grippers-sng-v-306144
+4. Schmalz SNG-M datasheet (2026-08-05): https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Produktfamilie/0_/038/03853/c2c2f30218d3_Datasheet_Needle%20Grippers%20SNG-M_en-EN.pdf
+5. Schmalz SNG-M 4 0.8 article page (80 g, spares, mounting plate): https://www.schmalz.com/en-us/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/needle-grippers-sng-m-306152/10.01.29.00001
+6. Schmalz needle gripper overview (SNG-AP, SNGi-AE, SNG-BV families): https://www.schmalz.com/en/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131
+7. Schmalz SNGi-AE 10 1.2 V 10 IOL electric needle gripper: https://www.schmalz.co.jp/en-jp/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/electric-needle-grippers-sngi-ae-306138/10.01.29.00396
+8. Schmalz needle gripper know-how page: https://www.schmalz.com/en/support/know-how/vacuum-knowledge/the-vacuum-system-and-its-components/special-grippers/needle-grippers
+9. FIPA GR04.700 / GR04.730 (0–2 mm, textile thickness adjustment): https://fipa.com/en-DE/variant/needle-gripper-gr04-700-and-gr04-730
+10. FIPA GR04.740B (0–3 mm, sensor option, CAD login): https://fipa.com/en-XK/product/gr04-740b
+11. FIPA GR04.725-60V: https://fipa.com/en-US/variant/gr04-725-60v
+12. FIPA GR04.711: https://fipa.com/en-BY/product/needle-grippers-gr04-711
+13. FIPA GR04.720 spring-loaded: https://www.fipa.com/en-US/product/needle-gripper-with-spring-load-gr04-720
+14. Zimmer SCH23-B needle gripper: https://www.zimmer-group.com/en-us/products/components/handling-technology/grippers-for-special-tasks/series-sch/products/sch23-b
+15. Zimmer handling technology overview (ST series): https://www.zimmer-group.com/en-us/products/components/handling-technology
+16. Zimmer Group history (Sommer-automatic merger): https://www.zimmer-group.com/en/company/history
+17. PitchBook Sommer Automatic (acquired by Zimmer 2013-08-28): https://pitchbook.com/profiles/company/65921-50
+18. EMI 3542 ASS NGR needle gripper: https://www.emicorp.com/ngr-12-d-3542-ass-ngr-aluminum-needle-gripper
+19. CRG needle grippers: https://crgeoat.com/needle-grippers.html
+20. softroboticgripper.com needle gripper (single-layer needle length adjustment): https://www.softroboticgripper.com/0needle-gripper/needle-gripper
+21. textile network, grippers for textile substrates (puncture marks): https://textile-network.com/en/Technical-Textiles/Technologien/Mobile-robots-and-grippers-for-textile-substrates
+22. Composite layer handling review (needle damage, 20–40° angle, layer behaviour): https://www.tandfonline.com/doi/full/10.1080/20550340.2020.1750329
+23. Systematic review of gripper technologies for fabric parts (PMC 2024): https://pmc.ncbi.nlm.nih.gov/articles/PMC11617252
+24. Schmalz FXP datasheet (2026-07): https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Produktfamilie/0_/052/05270/883ad71786fe_Datasheet_Area%20Gripping%20Systems%20FXP_en-EN.pdf
+25. Schmalz FMP datasheet (2026-07): https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Produktfamilie/0_/052/05269/32b70cbf3db8_Datasheet_Area%20Gripping%20Systems%20FMP_en-EN.pdf
+26. Schmalz FXP-S-SVK 442 3R18 O20 article datasheet (2026-10-13): https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Artikel/1/100/10013800876/97f246051f72_Datasheet_Article_10.01.38.00876_en-EN.pdf
+27. Schmalz FXP-60/FMP-60 page: https://www.schmalz.com/en-au/products/automation-743270/vacuum-grippers-746238/gripping-systems-and-end-of-arm-tooling-eoat-746240/vacuum-area-gripping-system-fxp-fmp-306396/area-gripping-systems-fxp-60fmp-60-368640
+28. Schmalz FXP/FMP accessories datasheet (2022): https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Produktfamilie/0_/056/05612/54656f508905_Datasheet_Accessoires%20FXPFMP_en-EN.pdf
+29. Piab Kenos KCS product page: https://www.piab.com/en-us/kenos-vacuum-gripping-systems/collaborative-grippers-by-kenos/kcs-cobot-gripper/kenos--kcs
+30. Piab Kenos KCS brochure (dimensions, weights, force table): https://5549d467-92ee-443d-8a5e-5699ea6b0705.filesusr.com/ugd/6f47bd_71c50ab8ad5e4de3bbad62ecfcea84cc.pdf
+31. Piab Kenos KCS on UR Marketplace (dimensions, air dependency): https://www.universal-robots.com/marketplace/products/01tP40000071NYOIA2
+32. Piab Kenos foam gripper manual (sample tests offered): https://www.piab.com/globalassets/productimages/0244275_rev01_foam_gripper_kenos_en.pdf
+33. OnRobot VGC10 product page (STEP download): https://onrobot.com/en/products/vgc10-vacuum-gripper
+34. OnRobot VGC10 datasheet v1.7: https://onrobot.com/storage/datasheets/vgc10/datasheet_vgc10_v1.7_en.pdf
+35. OnRobot VG10 datasheet v2.6: https://onrobot.com/storage/datasheets/vg10/datasheet_vg10_v2.6_en.pdf
+36. Machine Tool Products VGC10 price USD 3,917: https://www.machinetoolproducts.com/onrobot-vgc10-compact-customizable-electrical-vacuum-gripper-up-to-15kg-payload
+37. Machine Tool Products VG10 price USD 6,203: https://www.machinetoolproducts.com/onrobot-vg10-flexible-adjustable-electric-vacuum-gripper-up-to-15kg-payload
+38. EMI VG10 price USD 7,689: https://www.emicorp.com/or-101661-8210-onrobot-vg10-vacuum-gripper
+39. Robotiq vacuum grippers page (EPick 0.71 kg, 12 l/min, 16 kg max): https://robotiq.com/products/vacuum-grippers
+40. Robotiq vacuum grippers one-pager (03-2025): https://robotiq.com/hubfs/Product-sheets/Vacuum%20Grippers/ROBOTIQ_One_Pager_Vacuum_Grippers_10_2024_EN_V3.pdf
+41. Unchained Robotics EPick EUR 4,125–4,655 excl. VAT: https://unchainedrobotics.de/en/products/end-of-arm-effectors/grippers/vacuum-grippers/robotiq-epick
+42. Robotics Center EPick USD 4,700 (backorder, 4–6 weeks): https://www.roboticscenter.ai/store/product/robotiq-epick-vacuum-gripper
+43. Schmalz SBS Bernoulli datasheet (2026-10-08): https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Produktfamilie/0_/001/00130/9aef609ba456_Datasheet_Floating%20Suction%20Cups%20SBS_en-EN.pdf
+44. Schmalz SBS product page (performance tables): https://www.schmalz.com/en-cz/products/automation-743270/vacuum-grippers-746238/bernoulli-grippers-746239/floating-suction-cups-sbs-306036
+45. Schmalz SBS Thin datasheet: https://media.schmalz.com/MAM_Library/Dokumente/Datenblatt_Produktfamilie/0_/059/05970/c9f90fc205b2_Datasheet_Floating%20Suction%20Cups%20SBS%20Thin_en-EN.pdf
+46. Festo OVEM product page 539074 (technical data, IO-Link): https://www.festo.com/us/en/a/539074
+47. Festo OVEM catalogue (2025/10): https://www.festo.com/media/catalog/203487_documentation.pdf
+48. Festo OVEM-...-LK manual (2025-08): https://docs.rs-online.com/d984/A700000015860036.pdf
+49. Festo OVEM-14-H-B-QO-CE-N-LK 8037696 (login price, CAD after registration): https://www.festo.com/us/en/a/8037696
+50. RS South Africa OVEM-14-H-B-QO-OE-N-2N listing (ZAR 17,751.09 ex VAT, indicative, 2026-05): https://za.rs-online.com/web/p/vacuum-generators/2039891
+51. RS Philippines SMC ZK2A15K5RWA-08 listing: https://ph.rs-online.com/web/p/vacuum-generators/2043340
+52. SMC ejector specifications page: https://www.smcworld.com/products/pickup/en-ae/vacuum_device/ejector_specifications
+53. Piab piCOMPACT 23 SMART product page: https://www.piab.com/en-us/vacuum-pumps-and-ejectors/compact-and-stackable-ejectors/picompact23-smart
+54. Piab piCOMPACT 23 SMART manual (performance table): https://www.piab.com/globalassets/productimages/0211725_rev09_manual_picompact23-smart-standard_1channel_en-gb.pdf
+55. SMC ZSE20-N-01-L USD 70: https://www.smcpneumatics.com/ZSE20-N-01-L.html
+56. Schmalz VSi vacuum switches: https://www.schmalz.com/en/products/automation-743270/switches-and-system-monitoring-308804/electronic-vacuum-and-pressure-switches-308827/vacuum-and-pressure-switches-vsi-308828
+57. EXAIR price list 1 July 2026: https://www.exair.com/media/exairpricelist.pdf
+58. EXAIR Super Air Knife page: https://www.exair.com/air-knife.html
+59. Grabit Chapter 11 first-day declaration (2019-12-18): https://storage.courtlistener.com/recap/gov.uscourts.deb.179348/gov.uscourts.deb.179348.4.0_1.pdf
+60. PacerMonitor Grabit case summary (plan confirmed 2020-04-01, terminated 2020-07-29): http://pacermonitor.com/public/case/31459518/Grabit%2C_Inc
+61. Craft.co Grabit profile (status Closed): https://craft.co/grabit
+62. PitchBook Grabit (latest deal type bankruptcy/reorg): https://pitchbook.com/profiles/company/57860-47
+63. The Robot Report on Grabit/Nike (2018, USD 100,000 robots): https://www.therobotreport.com/grabit-robots-make-nikes-faster-humans/
+64. Grabit products page (Stackit): https://grabitinc.com/products/
+65. Mergr Ascential/Grabit entry (unverified conflicting claim): https://mergr.com/transaction/ascential-technologies-acquires-grabit
+66. HKRITA compact electro-adhesion gripper project: https://www.hkrita.com/en/our-innovation-tech/projects/compact-electro-adhesion-gripper-fabric-handling
+67. Semantic Scholar: Monkman 1995 and 2021 electroadhesive fingers citation: https://www.semanticscholar.org/paper/Robot-Grippers-for-Use-With-Fibrous-Materials-Monkman/b844a668de0b1e57f383f45bf38c59a8717e6f29
+68. Schmalz news: takeover of mGrip from Soft Robotics (2024-08-06): https://www.schmalz.com/en-us/career-company/latest/news/portfolio-expanded-schmalz-takes-over-finger-gripper-from-soft-robotics-inc
+69. Oxipital AI press release (Soft Robotics rebrand): https://www.oxipitalai.com/oxipital-ai-press-release/
+70. Soft Robotics Inc. site (redirect notice): http://www.softroboticsinc.com
+71. Festo DHEF adaptive shape gripper: https://www.festo.com/us/en/p/adaptive-shape-gripper-id_DHEF
+72. Festo DHAS fin-ray fingers page: https://www.festo.com/us/en/p/adaptive-gripper-finger-id_DHAS_GF
+73. Festo DHAS datasheet (2024/06, part numbers, CAD): https://www.festo.com.cn/media/pim/049/D15000100122049.pdf
+74. RobotFactory Robot PortaTable 130 grippers (Pinch Gripper 3036): https://robotfactory.dk/portatable-130
+75. RobotFactory RPT 130 Textile Gripper article: https://robotfactory.dk/rpt-textile
+76. Robotextile products: https://robotextile.com/en/products
+77. Robotextile technology (gripping principles, KUKA SCARA cell): https://robotextile.com/en/technology/
+78. Robotextile home (rental from EUR 1,500/month): https://robotextile.com/en
+79. Robotextile RTX Needle: https://robotextile.com/en/rtx-needle
+80. RBTX partner page Robotextile (founded 2022, patented grippers): https://rbtx.com/en-US/partners/robotextile-gmbh
+81. Tracxn Robotextile (founded 2021, 5 staff): https://platform.tracxn.com/a/d/company/600b0a8f02ff71687e77d024/robotextile
+82. Monkman, Sensory integrated fabric ply separation, Robotica 1996: https://doi.org/core/journals/robotica/article/sensory-integrated-fabric-ply-separation/A77C36E7EDF8B2E817CB74760B4EB99E
+83. A Review of Gripping Devices for Fabric Handling (ResearchGate): https://www.researchgate.net/publication/256645552_A_Review_of_Gripping_Devices_for_Fabric_Handling
+84. Pepperl+Fuchs UDC-18GS-3EP-IO-0,2M-V19 (USD 505, specs): https://www.pepperl-fuchs.com/en-us/products-gp25581/102760
+85. Pepperl+Fuchs UDC-18GS-3EP1-IO-0,2M-V19: https://www.pepperl-fuchs.com/en-us/products-gp25581/117113
+86. Pepperl+Fuchs UDC-18GM-400-3E3 (10–2,000 g/m²): https://www.pepperl-fuchs.com/en/products-gp25581/28849
+87. SICK UD18 family overview (2025-05-05): https://www.sick.com/media/familyoverview/1/51/551/familyOverview_UD18_g355551_en.pdf
+88. SICK UD18-2 press release (20–2,000 g/m², 20–60 mm): https://www.sick.com/gb/en/sick-double-sheet-detector-saves-production-jams/w/press-UD18-2
+89. Kempston Controls UD18-22CC221 listing: https://www.kempstoncontrols.com/UD18-22CC221/Sick/sku/884187
+90. GelSight Mini System USD 510: https://www.gelsight.com/product/gelsight-mini-system
+91. GelSight Mini Robotics Package USD 560: https://www.gelsight.com/product/gelsight-mini-robotics-package/
+92. GelSight DIGIT USD 355: https://www.gelsight.com/product/digit-tactile-sensor/
+93. GelSight online store (DIGIT gel USD 42): https://www.gelsight.com/online-store/
+94. GelSight/Meta Digit 360 announcement (2024-10-31): https://www.gelsight.com/gelsight-and-meta-ai-introduce-digit-360-tactile-sensor
+95. XELA Robotics uSkin products: https://xelarobotics.com/products/
+96. XELA Robotics CES 2026 press release: https://xelarobotics.com/press-release/xela-robotics-unlocks-enhanced-automation-for-humanoid-and-industrial-robots/
+97. RealSense spin-out from Intel (2025-07-11): https://www.realsenseai.com/news-insights/news/realsense-completes-spin-out-from-intel-raises-50-million-to-accelerate-ai-powered-vision-for-robotics-and-biometrics
+98. RealSense D405 store page (USD 272, specs): https://store.realsenseai.com/buy-intel-realsense-depth-camera-d405.html
+99. RealSense D405 product page: https://www.realsenseai.com/products/stereo-depth-camera-d405/
+100. RealSense D400 datasheet rev 023 (March 2026): https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf
+101. DigiKey D405 listing (USD 278.75–288.75): https://www.digikey.com/en/product-highlight/i/intel-realsense/d405-depth-camera
+102. Hello Robot Stretch 4 (Luxonis OAK-SR wrist camera): https://forum.hello-robot.com/t/introducing-stretch-4/1505
+103. SpeedFolding arXiv abstract: https://arxiv.org/abs/2208.10552v2
+104. SpeedFolding HTML (gripper teeth, sponge, grasp procedure): https://arxiv.org/html/2208.10552v2
+105. UniFolding (CoRL 2023 PDF; AG-95 grippers, single-layer limitation): https://proceedings.mlr.press/v229/xue23b/xue23b.pdf
+106. UniFolding arXiv HTML: https://arxiv.org/html/2311.01267v1
+107. Cloth Funnels arXiv: https://arxiv.org/abs/2210.09347
+108. Cloth Funnels project site: https://clothfunnels.cs.columbia.edu/
+109. FlingBot HTML (two UR5, Schunk WSG50 + OnRobot RG2, D415): https://arxiv.org/html/2105.03655v3
+110. APS-Net standardization paper (dual UR5 + Robotiq 2F-85): https://arxiv.org/pdf/2506.22769
+111. CLASP 2024 v3 (Kinova Mico + L515): https://arxiv.org/pdf/2408.08160v3
+112. CLASP 2025 v2 (Franka dual-arm): https://arxiv.org/abs/2507.19983v2
+113. Dyna Robotics DYNA-1 launch (2025-04-30): https://www.roboticstomorrow.com/news/2025/04/30/dyna-robotics-unveils-dyna-1-the-first-commercial-ready-robot-foundation-model-offering-fully-autonomous-round-the-clock-dexterity/24675
+114. Dyna Robotics DYNA 2.1 launch (2026-09-29): https://www.prnewswire.com/news-releases/dyna-robotics-launches-dyna-2-1-physical-agent-a-semi-humanoid-robot-that-completes-full-workflows-such-as-a-commercial-laundry-shift-302892411.html
+115. Dyna / Din Tai Fung output target: https://www.theroboteconomy.news/articles/dyna-din-tai-fung-robot-output-target
+116. π0 paper HTML v4 (platforms and grippers): https://arxiv.org/html/2410.24164v4
+117. openpi UR5 example: https://github.com/Physical-Intelligence/openpi/tree/main/examples/ur5
+118. Ghent competition-winning system analysis (2025): https://journals.sagepub.com/doi/10.1177/17298806251322582
+119. Systematic review of deep-learning cloth manipulation (PMC 2026-02): https://pmc.ncbi.nlm.nih.gov/articles/PMC12921407
+120. WBCD 2026 Track 4 champion report (TermiTech): https://www.alphaxiv.org/abs/2608.10718
+121. CMU tactile layer singulation (2022): https://www.alphaxiv.org/abs/2207.11196
+122. Vacuum suction grabbing for fabric pieces (2024): https://www.alphaxiv.org/abs/2408.09504
+123. Tactile-Reactive Roller Grasper (2023): https://www.alphaxiv.org/abs/2306.09946
+124. RoTipBot (2024): https://www.alphaxiv.org/abs/2406.09332
+125. Hybrid Roller-Jamming Gripper (2026): https://www.alphaxiv.org/abs/2608.20962
+126. Active Surface-Driven Reconfigurable Gripper (2026): https://www.alphaxiv.org/abs/2608.26883
+127. G.O.G gripper-on-gripper (2024): https://www.alphaxiv.org/abs/2401.10702
+128. Imperial tactile bimanual cloth manipulation (2026): https://www.alphaxiv.org/abs/2603.10609
+129. BambuHub printer price table (Bambu US store, 2026-10-09): https://bambuhub.net/all-printers
+130. Bambu Lab X1 series page: https://bambulab.com/en-in/x1
+131. Prusa CORE One+ (Gen 2) kit/assembled prices: https://www.prusa3d.com/product/prusa-core-one-kit
+132. Prusa MK4S prices: https://prusa3d.com/product/original-prusa-mk4s-3d-printer
+133. Groz-Beckert 134 R needles, pack of 10, USD 4.79: https://www.thethreadexchange.com/miva/merchant.mvc?Product_Code=NDL-717522-717525&Screen=PROD
+134. Gimatic/Maffeis needle gripper patent US 8,104,807: https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/8104807
+135. Printables gripper search (open designs): https://www.printables.com/search/models?q=tag%3Agripper
+136. actuated-UMI gripper (GitHub): https://github.com/actuated-umi/actuated-umi-gripper
+137. ATI QC-11 (Novanta site; specs, modules, CAD): https://ati.novanta.com/product/qc-11/
+138. ATI QC-11 (ati-ia.com): https://www.ati-ia.com/products/toolchanger/QC.aspx?ID=QC-11
+139. ATI tool changer family table (metric): https://ati.novanta.com/products/tool-changers/
+140. ATI tool changer models (imperial table incl. MC-10): https://www.ati-ia.com/products/toolchanger/tool_changer_models.aspx
+141. ATI QC-1: https://www.ati-ia.com/products/toolchanger/QC.aspx?ID=QC-1
+142. ATI QC-21: https://www.ati-ia.com/products/toolchanger/QC.aspx?ID=QC-21
+143. Thinkbot OnRobot Quick Changer USD 713 / Dual USD 2,836: https://thinkbotsolutions.com/products/onrobot-quick-changer
+144. Zimmer tool changers overview: https://www.zimmer-group.com/en-us/products/components/robotics/tool-changer
+145. Zimmer WWR manuals (ManualsLib index): https://www.manualslib.com/guide/4266925/zimmer-wwr-series-tool-changer-installation-and-operation-manual.html
+146. Schunk SWS-I page: https://schunk.com/au/en/automation-technology/tool-changer/sws-i/c/PGR_1265
+147. Coval vacuum grippers (MVG 150 × 150 to 1200 × 1000 mm): https://www.coval.com/en-us/vacuum-grippers
+148. Coval CVGC carbon gripper 2026: https://www.coval.com/en-us/resources/blog/cvgc-carbon-vacuum-gripper-series
+149. White paper (project source of truth), lines 670–690, 715–775, 1963, 2851–2890: /home/user/agent/docs/source/white_paper.txt

@@ -2,7 +2,21 @@
 
 Research agent R15 · written 2026-10-21 · scope: CAD/mesh/URDF/MJCF/USD toolchain, vendor geometry sources, electrical and pneumatic drawing tools, fabrication vendors, and the honest limits of what the 3D model proves.
 
-<!-- SUMMARY_PLACEHOLDER -->
+## Summary
+
+- Keep decision D-004: build123d 0.13.0 (Apache-2.0, released 2026-09-21) on cadquery-ocp 8.0.1 and Python 3.13 is the master model for assemblies A00–A10; it installed and exported STEP, glTF and STL in this container on 2026-10-21, and its `import_step` keeps vendor assembly structure, labels and colours [1], [4], [7].
+- Pinned toolchain (all versions verified on PyPI/GitHub/vendor pages 2026-10-21): build123d 0.13.0, ocp-vscode 4.2.0, trimesh 5.1.1, yourdfpy 0.0.60, robot_descriptions 3.3.0, MuJoCo 3.15.0, mujoco-menagerie 2026.9.4, obj2mjcf 0.0.25, bpy/Blender 5.2.2 LTS (Python 3.13), Draftwright (AGPL, separate env), KiCad 10.0.6, QElectroTech 0.100, FreeCAD 1.1.4 (not the 26.3 RC), Isaac Sim 6.2 (optional, RTX 4080+), onshape-to-robot 1.8.3 (only with a paid Onshape plan).
+- No build123d-to-URDF library exists: write a small emitter from each assembly's joints file, let MuJoCo convert URDF→MJCF (`MjSpec.from_file` + `encode`) and Isaac Sim convert URDF→USD; onshape-to-robot is the only turnkey CAD→URDF/MJCF tool and needs Onshape Standard at $1,500/user/yr [13], [17], [33].
+- Use MuJoCo Menagerie for purchased arms and grippers: UR5e, UR10e (BSD-3-Clause) and Robotiq 2F-85 (BSD-2-Clause) exist; FANUC, ABB, KUKA iisy and Doosan do not, and must be converted from ROS descriptions with the documented Menagerie recipe [31], [32], [86], [87].
+- Blender route is GLB (build123d `export_gltf`) → built-in glTF importer; STEP Importer 1.2.1 / STEPper Reborn 2.3.0 exist for raw vendor STEP but have reported performance regressions on large files; mechanism motion by constraints/drivers; headless Cycles/EEVEE renders; `.blend` → R3 imports meshes and Empties only, so walkthrough motion is scripted in R3 [42], [43], [45], [51].
+- Vendor geometry is obtainable for most families (UR, KUKA, ABB, Festo, igus, Rexroth, HIWIN, THK/Rollon/Güdel via TraceParts, Schmalz, SCHUNK, Zimmer, OnRobot, ATI, Robotiq, Beckhoff, Siemens, SICK, Rittal, Phoenix, Basler, FLIR, Zivid, Photoneo, RealSense, Orbbec, Jetson, Misumi, McMaster, Vention), mostly behind free logins; not obtainable publicly for Zünd cutters and all industrial sewing heads (envelope models from manuals, then measure the bought head) [82]–[121].
+- Licences decide where files may live: McMaster-Carr CAD may not be redistributed or fabricated from; CADENAS-portal files are for CAD/BIM design only (AI training banned, EUR 20,000 penalty); GrabCAD is non-commercial; UR meshes may be published only with UR's T&Cs attached; Menagerie/ROS models are BSD/Apache. Keep `cad/vendor/` private and use bd_warehouse for fasteners [108], [109], [111], [83].
+- Fabrication norms: quick-turn CNC 1–4 days (Protolabs, Fictiv), standard 3–7 business days (Xometry), JLCCNC 3 days + shipping from $5, PCBWay from 2 days; SendCutSend laser/bend ships in 1–4 days with instant DXF pricing; EOAT prints on Bambu H2D ($1,849) / H2S ($1,399) or Prusa CORE One+ (~$1,299, currency to verify) [71]–[81].
+- Drawings: ISO 128-1:2020 (CHF 44) with ISO 2768-m as the default tolerance class most online shops apply; ASME Y14.5-2018 ($380) only for US partners; Draftwright generates ISO-style multi-view PDF/SVG/DXF straight from build123d parts [67]–[70], [122].
+- Electrical and pneumatic: QElectroTech 0.100 (GPL) for cabinet schematics with EPLAN only on an integrator's demand (price on request); SMC PneuDraw free online or Festo FluidDraw 365 (ISO 1219-1, valve-terminal circuit generation; price after login) for pneumatics [61], [62], [63], [65].
+- Simulation scope is honest and matches the white paper: the model proves geometry, reach, kinematic limits, nominal takt and interfaces; it does not prove fabric handling, seam quality or safety compliance; RoboDK ($3,995 + $1,500/yr) is an optional OEM-timing cross-check, Visual Components is unnecessary at one-cell scale [52], [54].
+- Isaac Sim 6.2 is optional and hardware-gated (RTX 4080 / 16 GB VRAM / 32 GB RAM minimum); its CAD Converter accepts STEP/IGES/JT/Parasolid/SolidWorks/Inventor/glTF and its Onshape importer handles assemblies with API keys [24], [27], [28].
+- Conflicts with the white paper: none; open items are mostly licence texts and OEM CAD requests (Zünd, sewing heads, FANUC) plus two 10-minute environment tests (bpy + mujoco + build123d in one venv; Open3D on Python 3.13).
 
 ## Findings
 
@@ -166,3 +180,239 @@ Portal terms that matter:
 | Prusa | CORE One+ (Gen 2); MK4S | enclosed CoreXY (CORE One); MK4S bedslinger | CORE One+ "from $1,299", MK4S "from $999" (prusa3d.com listing fetched via AU locale; currency ambiguous: verify on the US store) | — | — | [81] |
 
 Norms to plan with (from the rows above): quick-turn CNC in 1–4 days costs a premium; standard CNC 3–7 business days (US) or 3 days + shipping (JLCCNC); laser/bent sheet 1–4 days (SendCutSend); 3D-printed EOAT bodies in hours on a CF-capable printer (H2D/H2S heated chamber for ASA/CF-nylon).
+
+## Recommendation for this project
+
+### R-1. Pinned toolchain (one Python 3.13 environment for CAD + sim + Blender scripting; separate env for AGPL drawing tools)
+
+Selected (versions verified 2026-10-21; install commands from the official docs [1], [3], [5], [17], [30], [35], [41], [122]):
+
+```bash
+python3.13 -m venv ~/.venvs/cad && source ~/.venvs/cad/bin/activate
+python -m pip install --upgrade pip
+pip install build123d==0.13.0 ocp-vscode==4.2.0            # pulls cadquery-ocp-novtk 8.0.1.x automatically [1][2][4]
+pip install trimesh==5.1.1 yourdfpy==0.0.60 robot_descriptions==3.3.0
+pip install mujoco mujoco-menagerie==2026.9.4 obj2mjcf==0.0.25   # mujoco: GitHub release 3.15.0 (2026-10-05); pin after `pip show mujoco` [29]
+pip install bpy==5.2.2                                      # Blender as a module; requires Python 3.13 exactly; ~370 MB wheel [41]
+# separate environment for drawings (AGPL-3.0), exchange STEP files between the two [122]
+python3.13 -m venv ~/.venvs/draw && ~/.venvs/draw/bin/pip install draftwright build123d-drafting-helpers
+# only if Onshape is adopted (Standard plan, commercial use) [13][17]
+pip install onshape-to-robot==1.8.3
+```
+
+Desktop applications: Blender 5.2 LTS (5.2.2) with the "STEP Importer" extension 1.2.1 for ad-hoc vendor STEP [39], [42]; FreeCAD 1.1.4 as the free GUI viewer/TechDraw fallback (do not adopt the 26.3 RC) [10]; KiCad 10.0.6 for PCBs [59]; QElectroTech 0.100 for cabinet schematics [61]; SMC PneuDraw (free, online) for pneumatic circuits, upgrading to Festo FluidDraw 365 if the valve-terminal circuit generation and Festo BOM integration are wanted [65], [63]; Isaac Sim 6.2 only on a machine with an RTX 4080-class or better GPU [24]; RoboDK Professional ($3,995 + $1,500/yr) only when OEM-accurate cycle times with FANUC/UR controller models are needed for the sales case [52].
+
+Alternates: CadQuery 2.8.0 if a constraint solver for assemblies becomes necessary (build123d joints are positional, not solved) [6], [8]; Onshape Standard ($1,500/user/yr) + onshape-to-robot for anyone who wants a GUI and a turnkey URDF/MJCF exporter [13], [16]; STEPper Reborn/NEXT as alternative Blender STEP importers [43], [44].
+
+Risk: build123d is 0.x and releases monthly-ish (0.10 → 0.13 between Nov 2025 and Sep 2026 [1]); pin exact versions in `pyproject.toml`, keep a lock file, and upgrade deliberately. bpy and cadquery-ocp both pin NumPy-era binaries; test them in one env (open question Q-1) and fall back to two envs if they conflict.
+
+### R-2. Master-model and export policy (confirms decision D-004)
+
+- Each assembly `A00`–`A10` is a build123d module whose top-level `Compound` carries labels, colours and `Joint` objects; `export_step` writes the STEP (labels become product names) and `export_gltf` writes the GLB for Blender/web [7]. This is exactly what the spine already requires [125].
+- The joints file per assembly (joint label, type, axis, limits, parent/child link labels, mass properties from `Shape.volume`/`center`) is the single source for a small in-house URDF emitter (no library exists; see F3). MuJoCo converts URDF→MJCF (`MjSpec.from_file` on the URDF with the `<mujoco><compiler meshdir discardvisual="false"/></mujoco>` extension, then `spec.encode("Ann.xml")`) [33]; Isaac Sim imports the same URDF when needed [25].
+- Purchased arms and grippers are not re-modelled: UR5e/UR10e and Robotiq 2F-85 come from Menagerie (BSD licences) and are attached to the station MJCF with `MjSpec.attach` at a named site [30], [31]; FANUC/Doosan/ABB/KUKA arms, if chosen by R02, are converted from their ROS descriptions with the Menagerie recipe [32], [86], [87].
+- Vendor STEP lives in `cad/vendor/<part_id>/` in a private store (not the public repo) with a `LICENSE.txt` per part and a register of source, date and terms, because McMaster-Carr and CADENAS-hosted files cannot be redistributed and UR files only inside a package that carries UR's T&Cs [108], [109], [83]. Standard fasteners come from bd_warehouse instead of McMaster CAD [124].
+
+### R-3. Format conversion matrix (selected routes; all tools verified in Findings)
+
+| From → To | Tool and call | Notes |
+|---|---|---|
+| build123d → STEP (AP214, colours, labels) | `export_step(assembly, "A04.step")` | per-product names from labels [7] |
+| build123d → GLB | `export_gltf(assembly, "A04.glb")` | PBR materials carried [7] |
+| build123d → STL / 3MF | `export_stl`, `Mesher().write("x.3mf")` | 3MF keeps part numbers and metadata [7] |
+| build123d → DXF/SVG/PDF drawings | Draftwright `make_drawing(part, out=..., title=..., number=...)`; helpers `make-drawing part.step --tolerance "ISO 2768-f"` | AGPL env; lint checks ISO coverage [122], [123] |
+| Vendor STEP → build123d | `import_step("ur5e.step")` | read-only XDE tree with labels, colours, instance locations [7] |
+| Vendor STEP → Blender | STEP Importer 1.2.1 (Cascadio → glTF → Blender) or STEPper Reborn 2.3.0 | or go via build123d → GLB → built-in glTF importer [42], [43], [45] |
+| GLB → Blender | File ▸ Import ▸ glTF 2.0 (built in) | hierarchy, materials, extras preserved [45] |
+| Blender → R3 | save `.blend` with packed images → `r3_blender_upload` → `r3_blender_import` | meshes and Empties only; motion scripted in R3 [51] |
+| Blender → images/video | `blender -b scene.blend -E CYCLES -s 1 -e 240 -a` (or `-E BLENDER_EEVEE_NEXT`) | headless on the build server [50] |
+| Onshape assembly → URDF/SDF/MJCF | `onshape-to-robot my-robot` with `config.json {"url":..., "output_format":"urdf"}` | needs API keys and a commercial Onshape plan [17], [13] |
+| URDF → MJCF | `mujoco.MjSpec.from_file("robot.urdf")` + `spec.encode("robot.xml")`; `.mjz` bundles meshes | OBJ meshes via obj2mjcf; URDF attributes not schema-checked [33], [34] |
+| URDF / MJCF / Onshape / STEP → USD | Isaac Sim URDF importer (`urdf_import.py --urdf ... --merge-mesh`), MJCF importer, Onshape importer, CAD Converter (STEP/IGES/JT/Parasolid/SLDPRT/IPT/PRT/CATPart/STL/OBJ/FBX/GLB/3MF/DWG) | RTX GPU required [25], [26], [27], [28] |
+| USD → URDF | Isaac Sim USD-to-URDF exporter (validates joint limits since 6.2) | round-trip check only [23] |
+| Mesh simplification / collision hulls | trimesh (`convex_hull`, mass properties), obj2mjcf `--decompose` (CoACD), Blender Decimate via bpy | visuals from GLB, collisions from decimated/convex meshes [37], [34], [41] |
+| Open robot descriptions → sim | `robot_descriptions.loaders.mujoco.load_robot_description("ur5e_mj_description")` | quick reach studies before our own assemblies exist [35] |
+
+### R-4. End-to-end workflow with checkpoints
+
+| Checkpoint | Deliverable | Pass criterion |
+|---|---|---|
+| C0 Toolchain pinned | `pyproject.toml` + lock; smoke test exporting STEP/GLB/STL from a box | done 2026-10-21 for build123d 0.13.0 on Python 3.13 (TOOLING.md); extend to bpy/mujoco |
+| C1 Vendor geometry register | `cad/vendor/<part_id>/` (private) with LICENSE and source register for every bought part in R01–R08 | every part_id has STEP or an "envelope model + reason" entry; no McMaster/GrabCAD files in the public repo |
+| C2 Station envelopes | A00 frame + A01–A10 envelopes from datasheet dimensions (Zünd G3 footprint, head masses, cabinet) | floor plan with clearances; interference check by OCCT boolean on the whole cell < 1 s per pair |
+| C3 Kinematic assemblies | joints file per `Ann`; URDF emitted; MJCF compiled; UR/Robotiq attached from Menagerie | `mj_forward` runs; reach map of A04 covers the 3 m × 1.5 m envelope at the required poses (R02 architecture) |
+| C4 Cycle-time model | MuJoCo joint-space trajectories with vendor velocity/acceleration limits; scheduler replay against the takt registry | nominal takt ≤ 7.2 min/garment (100 per 12 h) with stated margins; RoboDK cross-check if the sales case needs OEM controller timing |
+| C5 Visual twin | GLB → Blender 5.2 scene with constraints/drivers; EEVEE turntables; Cycles stills; `.blend` → R3 preview link | R3 import log clean (no `textured=0`, no origin collapse); walkthrough scripted in R3 |
+| C6 Fabrication package | Draftwright drawings (ISO 128, ISO 2768-m default), DXF for SendCutSend, STEP for CNC quotes (Xometry/Protolabs/Fictiv/JLCCNC/PCBWay), EOAT prints | at least two instant quotes per custom part with lead time recorded |
+| C7 Electrical and pneumatic | QElectroTech schematics for ST09 (IEC 60617 symbols); PneuDraw/FluidDraw pneumatic sheets (ISO 1219-1); EPLAN export only if an integrator demands it | every I/O point in the spine interface registry appears on a sheet |
+| C8 Optional perception twin | Isaac Sim 6.2 import of the USD cell for camera placement and synthetic data | only after hardware with RTX 4080+ is available |
+
+### R-5. Honest limits: what the model proves and does not
+
+Proves (with the tools above): geometric fit and clearances; reach and joint-limit feasibility of arms and gantry; nominal cycle time from kinematic limits; sensor fields of view; interface locations for cables, air and mounting; drawing-level manufacturability of custom parts.
+
+Does not prove: knit behaviour on the vacuum bed, ply pick-up and double-pick rates, edge curl, seam quality, thread faults, vacuum leakage, static, or operator ergonomics. Blender cloth is an uncalibrated visual model [46]; MuJoCo/MJWarp advertise cloth and soft bodies [128] but no validated knit parameters exist here; Isaac Sim adds rendering realism, not textile truth. Safety compliance (PL d) is proven by the safety design and validation, not by the model. This matches the white paper: simulation "can help explore reach, scheduling and candidate policies, but real textile response and seam quality require physical testing" (white paper lines 788–789) and "It cannot certify real-cloth behavior solely from geometric simulation" (line 1172).
+
+## Integration notes
+
+- Repository layout (consistent with the spine [125]): `model/Ann.py` per assembly; `model/joints/Ann.json`; `cad/vendor/<part_id>/` private; `exports/{step,glb,urdf,mjcf,usd}/` generated, never hand-edited; `drawings/` from the AGPL env; `blender/` scenes; `r3/` scripts. CI job: build all `Ann` modules, export, run `yourdfpy` validation and `mujoco` compile, fail on interference.
+- Units and frames: build123d works in mm (`Unit.MM` default in `export_step` [7]); URDF/MJCF/USD/Blender/R3 expect metres: scale 0.001 at mesh export and keep Z-up (glTF is +Y up; Blender's exporter handles the convention [45]). Record the cell origin at ST00's reference corner and reuse it in every export.
+- Mechanical: vendor STEP files for UR arms include the base flange drilling template STEP [82]; Zünd and sewing heads are envelope models until STEP or measurements exist (F7). Decimate vendor meshes to visual (≤ 50 k triangles per arm) and convex collision sets (obj2mjcf/CoACD [34]).
+- Electrical/data interfaces into the model: every I/O point in the spine interface registry gets a named `Location` in build123d (connector positions) so cable lengths and energy-chain routes (igus CAD [96]) can be measured from the model; electrical sheets in QElectroTech reference the same IDs.
+- Pneumatic: FluidDraw/PneuDraw sheets list SMC/Festo part numbers whose STEP files come from SMC's STEP AP214 libraries and Festo PARTcommunity [66], [95]; valve-terminal circuits can be auto-generated in FluidDraw [63].
+- Software: the joints file is also the hand-off to M09 (motion control/hardware abstraction) and M13 (digital twin); the MJCF is the simulation backend for M08 skill tests; Isaac Sim USD feeds M11 synthetic data when an RTX workstation exists.
+- Licences in distributed demos: ship only Menagerie/ROS-licensed robot meshes and our own geometry in public artefacts (R3 previews, GLB downloads); keep McMaster, CADENAS-portal and GrabCAD content out [108], [109], [111].
+- Drivers and plug-ins: VS Code + OCP CAD Viewer (ocp-vscode 4.2.0) for modelling [5]; Blender extensions installed from extensions.blender.org (STEP Importer, glTF built-in) [42], [45]; R3 connector already active in this project (TOOLING.md) for `r3_blender_upload`/`r3_blender_import` [51].
+
+## Conflicts with the white paper
+
+None found. The white paper states that its schematics "are not dimensioned fabrication drawings, collision-checked layouts, licensed supplier designs or images of working hardware" (lines 258–261), that simulation supports geometric checks, policy exploration and scheduling "with a measured gap to real materials" (lines 1251–1252), and that the final engineering record must include mechanical CAD, wiring and a supplier-backed parts list (lines 2389–2391). The pipeline above produces exactly those artefacts and claims no more than the white paper allows. One nuance rather than a conflict: the white paper does not name any CAD system, so the code-CAD choice (D-004) is a project decision, not a white-paper requirement.
+
+## Open questions and unknowns
+
+| # | Unknown | Cheapest way to confirm |
+|---|---|---|
+| Q-1 | Whether bpy 5.2.2, mujoco 3.15 and build123d 0.13 coexist in one Python 3.13 venv (NumPy/ABI conflicts) | `pip install` all three in a fresh venv and import each (10 min); fall back to two envs |
+| Q-2 | Open3D wheels for Python 3.13 on PyPI (0.19.0 stops at 3.12; open3d.org lists 0.20.0 for 3.13/3.14) | `pip install open3d` in the 3.13 env; else download the 0.20.0 wheel from open3d.org, or drop Open3D |
+| Q-3 | Zünd G3/S3 STEP availability and NDA terms; Lectra/Eastman/Bullmer/iECHO CAD | ask at quotation (R01 owner); meanwhile model envelopes from the technical-data PDFs |
+| Q-4 | OEM STEP for sewing heads (Juki, Pegasus, Yamato, Brother, Jack, Dürkopp Adler) | email two distributors; if none, buy the chosen head first and measure/scan it; model table cut-outs from the instruction manuals |
+| Q-5 | FANUC CRX official CAD portal and terms; ABB, KUKA, Doosan download terms text | create vendor accounts and read the download terms (30 min); ROS descriptions cover simulation meanwhile |
+| Q-6 | TraceParts, 3DContentCentral and Misumi consumer terms on redistribution of downloaded CAD | read the terms pages (20 min) before any vendor file enters a shared artefact |
+| Q-7 | Pilz, WAGO, Euchner, Schmersal, Keyence, Banner, Piab, FIPA, Coval, Sommer, IDS 3D CAD availability | one product page each (1 h total) when R05/R03/R06 selections are fixed |
+| Q-8 | STEP Importer / STEPper performance on 100 MB+ robot STEP in Blender 5.2 (user reports of regressions) | import one UR STEP (5 min); if slow, go via build123d → GLB |
+| Q-9 | RoboDK cycle-time fidelity versus real UR/FANUC controllers | compare RoboDK time with URSim (free) for one pick-place cycle before buying the $3,995 licence |
+| Q-10 | FluidDraw 365 price, Visual Components and EPLAN prices | FluidDraw: login to Festo App World; others: request quotes (both optional) |
+| Q-11 | MuJoCo/MJWarp cloth or flex suitability for cotton jersey | not a modelling question; schedule a physical ply-handling test per the white paper; treat any cloth sim as visual only |
+| Q-12 | Prusa CORE One+ price currency on the fetched page | open prusa3d.com with the US locale (2 min) |
+| Q-13 | Isaac Sim hardware: does the owner's workstation meet RTX 4080 / 16 GB VRAM / 32 GB RAM | run the Isaac Sim Compatibility Checker [24] |
+
+## Sources
+
+1. https://pypi.org/project/build123d — build123d 0.13.0 (2026-09-21), Apache-2.0, `pip install build123d`, release history.
+2. https://github.com/gumyr/build123d/releases — switch to `cadquery-ocp-novtk` 7.9 at 0.11.0.
+3. https://build123d.readthedocs.io/en/v0.13.0/_sources/installation.rst.txt — official install commands (pip, git, poetry, OCP stubs).
+4. https://pypi.org/project/cadquery-ocp/ — cadquery-ocp 8.0.1.1.0 (2026-10-05), Python >=3.11,<3.15, cp311–cp314 wheels.
+5. https://pypi.org/project/ocp-vscode/4.2.0/ — OCP CAD Viewer 4.2.0 (2026-10-13), Python >=3.10, Library Manager.
+6. https://pypi.org/project/cadquery/ — CadQuery 2.8.0 (2026-06-21), conda install.
+7. https://github.com/gumyr/build123d/blob/dev/docs/joints.rst , https://github.com/gumyr/build123d/blob/dev/docs/assemblies.rst , https://github.com/gumyr/build123d/blob/dev/docs/import_export.rst , https://github.com/gumyr/build123d/blob/dev/docs/tutorial_materials.rst , https://github.com/gumyr/build123d/blob/dev/src/build123d/exporters3d.py , https://github.com/gumyr/build123d/blob/dev/src/build123d/importers.py (read through Context7 `/gumyr/build123d`) — joints, assemblies, `export_step` signature, `export_gltf`, Mesher, `import_step` assembly recursion, 52 MB STEP example.
+8. https://cadquery.readthedocs.io/en/latest/importexport.html and https://github.com/CadQuery/cadquery/blob/master/doc/importexport.rst — CadQuery import/export formats (STEP, XBF, XCAF, glTF), `Assembly.importStep`.
+9. https://wiki.freecad.org/Release_notes_1.1 — FreeCAD 1.1 released 2026-03-24; Assembly Simulation and BOM features.
+10. https://blog.freecad.org/ — FreeCAD 1.1.4 (2026-09-28) and 26.3 RC1 (2026-10-08) announcements.
+11. https://github.com/freecad/freecad/releases — 26.3 RC1, CalVer, three releases per year.
+12. https://wiki.freecad.org/Assembly_Workbench — Assembly workbench tools (Ondsel solver, joints, exploded view, BOM, simulation).
+13. https://onshape.com/en/pricing — Free $0 (non-commercial, public documents), Standard $1,500/user/yr, Professional $2,500/user/yr.
+14. https://www.onshape.com/en/legal/terms-of-use — Free Plan documents are public; licence granted on public documents.
+15. https://www.onshape.com/en/blog/get-started-featurescript-mcp-server — FeatureScript MCP Server (Onshape Labs, App Store), 2026-09-03.
+16. https://pypi.org/project/onshape-to-robot/1.0.0/ — onshape-to-robot release history (1.8.3 on 2026-08-26), MIT.
+17. https://onshape-to-robot.readthedocs.io/en/latest/getting_started.html — install, API keys, `config.json`, export and test commands.
+18. https://www.autodesk.com/products/fusion-360/personal — Fusion for personal use terms; $680/yr commercial.
+19. https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/Fusion-360-Free-License-Changes.html — 10 active editable documents limit.
+20. https://www.autodesk.com/products/fusion-360/blog/fusion-subscription-types/ — Fusion plans; Fusion for Startups ~$150 for 3 years.
+21. https://www.solidworks.com/solution/solidworks-makers — SolidWorks for Makers $48/yr, < $2,000 revenue.
+22. https://ohmycad.com/en/official-3dexperience-solidworks-price-list/ — 3DEXPERIENCE SOLIDWORKS 2026 price list (US Standard $2,820/yr), reseller, Oct 2026.
+23. https://docs.isaacsim.omniverse.nvidia.com/latest/overview/release_notes.html — Isaac Sim 6.2.0 release notes (importers in `isaacsim-asset` wheel, MuJoCo 3.12.0, URDF exporter).
+24. https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html — system requirements (RTX 4080 minimum, 32 GB RAM, driver 595).
+25. https://docs.isaacsim.omniverse.nvidia.com/latest/importer_exporter/import_urdf.html — URDF import tutorial and CLI arguments.
+26. https://docs.isaacsim.omniverse.nvidia.com/latest/importer_exporter/importers_exporters.html — importer list (URDF, MJCF, Onshape, CAD Converter).
+27. https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html — Onshape importer (assemblies only, tessellation tolerances, API key authentication).
+28. https://docs.omniverse.nvidia.com/extensions/latest/ext_cad-converter/manual.html — CAD Converter supported formats.
+29. https://github.com/google-deepmind/mujoco/releases — MuJoCo 3.15.0 (2026-10-05).
+30. https://pypi.org/project/mujoco-menagerie — mujoco-menagerie 2026.9.4 (2026-09-28), API, per-model licences.
+31. https://github.com/google-deepmind/mujoco_menagerie — model table with licences (UR5e, UR10e, iiwa14, FR3, Rizon4S, Gen3, Robotiq 2F-85).
+32. https://github.com/google-deepmind/mujoco_menagerie/blob/main/universal_robots_ur5e/README.md — URDF→MJCF derivation steps, BSD-3-Clause.
+33. https://github.com/google-deepmind/mujoco/blob/main/doc/modeling.rst and https://github.com/google-deepmind/mujoco/blob/main/doc/python.rst (via Context7 `/google-deepmind/mujoco`) — URDF extensions, meshdir, no schema check, `MjSpec` load/encode.
+34. https://pypi.org/project/obj2mjcf/ and https://github.com/kevinzakka/obj2mjcf — obj2mjcf 0.0.25, MIT, CoACD decomposition.
+35. https://pypi.org/project/robot_descriptions/ — robot_descriptions 3.3.0 (2026-10-12), Apache-2.0, loaders.
+36. https://pypi.org/project/yourdfpy/ — yourdfpy 0.0.60 (2026-01-23), MIT.
+37. https://pypi.org/project/trimesh and https://deps.dev/pypi/trimesh — trimesh 5.1.1 (2026-10-02), MIT, ~4 k stars.
+38. https://pypi.org/project/open3d/ and https://www.open3d.org/ — open3d 0.19.0 on PyPI (2025-01-08, Python 3.8–3.12); 0.20.0 downloads with Python 3.10–3.14.
+39. https://www.blender.org/download/releases/5-2/ — Blender 5.2 LTS released 2026-07-14, supported to July 2028.
+40. https://www.blender.org/download/lts/ — current LTS: 5.2.2 and 4.5.14 (2026-09-15).
+41. https://pypi.org/project/bpy — bpy 5.2.2 (Python ==3.13.*), bpy 4.5.14 (Python 3.11), GPL-3.0.
+42. https://extensions.blender.org/add-ons/step-importer/ — STEP Importer 1.2.1 (Cascadio → glTF), Blender 5.1+, GPL-3.0.
+43. https://extensions.blender.org/add-ons/stepper-reborn — STEPper Reborn 2.3.0, limitations, user report on large files.
+44. https://github.com/RomainGuimbal/STEPper_nextborn — STEPper NEXT (pythonocc-core 7.9.3 / Python 3.13, Blender 5.1).
+45. https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html — glTF 2.0 importer/exporter (built in).
+46. https://docs.blender.org/manual/en/latest/physics/cloth/settings/physical_properties.html — cloth physical properties.
+47. https://docs.blender.org/manual/en/latest/physics/cloth/settings/index.html — cloth quality steps, speed multiplier.
+48. https://docs.blender.org/manual/en/latest/animation/constraints/index.html — object constraints list.
+49. https://docs.blender.org/manual/en/latest/animation/drivers/index.html — drivers.
+50. https://docs.blender.org/manual/en/latest/advanced/command_line/render.html — headless rendering flags.
+51. R3 MCP server documents `BLENDER_ASSETS.md` and `HOWTO_BLENDER_LINK.md` (read with `r3_docs_read`; server https://mcp.r3js.org/mcp) — what the `.blend` importer supports, model-prep checklist, upload/import/preview tools.
+52. https://robodk.com/pricing — RoboDK Professional $3,995, maintenance $1,500/yr, trial limits, Educational $145.
+53. https://robodk.com/doc/en/PythonAPI/index.html and https://robodk.com/doc/en/PythonAPI/intro.html — Python API modules and "Estimated cycle time" example.
+54. https://www.visualcomponents.com/blog/visual-components-5-0-the-fastest-way-from-concept-to-reality — Visual Components 5.0 (2026-03-12).
+55. https://www.capterra.com/p/188853/Visual-Components — Visual Components editions; pricing "contact vendor" (third-party listing).
+56. https://docs.vention.io/ — "Designs can be exported as STEP files from Vention via the MachineBuilder or the design summary page".
+57. https://vention.com/machine-builder — 3,000+ components, CAD import/export, real-time BOM and price.
+58. https://docs.vention.io/docs/parts-library-discovery — Parts Library categories (My Models imported CAD not quoted).
+59. https://www.kicad.org/blog/2026/03/Version-10.0.0-Released and https://www.kicad.org/blog/2026/08/KiCad-10.0.6-Release — KiCad 10.0.0 and 10.0.6.
+60. https://www.elektormagazine.com/news/kicad-10-release — KiCad 10 feature summary; STEP shipped for official 3D libraries (secondary source).
+61. https://www.qelectrotech.org/ and https://qelectrotech.org/index.php.fr — QElectroTech 0.100 (January 2026), GPL, 8,000+ symbols.
+62. https://www.eplan.com/us-en/products/eplan-electric-p8/ — EPLAN Electric P8 subscription terms (12–36 months), fluid power module.
+63. https://www.festo.com/appworld/fluiddraw-p6.html — FluidDraw 365 licensing (network licences, yearly, login for prices), symbol libraries.
+64. https://www.art-systems.de/www/site/en/fluiddraw — FluidDraw P7, update 7.1.1 (2026-07-13).
+65. https://www.smc.eu/en-ie/products/engineering-tools/pneumatic_circuits_drawing — SMC PneuDraw (online), exports DXF/SVG/PDF, parts list.
+66. https://www.smc.eu/en-gb/products/engineering-tools — SMC pneumatic symbols (DXF), EPLAN library, 3D product libraries (STEP AP214).
+67. https://www.iso.org/standard/65296.html — ISO 128-1:2020, CHF 44, confirmed 2026.
+68. https://www.iso.org/committee/45986/x/catalogue/p/0/u/1/w/0/d/0 — ISO/TC 10 catalogue (ISO 128-2:2022, 128-3:2022, 128-100:2020, 129-1:2018).
+69. https://www.asme.org/codes-standards/find-codes-standards/dimensioning-and-tolerancing — ASME Y14.5-2018 (R2024), $380.
+70. https://www.iso.org/obp/ui#!iso:std:7748:en — ISO 2768-1:1989 general tolerances.
+71. https://www.xometry.com/capabilities/cnc-machining-service/ — Xometry CNC lead times (3–7 business days), max part size.
+72. https://www.protolabs.com/services/cnc-machining/ — Protolabs CNC: as fast as 1 day, factory vs network tolerances and sizes.
+73. https://www.fictiv.com/capabilities/cnc-machining-services — Fictiv CNC: as fast as 1 day, tolerances, per-material lead times, no MOQ.
+74. https://jlccnc.com/ — JLCCNC prices "from $5" CNC / "from $0.40" sheet metal, build times, tolerances.
+75. https://jlccnc.com/help/article/cnc-machining-ordering-guidelines — manual review above 20 pcs, lead-time rules.
+76. https://www.pcbway.com/rapid-prototyping/CNC-machining/CNC-Milling.html — PCBWay CNC as fast as 2 days.
+77. https://sendcutsend.com/ — SendCutSend 24 h shipping claim, example prices.
+78. https://sendcutsend.com/services/cnc-bending/ — bending lead time, sizes, tolerances, example prices.
+79. https://us.store.bambulab.com/products/h2d and https://eu.store.bambulab.com/products/h2d — Bambu Lab H2D price and specs.
+80. https://us.store.bambulab.com/products/h2s — Bambu Lab H2S price and build volume.
+81. https://www.prusa3d.com/product/prusa-core-one — Prusa CORE One+ and MK4S listed prices (locale AU; currency to verify).
+82. https://www.universal-robots.com/download/mechanical-e-series/ur5eur7e/robot-step-file-ur5eur7e-e-series/ , https://www.universal-robots.com/download/mechanical-e-series/ur10eur12e/robot-step-file-ur10eur12e-e-series , https://www.universal-robots.com/download/mechanical-ur-series/ur20/robot-step-file-ur20 , https://www.universal-robots.com/developer/hardware-and-motion/cad-files-robot-models — UR STEP downloads (login) and drilling templates.
+83. https://github.com/UniversalRobots/Universal_Robots_ROS2_Description and https://github.com/UniversalRobots/Universal_Robots_ROS2_Description/blob/22f055da2fa7e2158254426107d1f257fd56aebb/meshes/ur20/LICENSE.txt — BSD-3-Clause code; UR graphical documentation T&Cs for meshes.
+84. https://one.robotics.abb.com/en/robots/p/GoFa-CRB-15000 — ABB GoFa family page with "View Variants & CAD Files" and downloads.
+85. https://my.kuka.com/s/product/lbr-iisy-15-r930/01t1i0000025vO7AAI?language=en_US — KUKA LBR iisy CAD (STEP, Parasolid, NX, DXF; login).
+86. https://github.com/ros-industrial/fanuc — ROS-Industrial FANUC support incl. `fanuc_crx10ia_support`; Apache-2.0 / BSD-3; community support level.
+87. https://github.com/DoosanRobotics/doosan-robot2 — Doosan ROS 2 packages, BSD-3-Clause (GitHub) with Apache-2.0 badge.
+88. https://github.com/robotiq/ros , https://github.com/robotiq , https://robotiq.com/support — official Robotiq ROS 2 packages (BSD-3-Clause, descriptions), Isaac Sim assets repo, support/CAD site.
+89. https://onrobot.com/en/products/vgc10-vacuum-gripper — VGC10 STEP download.
+90. https://www.ati-ia.com/products/toolchanger/tool_changer_models.aspx — ATI tool changer models and "3D CAD Models" section.
+91. https://www.schmalz.com/en-se/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/needle-grippers-sng-v-306144/10.01.29.00176 and https://www.schmalz.com/en/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/electric-needle-grippers-sngi-ae-306138/10.01.29.00390 — Schmalz Live CAD model (login for download), EPLAN macro.
+92. https://www.zimmer-group.com/en/products/components/handling-technology/2-jaw-parallel-grippers/series-gh6000/products/ghk6160 — Zimmer product page "Download CAD data".
+93. https://schunk.com/us/en/services/downloads/cad/ecad-data and https://www.3dfindit.com/en/cad-bim-library/manufacturer/schunk?path=schunk — SCHUNK CAD/ECAD downloads, EPLAN portal, 3Dfindit catalogue.
+94. https://www.staubli.com/global/en/robotics/download.html — Stäubli robotics download centre (register/login).
+95. https://festo.partcommunity.com/3d-cad-models — Festo CAD models on CADENAS PARTcommunity.
+96. https://igus.partcommunity.com/3d-cad-models?countryIso=US&info=igus%2Fdrylin_lineargleitlager%2Fantriebstechnik%2Fsaw_asmtab.prj&languageIso=en and https://www.igus.eu/energy-chain/configurator/3d-cad-models — igus drylin CAD, e-chain CAD free without registration.
+97. https://www.boschrexroth.com/en/us/c/linear-motion-technology-selector , https://www.boschrexroth.com/en/us/downloads/cad-files , https://www.boschrexroth.com/en/us/c/framepro-cad-plug-in — Rexroth configurator CAD download, CAD file search, FRAMEpro plug-in.
+98. https://www.hiwin.de/en/cad-konfigurator and https://www.hiwin.de/en/tools/produktkonfiguratoren — HIWIN CAD configurators.
+99. https://www.traceparts.com/en/search/traceparts-classification-mechanical-components-linear-and-rotary-motion-linear-motion-guides?CatalogPath=TRACEPARTS%3ATP01004003 and https://www.traceparts.com/en/search/thk?CatalogPath=THK%3AF_THK — TraceParts linear-motion suppliers and model counts (Rollon, Güdel, PBC Linear, item, HIWIN, THK).
+100. https://www.traceparts.com/en/product/beckhoff-cp693100000000?CatalogPath=BECKHOFF%3ABECKHOFF.030.060.030&Product=10-22082014-076815 — Beckhoff CAD on TraceParts.
+101. https://support.industry.siemens.com/cs/us/en/view/89671877 — Siemens CAx Download Manager (3D, 2D, EPLAN; free account).
+102. https://www.rittal.com/us-en_US/Software/CAD-data — Rittal CAD data routes (product pages, PARTcommunity, app).
+103. https://www.sick.com/media/pdf/9/69/669/dataSheet_RE13-SAC_1059503_en.pdf — SICK datasheet pointing to CAD dimensional models on the product page.
+104. https://www.pilz.com/en-CA/eshop/Small-controllers-PNOZmulti/Small-controllers-PNOZmulti-2/PNOZmulti-2-base-units/Accessories-PNOZmulti-2/c/0010100204710680OV — Pilz product downloads (EPLAN P8 macros, software).
+105. https://www.phoenixcontact.com/en-us/registration-benefits — Phoenix Contact CAD/3D downloads require registration.
+106. https://www.3dfindit.com/en/cad-bim-library/manufacturer/80/20/metric/profiles?path=8020%2Fmetric%2Fprofiles — 80/20 profiles on 3Dfindit (CADENAS).
+107. https://us.misumi-ec.com/guide/category/ecatalog/use_cad.html and https://us.misumi-ec.com/maker/misumi/cad/ — Misumi CAD download (login, configurator, STEP/IGES/DXF).
+108. https://www.mcmaster.com/cad-models/ and https://www.mcmaster.com/termsandconditions — McMaster-Carr CAD library and CAD-model use restrictions.
+109. https://www.cadenas.de/terms-of-use-3d-cad-models — PARTcommunity/3Dfindit terms of use (CAD/BIM use only; AI training prohibited; penalties).
+110. https://info.traceparts.com/de/legal/general-terms-and-conditions-for-traceparts-product-catalog-services-applicable-to-parts-distributors and https://www.traceparts.com/en — TraceParts terms (distributor contract; consumer General Terms of Use linked in the footer, not extracted).
+111. https://grabcad.com/terms and https://grabcad.com/questions/license-for-free-models — GrabCAD website terms (non-commercial internal use; content owned by uploaders).
+112. https://docs.baslerweb.com/a2a5328-4gcbas — Basler ace 2 model page with CAD/technical drawing download.
+113. https://softwareservices.flir.com/BFS-PGE-27S5/latest/40-Installation/Dimensions.htm and https://www.teledynevisionsolutions.com/zh-cn/learn/learning-center/machine-vision/mv-getting-started — Blackfly S CAD models and Teledyne camera CAD links.
+114. https://en.ids-imaging.com/downloads.html — IDS download centre.
+115. https://www.zivid.com/downloads — Zivid STEP/STL for cameras, mounts, calibration boards.
+116. https://www.photoneo.com/downloads/device-resources — Photoneo CAD per model, 2026 housing change note.
+117. https://dev.realsenseai.com/docs/cad-files — RealSense CAD files page.
+118. https://www.orbbec.com/docs/g330-download-cad-files — Orbbec Gemini 330 series CAD files.
+119. https://developer.nvidia.com/embedded/downloads and https://forums.developer.nvidia.com/t/jetson-agx-orin-developer-kit-step-file/264253 — Jetson STEP models in the Jetson Download Center.
+120. https://www.zund.com/en/cutting-systems/digital-cutting-systems/g3-cutter , https://www.zund.com/en/products/cutters/s3 , https://www.zund.dk/wp-content/uploads/2016/07/D3-Technical-Data_brochure.pdf (2016, possibly stale), https://flexografica.com/wp-content/uploads/2024/05/G3-Technical-Data.pdf — Zünd G3/S3 sizes, overall dimensions and weights; no CAD download offered.
+121. https://www.juki.co.jp/industrial_e/products_e/alldocument.php and https://www.juki.co.jp/industrial_e/products_e/lether_e/flatbed_e/detail.php?cd=DDL-8700L_E — Juki catalogues/manuals/parts lists; DDL-8700L head weight 28 kg; no CAD.
+122. https://github.com/pzfreo/draftwright and https://pypi.org/project/draftwright — Draftwright (AGPL-3.0), install, requirements, outputs.
+123. https://pypi.org/project/build123d-drafting-helpers/0.8.0 — build123d-drafting-helpers 0.8.0 CLI and API.
+124. https://pypi.org/project/build123d-mcp and https://pypi.org/project/build123d-mcp/0.3.59 — build123d-mcp (Apache-2.0), tools, bd_warehouse catalogue resource, build123d pin.
+125. `/home/user/agent/docs/ARCHITECTURE_SPINE.md` (section 4) and `/home/user/agent/docs/logs/DECISIONS.md` (D-004), `/home/user/agent/docs/logs/TOOLING.md` — project conventions, D-004 code-CAD decision, build123d install smoke test (internal).
+126. https://www.autodesk.com/au/products/fusion-360/overview — Fusion regional pricing and personal-use limits (AU page; corroborates [18]).
+127. https://github.com/PickNikRobotics/ros2_robotiq_gripper — predecessor of the official Robotiq ROS 2 driver (BSD-3-Clause, 180 stars).
+128. https://github.com/google-deepmind/mujoco_warp — MuJoCo Warp (GPU MuJoCo; mentions cloth and soft bodies).

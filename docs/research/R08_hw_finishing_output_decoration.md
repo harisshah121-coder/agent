@@ -221,3 +221,271 @@ Screen printing is listed for reference only: every automatic carousel above is 
 | Folders | Thermotron STP1000 (program selection on HMI; output conveyors "M" variants), ROQ FOLD (foot pedal or continuous auto mode; recipes) | No published fieldbus; auto mode runs when a garment is detected | Partial (auto mode) — needs vendor confirmation | [S1], [S8] |
 | Conveyors | mk GUF-P 2000 (24 V DC start/stop + 4 speeds via inverter; UR+ URCap), Dorner 2200 (VFD/indexer, iDrive) | Discrete 24 V I/O | Yes | [S66], [S61] |
 | Heat presses | Hotronix IQ (Wi-Fi portal for monitoring/presets), Insta 728 (pneumatic, pushbutton) | No external start interface published | No (needs relay on push-buttons; vendor approval) | [S126], [S130] |
+
+## Recommendation for this project
+
+Decision frame: ST07 must deliver "trim threads, perform necessary turning, inspect and discharge" (white paper line 945) for ≈ 100 shirts per 12 h shift (≈ 8–9/h), with one supervising operator, inside a factory cost envelope of US$52k–140k in which no line item exists for retail folding/packaging or decoration. Every finishing machine on the market is sized for 500–5,000 pieces/h with a human loader. The recommendation therefore separates (A) what the cell must own, (B) what it should buy as an optional module, and (C) what should stay outside the boundary.
+
+### A. ST07 baseline (inside the cell, inside the envelope)
+
+1. Inspection and discharge (selected): a backlit measurement/inspection table built from catalogue parts, not a bought-in "garment measuring machine". Camera: Basler ace 2 R a2A5320-23ucPRO (16.1 MP global shutter, USB3; GigE variant if cable runs exceed 3 m) [S45]. Backlight: Advanced Illumination BL2 at ≈ 36 × 36" (custom size, 2-week lead) or a 3 × 3 tile of EuroBrite BL-S100150 (€545 each) under a diffusing acrylic top [S48][S49]; add a top ring/bar light for seam and print inspection. Software lives in M11 (R-series vision reports). Reasoning: the only turnkey machines found (Yunji Zhihui 2021, Thullex) are unverified, operator-loaded and oversized; the 1996 patent shows the method is mature [S52]; a 16 MP camera over an 800 mm field gives ≈ 0.15 mm/px (est.). Alternates: Smart Vision Lights LLPX panels (CAD downloadable) [S51]; a second camera pair for 3D if seam pucker must be measured (defer to R10/R11). Risk: tolerance correlation with the lab measurement method (ISO/ASTM garment measuring) must be proven on real garments.
+2. Thread ends and lint (selected): rely on the automatic trimmers of the ST05 heads plus an ionising air blow-off with extraction at the inspection table; no thread-sucking machine in the baseline. Alternate: Ngai Shing NS-3110 or WGM AG-90 presented by the ST04 gripper if trials show visible tails (est. US$0.5–2k; 3–5 hp extraction) [S54][S56]. Risk: premium presentation may still need manual touch-up; measure in the pilot.
+3. Turning (selected): avoid it. Sequence ST05/ST06 so the garment finishes right-side-out (neckband and hems on cylinder-bed/feed-off-the-arm heads). Alternate: vacuum-tube turning as an ST04 skill. No commercial T-shirt turner exists (F6). Risk: construction sequence constrains the assembly compiler (M06); flag to R-series sewing report.
+4. Discharge and buffer (selected): one mk GUF-P 2000 (STEP from QuickDesigner, 24 V DC start/stop, 4–5 week lead) or Dorner 2200 (3D CAD from DTools, 3–5 day ship) belt ≈ 2 m × 400–600 mm carrying the flat garment from the inspection table to an accept/reject drop or to the optional folder; reject diverter by flipper gate. Alternate: FlexLink X45 if a routed loop is needed [S64][S60][S67]. Risk: none significant; quote both.
+5. Labelling (selected): care/brand labels are sewn in ST05 (out of R08 scope); a printed size/order sticker on the bag is applied by the bagger's own imprinter (Autobag OneStep/850S) or by a print-and-apply module; RFID only if a customer requires it, using Avery Dennison AD Web/AD Belt inlays printed on a Zebra ZT411 RFID or Avery Dennison ADTP2 (≈ US$0.06/tag est. [S34]). Hang tags: no automatic attacher exists; treat as external/manual.
+6. Pressing/steaming: not needed for a cotton jersey T-shirt (F9); exclude.
+7. Box packing: manual carton station; no erector/sealer (F8).
+
+### B. Optional modules (priced separately; outside the US$52k–140k envelope)
+
+8. Retail fold + bag (selected option): Thermotron STP1000 (US$50,000 reseller list) + PV40 + KL60/TH44 (+ BC41M barcode) is the most documented modular line (dimensions, power, air all published; 400 V 3-ph, 6 bar, ≈ 120 L/min total) [S1][S14][S16]. Alternate 1: ROQ FOLD + ROQ BAG/PACK (700/600–1,200 pcs/h, 3 × 400 V+N, 140 L/min; quote only) [S6]. Alternate 2 (low-cost pilot): Chinese all-in-one fold/bag/seal at US$13,800 (Beyago BYG-FPS-FA, 500 pcs/h, 750 W) [S10]. Reasoning: at 8–9 shirts/h any of these runs < 2 % of the day; the cheap unit proves the robot-loads-folder interface; the Thermotron line is the premium-presentation answer. Risk: all are human-loaded by design; robot placement of a flat garment on the folder infeed is unproven (Open question 1).
+9. Bagging without folding (if the customer wants flat-packed garments): PAC Rollbag R3200 (robot interface ports, 16" bags) or Autobag 850S (22" bags, next-bag-out imprinter) [S19][S22]; both quote-only.
+10. Decoration, print (selected option): panel printing before assembly on a Brother GTXpro B (42 dark / 57 light per h; LAN + SDK; ≈ 165 kg; 100–240 V) with a Schulze PRETREATmaker 5 (42 × 60 cm, 160 W, barcode scan-to-spray) and a Vastex Lo-E2D dryer (4.6 kW, 45 white-ink garments/h) [S91][S109][S118]; budget est. US$45–60k for the trio (basis: AU reseller price for GTXpro B converted, Schulze dealer class, Vastex quote class; unverified). Alternate 1: Epson SureColor F2270 (MSRP US$12,995) + Lawson Zoom-AE pretreat (US$4,995) + Kick-Start DTG dryer (US$3,795) ≈ US$22k list for a pilot [S95][S115][S122]. Alternate 2: Ricoh Ri 4000 (inline Enhancer removes the pretreat station; 135 kg; ColorGATE REST API) [S105][S183]. Not recommended for this scale: Kornit Atlas MAX/PLUS (2,200 kg, quote-only, est. US$250k+ class) and Apollo (US$1.8 M, 83 m² footprint) [S80][S87]. Reasoning: throughput of any single-platen DTG exceeds the cell's 8–9/h by 5×; the deciding factors are integration (SDK/hot folder), footprint and cure path. Risk: platen loading of a loose knit panel by robot and the hot/wet panel hand-off (white paper line 1423) are unsolved; the GTX print-start button is physical (Open question 3).
+11. Decoration, transfer (selected alternate to DTG): DTF prepared off-line on a Mimaki TxF150-75 (MSRP US$8,495, 0.9 kW) or Epson G6070 (US$14,995) with a distributor powder shaker/oven, then pressed in-cell on a Hotronix Dual Air Fusion IQ (two 16 × 20 stations, pneumatic, ≈ £7,150) or Insta 728 (US$5,495) [S134][S141][S128][S130]. Reasoning: moves ink, pretreat and curing out of the cell; the in-cell step becomes a dry transfer and a 15 s press, which is far easier to robot-load. Risk: no press publishes a PLC start input; placement of the transfer must be done by the robot or by a registration jig.
+12. Decoration, embroidery (selected): Tajima TMEZ-SC 1501 single head (1,200 rpm, 360 × 500 mm, 95 kg, 160 W, LAN via DG17/PulseID) with a Tajima Air Type Clamp Frame or border frame for flat panels loaded by the ST04 gripper [S149][S156][S157]. Alternates: HappyJapan HCD3e-1501 (HappyLAN, barcode ready, 106 kg) or ZSK SPRINT 7 (pneumatic clamp frames, barcode operation, OPS 2 vision positioning) [S168][S164]; Ricoma EM-1010 (US$5,079) for a cheap pilot of the loading skill [S166]. Capacity: one head ≈ 8–10 logos/h at ≤ 6,000 stitches (est.); a 2-head TMEZ-KC (2,260 mm wide, 3-ph 200 V) if denser. Risk: no automatic hooping exists; stabiliser (backing) placement and tear-away removal are unhandled steps (white paper line 1406); machine start is operator-initiated on every vendor reviewed.
+13. Screen printing: reference only; not for this cell (F15).
+
+### C. Outside the boundary
+Steam finishing (unless a premium "steamed" SKU is sold: VEIT UF 30, 2 kW, 15 kg/h steam), hang-tag attachment, carton erecting/sealing and shipping.
+
+## Integration notes
+
+Mechanical
+- Inspection table: ≥ 900 × 900 mm glass/acrylic top on an aluminium profile frame (mk profile CAD on PARTcommunity [S65]); camera at ≈ 1.2–1.5 m above the surface (lens per field; est.); backlight tiles in a drawer below; a vacuum or brush-less air table is not needed because the garment is laid flat by ST04. Reject gate downstream.
+- Folder infeed: Thermotron STP1000 and ROQ FOLD take a garment laid flat, front up, collar towards the operator, on a 100 × 80 cm (STP1000) / 1,200 × 635 mm (ROQ) infeed; the ST04 gantry needs reach to that infeed or a transfer belt into it. STP1000 footprint 2.76 × 1.24 m; PV40 1.78 × 0.67 m; BC41 2.16 × 0.93 m; full PV40+TH44+BC41M station 4.36 m long [S1][S14][S17]. ROQ FOLD F60 is 6.19 × 1.81 m [S6].
+- DTG: print on the cut front panel (before ST05) on a 14 × 16" platen; the panel must be held flat (Brother platens use adhesive or a frame); after printing the panel is wet/hot and must pass pretreat-dry → print → cure (160 °C, 3.5 min conveyor or 180 °C 35 s press) → cool before any gripper touches it [S89]. Dryer belt width 30" (Vastex Lo-E), chamber 35–52" long, overall ≈ 2.3 m with 88" belt [S118].
+- Embroidery: panel clamped in an air/border frame; frame size 360 × 500 mm on TMEZ-SC; machine 1,030 × 770 mm, 95 kg; table height per Tajima stand; clamp-frame open/close by the machine's pneumatics; backing sheet placed under the panel (manual today).
+- Heat press: Hotronix Dual Air Fusion IQ needs a 24 × 36" table, 30" high, compressor ≥ 1 hp/8 gal, 3.8 CFM [S129]; Insta 728 29.9 × 33.1 × 26" [S130].
+
+Electrical (per vendor data; check local supply)
+- Thermotron: STP1000 210–400 V AC, 1.44 kW; PV40 400 V AC, 0.35 kW; BC41 210–400 V [S1][S14][S16]. ROQ: 3 × 400 V+N, 1.5 kVA (FOLD) [S8]. Autobag 850S 110/220 V 1.8 kW 20 A; Rollbag R3200 120 V 15–20 A [S22][S20].
+- DTG: GTXpro/pro B 100–240 V, 0.8 A avg [S92]; GTX600 200–240 V, 5 A avg [S93]; F3070 100–240 V ≈ 168 W [S99]; Ri 4000 320 W [S105]; Kornit Atlas MAX separate dryer power.
+- Curing: Vastex Lo-E1D/2D/3D 2.85/4.6/6.35 kW at 230 V 1-ph or 400 V 3-ph [S118]; heat presses 1.8–2.2 kW on a dedicated 15–20 A circuit [S126][S130].
+- Embroidery: single heads 100–250 W single-phase; TMEZ-KC multi-head 3-phase 200 V, 760 W [S153]. VEIT UF 30 2 kW [S74].
+
+Pneumatic
+- 6 bar line: STP1000 51 L/min; PV40 70 L/min; BC41 31 L/min; ROQ FOLD 140 L/min; Autobag/Rollbag 5–7.5 CFM @ 80 psi; Kornit 6–8 bar regulated; Air Fusion IQ 2.3 CFM, Dual 3.8 CFM; Tajima air clamp frames (consumption not published). Size the ST00 compressor accordingly (R01/R-series infrastructure report).
+- Steam only if VEIT UF 30 is adopted (4–6 bar, 15 kg/h) [S74].
+
+Data and control
+- Baggers: discrete 24 V "product in bag → cycle" handshake with dry-contact isolation (Sharp manual spells this out [S28]); Autobag 500/850S and Rollbag add Ethernet/WMS and printer data. Treat as ST09 PLC I/O.
+- Folders: STP1000 program/length set on its HMI; "auto" cycle triggered by garment presence; no fieldbus published → request Thermotron I/O drawing; ROQ FOLD continuous auto mode or pedal input [S1][S8].
+- Conveyors: mk inverter 24 V DC start/stop/4 speeds/direction; Dorner VFD indexer; both plain ST09 outputs [S66][S61].
+- DTG: Brother SDK over LAN (ARXP job, status, stop, maintenance triggers) [S180]; Epson hot folder + SDK [S99]; ColorGATE REST API for Ricoh/Kornit RIP queues [S182]; the M07 scheduler drives these from M12/M06 job data; the physical print start on Brother/Epson is a platen-load button → needs vendor confirmation of a remote start or a relay.
+- Embroidery: DG17/PulseID LAN push (design, speed, needle order, frame position, barcode) [S157]; ZSK barcode operation and Smake workflow [S164]; HappyLAN [S168]; machine start remains an operator action unless a vendor exposes an input (Open question 4).
+- Vision: Basler pylon SDK (Linux/ARM) into M11 edge PC; hardware trigger from ST09 when the garment is at rest; lighting controllers (Ai/SVL) take 24 V and strobe trigger.
+- Safety: all decoration and packaging machines are CE/UL stand-alone machines with their own guarding and two-hand/light-curtain starts (Rollbag light curtain, Thermotron CE); integrating a robot loader means re-assessing them as part of the cell under ISO 12100/ISO 10218-2 (M10 scope); the heat press hot platen and the dryer exhaust (DTF glycol fumes, Vastex VP series) need extraction and guarding [S147].
+
+Consumables and software to budget: DTG pretreat fluid and ink (Brother pouches; Epson 800 mL packs; Ricoh 200/500 mL cartridges), platens (US$ hundreds each), RIP licence (ColorGATE / CADlink / Garment Creator free), embroidery backing and thread, PulseID/DG17 licence, bags on a roll (Rollbag/Autobag system-matched), labels/ribbon, RFID inlays.
+
+## Conflicts with the white paper
+
+1. Cost envelope: the white paper's factory cost table (lines 1957–1977) has no line for retail folding, bagging, labelling or decoration; "Assembly, calibration, acceptance test and packaging" (US$7–15k) refers to packing the machine, not garments. A Thermotron STP1000 alone is US$50,000 at a US reseller [S2]; the cheapest fold+bag unit found is US$13,800 [S10]. The white paper is internally consistent because it calls retail folding/packaging "external or optional" (line 367), but the garment cost model then charges "Basic packaging US$0.20 per acceptable garment" (line 2106) without saying who does it. The build guide must state plainly that folding/bagging is manual at the operator's station unless a priced optional module is added.
+2. One-operator unattended operation vs. operator-loaded finishing machines: every folder, bagger, DTG printer, heat press and embroidery head in this report is rated with a human loading it, and vendors state throughput depends on the operator [S3][S6]. The white paper's "automatic presentation" requirement for optional modules (line 1380) is not met by any catalogue product; it is integration work (robot loading of a folder infeed, print platen or clamp frame) with no precedent found. Not a contradiction of the paper's wording, but a gap the guides must not paper over.
+3. Brother reference: the white paper cites "GTX300" documentation for pretreatment and drying [13]. Brother's current production models are GTXpro, GTXpro B and GTX600 (US) with GTX300 appearing as a hybrid model in the Asia-Pacific/AU lineup (A$22,750) [S90][S143]. The requirement itself (pretreat for white ink; cure 180 °C/35 s or 160 °C/3.5 min) is confirmed on the current GTXpro/GTX600 sheets [S89][S93]; update the citation.
+4. Tajima SAI: the white paper says "eight needles and specified frames" — confirmed (8 needles, 800 rpm, 200 × 300 mm, 37 kg) [S148]. But SAI is the entry model; a production cell should reference TMEZ-SC (1,200 rpm, 360 × 500 mm, i-TM thread management, LAN) [S149]. The paper's statement that automatic hooping is "not established" is confirmed: none exists; pneumatic clamp frames are the available primitive [S156][S164].
+5. Pressing: the white paper lists "retail pressing" as a module to study (line 1435). Finding: no pressing is required for a knit T-shirt; steam finishing is purely cosmetic and all folders accept unpressed garments (F9). Recommend removing it from the T-shirt configuration.
+6. Throughput framing: the white paper says "dense embroidery may dominate cycle time" (line 1407). Confirmed quantitatively: ≈ 8–10 pieces/h per head at ≤ 6,000 stitches (est.), i.e. embroidery, not printing, is the first decoration bottleneck at 100 shirts/shift; DTG single-platen rates (40–59/h) exceed the cell rate 5×.
+
+## Open questions and unknowns
+
+1. Robot loading of a folding machine: can ST04 lay a T-shirt on the STP1000 / ROQ FOLD / Beyago infeed accurately enough for the fold sensors? Cheapest check: send 20 finished shirts to Adelco/SPSI (Thermotron) or ROQ.US for a demo with a flat-laid, non-hand-smoothed presentation and film the result; ask Thermotron for the infeed sensor and I/O drawing. Secondary: buy the US$13,800 Chinese unit for the pilot.
+2. Folder/bagger control interface: Thermotron and ROQ publish no PLC interface. Confirm by e-mail whether "auto" mode exposes start/ready/fault contacts; Rollbag and Sharp document handshakes already.
+3. DTG remote start: Brother SDK sends jobs and can stop a print, but does the GTXpro B start a print without the panel button? Ask DTGSDK@brother.com; same question to Epson (Garment Creator SDK) and Ricoh/ColorGATE. If no, a relay on the start button with vendor consent, or choose Ricoh Ri 4000/Kornit if they expose it.
+4. Embroidery remote start and automatic frame handling: ask Tajima (DG17/PulseID), ZSK (barcode/Smake) and HappyJapan whether a networked machine can be started by the host and whether the Air Type Clamp Frame can be opened/closed by an external valve; request a quote for TMEZ-SC1501 + air clamp frame + DG17 and for a ZSK SPRINT 7 with pneumatic frame and OPS 2.
+5. Wet/hot panel handling: pretreat-dry → print → cure leaves the panel damp/hot; what dwell and surface temperature allow a vacuum or needle gripper to pick it without marking? Test on 10 panels with the Epson F2270 pilot and an IR thermometer.
+6. Prices not published (request quotes): Thermotron PV40/NT50/LD70/BC41, ROQ FOLD/STACK/BAG/PACK, Rollbag R3200, Autobag 500/850S, Sharp MAX, Kornit Atlas MAX PLUS, Brother GTXpro/pro B/GTX600 (USD), Schulze PTM5, Vastex Lo-E, Tajima TMEZ-SC/KC, Barudan, ZSK, Brother PR1055X, VEIT UF 30/CF 20, Forenta, Lantech C-300, 3M a80, Zebra ZT411 RFID, Avery Dennison ADTP2/STP, RFID inlay unit price at 10k–100k volume.
+7. CAD: only Dorner (DTools), mk (QuickDesigner STEP) and Smart Vision Lights publish downloadable CAD; request STEP from Thermotron, ROQ, Brother, Epson, Tajima, Hotronix, PAC and Signode under NDA for the 3D model (A07/A08). Basler STEP availability on the product page to be verified.
+8. Garment measurement accuracy: build the backlit table and measure 30 shirts against a certified manual method; target ±2 mm on chest, length and sleeve; confirm whether relaxed-lay repeatability (knit recovery) dominates the error.
+9. Thread tails: with ST05 auto-trimmers, measure residual tail length and count per garment on 20 shirts; decide on the suction station from data.
+10. Turning: confirm with the sewing report (R-series ST05/ST06) that the chosen construction sequence ends right-side-out; if not, prototype vacuum-tube turning with the ST04 gripper.
+11. DTF transfer placement: can the robot place a DTF transfer (film) within ±2 mm on a flat panel and hold it through the press? Test with a Hotronix Dual Air Fusion IQ demo at a Stahls' dealer.
+12. Unknown vendors/models: Aeoon DTG, Polyprint TexJet NG+ primary specs, Geo Knight DK20SP, Barudan "BEXT-S901CAII" (not in current literature), Chinese DTF lines, any automatic hang-tag attacher, any automatic hooper. Record as unknown; revisit only if a decision depends on them.
+
+## Sources
+
+1. https://thermotron.gr/product/auto-folding-garment-stp1000 — Thermotron STP1000 technical specifications (dimensions, power, air, output, fold sizes).
+2. https://spsi.com/products/thermotron-automatic-folding-machine-stp1000 — SPSI reseller price US$50,000 for STP1000; PV40/KL60 descriptions.
+3. https://www.adelco.co.uk/folding-equipment/folding-module-stp1000 — Adelco (UK) STP1000 page; operator-dependent output; station composition.
+4. https://thermotron.gr/shop-2?lang=en — Thermotron product range (STP1000, FX25/FX25S, PV40, KL60, TH44, BC41M, LD70, NT50, station combinations).
+5. https://www.adelco.co.uk/folding-equipment — Thermotron module overview; NT50 stacks up to 35 cm.
+6. https://www.roqinternational.com/t/roqint/files/ficheiros/dobrar-copia.pdf — ROQ Fold/Bag/Pack/Stack catalogue (F60 dimensions, 700 pcs/h, power options, Stack dimensions).
+7. https://www.roq.us/roq-fold-stack-pack-label — ROQ.US throughput claims (FOLD 700–750, STACK 800, PACK 1,200/h), LABEL module.
+8. https://dev.screenprintsupplies.com/products/equip/packaging/roq-fold — ROQFOLD F60 technical table (garment sizes, 1.5 kVA, 140 L/min).
+9. https://www.roqinternational.com/en/product/packaging/roq-stack — ROQ STACK specs (2,300 mm conveyor, 700 pcs/h).
+10. https://beyaomachinery.en.made-in-china.com/product/DQZpeaPxJBcu/China-Automatic-Garment-Apparel-Clothes-T-Shirt-Folding-Bagging-Machine.html — Beyago BYG-FPS-FA fold/bag/seal, US$13,800, 500 pcs/h, specs.
+11. https://texpa.de/ — TEXPA product scope (home textiles only).
+12. https://textilefocus.com/texpa-latest-developments-focus-on-making-automation-smarter-not-just-faster/ — TEXPA 2026 profile; ownership by Atexco/Hangzhou Honghua.
+13. https://www.deconetwork.com/hands-on-with-thermotron-stp1000-automatic-folding-machine — 2025 hands-on confirming current STP1000 and 5,500/shift rating.
+14. https://thermotron.gr/wp-content/uploads/2021/06/PV40-EXTR-ENGLISH.pdf — PV40 bagger datasheet (dimensions, 0.35 kW, 400 V, 70 L/min, bag sizes).
+15. https://thermotron.gr/product/packaging-machine-pv40m?lang=en — PV40/PV40M page.
+16. https://www.adelco.co.uk/folding-equipment/barcode-label-printing-module-bc41 — BC41 specs (216 × 93 × 108 cm, 31 L/min, thermal transfer).
+17. https://thermotron.gr/wp-content/uploads/2021/10/STATION-21.pdf — PV40/TH44/BC41M station layout drawing (435.5 cm long).
+18. https://gjs.co/equipment/garment-packaging — ROQ packaging module buyer's guide (FOLD/BAG/PACK/LABEL/STACK/OUT).
+19. https://www.pacmachinery.com/products/rollbag-r3200-and-r3200xl — Rollbag R3200/XL specifications.
+20. https://www.pacmachinery.com/products/rollbag-r3200-r3200xl-fulfillment-paper-automatic-bagger/ — R3200 Fulfillment specs (dimensions, air, electrical, robotics interface ports, label applicator, light curtain).
+21. https://www.pacmachinery.com/wp-content/uploads/Rollbag-baggers.pdf — Rollbag range table (R785, R1075, R1275, R3200, Magnum speeds and bag sizes).
+22. https://dam.sealedair.com/asset/1db15cbc-ac8a-4915-b376-ec2df29331c4/Autobag-850S-Data-Sheet-pdf.pdf — Autobag 850S datasheet (2019).
+23. https://www.shippers-supply.com/UserFiles/resource/specs/Autobag-850S-Bagging-System.pdf — Autobag 850S datasheet (2017) with dimensions and AutoTouch control.
+24. https://www.propac.com/packaging-equipment/bagging-equipment/baggers/autobag-500 — Autobag 500 specs (Pro Pac).
+25. https://www.sealedair.com/content/dam/protective-equipment/automated-bagging-systems/high-speed-bagging-systems/autobag-500/Autobag-500-Bagging-System-Datasheet.pdf — Autobag 500 datasheet.
+26. https://dam.sealedair.com/m/61dc6306d210d570/original/AB-PS125-PS125-OneStep_Product-data_ENGLISH_2024-pdf.pdf — Autobag PS 125 / OneStep datasheet (2024).
+27. https://www.pregis.com/us-solutions/by-product/automated-mailing-bagging/automatic/Sharp-Max-Automated-Bagging-Equipment-Series — Pregis Sharp MAX series (15 bags/min, lights-out automation).
+28. https://www.pregis.com/globalassets/resources/us/operator-manuals/max-12---max-20/1143--1145-operator-manual-ce-rev_11_en.pdf — Sharp MAX operator manual: PLC filler handshaking I/O.
+29. https://www.averydennison.com/na/en/industries/apparel/products/printers-scanners-applicators/printers — Avery Dennison apparel printers (STP RFID, multimedia, care-label printers).
+30. https://supplychain.averydennison.com/assets/media/pdfs/Avery_Dennison_Logistics_ADTP2_USA.pdf — ADTP2 datasheet (8 ips, RFID encoder/verification).
+31. https://media.digikey.com/pdf/Data%20Sheets/Avery%20Dennison%20PDFs/600597-600598-100309.pdf — AD-237r6 inlay datasheet.
+32. https://rfid.averydennison.com/en/home/product-finder/belt.html — AD Belt inlay (UCODE 7XM/9).
+33. http://rfid.averydennison.com/en/home/product-finder/web.html — AD Web inlay for hang tags (50 × 30 mm).
+34. https://note.com/qy_research/n/nb6209710d56b?hl=en — QYResearch RFID hang-tag market note (≈ US$0.06/unit average EXW 2025; supplier list).
+35. https://checkpointsystems.com/apparel-labeling-solutions — Checkpoint ALS product scope.
+36. https://www.zebra.com/content/dam/zebra_dam/en/tech-specs/zt411-tech-specs-en-us.pdf — Zebra ZT411 specifications incl. RFID encoder.
+37. https://www.ers-online.co.uk/o22550/zt41143-t0e0000z-zebra-zt411-mid-range-industrial-4-inch-label-printer — ZT411 300 dpi reseller price (£1,455.16).
+38. https://www.satoamerica.com/products/printers/industrial/cl4nx-plus/ — SATO CL4NX Plus RFID.
+39. https://www.staples.com/nahanco-dennison-mark-iii-fine-tagging-gun-orange/product_216488 — Avery Dennison Mark III tagging tool price.
+40. https://www.averydennison.com/na/en/industries/apparel/products/heat-presses — Avery Dennison heat presses for heat-transfer labels (Thermopatch, DC16APT).
+41. https://499inks.com/c/insta-heat-presses — Insta heat press reseller prices (421, 728, 1020, etc.).
+42. https://vn.apparelresources.com/technology-news/manufacturing-tech/finally-ai-manufacturing-garment-measurement-inspection-flash/ — Yunji Zhihui AI garment measuring machine (2021).
+43. http://www.thullex.com/ — Thullex RapidMeasuring claims.
+44. https://intelgic.com/ai-garment-print-inspection-machine-vision — Intelgic AI print inspection.
+45. https://docs.baslerweb.com/a2a5320-23ucpro — Basler a2A5320-23ucPRO specifications.
+46. https://www.baslerweb.com/en-us/shop/a2a5320-23ucpro — Basler shop (net list price on login).
+47. https://www.edmundoptics.com/p/basler-ace2-a2a5320-23ucpro-color-usb3-pro-camera/44050 — Edmund Optics listing of the camera.
+48. https://advancedillumination.com/products/category/backlight — Ai backlights (BL2 scalable to 46", EuroBrite, lead times).
+49. https://www.edmundoptics.eu/p/100-x-150mm-white-eurobrite-backlight/3154 — EuroBrite BL-S100150-WHI €545, specs.
+50. https://advancedillumination.com/press-releases/new-product-bl2-high-intensity-back-lit-backlights — BL2 press release (2023).
+51. https://smartvisionlights.com/product-category/backlights-light-panels — Smart Vision Lights backlights with CAD downloads.
+52. https://patents.google.com/patent/US5530652A/en — US 5,530,652 automatic garment inspection and measurement (1996).
+53. https://epubl.ktu.edu/object/elaba:128838697/128838697.pdf — Applied Sciences 2022 automatic garment measurement (errors 0.75–1.27 cm).
+54. https://www.ngaishinghk.com/products.html — Ngai Shing NS-3110 thread trimming machine; reversing machines.
+55. https://www.textileindustry.net/garments-machinery-list-and-price — 2025 indicative price list (thread trimming machine US$500–2,000).
+56. https://www.welcogm.com/Thread_Sucking_Machines.php — WGM AG-90 thread sucking machine specs.
+57. https://www.rsit-sunrise.com/intelligent-apparel-manufacturing-machine — Sunrise automatic thread sucking machine on hanging system.
+58. https://www.ylzq-tech.com/technology/ — YILI product list (thread sucking, needle detector, T-shirt ironing).
+59. https://smarttechbd.net/OUR-FACTORY/Factory-Products — SMIT jeans turning machine listing.
+60. https://www.dornerconveyors.com/wp-content/uploads/2020/03/Dorner_2200series_A4broEU_EN_220F2web.pdf — Dorner 2200 brochure (sizes, loads, speeds, configurator, 3-day ship).
+61. https://media.cmco.com/m/269117092f3b1efc/original/2200-2700-Engineering-Maunual.pdf — Dorner 2200/2700 engineering manual (2026).
+62. https://blog.knottsco.com/new-product-information/dorner-introduces-next-generation-2200-series-modular-belt-conveyors — Dorner DTools 3D CAD download, 5-day ship.
+63. https://www.dornerconveyors.com/wp-content/uploads/2023/07/Dorner_3200series_Manual_723a.pdf — Dorner 3200 manual.
+64. https://www.mk-group.com/en/products/conveyor-technology/belt-conveyors/guf-p-2000.html — mk GUF-P 2000 specs, URCap, CAD zip.
+65. https://www.mk-group.com/en/tools-downloads/download-center/cad-data.html — mk CAD downloads (QuickDesigner STEP, PARTcommunity).
+66. https://rbtx.it/it-IT/components/conveyor/belt-conveyor-guf-p-2000-with-250-w-for-medium-weight-parts-optional-with-control/with-fu-2000-200 — RBTX GUF-P 2000 configuration with inverter 24 V interface; 4–5 week delivery.
+67. https://www.flexlink.com/en/solutions/products/technology/aluminum-conveyor-systems — FlexLink X45/XS/X65 overview.
+68. https://www.flexlink.com/en/support/engineering-tools — FlexLink 3D CAD/engineering tools.
+69. https://juki.com/pub/media/wysiwyg/products/ASN-690_catalog.pdf — JUKI ASN-690 with pneumatic stacker.
+70. https://multimedia.3m.com/mws/media/1009810O/packaging-solutions-guide.pdf — 3M-Matic case sealer selection guide.
+71. https://www.3m.com/3M/en_US/p/c/tools-equipment/case-sealers-accessories/case-sealers — 3M case sealer catalogue.
+72. https://www.lantech.com/product/c300 — Lantech C-300 case erector specs.
+73. https://www.veit.de/en/products/finishing-equipment/universal-finisher-uf-30 — VEIT UF 30 page (60–250 pcs/h, T-shirts).
+74. https://www.lavandys.fr/medias/8248-fiche-finisher-universel-veit-uf-30.pdf — VEIT UF 30 technical data (dimensions, 2 kW, 15 kg/h steam).
+75. https://www.veit.de/en/products/tunnel-finisher/compact-finisher-cf-20 — VEIT CF 20 compact finisher.
+76. https://www.veit.de/wp-content/uploads/2024/01/VEIT_Ironing_Technology_for_TextileCare_09_23.pdf — VEIT catalogue (CF 20 dimensions, tunnel finisher 250–1,500/h, SF 27 data).
+77. https://www.iigm.com/veit-8657-veit-8657-tunnel-finisher-html.html — VEIT TF 57 ≈ 2,500 pcs/h.
+78. https://www.forentausa.com/dc-utility.html — Forenta utility presses.
+79. https://www.forentausa.com/media.html — Forenta model list and form finishers.
+80. https://www.kornit.com/wp-content/uploads/2022/07/Atlas_MAX_brochure_V15_PRINT.pdf — Kornit Atlas MAX brochure (specs).
+81. https://www.amayauk.com/product/kornit-atlas-max — Dealer "price on application".
+82. https://www.kornit.com/magazine/how-much-direct-to-garment-printer-costs-jsuh — Kornit cost article (US$20k to > US$250k).
+83. https://www.kornit.com/printer/atlas-max-plus — Atlas MAX PLUS (150 iph).
+84. https://www.kornit.com/wp-content/uploads/2022/07/Atlas_MAX_PLUS_brochure_DIGITAL_V05.pdf?src=kornitx.com — Atlas MAX PLUS brochure.
+85. https://www.kornit.com/magazine/latest-printers-and-models-they-replace-jsuh — Kornit EOL table (Breeze/Storm → Atlas MAX PLUS).
+86. https://kornit.com/wp-content/uploads/2023/10/Apollo_brochure_15-Oct-23_DIGITAL_V06.pdf — Kornit Apollo brochure (dimensions, power, API + hot folder).
+87. https://www.printweek.com/content/features/star-product-kornit-apollo — Apollo US$1.8 M / click model (2024).
+88. https://www.kornit.com/magazine/inside-kornits-apollo-the-industrys-mass-production-powerhouse — Apollo API integration (2025).
+89. https://brotherdtg.com/downloads/gtxpro/GTXpro-Brochure.pdf — GTXpro brochure (speeds, dimensions, cure).
+90. https://gjs.co/equipment/dtg-printers — GJS Australia DTG prices (GTX Pro Bulk A$45,450; GTX300NC; F3000; price bands).
+91. https://www.brotherdtg.com/gtxpro-b — GTXpro B specifications.
+92. https://brotherdtg.com/downloads/gtxpro-b/GTXpro-B-Brochure.pdf — GTXpro B brochure (2026).
+93. https://garmentprinter.global.brother/en-ap/garment-printers/all-garment-printers/gtx600 — GTX600 specifications.
+94. https://www.printing.org/all-content/2022/01/11/brother-dtg-offers-new-gtx600-mass-production-dtg-printer — GTX600 59 shirts/h launch data.
+95. https://epson.com/For-Work/Printers/Large-Format/SureColor-F2270-Standard-Edition-Printer/p/SCF2270SE — F2270 MSRP US$12,995.
+96. https://res.cloudinary.com/grimcoweb/raw/upload/fl_attachment/v1768199212/Catalog/Products/EPSONSURECOLORF2270/SureColor_F2270_Data_Sheet_CPD-63513.pdf — F2270 spec sheet.
+97. https://www.grimco.com/catalog/products/epsonsurecolorf2270 — Grimco F2270 net price.
+98. https://news.epson.com/news/surecolor-f3070-industrial-dtg-printer — F3070 launch (MSRP US$49,995; hot folders, SDK).
+99. https://www.dtgweb.com/wp-content/uploads/2022/07/SCF3070me-epson-surecolor-f3070-dtg-printer-spec.pdf — F3070 spec sheet.
+100. https://www.dtgweb.com/product/epson-surecolor-f3070-max-industrial-direct-to-garment-printer — F3070 reseller price (US$54,995 → US$39,995).
+101. https://epson.com/For-Work/Printers/Large-Format/SureColor-F3070-Industrial-Direct-to-Garment-Printer/p/SCF3070ME — Epson F3070 page and service-plan prices.
+102. https://ricohdtg.com/ricoh-ri2000-dtg-printer/specs — Ri 2000 specs.
+103. https://store.ricohdtg.com/detail/342379 — Ri 2000 US$20,499.
+104. https://ricohdtg.com/ — Ricoh DTG promotions (Ri 2000 US$13,775; Ri 4000 inline Enhancer).
+105. https://ricohdtg.com/ricoh-ri4000-dtg-printer/specs — Ri 4000 specs.
+106. https://www.ricoh-europe.com/products/industrial-products/textile-printers/ri4000/ — Ri 4000 EU specs.
+107. https://hownest.com/dtg-printers — Secondary DTG price round-up (Polyprint echo2).
+108. https://www.roq.us/ — ROQ.US range (NOW/HYBRID DTG, FOLD/STACK/PACK, presses).
+109. https://www.palsprint.com/wp-content/uploads/2024/11/Brochure-PRETREATmaker-5.pdf — Schulze PRETREATmaker 5 brochure (specs).
+110. https://brotherdtg.com/ancillary-equipment/schulze-5/ — PTM5 / PTM5 Max features.
+111. https://www.hsi.us/schulze — Hirsch Schulze page (interfaces, barcode).
+112. https://brotherdtg.com/downloads/ancillary-equipment/PTM5Max-SellSheet.pdf — PTM5 Max specs.
+113. https://manutech-print.com/en/dtg-equipment/376-schulze-pretreatmaker-basic-pro-dtg-pretreat-machine.html — Basic Pro €3,145 and specs.
+114. https://brotherdtg.com/ancillary-equipment/schulze-basic-pro/ — Basic Pro US page.
+115. https://www.dtgweb.com/product-category/hardware-accessories/lawson — Lawson pretreater prices.
+116. https://brownmfgdigital.com/ — Brown Digital Firefly/Synergy.
+117. https://brotherdtg.com/support/ancillary-equipment — Brother ancillary list (Schulze, Brown Firefly, DTF stations).
+118. https://www.vastex.com/News-Releases/LL-0346_Expanded-Line-of-Energy-Saving-Dryers-for-DTG-and-Water-Based-Inks.php — Vastex Lo-E dryers (2026).
+119. https://www.anthemprintingsf.com/Vastex-EconoRed-III-Conveyor-Dryer-p/vst-er-iii-54.htm — EconoRed III price and lead time.
+120. https://dev.screenprintsupplies.com/products/equip/dryers/vastex-ec2 — Vastex range comparison and ER-II prices.
+121. https://www.vastex.com/Screen-Printing-Equipment/Infrared-Conveyor-Dryers/EconoRed/ERII.php — EconoRed II page.
+122. https://lawsonsp.com/collections/inkjet-digital-dtg-conveyor-dryers — Lawson DTG dryers and prices.
+123. https://dtgmart.com/collections/vendors?q=lawson — Lawson Digi-Star Elite / Alpine prices.
+124. https://www.hotronix.com/hotronix-fusion-iq-heat-press — Fusion IQ specs.
+125. https://assets.stahls.com/stahls/content/pdf/catalog/Hotronix-Catalog-2026.pdf — Hotronix 2026 catalogue (power, air, weights).
+126. https://www.hotronix.com/hotronix-air-fusion-iq-heat-press — Air Fusion IQ specs.
+127. https://www.stahls.co.uk/hotronix-air-fusion-iq.html — Air Fusion IQ £4,150.
+128. https://www.stahls.co.uk/hotronix-dual-air-fusion-heat-press.html — Dual Air Fusion IQ £7,150 and features.
+129. https://www.stahls.com/dual-air-fusion-heat-press — Dual Air Fusion IQ compressor/table requirements.
+130. https://www.instagraph.com/shop/heatpress-machines/parts-accessories/model-728/insta-728-heat-press — Insta 728 US$5,495 and specs.
+131. https://artbrands.com/Art_Brands/shop/page/heat-presses-insta-728 — Insta 728 reseller price.
+132. https://www.instagraph.com/shop/heatpress-machines/manual-heat-press-machines/insta-256 — Insta 256 US$2,595 and specs.
+133. https://uscutter.com/geo-knight-press — Geo Knight prices.
+134. https://www.mimakiusa.com/products/txf150-75 — TxF150-75 MSRP US$8,495, speed.
+135. https://www.mimakiusa.com/products/spec-sheet/TxF150-75 — TxF150-75 spec sheet (2026).
+136. https://mimaki.com/product/inkjet/dtf/txf150-75/specification.html — TxF150-75 JP specs.
+137. https://www.mimakiusa.com/products/TxF300-75 — TxF300-75 MSRP US$9,995, speed.
+138. https://mimaki.com/archives/002/202401/DB30343-04_TxF-300_150-75_EN.pdf — TxF300/150 brochure (T-shirts/h, workflow).
+139. https://www.mimakiusa.com/products/txf300-series — TxF300 series MSRPs.
+140. https://www.mimakiaus.com.au/product/inkjet/dtf/txf150-75/specification.html — Mimaki Australia; D800 powder shaker news.
+141. https://epson.com/For-Work/Printers/Large-Format/SureColor-G6070-35%22-DTFilm-Printer/p/SCG6070SE — G6070 MSRP US$14,995, bundled Fiery Digital Factory.
+142. https://mediaserver.goepson.com/ImConvServlet/imconv/426ac146b791280e0bdf00636e5d6e14c2fcf0fe/original?assetDescr=SureColor_G6070_Printer_Specification_Sheet_CPD-65539.pdf — G6070 spec sheet.
+143. http://brotherdtg.com/ — Brother DTG lineup (GTXpro, GTXpro B, GTX600, DTRX).
+144. https://lawsonsp.com/products/prestige-r2-pro-13-dtf-printer-with-supplies-virtual-training — Prestige R2 Pro bundle price.
+145. https://mclogan.com/products/dtf-station-phoenix-air-16x20-curing-oven — Phoenix Air oven price/power.
+146. https://dtfstation.com/products/prestige-r2-pro-dtf-printer — Prestige R2 Pro speed.
+147. https://www.vastex.com/Screen-Printing-Equipment/Infrared-Conveyor-Dryers/EconoRed/ERVP.php — Vastex EconoRed VP for DTF fumes.
+148. https://www.tajima.com/product/sai/ — Tajima SAI specs.
+149. https://www.tajima.com/product/tmez-sc/ — Tajima TMEZ-SC specs.
+150. https://www.tajima.com/wp-content/uploads/2025/12/webTMEZ-SC_EN.pdf — TMEZ-SC catalogue (2025).
+151. https://www.maggieframes.com/blogs/embroidery-blogs/tajima-single-head-embroidery-machines-technical-guide-business-optimization-strategies — Secondary: Tajima single-head price band.
+152. https://www.tajima.com/product/tmez-kc — TMEZ-KC specs.
+153. https://www.tajima.com/wp-content/uploads/2026/06/webTMEZ-KC_EN_20260630.pdf — TMEZ-KC catalogue (2026).
+154. https://www.tajima.com/wp-content/uploads/2024/04/TMEZ-KC.pdf — TMEZ-KC catalogue (2024) with power data.
+155. https://yazirwansewing.com/embroidery-machines/51-tajima-tmbp-sc1501.html — TMBP-SC1501 specs and a reseller price (legitimacy unverified).
+156. https://www.tajima.com/product/frame — Tajima frames incl. Air Type Clamp Frame.
+157. https://www.tajimasoftware.com/tajima-dg17 — DG17 machine networking features.
+158. https://tajimaeurope.com/wp-content/uploads/2022/08/DG16_catalogue-EN.pdf — DG16 catalogue (LAN networking).
+159. https://www.tajimasoftware.com/pulseid — PulseID automation.
+160. https://www.tajima.com/product/pulseid/ — PulseID (DG.NET SaaS).
+161. https://www.barudanamerica.com/wp-content/uploads/2020/02/Barudan-Single-Head-Literature.pdf — Barudan single-head specs.
+162. https://www.zskmachines.com/embroidery-machines/single-head-sprint-7 — ZSK SPRINT 7.
+163. https://www.zsk.de/en/embroidery-machines/sprint.php — ZSK SPRINT series.
+164. https://catalog.zsk.de/download/20260330_ZSK_Gesamtkatalog_LQ.pdf — ZSK 2026 catalogue (pneumatic clamping, barcode operation, OPS 2, Roll2Roll).
+165. https://hoopingstation.com/blogs/articles/ricoma-em-1010-vs-brother-pr1055x-the-real-embroidery-machine-price-and-the-hidden-costs-that-bite-new-shops — Secondary price commentary (PR1055X class).
+166. https://ricoma.com/ — Ricoma prices (EM-1010, Swift, Creator).
+167. https://ricoma.com/products/marquee-15-needle-commercial-embroidery-machine-with-10-1-touchscreen-panel — MT-1501 price.
+168. https://happyjapan.com/hcd3e-1501-single-head-embroidery-machine — HCD3e-1501 specs, HappyLAN, barcode.
+169. https://www.happyjpn.com/en/product/embroidery/hch-701p-30 — HCH-701P specs.
+170. https://www.kenssewingcenter.com/happy-japan-hch701s-commercial-embroidery-machine-1.html — HCH-701P US$10,995.
+171. https://hoopmaster.com/products/hoopmaster-embroidery-system/tajima-hoopmaster — HoopMaster Tajima kits prices.
+172. https://hoopmaster.com/products/mighty-hoop-magnetic-embroidery-frame — Mighty Hoop.
+173. https://parts.zsk.de/en/embroidery-hoop/hooptech/hooptech-clamping-systems — HoopTech clamping systems prices.
+174. https://www.zsk.de/en/accessories/hooptech.php — ZSK/HoopTech clamping frames.
+175. https://www.roq.us/roq-you — ROQ YOU.
+176. https://www.roqinternational.com/en/product/screen-printing-machines/roq-you/ — ROQ YOU specs.
+177. https://www.mrprint.com/equipment/sportsman-ex-automatic-screen-printing-press — M&R Sportsman EX.
+178. https://www.mrprint.com/equipment/automatic-textile-presses — M&R automatic presses range.
+179. https://www.digitsmith.com/?page=76 — Used M&R Sportsman price (2025).
+180. https://brotherdtg.com/support/automation — Brother DTG SDK capabilities.
+181. https://www.colorgate.com/process-automation — ColorGATE automation stages (hot folder, JDF, REST).
+182. https://www.colorgate.com/fileadmin/user_upload/pdf/TN_-_Productionserver_API_Developers_Guide_Rev_41.pdf — ColorGATE Productionserver REST API guide.
+183. https://www.colorgate.com/products/software/rest-api — ColorGATE REST API module.
+184. https://mimaki.com/manual/raster-link7/reference_guide/en-US/221085707.html — RasterLink7 hot folder import.
+185. /home/user/agent/docs/source/white_paper.txt — owner's white paper (lines 355–372, 445–455, 940–950, 1377–1445, 1459–1470, 1945–1985, 2073–2110 consulted).

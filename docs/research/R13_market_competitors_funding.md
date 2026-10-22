@@ -162,3 +162,283 @@ Reading: the domestic base our cell would sell into is small (25k sewing operato
 
 Reading: tariffs on Asian tees moved from ~16.5% MFN to 25–37% effective in 2026 and remain politically volatile; this narrows but does not close the gap to domestic cost, so our pitch should use the 25–37% range as a sensitivity, not a foundation (see white-paper conflicts).
 
+#### F9.1 addendum: T-shirt market
+
+| Metric | Value | Source (date) |
+|---|---|---|
+| Global custom T-shirt printing market | USD 5.2B (2024) → 6.3B (2026) → 9.8B (2030), CAGR 11.5%; Asia Pacific 36.4% share (2024); screen printing largest, digital fastest growing | Grand View Research (2026) [118] |
+| Same market, different definition | USD 8.93B (2025) → 9.88B (2026) → 14.61B (2030), CAGR 10.3% | Research and Markets (Jan 2026) [119] |
+| US custom T-shirt printing | USD 857.6M (2023) → 1,845.6M (2030), CAGR 11.6%; US = 18.2% of global | Grand View Research (2026) [120] |
+| Global T-shirt market (all tees, value and units) | Not retrieved from a primary source in this research; Statista's apparel volume forecast (203.2B pieces/yr by 2031) is the only unit-level anchor found. Unknown; owner: R13 follow-up, next: pull Statista "T-shirts" segment or Euromonitor | [104] |
+
+#### F9.4 Labour costs for sewing
+
+| Country | Statutory or typical wage | USD equivalent (basis) | Loaded cost per minute, 2026 industry estimate (est.) | Source |
+|---|---|---|---|---|
+| United States | BLS OEWS May 2025, sewing machine operators (SOC 51-6031): median USD 17.63/h (USD 36,670/yr), mean USD 18.08/h, employment 104,880 (secondary page citing BLS); BLS OEWS May 2023 primary: median USD 16.56/h, 116,130 employed, cut-and-sew apparel mean USD 15.94/h | ~USD 2,900–3,100/month base at 40 h/wk (est. from median) | USD 0.80–1.30/min (scanerp "USA USD 1.00") | [121][122][129] |
+| Bangladesh | RMG minimum Tk 12,500/month (Dec 2023) plus 9% annual increment since Dec 2024; three-year review cycle now in law, revision pressed for Dec 2026 | ~USD 102–133/month (exchange-rate dependent) | USD 0.08–0.12/min | [123][124][129] |
+| Vietnam | Regional minimum wage +7.2% from 2026-01-01 (+VND 350,000–500,000/month); Region I ~USD 165/month in 2024 per a sourcing agent | ~USD 180–215/month Region I 2026 (est. from +7.2%) | USD 0.14–0.18/min | [125][130][129] |
+| Mexico | General minimum MXN 315.04/day from 2026-01-01 (MXN 9,582/month); border zone MXN 440.87/day; IMSS average registered salary MXN 673/day (Aug 2026) ≈ USD 1,100/month; unskilled operator employer cost ≈ USD 1,030/month (Oct 2026, consultancy) | USD 520 (minimum) to USD 1,030–1,100 (operator cost) per month | USD 0.35–0.50/min | [126][127][129] |
+| China | CPM only (minimum wages vary by province; USD ~300/month in a 2023 op-ed, possibly stale) | — | USD 0.20–0.32/min | [129] |
+
+Reading against the white paper's USD 20/h paid-work assumption: the US median sewing wage of USD 17.63/h (May 2025) makes USD 20/h a fair fully-paid rate, but a loaded cost (benefits, payroll tax) is nearer USD 24–26/h (est., +25–30% burden). The cost-per-minute gap (USD 1.00 vs 0.10) is the whole economic argument for the cell: at 15 SAM and 50% efficiency a tee costs USD 30.50 CMT in the US versus USD 3.50 in Bangladesh in one practitioner's model [129].
+
+#### F9.5 Cut-and-make cost of a basic tee by country (2025–2026 quotes and guides)
+
+| Item | USA | Mexico | Vietnam | China | Bangladesh | Source |
+|---|---|---|---|---|---|---|
+| CMT per basic cotton tee | USD 5.20–6.40 (LA, 180 gsm, 500 units); USD 5–10 (LA, Apex guide); USD 5.20–8.90 (Alibaba guide) | USD 1.95–2.60 | USD 1.05–1.40; USD 1.20–2.50 | USD 1.20–1.60; USD 1.50–3.00 | USD 0.80–1.80; USD 1.00–2.00 | [128][133][134] |
+| FOB / ex-factory basic tee (500–1,000 units) | USD 12.50–17.50 (US cut-and-sew); USD 14–22 at 50–150 units (LA small batch); USD 8.20–9.40 landed from LA | USD 4.68 FOB (Guanajuato) | USD 3.08 FOB; Asia ex-factory USD 2.40–3.80 | USD 3.30 FOB | USD 2.85 FOB; USD 2.80–3.60 at 1,000 units; from USD 4.50 at MOQ 500 (agent) | [128][134][135][136][132] |
+| 100-tee quotes incl. shipping (Apr 2025, 50 manufacturers) | USD 17.50/shirt (New Jersey) | — | USD 11.48 | USD 13.14 | USD 8.55 (Pakistan USD 11.00) | [131] |
+| Premium 240–280 gsm vintage-wash tee FOB (China/Vietnam) | — | — | USD 4.50–8.00 | USD 4.50–8.00 | — | [134-Storiginator, see 149] |
+| Labour content | Jersey tee 8–12 SAM; ~12 sewing operations; cost of making = 15.2% of FOB (2023 Bangladesh cost-sheet study); fabric 42–50% of FOB | | | | | [130][132] |
+| Importer-side add-on (freight, duty, fees) | Averages 23% of FOB on Asian sourcing before 2025 tariff changes; 2026 duty on a cotton knit tee ~25–37% (F9.3) | | | | | [130][112][117] |
+
+Reading: the white paper's modelled USD 9.02 total cost per accepted shirt at 100/day and USD 12 ex-factory price sit above a landed Asian basic tee (USD 4–6 incl. 2026 duties, est.) and inside the US small-batch band (USD 12.50–22). The cell therefore competes on reorder speed (US 3–5 weeks vs Asia 10–16 weeks [128]), MOQ (tens vs 300–1,000 per style/colour) and Berry/uniform eligibility, not on price against Asia.
+
+#### F9.6 Fabric prices (cotton jersey)
+
+| Item | Price (currency, date, basis) | Source |
+|---|---|---|
+| Raw cotton, Cotlook A Index | 90.65 US cents/lb on 2026-10-09 (index); briefly >100 c/lb early Sep 2026, ~91 c/lb mid-Oct; China CC Index ~120 c/lb | [140][141] |
+| Cotton jersey 180 gsm, Asian mills | USD 2.40–4.20 per metre (2026 guide); ~USD 5.50/kg standard, ~USD 7.50/kg organic (sourcing-agent worked example); 0.35–0.45 kg per tee | [133][130] |
+| Single jersey, India (listings) | INR 330–350/kg (IndiaMART listings, 2026) ≈ USD 3.4–3.7/kg at ~INR 96/USD | [142][141] |
+| US retail cotton/Lycra jersey | USD 10.48/yd (FabricMart retail, 2026) | [143] |
+| US wholesale heavyweight (280 gsm) cotton jersey per yard/kg | Not published online by the US knitters checked; request quotes (Laguna Fabrics, Cotton Heritage, Pine Crest). Unknown; owner: R13 follow-up, next: quote request for 280 gsm combed ring-spun jersey, 60 in tubular/open width, 50–500 yd | — |
+
+#### F9.7 Print-on-demand economics, MOQs and lead times
+
+| Item | Value | Source |
+|---|---|---|
+| POD unit cost to seller | Bella+Canvas 3001 from USD 11.92 incl. one print (Printful, 2026-10-21); cheapest black tee USD 8.17 (Printful) vs USD 12.47 (Gelato); USD 8.80–14.50 per printed tee with 2–5 day turnaround and no MOQ (2026 guide) | [50][51][134] |
+| POD margins | 20–40% net typical; basic tees as low as 10% | [139] |
+| MOQ patterns | Small-batch domestic 25–200 units/style (LA from 50/style, activewear 100/style/colour); overseas full package 300–1,000+/style plus colour minimums; Bangladesh 300/style (agent) to 1,000/style/colour at small-mid export factories and 5,000–10,000 at tier-one; custom-dyed fabric MOQ ~3,000 m | [137][136][138][135] |
+| Lead times | LA: samples 2–4 weeks, bulk 4–8 weeks after approval (6–12 weeks total); US reorders 3–5 weeks vs 10–16 weeks from Asia; Bangladesh bulk 30–35 days for 300–1,000 pcs plus 18–35 days sea freight (9–14 weeks brief-to-door) or 75–120 days PO-to-FOB for knit programmes; Vietnam 45–75 days; China 30–60 days | [136][128][138][135][133] |
+
+#### F9.8 Berry Amendment, uniform and merchandise segments
+
+| Item | Value | Source |
+|---|---|---|
+| Berry Amendment | 10 U.S.C. 4862 (formerly 2533a): DoD must buy clothing, fabrics, fibres, yarns and made-up textiles grown/produced in the US, down to components of components (DFARS 252.225-7012) | [146][144] |
+| DLA Troop Support Clothing & Textiles obligations | USD 1,878M in FY2024, of which cut-and-sew apparel contractors (NAICS 315210) USD 624M, men's/boys' cut-and-sew (315220) USD 165M, cut-and-sew except contractors (315250) USD 101M; >8,000 items | DLA small-business brief (Apr 2025) [145] |
+| DoD textile/apparel procurement | USD 2.3B in FY2021 (clothing USD 1.7B) = 5% of USD 49B US mill shipments; UNICOR ~USD 99M of DoD textile/apparel sales | CRS primer [144] |
+| Uniforms and workwear market | USD 84.75B (2025) → 89.71B (2026) → 111.27B (2030), CAGR 5.5–5.9% | Research and Markets (2026) [147] |
+| Promotional products industry (PPAI/ASI 2025 sales, apparel share) | Not retrieved in this research. Unknown; owner: R13 follow-up, next: PPAI "2025 Sales Volume Study" or ASI "State of the Industry 2026" | — |
+
+### F5 addendum: comps found after the table above
+
+| Company | Round | Amount and valuation | Investors | Source |
+|---|---|---|---|---|
+| Dyna Robotics | Seed → Series A | USD 23.5M seed (2025-03-25, CRV and First Round lead; USD 100M post per a secondary tracker); USD 120M Series A (2025-09-15) at >USD 600M (Bloomberg); USD 144M total | Robostrategy, CRV, First Round; NVentures, Amazon Innovation Fund, Salesforce Ventures, Samsung Next, LG Technology Ventures | [148][149][150] |
+| Skild AI | Series A → Series C | USD 300M Series A at USD 1.5B (2024); USD 1.4B Series C (2026-01-14) at >USD 14B; revenue "zero to ~USD 30M" in 2025 | SoftBank lead; NVentures, Macquarie, Bezos Expeditions; Lightspeed, Felicis, Coatue, Sequoia; strategics Samsung, LG, Schneider, Salesforce | [151] |
+| Formic | Series A (2024) | USD 27.4M (2024-06-25); investors include Lux Capital, Initialized, Blackhorn, Mitsubishi HC Capital America, NEC, TransLink; equipment debt since 2022 | Lux Capital is thereby evidenced as an active industrial-robotics investor | [81] |
+
+## Recommendation for this project
+
+| Decision | Selected option | Alternates | Reasoning and risk |
+|---|---|---|---|
+| Positioning statement | "The first conventional-stitch roll-to-garment cell priced for a single factory floor (~USD 100k), sold to domestic uniform/teamwear makers, Berry-Amendment contractors and nearshore contract sewers who need 50–500-piece reorders in days, not weeks." | (a) "Physical-AI sewing platform" licensed to JUKI/Jack-class OEMs; (b) decorated-tee microfactory bundling a DTG partner (Kornit Apollo) | CreateMe (bonded seams, 250/h platform), SoftWear (worklines, brand-led B1), Silana (same roll-to-tee thesis, EU-first, undelivered) and Theker (handling only) leave the "stitched, cell-sized, buy-it-yourself" slot open [F1][F4]. Risk: a Silana delivery or a CreateMe T-shirt launch in 2026–27 closes it; mitigation is a public demonstrated run before either. |
+| Beachhead segment | DLA/Berry cut-and-sew contractors and uniform/teamwear suppliers (USD 1.88B FY24 DLA C&T obligations; USD 624M to cut-and-sew contractors) [F9.8] | Premium domestic basics brands and LA small-batch sewers (USD 12.50–22 per tee today) [F9.5]; fashion-school/research labs for first two units | Berry buyers cannot offshore, already host automation pilots (Bluewater Defense) and value documented process control; risk is DLA spec compliance (shade, construction specs) and slow procurement cycles. |
+| Price positioning for the operator | Target total construction cost ≤ USD 3.00 per accepted tee ex-fabric (est. from the white paper's USD 9.02 at 100/day less USD 6.08 materials) so the operator sells at USD 10–14 ex-factory: below US small-batch (USD 12.50–22) and within reach of landed Asian premium (USD 6–10 incl. 25–37% duty) [F9.3][F9.5] | Sell cell + usage fee (Kornit AIC model, ARR USD 33.8M at Q2 2026 shows buyers accept it) [F3] | Price against Asia is not winnable on basics; it is winnable on 3–5-week reorders, MOQ in tens and Berry eligibility. Risk: tariff reversal after the Feb 2026 IEEPA ruling and Jul 2026 Section 301 reset [F9.3]. |
+| Business model | Sell the cell (~USD 100k) with a USD 3k/yr software/service package (white paper) and offer RaaS via equipment debt (Chef Robotics structure: USD 20.6M equity + USD 22.5M SVB equipment line) [F5] | Pure RaaS (Formic) or brand-funded worklines (SoftWear/BESTSELLER) | RaaS removes buyer capex but needs a lender; the white paper's 2% reference-case contribution leaves no room for RaaS write-offs, so the USD 52k factory cost case is a precondition. |
+| Seed round | USD 2–5M on a post-money SAFE or priced round at USD 12–25M post, ~20% dilution, led by a deep-tech seed (Root USD 3–5M initial, Cantos USD 1.5–4M, HAX/SOSV up to USD 550k first check, Pathbreaker first check) plus one strategic (uniform maker, JUKI/Jack distributor or a brand's venture arm) [F6][F7] | EU route: aws/FFG-style grants then SOSV/HAX (Silana's path, EUR 0.7M grants + EUR 1.5M seed) | Comps show seed buys a prototype and LOIs, not deliveries (Silana); the raise must be sized for a demonstrated run plus 3 pilots (24–30 months). Risk: investor pattern-matching to SoftWear/Tianyuan; answer with measured runs, not claims. |
+| Seed milestones to commit to | (1) one unattended roll-to-tee run on video with measured takt, yield and operator interventions; (2) BOM-backed factory cost at USD 52k/83k; (3) 3–5 LOIs naming price, site and success criteria [F8]; (4) safety architecture (M10/ST09) scoped to ISO 10218/TS 15066 with certification started before Series A | — | These map to what robotics seeds were funded on in 2025–26 (prototype, data asset, LOIs) [F8]. |
+| What not to build | Bonded seams (CreateMe's patent estate, >95 patents), stiffener routes (Sewbo), knit-to-shape (Shima: slow, gauge-limited, JPY 23B company with falling unit sales) | — | Keeps the conventional-stitch differentiator and avoids IP collision; check Amazon US 9,623,578 and SoftWear patents in the IP review. |
+
+## Integration notes
+
+Market and funding research has no mechanical or pneumatic interface; its "interfaces" are the data and documents the rest of the project consumes.
+
+- Cost model inputs (M07 scheduler, M14 data): adopt cost-per-minute and SAM as first-class metrics so the cell's measured takt can be expressed as a CMT equivalent (US USD 0.80–1.30/min, Mexico 0.35–0.50, Vietnam 0.14–0.18, Bangladesh 0.08–0.12; tee 8–15 SAM) [F9.4][F9.5]. Log operator interventions per garment because "one operator per cell" is the cost claim buyers will test.
+- Tariff and duty feed: the landed-cost comparison depends on HTSUS 6109/6110 base rates (16.5% cotton knit) plus Section 301 layers (7.5% legacy + 10–12.5% new, Jul 2026) and any TRQ at zero rate for Bangladesh/Cambodia/Indonesia/Malaysia; keep a dated tariff table in the sales model and refresh quarterly [F9.3].
+- Berry/DLA channel: DLA Troop Support C&T posts solicitations on DIBBS; specifications, patterns and shade standards come from DLA, so the canonical garment record (M02) should be able to ingest a DLA pattern/spec package [F9.8].
+- Usage metering: if a Kornit-style usage fee is adopted, M14 must meter accepted garments, attempts and material consumption with tamper evidence, and M12 must expose read-only metering to the buyer.
+- Decoration partner interface (ST08): Kornit Apollo takes garments at up to 400/h with one operator, far above the cell's ~8–10/h, so decoration is a shared downstream station, not an inline module; plan a buffer and label hand-off [F3].
+- Competitive watch: subscribe to SoftWear, Silana, CreateMe, Theker, unspun press and to ARM Institute project calls (Sewbo/Bluewater); re-run this comp table before each fundraising step.
+- LOI template: fields per F8 (champion, site, use case, success metric, price range, trigger and time box).
+
+## Conflicts with the white paper
+
+Checked by grepping the white paper for competitor names, prices, wages, MOQ, tariffs and the USD 100,000 / USD 12 assumptions. No outright contradiction found; four calibration points:
+
+1. Fabric price: the white paper's unquoted USD 12/kg body and USD 14/kg rib assumptions are 2–3× Asian mill jersey (USD 3.4–7.5/kg) and above the USD 2.40–4.20/m guide range; they are plausible only for US-knit heavyweight 280 gsm jersey at small quantities, which is unverified (no US wholesale quote found) [F9.6]. Treat as conservative until Laguna/Cotton Heritage quotes arrive.
+2. Ex-factory price: the USD 12 assumed price is above landed Asian premium tees (USD 6–10 est. incl. 2026 duties) and at the bottom of US small-batch pricing (USD 12.50–22); the white paper already says willingness to pay is untested, and this research confirms the price is defensible only in uniform/Berry and fast-reorder segments [F9.5].
+3. Silana's "one worker per ten machines" (white paper, competitor table) could not be found on Silana's current site, which now states "90% automation degree" and "82% cost deduction"; the claim may have been removed or restated [F1].
+4. The white paper lists SoftWear's offer as "sourcing through enabled factories" without noting its Aug 2025 USD 20M Series B1 led by BESTSELLER or the Tianyuan Little Rock outcome (manual plant opened 2019, automated line still "in development"); both strengthen, not weaken, the paper's caution about public claims [F1].
+
+Labour: the white paper's USD 20/h paid-work rate is consistent with the BLS May 2025 median of USD 17.63/h for sewing machine operators (a loaded rate would be ~USD 24–26/h, est.).
+
+## Open questions and unknowns
+
+| Unknown | Why it matters | Cheapest way to confirm |
+|---|---|---|
+| Did the Tianyuan Little Rock LOWRY lines ever run at scale (2020–2026)? | Investors will cite it | Email SoftWear IR/press and Arkansas EDC; one call to TY Garments USA |
+| Silana: has any machine been delivered; price and throughput per SiBot; is the PitchBook USD 5.53M seed real? | Direct comp and competitor | Request a quote as a prospective buyer; ask SOSV/HAX contacts |
+| CreateMe total funding, investors and T-shirt launch date | Best-funded rival | PitchBook/Crunchbase paid pull; ask Avalo/Laguna partners |
+| SoftWear LOWRY workline price and lead time | Price anchor for a "workline" vs our cell | Quote request |
+| Kornit Apollo system price | ST08 partner economics | Quote request to Kornit |
+| Global T-shirt market size in units and value (not printing) | TAM slide | Statista/Euromonitor segment purchase |
+| Promotional products industry sales 2025 and apparel share | Merch segment sizing | PPAI 2025 Sales Volume Study (free summary) |
+| Vietnam Region I 2026 minimum wage in VND (absolute) and China garment wages 2026 | Labour cost table completeness | MOLISA decree 2026 text; ILO wage database |
+| US wholesale 280 gsm cotton jersey price per yard and MOQ | Material cost in the garment model | Quotes from Laguna Fabrics, Cotton Heritage, Pine Crest |
+| Section 301 implementation after Jul 2026 memo: final rates and textile TRQ volumes | Landed-cost comparison | USTR Federal Register notices; CBP CSMS messages |
+| DLA C&T FY2025 obligations and FY2026 solicitations for knit tees | Beachhead sizing | DLA small-business brief update; DIBBS search for 8415 class |
+| Theker EUR 74M round (Jun 2026) confirmation | Inditex's automation bet | Theker press page or Kibo Ventures |
+| Shima Seiki FY to Mar 2026 results and WHOLEGARMENT unit sales | Alternative-route trend | Shima Seiki IR PDF (link found, numbers not extracted) |
+| Whether Founders Fund, a16z, Playground, Bessemer have any apparel-automation deal | Investor list | Crunchbase investor search |
+
+## Sources
+
+1. https://softwearautomation.com/softwear-automation-secures-20-million-in-series-b1-funding-round-led-by-strategic-partnership-with-bestseller/ — SoftWear USD 20M Series B1, 2025-08-11, BESTSELLER/Invest FWD lead, participating investors, board seat.
+2. https://platform.tracxn.com/a/d/company/546c50dee4b08dcc0590c98a/softwear%20automation — Tracxn: SoftWear total disclosed USD 45.6M, 52 employees, Series B stage.
+3. https://www.thecompanycheck.com/company/b/softwear-automation/vdu65f33avbc6i18v — Conflicting total (USD 65.6M, 5 rounds, Lear Corp as investor).
+4. https://wwd.com/business-news/technology/feature/softwear-automation-announces-investment-10911418 — USD 4.5M investment from CTW Venture Partners (undated).
+5. https://www.crunchbase.com/organization/softwear-automation — DARPA and Walmart Foundation R&D funding; fully automated T-shirt workline product.
+6. http://usa.chinadaily.com.cn/world/2017-07/25/content_30244657.htm — Tianyuan/SoftWear 2017 claims: 21 lines, one tee per 22 s, 800,000/day, USD 0.33 labour per shirt, USD 20M plant.
+7. https://robohub.org/sewing-a-mechanical-future — Robohub: unclear whether the 30M pieces/yr objective was met.
+8. https://www.therobotreport.com/chinese-factory-sets-arkansas-make-t-shirts-using-u-s-robots — 330 robots, USD 20M factory.
+9. https://sewbo.com/ — Sewbo process (PVA stiffener), jeans focus, not for sale.
+10. https://tracxn.com/d/companies/sewbo/__kLgjCyavUqFgPs0FLjSk4tSVYplGSCQq2psSrQ6l0UA — Sewbo unfunded, 3 employees.
+11. https://arminstitute.org/news/project-robotic-sewing — ARM Institute Apr 2026 highlight: TRL 8–9 via NIST RACER, LA partner factory, fundraising, >50% of jeans assembly addressable.
+12. https://arminstitute.org/projects/robotic-assembly-of-garments/ — ARM project at Bluewater Defense: pocket flaps, quality met, cycle time higher than human.
+13. https://www.eu-startups.com/2024/05/vienna-based-robotics-startup-silana-raises-e1-5-million-to-optimise-the-clothing-production-puzzle — Silana EUR 1.5M seed led by SOSV; ~200 machines pre-ordered; 30M tees/yr; one worker per ten machines claim context.
+14. https://brutkasten.com/artikel/silana-wiener-naehroboter-startup-erhaelt-15-mio-euro-investment — Silana ~EUR 700k prior grants; Löffler customer; first deliveries planned 2025.
+15. https://pitchbook.com/profiles/company/537956-29 — PitchBook Silana: latest seed deal USD 5.53M, 15 employees, 14 investors.
+16. https://www.cbinsights.com/company/silana/financials — CB Insights Silana: Seed VC-II Dec 2024, StartX Sep 2025, USD 1.63M disclosed.
+17. https://www.silana.com/ — Silana claims: 90% automation, 82% cost reduction, 68% CO2 saving, New York office.
+18. https://www.sewts.com/blog/sewts-raises-eu7m-to-shape-the-future-of-robotics-and-automation-in-the-textile-industry — sewts EUR 7M Series A Aug 2023, investors, Otto Group returns prototype.
+19. https://tech.eu/2023/08/10/sewts-set-to-enhance-textile-automation-with-successful-eur7-million-series-a-fundraising — VELUM up to 700 items/h.
+20. https://www.createme.com/newsroom/createme-launches-robotic-apparel-manufacturing-platform-and-first-commercial-grade-garments — CreateMe MeRA/Pixel launch 2025-09-11; 250 garments/h; 20×; >95 patents; cost-competitive claim; T-shirts next.
+21. https://www.therobotreport.com/createme-innovates-robotic-assembly-adhesion-tech-garment-industry/ — First product women's intimates; adhesive replaces thread.
+22. https://pitchbook.com/profiles/company/438696-01 — CreateMe: later-stage VC, 48 employees, 3 investors, Newark CA; Caplight comparables list (Apparel Robotics Corporation) via https://www.caplight.com/company/createme.
+23. https://www.prnewswire.com/news-releases/createme-expands-c-suite-strengthens-advisory-bench-to-drive-next-wave-of-ai-powered-apparel-manufacturing-302637502.html — CreateMe Dec 2025 promotions toward full-scale manufacturing.
+24. https://www.prnewswire.co.uk/news-releases/createme-avalo-and-laguna-fabrics-launch-seed-to-system-the-first-ai-powered-apparel-manufacturing-ecosystem-302807301.html — CreateMe "Seed to System" with Avalo and Laguna Fabrics, 2026-06-23.
+25. https://wwd.com/business-news/technology/createme-automated-apparel-manufacturing-1238132784 — WWD: CreateMe claims prices on par with Asian factories.
+26. https://app.dealroom.co/companies/resonance_companies — Resonance rounds: USD 15M (2015), 8M (2018), 22.5M (2020), 3.3M (May 2025).
+27. https://www.cbinsights.com/company/resonance-companies — Resonance total USD 33.83M; latest round debt; Chelsea Piers HQ.
+28. https://www.preqin.com/data/profile/asset/resonance-companies--inc-/745102 — CreateOne Pro USD 100/month + 10% revenue share; Santiago DR plant; USD 3.32M May 2025.
+29. https://www.prnewswire.com/news-releases/unspun-raises-32m-in-oversubscribed-series-b-funding-to-transform-fashion-supply-chains-with-groundbreaking-3d-weaving-technology-302208798.html — unspun USD 32M Series B, DCVC lead, Jul 2024.
+30. https://www.cbinsights.com/company/unspun/financials — unspun total USD 69.73M; Series B-II USD 14.36M Aug 2026 (Lowercarbon).
+31. https://www.unspun.io/blog/post/bringing-vega-to-market — Vega renamed OneWeave; licensing model; 350+ machines / 10M garments by 2030.
+32. https://www.dcvc.com/news-insights/unspuns-3d-weaving-a-literal-revolution-for-the-clothing-industry/ — Walmart agreement for 350 Vega machines; pants woven and assembled in 20 min.
+33. https://fashiondive.com/news/unspun-series-b-32-million-weaving-technology/722889 — Series A USD 14M (2023); pants in ~10 min; woven = 57% of apparel.
+34. https://www.inditex.com/itxcomweb/api/media/2f896a99-1b0f-4757-8242-3256e1701cee/Supply_chain_management_transform_sector.pdf — Inditex 2025 supply-chain KPIs: sewing factory counts by proximity cluster.
+35. https://www.modaes.com/global/companies/inditex-enters-the-capital-of-theker-a-robotics-start-up-applied-to-industry — Theker EUR 18M/USD 21M seed, Kibo lead, Inditex strategic, Jul 2025.
+36. https://app.dealroom.co/news/feed/inditex-invests-in-spanish-robotics-startup-theker-in-21m-funding-round — Theker garment handling/folding focus.
+37. https://foro3d.com/en/2026/junio/theker-recibe-74-millones-para-robotizar-el-doblado-de-ropa-en-catalun.html — Secondary report of Theker EUR 74M round, Jun 2026 (unverified).
+38. https://www.inditex.com/itxcomweb/bh/en/press/news-detail/464b3454-3676-469e-8106-2078e38e3435/interim-nine-months-2025-results — Inditex 9M2025: EUR 1.8B capex, proximity sourcing.
+39. https://www.levistrauss.com/wp-content/uploads/2018/02/Project-FLX-Press-Release.pdf — Levi's Project F.L.X. 2018 (possibly stale).
+40. https://www.sec.gov/Archives/edgar/data/866374/000110465918063948/a18-37071_1ex99d1.htm — Flex 8-K Oct 2018: Nike Guadalajara wind-down by 2018-12-31.
+41. https://www.sportsbusinessjournal.com/Articles/2025/04/21/nike-sneaker-companies-see-difficulty-in-automating-shoe-production — 2025 retrospective on Nike/Flex: 5,000 staff, soft parts defeated robots.
+42. https://www.prnewswire.com/news-releases/grabit-inc-enters-into-restructuring-support-agreement-300977328.html — Grabit restructuring Dec 2019.
+43. https://patents.google.com/patent/US9623578B1/en — Amazon US 9,623,578 B1 on-demand apparel manufacturing.
+44. https://www.inquirer.com/philly/blogs/inq-phillydeals/is-amazon-reviving-u-s-manufacturing-20171009.html — Amazon Norristown PA print facility (2017).
+45. https://printful.com/news/merger — Printful/Printify merger announcement, >1M items/month, 60M orders, 85 print houses.
+46. https://www.printful.com/news/merged+company+leadership+team — Merger completed 2024-11-20.
+47. https://tech.eu/2024/11/05/printful-and-printify-merge-a-new-era-for-the-print-on-demand-industry — Printful USD 130M (2021, >USD 1B), Printify USD 54.1M, 117 locations.
+48. https://www.ppai.org/media-hub/printify-printful-announce-merger-deal/ — PPAI: Printify ~USD 103M revenue; US share of top POD businesses.
+49. https://getlatka.com/companies/gelato.com — Gelato USD 240M Series D Aug 2021 at USD 1B; revenue estimates (est.).
+50. https://www.printful.com/custom/mens/t-shirts/unisex-staple-t-shirt-bella-canvas-3001 — Printful Bella+Canvas 3001 from USD 11.92 incl. one print (seen 2026-10-21).
+51. https://www.printful.com/printful-vs-gelato — Printful cheapest black tee USD 8.17 vs Gelato USD 12.47; 582 products; 0.24% return rate; 147M items.
+52. https://kornit.com/lp2/hq/kornit-apollo-printer/ — Kornit Apollo: 400/h, one operator, TCO USD 0.9–1.3/print, ROI 12–18 months, >1.5M prints/yr.
+53. https://ir.kornit.com/static-files/282be503-da5f-4c4a-9233-6b2d143f876b — Kornit FY2025 deck: revenue USD 208.2M, ARR ~USD 25M, 40% of Apollo customers added a second system.
+54. https://www.sec.gov/Archives/edgar/data/1625791/000121390026055444/ea029009101ex99-1.htm — Kornit Q1 2026 results: USD 48.5M revenue, PrintFactory acquisition, Atlas MATRIX.
+55. https://www.globenewswire.com/news-release/2025/11/05/3181331/0/en/Kornit-Digital-Reports-Third-Quarter-2025-Results.html — Kornit Q3 2025 USD 53.1M; Q2 2026 USD 55.3M and ARR USD 33.8M.
+56. https://www.juki.co.jp/en/uploads/ir/integrated-report/2025_E_03_web01.pdf — JUKI integrated report 2025: top share, smart factory, results short of targets.
+57. https://www.juki.co.jp/industrial_e/solution_e/case_study/case01.php — JUKI shirt-factory case: operators 1,227→586, 14,400 shirts/day, ROI 1.9 years.
+58. https://www.juki.co.jp/industrial_e/solution_e/detail.php?sid=17 — JUKI pattern seamer (PS-800) deskilling.
+59. https://www.factmr.com/report/sewing-machine-market — Sewing machine market USD 5.4B (2025); Brother NEXIO BAS-341K/342K May 2026; Konrad Busche acquisition Nov 2025; JUKI DX-01 Jun 2025.
+60. https://www.chinajack.com/web/company/index — Jack Technology profile and acquisitions (Bullmer/Topcut, MAICA, ViBeMac).
+61. https://www.richpeace.com/cnc_sewing_for_garment-show-1157.html — Richpeace RPAS-LM-C-1 template sewing machine specs.
+62. https://www.accio.com/supplier/juki-industrial-sewing-machine-automatic-manufacturer — Marketplace listings of Chinese CNC/template sewing units USD 7,888–15,000 (reseller).
+63. https://insights.globalspec.com/article/15719/arm-institute-project-automates-sewing — ARM Institute sewing project participants (Siemens, Bluewater Defense, Sewbo, UC Berkeley).
+64. https://www.shimaseiki.co.jp/irj/img_sys/irLib/474/474.pdf — Shima Seiki FY to Mar 2025 net sales JPY 23,229M (−10.3%); WHOLEGARMENT history (30 min garment, 1995).
+65. https://www.shimaseiki.com/product/knit/mach2xs — MACH2XS WHOLEGARMENT machine specs.
+66. https://m.made-in-china.com/product/Shima-Seiki-Mach2xs-153-Year-2019-Wholegarment-Knitting-Machine-15g-1957065905.html — Used MACH2XS 153 (2019) listed USD 25,000 (reseller).
+67. https://www.lectra.com/sites/default/files/2026-02/Lectra%20Full%20Year%20Results%202025_EN%20%281%29.pdf — Lectra 2025 results transcript: revenue EUR 506.7M, EBITDA EUR 79.7M, tariff impact on EU fashion <1%.
+68. https://www.lectra.com/sites/default/files/investors_files/Lectra_Press%20Release_Q1%202026_EN.pdf — Lectra Q1 2026: equipment orders −25%.
+69. https://www.lectra.com/sites/default/files/investors_files/Lectra_Financial%20Information_Q3%202025.pdf — Lectra Empower Fashion uptime-guarantee contracts (Sep 2025).
+70. https://tukatech.com/results — Tukatech customer results: TUKAcut crew 90→14, 50–70k units/day; TUKAcad 2026 subscription.
+71. https://www.findglocal.com/US/Los-Angeles/90004751883/Tukatech%2C-Inc. — Tukatech microfactory claim (2012) (weak source).
+72. https://www.arkansasbusiness.com/article/chinese-garment-maker-opens-invests-30m/ — TY Garments Little Rock opened May 2019; 160 employees; investment raised to USD 30M.
+73. https://www.arkansasedc.com/news-events/newsroom/detail/2019/05/30/gov.-asa-hutchinson-tours-newly-opened-tian-yuan-garments-in-little-rock — AEDC release: peak plan >4M garments/yr; automated line still "in development" (May 2019).
+74. https://apparelresources.com/technology-news/manufacturing-tech/chinas-tianyuan-garments-develop-fully-automated-us-facility/ — 2017 promises: lines fully operational by end 2018; 800,000/day; USD 0.33.
+75. https://www.arkansasbusiness.com/tag/ty-garments-usa-llc/ — Arkansas factories pandemic pivot (May 2020) tag page for TY Garments.
+76. https://www.genesis.ai/news/genesis-ai-emerges-from-stealth-with-dollar105m-to-build-universal-robotics-found — Genesis AI USD 105M seed co-led by Eclipse and Khosla, 2025-07-01.
+77. https://techcrunch.com/2025/07/01/genesis-ai-launches-with-105m-seed-funding-from-eclipse-khosla-to-build-ai-models-for-robots/ — TechCrunch on Genesis; notes PI USD 400M round and Skild USD 4B valuation (early 2025).
+78. https://www.globenewswire.com/news-release/2025/11/03/3179052/0/en/mimic-robotics-raises-16-million-to-deploy-frontier-physical-ai-across-industries.html — mimic USD 16M seed led by Elaia with Speedinvest, 2025-11-03; total >USD 20M.
+79. http://sereact.ai/posts/sereact-fundraising-series-a — Sereact EUR 25M Series A led by Creandum, 2025-01-20.
+80. https://sereact.ai/posts/series-b — Sereact USD 110M Series B led by Headline, 2026-04-27; 200+ systems; >USD 140M total.
+81. https://platform.tracxn.com/a/d/company/531c9b20e4b0f7e166554b9b/formic — Formic: Series A USD 27.4M (2024-06-25), valuation USD 100M, total disclosed USD 159M incl. facilities, 121 employees.
+82. https://www.prnewswire.com/news-releases/chef-robotics-announces-43m-series-a-round-led-by-avataar-ventures-to-scale-the-deployment-of-ai-enabled-robotics-302416039.html — Chef Robotics USD 43.1M Series A (USD 20.6M equity + 22.5M equipment debt), 2025-03-31; total USD 65.6M.
+83. https://sacra.com/c/physical-intelligence — Physical Intelligence USD 600M Series B at USD 5.6B post (Nov 2025, CapitalG lead); USD 2.4B valuation Nov 2024.
+84. https://mytra.ai/news/mytra-raises-120m-series-c — Mytra USD 120M Series C, 2026-01-15, Avenir Growth lead; USD 78M through Series B; >USD 200M total.
+85. https://platform.tracxn.com/a/d/company/5b68ed6ee4b04ba64f5ce66a/dexterity — Dexterity Series B USD 104.9M (2026-05-21), valuation USD 1.7B, total USD 396M.
+86. https://www.bloomberg.com/news/articles/2025-03-11/ai-robotics-startup-dexterity-lands-1-65-billion-valuation — Dexterity USD 1.65B valuation, Mar 2025.
+87. https://www.fieldai.com/news/fieldai-announces-over-400m-in-funds-raised-to-advance-embodied-ai-at-scale — Field AI USD 405M across two rounds, 2025-08-20.
+88. https://www.cnbc.com/2025/08/20/gates-nvidia-fieldai-robotics.html — Field AI ~USD 2B valuation.
+89. https://www.latimes.com/b2b/ai-technology/story/2025-09-03/fieldai-raises-405-million-latest-round — Field AI USD 314M August round co-led by Bezos Expeditions, Prysm, Temasek.
+90. https://platform.tracxn.com/a/d/company/590566a8e4b05bd9cfe5acab/dyna%20robotics — Dyna Robotics Series A dated 2025-09-15.
+91. https://carta.com/learn/startups/fundraising/seed-funding/ — Carta Q2 2026 benchmarks: median seed USD 4.5M at USD 23.9M post; dilution 19.4%; SAFE share.
+92. https://carta.com/data/state-of-pre-seed-2025-full-report — Carta State of Pre-Seed 2025: USD 10.4B / 50,316 instruments; SAFE caps USD 10M and 15M; hardware #2 industry.
+93. https://files.pitchbook.com/website/files/pdf/Q4_2025_PitchBook_Analyst_Note_Should_Seed_Investors_Ride_the_High_and_Pay_the_Price_20593.pdf — PitchBook: seed median USD 15M pre, top decile USD 40M, ownership 20–25%.
+94. https://fundingwatcher.com/research/startup-funding-statistics — Secondary compilation citing Carta: seed post USD 24M (Q4 2025), Series A post USD 78.7M, graduation rates.
+95. https://www.root.vc/ — Root Ventures: deep-tech seed fund, initial investments USD 3–5M, 2/3 reserves, robotics portfolio.
+96. https://www.pathbreakervc.com/beliefs — Pathbreaker Ventures focus (inception stage; robotics, CV, novel hardware; fashion and laundry among service industries); news page https://www.pathbreakervc.com/news for portfolio rounds.
+97. https://cryptorank.io/insights/deals/cantos-raises-70-m-fund-iv — Cantos Ventures USD 70M Fund IV; USD 1.5–4M lead checks at pre-seed/seed.
+98. https://sosv.com/ — SOSV: ~60 pre-seed investments/yr up to USD 550k; physical AI focus.
+99. https://connect.visible.vc/investors/hax — HAX: prototype + customer insight required; sweet spot USD 250k; >USD 25M/yr; Smartex, Presso.
+100. https://www.roboticscenter.ai/blog/robot-startup-guide — 2026 robotics startup guide: stage expectations, safety certification 6–12 months.
+101. https://valueaddvc.com/blog/how-traction-requirements-for-series-a-have-changed-since-2021 — Series A bar by sector; deep tech/hardware = LOIs/pilots + technical milestone; graduation 15–20%.
+102. https://www.tran.vc/pilot-agreements-and-lois-that-help-fundraising — What makes a fundable LOI/pilot.
+103. https://www.mckinsey.com/~/media/mckinsey/industries/retail/our%20insights/state%20of%20fashion/2026/the-state-of-fashion-2026_feb.pdf — State of Fashion 2026: tariff 13%→54%→36%; import sources; 89% imported; ~USD 27B duties; low single-digit growth.
+104. https://www.statista.com/outlook/cmo/apparel/worldwide — Statista apparel market USD 1.92T (2026), 2.62% CAGR, US USD 373B, 203.2B pieces (2031).
+105. https://www.grandviewresearch.com/industry-analysis/apparel-market-report — Grand View apparel USD 1.8T (2025) → 2.5T (2033).
+106. https://www.bls.gov/iag/tgs/iag315.htm — BLS NAICS 315 page: sewing machine operators 25,280 (2025); establishments ~6,200; occupational wages.
+107. https://fred.stlouisfed.org/series/IPUEN315W200000000 — NAICS 315 employment 94.0k (2025), 101.8k (2024), 118.0k (2022).
+108. https://fred.stlouisfed.org/series/IPUEN315T300000000 — NAICS 315 sectoral output USD 8,724M (2025).
+109. https://www.kearney.com/documents/d/asset-library-291362522/2026-reshoring-index-1 — Kearney 2026 Reshoring Index: MIR 14.15%; apparel imports USD 88B from Asian LCCRs; apparel more offshored.
+110. https://wwd.com/sourcing-journal/trade/kearney-reshoring-index-usa-domestic-apparel-manufacturing-1238945612 — Sourcing Journal: US apparel manufacturing fell 17% in 2025 (Kearney).
+111. https://www.cbp.gov/sites/default/files/2025-08/factsheet_suspension_of_duty-free_de_minimis_treatment.pdf — CBP: de minimis suspended 2025-08-29.
+112. https://www.depts.ttu.edu/aaec/icac/files/BP-26-04-apparel-imports.pdf — TTU/ICAC Oct 2026 brief: tariff timeline, effective duty rates, sourcing shares.
+113. https://www.klgates.com/thought-leadership/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026 — SCOTUS IEEPA decision 2026-02-20; Section 122 10%.
+114. https://www.govinfo.gov/content/pkg/FR-2026-07-28/pdf/2026-15274.pdf — Presidential memorandum Jul 2026: Section 301 rates 10%/12.5%; textile TRQ mechanism.
+115. https://www.reuters.com/world/china/top-apparel-exporter-vietnam-faces-higher-us-tariffs-than-peers-2026-07-24 — Vietnam 12.5% vs 10% for peers with deals.
+116. https://www.reuters.com/world/asia-pacific/bangladesh-secures-19-us-tariff-exemption-some-apparel-made-with-us-material-2026-02-09 — Bangladesh 19% deal and zero-tariff mechanism, Feb 2026.
+117. https://www.makemine.com/blog/china-tariffs — Cotton knit garment from China 36.5% duty stack (secondary).
+118. https://www.grandviewresearch.com/industry-analysis/custom-t-shirt-printing-market — Custom T-shirt printing USD 5.2B (2024) → 6.3B (2026) → 9.8B (2030), 11.5% CAGR.
+119. https://www.researchandmarkets.com/reports/5751792/custom-t-shirt-printing-market-report — Custom T-shirt printing USD 8.93B (2025) → 9.88B (2026) → 14.61B (2030).
+120. https://www.grandviewresearch.com/horizon/outlook/custom-t-shirt-printing-market/united-states — US custom T-shirt printing USD 857.6M (2023) → 1,845.6M (2030).
+121. https://www.bls.gov/oes/2023/May/oes516031.htm — BLS OEWS May 2023: sewing machine operators median USD 16.56/h, 116,130 employed, cut-and-sew apparel mean USD 15.94/h.
+122. https://www.nyjobzone.org/salary/sewing-machine-operators — Secondary page citing BLS OEWS May 2025: median USD 17.63/h (USD 36,670), mean USD 18.08/h, employment 104,880.
+123. https://www.playroll.com/minimum-wage/bangladesh — Bangladesh RMG minimum Tk 12,500/month ≈ USD 102–133.
+124. https://finance.yahoo.com/economy/policy/articles/bangladesh-garment-wage-clock-ticking-195040563.html — Sourcing Journal (Aug 2026): Tk 12,500 (~USD 102), 9% annual increment, three-year review cycle.
+125. https://en.baochinhphu.vn/regional-minimum-wage-to-increase-by-72-from-january-1-2026-111251111092833451.htm — Vietnam regional minimum wage +7.2% from 2026-01-01 (+VND 350,000–500,000).
+126. https://www.legal500.com/intelligence/mexico/employment-and-hr/mexico-implements-new-subcontracting-inspection-protocol-and-announces-minimum-wage-increase-for-2026 — Mexico 2026 minimum wage MXN 315.04/day general, 440.87 border; MXN 9,582/month.
+127. https://tetakawi.com/blog/average-wage-in-mexico/ — Mexico IMSS average registered salary MXN 673/day (Aug 2026) ≈ USD 1,100/month; unskilled operator employer cost ≈ USD 1,030/month.
+128. https://www.oneaimapparel.com/blog/made-in-usa-vs-offshore-clothing-brands — CMT per tee by country; landed 500-unit tee LA vs Vietnam; US reorders 3–5 weeks vs 10–16 (sourcing-agent data, 2026).
+129. https://scanerp.pro/blog/cmt-cost-country-comparison-2026.html — Cost per minute by country (industry estimates, 2026) and 15-SAM T-shirt worked example.
+130. https://www.oneaimapparel.com/blog/clothing-production-cost-breakdown-global/ — Jersey tee 8–12 SAM, 0.35–0.45 kg fabric, fabric 42–50% of FOB, loaded SAM rates, importer-side cost 23% of FOB.
+131. https://www.visualcapitalist.com/charted-the-cost-to-make-100-t-shirts-by-origin-country — Apr 2025 quotes for 100 tees incl. shipping by country.
+132. https://clothingmanufacturerbangladesh.com/journal/clothing-manufacturing-cost-bangladesh/ — Bangladesh tee from USD 4.50 (MOQ 500); cost of making 15.2% of FOB; ~12 sewing operations; US duty 16.5% + 10%.
+133. https://www.apexfashionlab.com/glossary/cut-and-sew — MOQ, CMT and lead-time table by country; cotton jersey 180 gsm USD 2.40–4.20/m.
+134. https://apparel.alibaba.com/guide/t-shirt-production-cost-guide-real-2026-breakdown — Ex-factory tee cost by region; POD USD 8.80–14.50; cost components (2026).
+135. https://www.oneaimapparel.com/blog/clothing-manufacturing-in-bangladesh — Bangladesh FOB tee USD 2.80–3.60 at 1,000 units; MOQ 1,000/style/colour; lead times.
+136. https://pluckyreach.com/services/clothing-manufacturing — LA small batch: 50 units/style, samples 2–4 weeks, bulk 4–8 weeks, basic knit tee USD 14–22.
+137. https://www.arcusag.com/cut-and-sew-clothing-manufacturers-costs-moqs-lead-times — MOQ layers (style/colour/size/fabric); domestic 25–200, overseas 300–1,000+; basic knit top USD 8–25+.
+138. https://sdfltd.com/streetwear-manufacturer — Bangladesh MOQ 300/style; bulk 30–35 days; sea freight 18–35 days; 9–14 weeks brief-to-door.
+139. https://www.printful.com/blog/what-is-a-good-profit-margin-for-print-on-demand — POD margins 20–40%, tees as low as 10%.
+140. https://www.cotlook.com/prices/cotlook-a-index — Cotlook A Index 90.65 c/lb, 2026-10-09.
+141. https://wwd.com/sourcing-journal/industry-news/cotton-market-analysis-october-2026-1239352311 — Cotton market Oct 2026: A Index ~91 c/lb, CC Index ~120 c/lb, INR ~96/USD.
+142. https://dir.indiamart.com/impcat/single-jersey-fabric.html — India single jersey listings INR 330–350/kg (reseller).
+143. https://fabricmartfabrics.com/collections/cotton-fabric — US retail cotton/Lycra jersey USD 10.48/yd.
+144. https://www.congress.gov/crs_external_products/IF/PDF/IF10609/IF10609.12.pdf — CRS Berry/Kissell primer: DoD textile/apparel USD 2.3B FY2021, clothing USD 1.7B, 5% of mill shipments.
+145. https://www.dla.mil/Portals/104/Documents/SmallBusiness/CandT%20SB%20-%20V-4-25-2025.pdf — DLA Troop Support C&T FY2024 obligations USD 1.878B by NAICS.
+146. https://www.trade.gov/berry-amendment — OTEXA Berry Amendment description.
+147. https://www.researchandmarkets.com/reports/6035401/uniforms-workwear-market-report — Uniforms and workwear market USD 84.75B (2025) → 111.27B (2030).
+148. https://www.dyna.co/news/series-a — Dyna Robotics USD 120M Series A (Sep 2025) and investors.
+149. https://www.bloomberg.com/news/articles/2025-09-15/dyna-robotics-raises-120-million-in-funding-from-nvidia-amazon — Dyna valuation >USD 600M. (Premium tee FOB USD 4.50–8.00 cited from https://storiginator.com/blogs/blog/cmt-vs-fob-full-package-factory-pricing-model-clothing-brand .)
+150. https://tracxn.com/d/companies/dynarobotics/__SQrTmIVEp-T3NjnfTDEZIWLc4jDDBWe4IodOJneuT1Y/funding-and-investors — Dyna seed USD 23.5M (Mar 2025), total USD 144M.
+151. https://www.businesswire.com/news/home/20260114335623/en/Skild-AI-Raises-%241.4B-Now-Valued-Over-%2414B — Skild AI USD 1.4B Series C at >USD 14B (Jan 2026); USD 300M Series A at USD 1.5B; ~USD 30M 2025 revenue.
+
+Note on recency: items marked 2017–2023 (Tianyuan announcements, Levi's F.L.X., Nike/Flex, Grabit, Amazon patent, BLS May 2023, Bangladesh 2023 wage decision) are possibly stale and are used only as history or baseline; all status claims rely on 2025–2026 sources.
