@@ -11,3 +11,4 @@
 - 06:30 UTC: all 17 research agents stopped on an account session limit (HTTP 429, reset 06:30 UTC). Partial report skeletons were saved. The first build123d install was killed at its 20-minute background limit before finishing.
 - 06:46 UTC: owner said "resume"; all 17 agents resumed from their saved transcripts; build123d install restarted with a 2-hour limit and a log in the scratchpad.
 - Second session-limit stop (reset 11:40 UTC) hit all 17 agents again; partial reports of 6–140 lines each were saved. 18:30 UTC: owner said "try again"; all 17 agents resumed from their transcripts.
+- Third session-limit stop (reset 23:30 UTC 2026-10-21). 2026-10-22 00:15 UTC: owner said "try again"; all 17 agents resumed with a finish-first instruction (complete all seven sections and Sources before any further searching).

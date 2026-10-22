@@ -58,3 +58,107 @@ Note on sewts: no 2025–2026 funding or product announcement was found in three
 
 No other 2025–2026 sewing-automation seed or Series A announcements were found in three searches; the sector's 2025–2026 capital went to SoftWear (B1), unspun (B-II), Theker and CreateMe (undisclosed).
 
+### F5. Funding comps: physical AI and robotics rounds, 2025–2026
+
+| Company (HQ) | What it does | Round | Amount and valuation (currency, date, basis) | Lead / notable investors | Relevance as a comp | Source |
+|---|---|---|---|---|---|---|
+| Genesis AI (Palo Alto + Paris) | Universal robotics foundation model built on its own physics simulator; targeted customer deployments planned by end 2026 | Seed | USD 105M seed, 2025-07-01 (press release) | Co-led by Eclipse and Khosla Ventures; Bpifrance, HSG, Eric Schmidt, Xavier Niel | Shows "seed" now spans two orders of magnitude; a foundation-model seed is not a comp for a cell builder except to show investor appetite for physical AI | [76][77] |
+| mimic robotics (Zurich) | Humanoid hands trained by imitation learning for dexterous manufacturing/logistics tasks | Seed | USD 16M, 2025-11-03; total >USD 20M (press release) | Elaia lead; Speedinvest; Founderful, 10X Founders, Sequoia Scout | European dexterous-manipulation seed; closest in size to a well-funded seed for a manipulation-heavy cell | [78] |
+| Sereact (Stuttgart) | Physical AI "Cortex" for picking robots; 200+ systems live; 1B+ picks | Series A → Series B | EUR 25M Series A, 2025-01-20; USD 110M Series B, 2026-04-27; >USD 140M total (company posts) | Creandum (A); Headline (B); Bullhound, Daphni, Felix, Air Street, Point Nine | Series A came with deployed systems and production picks, i.e. the bar for an A is fleet data, not a demo | [79][80] |
+| Mytra (Brisbane CA) | 3D warehouse storage/retrieval robots | Series C | USD 120M, 2026-01-15; >USD 200M total; USD 78M through Series B (press release) | Avenir Growth lead; Eclipse, Greenoaks; Lineage, RyderVentures strategic | A 2022 start reaching C in four years on a few large deployments (one "60× largest prior installation" in 2025) | [84] |
+| Formic (Chicago) | Robotics-as-a-service for SME factories (pay per hour) | Series A (+ debt) | USD 27.4M Series A, 2024-06-25; latest valuation USD 100M; USD 159M total disclosed incl. facilities (Tracxn) | n/a in excerpt | The RaaS financing structure (equipment debt + equity) is the model if we lease cells to small manufacturers | [81] |
+| Chef Robotics (San Francisco) | AI robot arms for food assembly; 44M+ servings | Series A (+ equipment debt) | USD 43.1M, 2025-03-31 = USD 20.6M equity + USD 22.5M equipment financing (SVB); USD 65.6M total (press release) | Avataar Ventures lead; Construct, Bloomberg Beta, Promus, HCVC, MaC | Best single structural comp: deformable-material manipulation, RaaS, equity plus equipment debt so customers avoid capex | [82] |
+| Dexterity (Redwood City) | AI manipulation for logistics ("Mech" superhumanoid) | Series B | USD 104.9M, 2026-05-21 at USD 1.7B (Tracxn); USD 1.65B valuation Mar 2025 (Bloomberg); USD 396M total (Tracxn) | n/a in excerpts | Late-stage manipulation comp; shows valuation ceilings investors underwrite for manipulation | [85][86] |
+| Physical Intelligence (San Francisco) | Robot foundation models (π0 family) | Series B | USD 600M at USD 5.6B post, Nov 2025 (Sacra); prior USD 400M at USD 2.4B Nov 2024 | CapitalG lead; Jeff Bezos, Thrive | Signals that generalist manipulation policies are being funded as platforms we might license rather than build (M08/M11 build-vs-buy) | [83][77] |
+| Dyna Robotics (Redwood City) | Dexterous manipulation foundation models incl. napkin/towel folding demos | Series A | Series A dated 2025-09-15 (Tracxn); amount not shown in excerpt (unverified) | n/a | Textile-folding demos make it the most relevant foundation-model startup for ST03/ST04 skills | [90] |
+| Field AI (Irvine) | Risk-aware foundation models for robots in industrial sites | Two rounds | USD 405M across two rounds announced 2025-08-20; USD 314M August round; valuation ~USD 2B (CNBC, person familiar) | Bezos Expeditions, Prysm, Temasek (co-leads); Khosla, NVentures, Canaan | Scale of capital flowing to embodied AI in 2025 | [87][88][89] |
+| Skild AI (Pittsburgh) | General robot brain | Series B (2025) | Valued at USD 4B in early 2025 (TechCrunch); later rounds not confirmed here (unverified) | n/a | Same as above | [77] |
+| Theker (Barcelona) | Garment handling/folding robots for Inditex | Seed | EUR 18M / USD 21M, Jul 2025 (press); EUR 74M Jun 2026 (secondary, unverified) | Kibo Ventures lead; Kfund; Inditex strategic | The one 2025–2026 apparel-handling round; strategic-led, RaaS | [35][36][37] |
+| SoftWear Automation (Atlanta) | Sewn-goods worklines | Series B1 | USD 20M, Aug 2025 | BESTSELLER (Invest FWD) lead | Strategic (brand) capital is what financed the sewing-automation incumbent in 2025 | [1] |
+| unspun (Emeryville) | Yarn-to-garment weaving machines | Series B-II/B3 | USD 14.4M, Aug 2026; USD 32M B Jul 2024 at DCVC lead | Lowercarbon; DCVC; Decathlon; SOSV | Climate funds finance garment machines with retailer contracts | [29][30] |
+| Silana (Vienna) | Roll-to-tee sewing cells | Seed | EUR 1.5M May 2024 (+ possible USD 5.53M seed per PitchBook, unverified) | SOSV/HAX; OÖ HightechFonds | Direct seed comp: EUR 1.5M bought prototype + pre-orders, not deliveries | [13][15] |
+
+### F6. Typical seed terms, 2025–2026
+
+| Metric | Value | Basis | Source |
+|---|---|---|---|
+| Median US seed round (Carta) | USD 4.5M raised at USD 23.9M post-money; median seed dilution 19.4% | Carta fundraising benchmarks, Q2 2026 | [91] |
+| Median seed post-money (Carta, Q4 2025) | USD 24M (record), vs USD 18M a year earlier; Series A post USD 78.7M; dilution 19–20% at seed and A | Secondary compilation citing Carta "Record seed and Series A valuations" (2026) | [94] |
+| Seed pre-money distribution (PitchBook) | Series median ~USD 15M pre-money in 2025; top-decile "consensus" rounds ~USD 40M pre; investor ownership ~20% (top decile) vs ~25% typical | PitchBook analyst note, Nov 2025 | [93] |
+| Instrument | ~64% of seed rounds on Carta were SAFEs, 27% priced, ~10% notes (Q4 2023–Q3 2024); post-money SAFE with cap and no discount is the pre-seed standard | Carta | [91][92] |
+| Pre-seed caps | Median post-money SAFE cap ~USD 10M for USD 250k–1M raises and ~USD 15M for USD 1–2.5M raises (2025) | Carta State of Pre-Seed 2025 | [92] |
+| Pre-seed volume and sector mix | USD 10.4B across 50,316 SAFEs/notes in 2025 (−1% cash, −13% count YoY); hardware was the second-largest industry by pre-seed cash in 2025 (up from third in 2024) | Carta | [92] |
+| Graduation to Series A | 25–30% of seed companies reached A within 24 months in a typical year (2018); ~17% for the 2022 seed cohort | Carta via secondary compilation | [94] |
+| Hardware/robotics check sizes (first institutional) | SOSV: ~60 pre-seed investments/yr up to USD 550k each; HAX sweet spot USD 250k, applicants need "an initial prototype, customer insight and vision"; Root Ventures initial USD 3–5M (deep-tech seed lead, 2/3 of fund in reserves); Cantos USD 1.5–4M lead checks at pre-seed/seed from a USD 70M Fund IV; Pathbreaker writes first checks at inception stage in robotics, computer vision and novel hardware, listing fashion and laundry among target service industries | Firm websites and fund announcements | [95][96][97][98][99] |
+
+Implication: a credible 2026 seed for this project is EUR/USD 2–5M on a post-money SAFE or priced round at USD 12–25M post, selling ~20%, led by a deep-tech seed fund (Root, Cantos, HAX/SOSV, Pathbreaker) with a strategic (brand, sewing-machine maker or uniform supplier) alongside; the physical-AI "mega-seeds" (Genesis USD 105M) are foundation-model outliers, not cell-builder comps.
+
+### F7. Investors active in robotics, physical AI and apparel tech (as evidenced in 2025–2026 deals above)
+
+| Investor | Evidence of focus | Stage / check (published) | Source |
+|---|---|---|---|
+| Eclipse Ventures | Co-led Genesis AI seed; Mytra investor; "~USD 5B AUM … physical industry problems … physical AI" | Seed to growth | [76][84] |
+| Khosla Ventures | Co-led Genesis AI seed; Field AI investor | Seed to growth | [76][87] |
+| SOSV / HAX | Silana, unspun (6 rounds), Smartex (textile inspection), Presso (garment pressing) | Pre-seed up to USD 550k; HAX sweet spot USD 250k | [13][30][98][99] |
+| Lowercarbon Capital, DCVC (climate) | unspun Series A lead, Series B lead, B-II | A/B | [29][30][32] |
+| Creandum, Headline (EU) | Sereact A and B | A/B | [79][80] |
+| Elaia, Speedinvest | mimic seed | Seed | [78] |
+| Avataar Ventures, Construct Capital, Bloomberg Beta, HCVC | Chef Robotics A | A | [82] |
+| Kibo Ventures, Kfund + Inditex (strategic) | Theker seed | Seed | [35] |
+| BESTSELLER Invest FWD (strategic) | SoftWear B1 lead | B | [1] |
+| Emerald Technology Ventures, Nabtesco (strategic), HTGF, Bayern Kapital | sewts A | A | [18] |
+| Root Ventures | Deep-tech seed lead, USD 3–5M initial; robotics portfolio (Dusty Robotics, Seismic, PhyAgents) | Seed | [95] |
+| Cantos Ventures | USD 70M Fund IV; USD 1.5–4M lead checks; advanced manufacturing | Pre-seed/seed | [97] |
+| Pathbreaker Ventures | Inception-stage first checks; robotics, CV, novel hardware; names fashion and laundry as target service industries; portfolio includes Presso and GrayMatter Robotics | Pre-seed/seed | [96] |
+| Founders Fund, Lux Capital, a16z (American Dynamism), Bessemer, Playground Global | Named in the brief; no 2025–2026 sewing- or apparel-automation deal by these firms was found in this research (Bessemer led Foxglove's USD 40M robotics-data round, Nov 2025, per Pathbreaker's news page); treat as general robotics investors, unverified for apparel | Seed to growth | [96] |
+
+### F8. Milestones investors expect at seed for hardware / robotics
+
+| Stage | What investors expect (2025–2026 guidance) | Source |
+|---|---|---|
+| Pre-seed (USD 0.5–2M) | Strong team, clear problem definition, initial technical demo; HAX requires an initial prototype and customer insight | [99][100] |
+| Seed (USD 2–5M) | Working prototype, an initial data asset, customer LOIs; for deep tech/hardware the Series A bar is "signed LOIs/pilots plus a technical milestone" rather than ARR | [100][101] |
+| Series A (USD 10–30M) | Customer pilots with measured metrics (success rate, cycle time, uptime), evidence of a data flywheel, repeatable deployment; one 2026 guide suggests 3+ customer pilots and 5,000+ demonstrations within 12 months; seed→A graduation now ~15–20% | [100][101] |
+| Safety | Safety certification (ISO 10218, ISO/TS 15066 for collaborative operation) takes 6–12 months and should start before Series A | [100] |
+| What makes an LOI count | Named champion and department, a specific use case tied to a pain, a time-boxed intent to buy on a success trigger, a price range the customer has accepted, and explicit customer-supplied inputs (site, data, materials) | [102] |
+
+Applied to this project, a seed-ready package is: one roll-to-tee run on video with measured takt and yield (ST01–ST07), a BOM-backed cost at the USD 52–83k factory-cost scenarios, three to five LOIs from uniform/teamwear or small contract manufacturers naming price and site, and a safety architecture document (M10/ST09) showing certification is scoped.
+
+### F9. Market numbers
+
+#### F9.1 Apparel and T-shirt market size
+
+| Metric | Value | Source (date) |
+|---|---|---|
+| Global apparel revenue | USD 1.92T in 2026, CAGR 2.62% 2026–2031; 203.2B pieces/yr by 2031; US largest market at USD 373B (2026); 95% non-luxury | Statista Market Insights (2026) [104] |
+| Global apparel market (alternative) | USD 1.8T (2025) → USD 1.9T (2026) → USD 2.5T (2033), 4.1% CAGR; Asia Pacific 40.8% share | Grand View Research (2026) [105] |
+| Fashion industry growth outlook | Low single-digit growth in 2026; 76% of executives say trade disruptions and duties will shape 2026 | McKinsey/BoF State of Fashion 2026 [103] |
+| US apparel imports | US imports 89% of apparel and leather products sold; top 2024 sources of apparel+footwear imports: China USD 30B (25%), Vietnam 25B (21%), EU 10B, Indonesia 8B, Bangladesh 7B, Cambodia 7B, India 6B, Mexico 4B, Honduras 2B, Pakistan 2B | McKinsey SoF 2026 [103] |
+| Global T-shirt market | see F9.1 addendum below (searched separately) | — |
+
+#### F9.2 US apparel manufacturing employment, output and reshoring
+
+| Metric | Value | Source (date) |
+|---|---|---|
+| US apparel manufacturing employment (NAICS 315) | 94.0k jobs in 2025, down from 101.8k (2024), 107.9k (2023), 118.0k (2022) | BLS productivity program via FRED (Jun 2026) [107] |
+| Sewing machine operators employed in NAICS 315 | 25,280 (2025); ~6,200 establishments (Q1 2026) | BLS industry page [106] |
+| NAICS 315 sectoral output | USD 8,724M (2025) vs 9,026M (2024) and 9,928M (2022) | BLS via FRED (Jun 2026) [108] |
+| Reshoring | Kearney 2026 Reshoring Index: manufacturing import ratio rose to 14.15% (2025) from 13.29%; apparel & accessories imports from Asian low-cost countries USD 88B in 2025 and "even more reliant on offshoring than in previous years"; Sourcing Journal headline on the same index: "US apparel manufacturing fell 17% in 2025" | Kearney (Apr 2026) [109]; Sourcing Journal (May 2026) [110] |
+
+Reading: the domestic base our cell would sell into is small (25k sewing operators) and still shrinking through 2025 despite tariffs, so the first buyers are the ~6,200 establishments already making uniforms, teamwear, military and premium basics domestically, not a reshoring wave.
+
+#### F9.3 US tariffs on apparel, 2025–2026, and de minimis
+
+| Event / rate | Detail | Source |
+|---|---|---|
+| Trade-weighted US tariff on apparel & footwear imports | 13% (1 Jan 2025) → 54% (Apr 2025 spike) → 36% (mid-Oct 2025); ~USD 27B estimated added duties at constant volumes | McKinsey SoF 2026 [103] |
+| De minimis | Duty-free de minimis (≤USD 800) suspended for all countries from 2025-08-29; postal shipments charged ad valorem IEEPA rate or flat USD 80–200/item until 2026-02-28 | CBP factsheet (Aug 2025) [111] |
+| IEEPA tariffs struck down | US Supreme Court, Learning Resources v. Trump, 2026-02-20 (6–3): IEEPA does not authorise tariffs; same-day order ended IEEPA duties; a temporary 10% Section 122 surcharge took effect 2026-02-24 | K&L Gates summary; TTU/ICAC brief [113][112] |
+| Section 301 replacement (Jul 2026) | Presidential memorandum directs Section 301 tariffs of 10% on economies with reciprocal-trade deals (incl. Bangladesh, Cambodia, Indonesia, Malaysia) and 12.5% on others (incl. Vietnam and China), with a textile TRQ mechanism allowing a volume of apparel at a zero Section 301 rate for Bangladesh, Cambodia, Indonesia and Malaysia | Federal Register 2026-07-28 [114]; Reuters 2026-07-24 [115] |
+| Bangladesh deal | Reciprocal-trade agreement 2026-02-09: reduced 19% rate (pre-ruling) and a zero-tariff mechanism for apparel made with US material | Reuters [116] |
+| Effective duty rates actually paid | China cotton-dominant apparel peaked at 70% (May 2025), ~31% by Jun 2026; other leading cotton suppliers ~25% in Jun 2026; MMF group 28% (Bangladesh) to 34% (Jun 2026) | TTU/ICAC brief, Oct 2026 [112] |
+| Sourcing shifts | China's share of US cotton apparel imports fell from 13.8% (2020–24 avg) to 6.6% (H1 2026); Vietnam 17.8% (largest), Bangladesh 16.6% | TTU/ICAC brief [112] |
+| Worked example: cotton knit tee from China (2026) | 16.5% HTS base + 7.5% legacy Section 301 (List 4A) + 12.5% new Section 301 = 36.5% (secondary source; verify against HTSUS before use) | makemine.com [117] |
+
+Reading: tariffs on Asian tees moved from ~16.5% MFN to 25–37% effective in 2026 and remain politically volatile; this narrows but does not close the gap to domestic cost, so our pitch should use the 25–37% range as a sensitivity, not a foundation (see white-paper conflicts).
+

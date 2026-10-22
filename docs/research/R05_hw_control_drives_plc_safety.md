@@ -47,3 +47,45 @@ Red Lion Graphite G10C0000 USD 4,433 (Lesman). https://www.lesman.com/g10c0000
 Standards: EU Machinery Regulation 2023/1230 applies 20 Jan 2027 (EUR-Lex). ISO 10218-2:2025 published 2025-02, 223 pp, CHF 227. EN ISO 13849-1:2023 in OJEU May 2024; 13849-1:2015 withdrawn 15 May 2027 (Pilz). https://www.pilz.com/en-CA/support/law-standards-norms/functional-safety/en-iso-13849-1
 Gearboxes: Neugart PLE 40/60/80/120/160, backlash <15/<10/<7 arcmin 1-stage, IP54, NCP configurator + Tec Data Finder (CAD). https://cdn.neugart.com/fileadmin/user_upload/Downloads/Catalog_Chapters/05_2026/PLE/PLE_2026_05_EN.pdf ; Wittenstein CP alpha Basic Line <=12 arcmin, ratio 3-100, CAD via cad-point.wittenstein-group.com. https://www.wittenstein-group.com/en-us/product/cp ; Beckhoff AG2250-+PLE60 = Neugart PLE factory-fitted. 
 -->
+<!-- WAVE-2 RAW NOTES (2026-10-21)
+Beckhoff reseller prices (TME, USD net, 2026-10): EK1100 149.15 (38 in stock); EL2008 56.90; EL2904 249.78; EL1008 (TME) ~? ; iqelectro EL1008 USD 77.00. https://www.tme.eu/en/katalog/p,beckhoff-automation_1557 https://iqelectro.com/products/el1008-beckhoff-ethercat-terminal-8-channel-digital-input-24-v-dc-3-ms
+Beckhoff TC1250 (PLC/NC PTP 10) includes TC1200 + TF5000; platform levels -0v20 (Economy, only Beckhoff RT Linux), -0v30, -0v40 (Performance, = CX5230), -0v50 (C6030 Celeron/Pentium) ...; prices not public (TwinCAT 3 Price List via sales). https://www.beckhoff.com/en-us/products/automation/twincat/tcxxxx-twincat-3-base/tc1250.html
+TF2000 HMI Server: 1 client + 1 controller standard, platform levels -0v20..-0v94. https://www.beckhoff.com/en-en/products/automation/twincat/tfxxxx-twincat-3-functions/tf2xxx-hmi/tf2000.html
+TF6100 OPC UA server/client, runs on Win/TwinCAT BSD/Beckhoff RT Linux. https://www.beckhoff.com/en-us/products/automation/twincat/tfxxxx-twincat-3-functions/tf6xxx-connectivity/tf6100.html
+CP2912-0010 reseller price USD 1,812 lead 5-7 wk (e-motionsupply). https://www.e-motionsupply.com/product_p/cp2912-0010.htm
+Beckhoff pricing guide (IMD, pre-2020 US est.): EL1008 ~48, EL2008 ~80, CX20xx 1,200-2,200. https://industrialmonitordirect.com/blogs/knowledgebase/beckhoff-plc-documentation-and-pricing-resources-guide
+Schmersal AZM300Z-ST-1P2P USD 788 (Applied Automation, Sep 2026); AZM300Z-ST-1P2P-A-T USD 909. https://www.appliedautomation.com/part/schmersal/azm300z-st-1p2p/2060086
+Euchner MGB2-L1-MLI-U-Y0000-BJ-136776 locking module USD 399.99 (Platinum International, reseller); CTP-L1 on request. https://platinum-international.store/product/euchner-ctp-l1-ar-m-ha-az-sab-123307-safety-switch
+Pilz PSENmlock PSEN ml b 1.1 unit 570400 — price on request in eshop; PITenable PIT en1.0p-5m-s 401110 on request. https://www.pilz.com/en-INT/eshop/Sensor-technology/Safety-switches-with-guard-locking/PSENmlock-safety-locking-devices/PSENmlock/c/0010600222712380OR
+Pilz PNOZ s4 750104 GBP 211.66 ex VAT (RS UK, 2026-05). https://uk.rs-online.com/web/p/safety-relays/0156106
+Leuze RSL410-S/CU408-M12 53800201 list USD 6,027, ~25 business days. https://www.leuze.com/en-us/rsl410-s-cu408-m12/53800201
+Sick microScan3 Core MICS3-AAAZ40AZ1 (1067360) 4 m PF, 40 m WF; Lesman microScan3 from USD 4,674. https://www.lesman.com/microscan3
+Keyence SZ-V32N: 190 deg, 20-150 mm res, 32 banks, up to 3 heads, CAD on page; price only via Keyence (no public list). https://www.keyence.eu/products/safety/laser-scanner/sz-v/models/sz-v32n
+Keyence GL-V light curtain Type 4 PL e (GL-R similar); no public price.
+Oriental Motor AZD-KEP (EtherNet/IP) EUR 476 list, AZD-AED (AC EtherCAT) EUR 618 list, 5 wk (orientalmotor.eu); AZD-KED2 EtherCAT DC driver (catalog.orientalmotor.com), AZD4A-KED 4-axis EtherCAT. https://www.orientalmotor.eu/es/products/detail?hinmei=AZD-AED
+Teknic ClearPath-EC NEMA17/23 integrated EtherCAT servo (manual rev 1.14 2026-10-07); ClearPath CPM-SDSK-2321S-RLN USD 299 (automationtechnologiesinc); Teknic publishes prices on its site (login-free tables). https://teknic.com/files/downloads/ClearPath-EC_NEMA17_User_Manual.pdf
+Leadshine EL8-EC: 400-2000 W, STO SIL3, EtherCAT; price not on site. https://www.leadshine.com/products/servo/servo-drive/el8-series.html
+Delta: Digi-Key ASD-B3A-0421-E USD 632.80 (lead 32 wk std), ECM-B3M-C20604RS1 motor USD 421.60, ASD-B3A-0721-E USD 711.20. https://www.digikey.com/en/products/detail/delta-electronics-industrial-automation/ASD-B3A-0421-E/21852600 ; grey-market ASD-B3-0421-E ~USD 66 (tashannet) — not recommended.
+Yaskawa SGD7S-2R8AA0A price on request (IAC). CAD drawings on yaskawa.com downloads.
+Moxa EDS-2008-EL 8-port unmanaged, 12/24/48 VDC, metal, 5-yr warranty; price not on site. https://www.moxa.com/en/products/industrial-network-infrastructure/ethernet-switches/unmanaged-switches/eds-2008-el-series
+ifm AL1326 (EtherNet/IP sibling of AL1332) list USD 464.20 (ifm US, 2026-10). https://www.ifm.com/us/en/product/AL1326
+EtherCAT DC: all DC devices synchronized to reference clock "generally less than 100 ns". https://infosys.beckhoff.com/content/1033/ethercatsystem/2469102219.html
+EL6688 IEEE1588 PTPv1/v2 terminal, master/slave, usable as TwinCAT reference clock. https://www.beckhoff.com/en-en/products/i-o/ethercat-terminals/el-ed6xxx-communication/el6688.html
+Schmalz SNG-V 10 1.2 V-7 (10.01.29.00176): 10 needles 1.2 mm, 7 mm stroke, 3-7 bar, 265 g, 149x32x56 mm, CAD download on page, price login. https://www.schmalz.com/en-se/products/automation-743270/other-gripping-technologies-746237/needle-grippers-306131/needle-grippers-sng-v-306144/10.01.29.00176
+Festo OVEM: nozzle 0.45-3.0 mm, suction 13-348 l/min, air consumption curve, IO-Link; CAD on festo.com; price login. https://www.festo.com/media/catalog/203487_documentation.pdf
+SMC ZK2: nozzle 0.7/1.0/1.2/1.5 mm -> air consumption 24/40/58/90 l/min ANR, suction 29/44/61/67; energy-saving cutoff 93%. https://www.smcworld.com/products/pickup/en-hk/vacuum_device/related_system/zk2.html
+Rittal AX 1180.000 800x1000x300 IP66 Type 4/12 (datasheet; price not shown). https://www.rittal.com/pdf-creator/variant/hr-hr/1180000
+PULS UB10.241 DC-UPS USD 553.50 (automationdistribution) / 615 (RITEC); UZK12.261 battery module 670. https://automationdistribution.com/ub10-241/
+Mean Well NDR-480-24: 20 A 480 W, MXN 1,923.54 (HTD). https://meanwellmexico.mx/products/ndr-480-24
+Patlite LR6-302WJNW-RYG USD 140; LR6-302PJNW-RYG USD 166 (shop.patlite.com). https://shop.patlite.com/60mm-Signal-Tower-Red-Green-Amber-p/lr6-302wjnw-ryg.htm
+IgH EtherCAT master: GitLab etherlab.org/ethercat, GPLv2, 3,079 commits, 16 releases, stable-1.6 recommended for production. https://gitlab.com/etherlab.org/ethercat https://etherlab.org/en_GB/ethercat
+SOEM v2.0.0 (OpenEtherCATsociety, 2k stars): dual-licensed GPLv3 or commercial; legacy API removed. https://github.com/OpenEtherCATsociety/SOEM/releases
+Omron NX1P2-9024DT: 24 DI/10 DO built-in, up to 4 EtherCAT axes (NX1P2-9024DT: 4 axes? table says 4/0/4), NX-SL3300 safety CPU via EtherCAT coupler. https://www.ia.omron.com/products/family/3650/lineup.html
+Siemens 6ES7512-1SM03-0AB0 CPU 1512SP F-1 PN active, lead 25 days, price group 216, list via Industry Mall login. https://mall.industry.siemens.com/mall/en/internationalenergytechnikltd/Catalog/Product?SiepCountryCode=OE&mlfb=6ES7512-1SM03-0AB0
+Siemens price increase +10..23% effective 2026-03-25 (secondary source accio). 
+RevPi Connect 4 EUR 448 (shop); Connect 5 = CM5-based, PiBridge gateways incl. RevPi Gate EtherCAT (slave gateway, not master). https://revolutionpi.com/en/docs/revpi-connect-5
+IEC 61800-5-2 functions STO/SS1/SS2/SOS/SLS/SSM/SSR/SDI (Phoenix). https://www.phoenixcontact.com/en-us/industries/functional-safety/safe-motion
+FSoE: black channel, IEC 61508, up to SIL 3, TUV-assessed, IEC 61784-3. https://www.ethercat.org/en/safety.html https://www.ethercat.org/download/documents/Safety_over_EtherCAT_Overview.pdf
+EMC: AX8000 C3 with integrated mains filter; C2 needs AX2090-NF80 filter; mains choke for long motor cables; grounding via serrated nuts, shields both ends. https://infosys.beckhoff.com/content/1033/ax8000_ba/13910148747.html https://infosys.beckhoff.com/content/1033/ax8000_ba/7919288715.html ; AX5000 C3 std, <25 m motor cable without choke. Siemens SINAMICS EMC config manual 2024/03 (zone concept, HF equipotential bonding, toothed discs). https://cache.industry.siemens.com/dl/files/610/103704610/att_1277149/v1/EMC_configuration_manual_202403_en-US.pdf
+Muting: IEC 62046:2018 clause 5.7 (muting to allow access by materials/persons, anti-manipulation). https://webstore.ansi.org/preview-pages/IEC/preview_iec62046%7Bed1.0%7Den.pdf ; TwinSAFE EL6900/EL6910 certified muting FBs.
+-->

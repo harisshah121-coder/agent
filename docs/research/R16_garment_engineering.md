@@ -88,3 +88,104 @@ Coats adds: "to avoid damage to the fabric during the sewing of knitted garments
 
 Needle systems by machine class (from the JUKI/Pegasus specifications and the Groz-Beckert reseller listings above): lockstitch DBx1 (134 for walking-foot/heavier heads); overlock DCx27 (B27) — not verified on a vendor page in this report, treat as unverified; coverstitch UY128GAS (verified, JUKI MF-7900). Recommended sizes for 240–300 gsm combed cotton jersey: Nm 70–80 light ball point (SES/FFG) on overlock and coverstitch, Nm 70–75 on lockstitch, confirmed only by sewing trials (Groz-Beckert's three-step seam test [11]).
 
+### F4. Fabric: cotton single jersey body and 1×1 rib for the premium tee
+
+Table F4-A. Published characteristics of cotton single jersey (and rib) relevant to handling.
+
+| Property | Published value | Source |
+|---|---|---|
+| Weight classes, single jersey | Light 120–160 gsm, standard retail 160–200 gsm, heavyweight streetwear 220 gsm and up (Burhan Enterprises, 2026); heavyweight 240–300–350 gsm (Turkey Clothing Production); 210–250+ gsm "heavyweight" (Canvas ETC, 2026); single jersey tees 140–200 gsm (AA Enterprises chart); Wikipedia 120–220 gsm | [12] [13] [14] [15] |
+| Yarn and gauge typical | 30/1 combed ring-spun on a 28-cut, 26-inch machine for ~166 g/m² relaxed single jersey (Cotton Incorporated guide); 20/1 combed cotton for 180 gsm open-width; 30/1 combed cotton/elastane 250 gsm at 180 cm | [17] [13] |
+| Width | Tubular 36–38 in (91–97 cm) flat for 180–190 gsm; tubular 30–36 in or open width 58–72 in (147–183 cm) in general; 180 cm open width listed for 150–250 gsm cotton jerseys | [18] [19] [13] |
+| Roll mass | 18–22 kg per tubular roll, MOQ one roll (Plakads, India, 2024); 20 kg roll per colour; relaxing machines accept rolls to 500 mm diameter and 80 kg (Oshima UW-2) | [18] [20] |
+| Roll length (derived) | For 280 gsm at 180 cm open width: 20 kg ≈ 40 m, 25 kg ≈ 50 m (est., mass ÷ (0.280 kg/m² × 1.80 m)). For tubular 95 cm flat (two layers): 20 kg ≈ 38 m | est. from [13] [18] |
+| Edge curl | Single jersey curls because the single-face structure is unbalanced: side (wale) edges curl toward the back, top/bottom (course) edges curl toward the face; curl consumes 0.5–1.0 in of cross-grain; interlock and rib do not curl | [13] [14] [12] |
+| Spirality / skew | Side-seam twist after wash when yarn twist and machine settings are unbalanced; ask for spirality on test reports and hold under about 5% | [12] |
+| Relaxation before cutting | Rolls retain tension from knitting, finishing, rolling, storage and transport; relax open on a table about 24 h (OCS); SOP table: 100% cotton single jersey 140–180 gsm 16–24 h, cotton/elastane 24–48 h, interlock/rib 24–36 h, at 22–25 °C and 55–65% RH, accordion-folded on racks, never cut cold; Oshima steam relaxing UW-2S cuts this to approximately 6–8 h | [21] [22] [20] |
+| Residual shrinkage | Cotton knit shrinkage depends on construction, relaxed dimensions, moisture during tumble drying, compacting and crosslinking (Cotton Incorporated, 2006, older but fundamental); single jersey shows significant lengthwise change, interlock more widthwise (Beltwide 2012); elastane raises length shrinkage | [17] [24] |
+| Stretch and recovery | Rib: high widthwise stretch, excellent recovery; single jersey: moderate stretch, fair recovery; rib body fabrics 180–300 gsm, 3–5% elastane sharpens recovery for necklines | [12] |
+| Static and ply adhesion | No published quantitative source found for 100% cotton single jersey; cotton is hygroscopic and the cutting-room literature does not report static as a problem for it (polyester blends do). Treat as unverified; test on the vacuum bed with the chosen fabric. Single-ply pick-up adhesion to the conveyor surface is a vacuum/porosity question, see R02/R03 | unverified |
+
+Sources for F4-A: [12] Burhan Enterprises, single jersey vs interlock vs rib (2026-06-10); [13] Turkey Clothing Production, single jersey technical specifications; [14] Canvas ETC, cotton jersey technical properties (2026-03-29); [15] AA Enterprises GSM chart; [17] Cotton Incorporated, Guide to improved shrinkage performance of cotton fabrics (2006, possibly stale but the underlying physics is unchanged); [18] Plakads Apparel, cotton single jersey 180–190 gsm product page (2024); [19] Calculator Academy fabric consumption guide (2022); [20] Oshima fabric relaxing machines UW-2/UW-2S (2026 site); [21] Online Clothing Study, cutting room overview (2011, stale date, practice unchanged) and functions of the cutting department (2015); [22] Zenivic/AIOC fabric relaxation and ply spreading SOP; [24] Beltwide Cotton Conference 2012, effect of knit structure on dimensional stability.
+
+Proposed fabric specification sheet (to be frozen with the first supplier lot; fields follow the white paper's qualified material profile):
+
+| Field | Body jersey target | Neck rib target | Test / evidence |
+|---|---|---|---|
+| Composition | 100% combed ring-spun cotton (optionally compact-spun) | 95/5 cotton/elastane 1×1 rib (or 100% cotton 1×1 rib if customer requires) | Supplier declaration; EU 1007/2011 fibre names [68] |
+| Construction | Single jersey, 20/1 or 24/1 combed yarn for 240–300 gsm (est.; 30/1 is the 160–200 gsm norm [17]) | 1×1 rib, 30/1 + 40 D elastane typical [22] | Supplier spec |
+| Mass per area | 280 ± 5% g/m² relaxed (white paper reference 280) | 360 ± 5% g/m² (white paper reference) | ASTM D3776 / ISO 3801 (not verified in this report) |
+| Width | Open width 160–185 cm usable, or tubular 90–97 cm flat (decision in Recommendation) | Tubular rib 35–40 cm flat or open width | Measured at receipt |
+| Roll | 20–25 kg, single lot per roll, 76 mm core (verify) | 10–20 kg | Supplier |
+| Face/grain | Face = knit (V) side; wale direction along roll | Rib stretch across strip | Visual |
+| Stretch under 2 kg load (course direction) | Record value; typical single jersey moderate | Record value; rib high | ASTM D2594/D2594M-21 (fabric stretch and growth, low-power knits) [62] |
+| Recovery / growth | Record | Record | ASTM D2594 growth procedure [62] |
+| Edge curl | Measure curl height after 30 min flat from a fresh cut, both directions | Low | In-house, no standard found |
+| Residual shrinkage after ISO 6330 wash/dry | Target ≤ 5% length and width (common buyer spec; unverified) | Same | ISO 6330:2021 procedure + AATCC TM135-2025 / ISO 3759 marking [59] [60] |
+| Spirality | ≤ 5% [12] | — | AATCC TM179 (referenced on the TM135 page) [60] |
+| Relaxation state | Relaxed 24 h open before cutting [21][22], or 6–8 h steam-relaxed [20] | Same | Log |
+| Heat sensitivity | Cotton: tolerate 150 °C pressing [14]; elastane rib: lower | — | Supplier |
+
+Fabric and thread cost per tee (prices seen 2026-10-21 unless noted, all list/marketplace, not quotes):
+
+| Item | Price | Basis | Source |
+|---|---|---|---|
+| 100% cotton single jersey knit, rolls | USD 6.20–6.30/kg, MOQ 360 kg (Zhejiang Baoxuan via Accio aggregator) | marketplace list | [16] |
+| 92/8 cotton/spandex 1×1 rib 180–190 g | USD 5.40–5.91/kg, MOQ 25 kg (Gift In Collections, HK) | marketplace list | [25] |
+| US-milled heavyweight cotton knits (jersey 10 oz, 1×1 rib 12–16 oz) | from USD 9.00/yd (Isee Fabric); 1×1 rib 100% USA cotton from USD 6.00/yd | retail list | [26] [27] |
+| 100% combed cotton 1×1 rib | USD 14.95/yd (Eagle Fabrics, retail) | retail list | [28] |
+| White paper scenario | USD 12/kg body, 14/kg rib ("unquoted scenario values") | assumption | white paper §21 |
+| Material per attempt at white-paper mass balance (0.3788 kg body + 0.0318 kg rib) | USD 4.99 at 12/14 per kg; est. USD 2.9 at 7/8 per kg (premium combed heavyweight, delivered, est.) | calculation | this report |
+| Sewing thread | Coats: approx. 45 m per men's sports tee; Coats worked example for an average knitted tee: 67.8 m before 15% wastage, 77.8 m after; A&E ANECALC example for a men's tee: 64 yd with waste, USD 0.0211 per garment (2010 prices) | vendor guides | [29] [30] [31] |
+
+### F5. Pattern pieces, allowances, consumption, marker efficiency, sizing and grading
+
+Pieces: front, back, left sleeve, right sleeve, neck rib (5 cut pieces) [1]; plus back-neck tape (purchased tape or a self-fabric strip), main label, care label. The white paper's panel list (front, back, left_sleeve, right_sleeve, neck_rib) matches.
+
+Allowances used in knit consumption practice [8]: bottom hem 2.5–3 cm, sleeve hem 2.5–3 cm, shoulder join 1.5 cm, sleeve join 1.5 cm (sub-total 9 cm plus 1 cm in hand, 10 cm on length); side seam: half chest + 3 cm; neck rib 1×1 rib, cut across the stretch.
+
+Net area check against the white paper (size L, est.): cut width = half chest 55 cm + 3 cm = 58 cm; cut length = HPS length 74 cm + 3 cm hem + 1.5 cm shoulder ≈ 79 cm; front and back 2 × 0.58 × 0.79 = 0.92 m²; sleeves 2 × ≈0.10 m² = 0.21 m²; total ≈ 1.13 m², consistent with the white paper's 1.15 m² net body area. Rib strip 7.5 cm × 45 cm ≈ 0.034 m² (the white paper's 0.075 m² is about double; it may include tape; harmless but conservative). At 280 gsm the net body mass is 0.32 kg and the finished tee will weigh roughly 0.30–0.33 kg (est.), compared with 0.17–0.22 kg for a 180 gsm tee [19] [43].
+
+Marker efficiency: typically 80–85% of marker area covered by pieces [40]; OCS defines it as pattern area ÷ marker area, excluding end loss [41]; a CAD example for a 24-piece T-shirt marker on 90 cm width gives 84.54% [42]; above 85% is considered strong, cutting loss 10–15% [19]. Single-size, single-garment markers nest worse than multi-size markers: for one tee per marker on 180 cm open width expect 75–82% (est.), recovering to 83–87% when the nester (M04) interleaves pieces of 4–8 shirts across the width.
+
+Sizing standards and a representative size chart:
+
+| Name | Version or date | License | Maturity | Fit for this project | Source URL |
+|---|---|---|---|---|---|
+| ASTM D6240/D6240M-24a Standard tables of body measurements for adult male, chest 34–52, short/regular/tall | 2024 (updated 2024-10-18) | Paid, USD 72 | Current; includes Alvanon 3D avatars | Body baseline for men's tee sizes; pair with ease rules | https://www.astm.org/d6240_d6240m-24a.html |
+| ASTM D5585-21 Body measurements for adult female misses, sizes 00–20 | 2021 | Paid | Current | Women's tee sizes | https://www.astm.org/d5585-21.html |
+| ISO 8559-2:2025 Size designation of clothes — primary and secondary dimension indicators | 2025-09 (Ed. 2) | Paid, CHF 181 | Current | Size labelling convention for export | https://www.iso.org/standard/85590.html |
+| Projob Workwear 647001 T-shirt measurement list (industry example) | 2025-03 | Free PDF | — | Example finished spec with grading | http://corporate-wear.eu/assets/rozmiary/647001.pdf |
+| Gildan 2019 measurement sheet (2000/5000 heavy cotton tees) | 2019 | Free PDF | — | Example US basic-tee grading, tolerance ±1 in | https://www.jklclothing.co.uk/upload/attachments/29900e67-661b-4fdc-b5e0-ed03068a9be0.PDF |
+
+Representative finished measurements (cm), laid flat:
+
+| POM | S | M | L | XL | Grade | Tolerance | Source |
+|---|---|---|---|---|---|---|---|
+| Half chest 2.5 cm below armhole (Projob 647001) | 50 | 53 | 55 | 60 | 3–5 cm | min ±1 cm | [32] |
+| Body length from HPS (Projob) | 71 | 72.5 | 74 | 77 | 1.5–3 cm | min ±1 cm | [32] |
+| Sleeve length (Projob) | 20 | 21 | 22 | 23 | 1 cm | min ±1 cm | [32] |
+| Half chest (Gildan 2000/5000, converted from 18/20/22/24 in) | 45.7 | 50.8 | 55.9 | 61.0 | 5.1 cm | ±2.5 cm (±1 in) | [33] |
+| Body length HPS (Gildan 2000, from 28/29/30/31 in) | 71.1 | 73.7 | 76.2 | 78.7 | 2.5 cm | ±2.5 cm | [33] |
+| Typical tech-pack tolerances for knits | — | — | — | — | — | ±1.0 cm widths and lengths, ±0.5 cm necks/cuffs/details (Renrui template); ±0.5–1 cm (Bryden); ±1.5 cm half chest, ±2.0 cm length (HRM) | [35] [36] [34] |
+
+Neckband (rib) relationship: hobby and factory sources agree the rib is cut shorter than the neckline and stretched onto it: 70–75% for stretchy rib on a crew neck, 80% for self-fabric (The Last Stitch) [78]; 80–90% general rule, 80–85% for rib, 90% for self fabric (Life Sew Savory) [79]; "commonly 10–20% shorter" i.e. 80–90% for 1×1 rib with 2–5% elastane (LSLONG factory guide, 2026) [80]; neckline minus 15% (Sew Daily) [81]; a recovery-factor analysis shows the right ratio depends on rib recovery (R = 0.8 → ~75%; R = 0.9 → 78–88% depending on band width) [82]. Finished neckband widths run 1.5–2.5 cm; wider rib (≥2 cm) for heavyweight or oversized tees; neck tape at the back stabilises the seam [80]. One factory guide explicitly warns against copying a universal ratio from a template and asks the factory to propose the relationship, then approve it on the physical sample after the care test [83]. The white paper's 0.85 example (50 cm neckline, 42.5 cm rib) is inside the published range.
+
+### F6. GarmentCode T-shirt parametrisation (M03)
+
+| Name | Version or date | License | Maturity (stars, last release) | Fit for this project | Source URL |
+|---|---|---|---|---|---|
+| GarmentCode / PyGarment (maria-korosteleva/GarmentCode) | repo created 2023-09-13, 1,512 commits on main as of 2026-10-21; PyPI pygarment 2.0.0 | MIT | Active research code with GUI and pattern sampler; paper ACM TOG 2023 (DOI 10.1145/3618351) | Base for M03: parametric panels, stitch (edge-pair) connectivity, body-measurement driven; lacks seam allowances, stitch classes, rib-band ratio and grading tables | https://github.com/maria-korosteleva/GarmentCode ; https://pypi.org/project/pygarment/2.0.0 ; https://dl.acm.org/doi/10.1145/3618351 |
+| GarmentCode web configurator | live 2026 | Free to use | Demo | Shows the parameter groups meta / waistband / shirt / collar / sleeve / left / skirts / pants | https://garmentcode.ethz.ch/ |
+
+The T-shirt parameter file `assets/design_params/t-shirt.yaml` (fetched 2026-10-21) defines, for the upper garment [48]:
+- `meta.upper`: `Shirt` (alternatives `FittedShirt`, none). `meta.wb` (waistband) and `meta.bottom` null for a tee.
+- `shirt.length` v 1.2, range 0.5–3.5 (fraction of the body `waist_line` length); `shirt.width` v 1.05, range 1.0–1.3 (multiplier on body `bust`, i.e. ease); `shirt.flare` v 1.0, range 0.7–1.6 (hem width relative to chest); `shirt.strapless` false.
+- `collar.f_collar` / `b_collar`: `CircleNeckHalf` (also `CurvyNeckHalf`, `VNeckHalf`, `SquareNeckHalf`, `TrapezoidNeckHalf`, `CircleArcNeckHalf`, `Bezier2NeckHalf`); `collar.width` v 0.2 (−0.5–1), `fc_depth` v 0.4 (0.3–2), `bc_depth` v 0 (0–2), `fc_angle`/`bc_angle` 95° (70–110), Bézier control points, `collar.component.style` null (options `Turtle`, `SimpleLapel`, `Hood2Panels`; no rib neckband component).
+- `sleeve.sleeveless` false; `armhole_shape` `ArmholeCurve` (also `ArmholeSquare`, `ArmholeAngle`); `sleeve.length` v 0.3 (0.1–1.15, fraction of arm length); `connecting_width` v 0.2 (0–2); `end_width` v 1.0 (0.2–2); `sleeve_angle` 10° (10–50); `opening_dir_mix` 0.1; `standing_shoulder` false; `smoothing_coeff` 0.25; `cuff.type` null (`CuffBand`, `CuffSkirt`, `CuffBandSkirt`).
+- `left.enable_asym` false (asymmetric left side off). Values are in cm, degrees or fractions per the docs [84].
+
+`assets/garment_programs/tee.py` [49] builds `TorsoFrontHalfPanel` and `TorsoBackHalfPanel` as four-vertex half panels: width = `shirt.width × bust` split front/back by `back_width`; length = `shirt.length × waist_line` with a shoulder-inclination correction; interfaces `outside`, `inside`, `shoulder`, `bottom`, `shoulder_corner`, `collar_corner` are what sleeves and collars attach to. The repo's `collars.py`, `sleeves.py` and `bands.py` supply neckline shaping, set-in sleeves and bands (waistband/cuff style).
+
+What M03 must add for a manufacturable tee: (1) a stretched ring component for the rib neckband with a length ratio and width parameter (not in GarmentCode); (2) seam allowances per edge (overlock 1.0–1.5 cm, hems 2.5–3 cm) and hem fold lines; (3) notches at shoulder points, centre front/back and sleeve cap; (4) stitch class and seam class per edge pair (ISO 4915/4916) for M06; (5) a size table driven by finished-measurement grade rules (F5) rather than only body measurements; (6) shrinkage compensation per material profile (M05). The MIT licence permits all of this.
+
