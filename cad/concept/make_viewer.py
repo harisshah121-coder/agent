@@ -1,6 +1,8 @@
 """Build cad/out/cell_viewer.html: an interactive three.js viewer with the GLB embedded."""
-import base64, csv, json
+import base64, csv, json, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent))
+from hotspots import HOTSPOTS
 root = Path(__file__).resolve().parents[2]
 glb = base64.b64encode((root / "cad/out/cell_concept.glb").read_bytes()).decode()
 rows = list(csv.DictReader(open(root / "docs/spine/parts.csv", encoding="utf-8")))
@@ -25,7 +27,7 @@ sim = {"arm_s": rc["layout_B_seventh_axis"]["cycle"]["arm_occupancy_s"], "requir
        "fixed_fail": [k for k, v in rc["layout_A_fixed_pedestal"]["reach"].items() if not v["reachable"]],
        "a080": [c for c in td["cases_availability_080"] if c["p_intervention"] == 0.01]}
 html = (root / "cad/concept/viewer_template.html").read_text(encoding="utf-8")
-html = html.replace("__RIG__", rig).replace("__RIGMETA__", rigmeta).replace("__SIM__", json.dumps(sim))
+html = html.replace("__HOTSPOTS__", json.dumps(HOTSPOTS)).replace("__RIG__", rig).replace("__RIGMETA__", rigmeta).replace("__SIM__", json.dumps(sim))
 html = html.replace("__STATIONS__", json.dumps(stations)).replace("__TOTAL__", f"{total:,}").replace("__GLB__", glb)
 (root / "cad/out/cell_viewer.html").write_text(html, encoding="utf-8")
 print("viewer bytes", len(html))

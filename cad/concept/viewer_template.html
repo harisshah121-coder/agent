@@ -40,6 +40,20 @@ select{font:500 13px/1 var(--body);color:var(--fg);background:var(--panel);borde
 .kv span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .pill{font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:4px;border:1px solid var(--line)}
 .pill.warn{color:var(--accent);border-color:var(--accent)}
+.pins{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;width:24px;height:24px;padding:0;border-radius:50%;
+  background:var(--accent);color:var(--accent-fg);border:2px solid var(--panel);font:600 11px/1 var(--mono);display:grid;place-items:center;
+  box-shadow:0 1px 4px rgb(0 0 0 / .35)}
+.pin.aux{background:var(--panel);color:var(--sel);border-color:var(--sel);width:20px;height:20px;font-size:11px}
+.pin[aria-expanded="true"]{background:var(--sel);color:var(--panel);border-color:var(--panel);width:28px;height:28px}
+.pins.off .pin{display:none}
+.card{position:absolute;right:16px;bottom:16px;width:min(360px,calc(100% - 32px));background:var(--panel);border:1px solid var(--line);
+  border-radius:8px;padding:14px 16px;box-shadow:0 6px 24px rgb(0 0 0 / .18);display:flex;flex-direction:column;gap:8px}
+.card h2{font-family:var(--display);font-weight:700;font-size:20px;margin:0;text-wrap:balance}
+.card p{margin:0;line-height:1.55;font-size:14px;max-width:65ch}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.card .x{position:absolute;top:8px;right:8px;padding:4px 8px}
+.card .nav{display:flex;gap:8px}
 .legend{position:absolute;left:max(16px,env(safe-area-inset-left,0px));bottom:16px;font-family:var(--mono);font-size:11px;color:var(--muted);max-width:min(560px,calc(100% - 32px))}
 .rail{background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding-block:16px;padding-left:16px;padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px;min-width:0}
 .sum{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
@@ -65,11 +79,21 @@ select{font:500 13px/1 var(--body);color:var(--fg);background:var(--panel);borde
       <button id="iso">Overview</button>
       <button id="top">Plan view</button>
       <button id="front">Operator side</button>
+      <button id="labels" aria-pressed="true">Hide labels</button>
       <label class="tag" for="speed">Speed</label>
       <select id="speed"><option value="1">1×</option><option value="4">4×</option><option value="8" selected>8×</option><option value="20">20×</option></select>
     </div>
     <div class="op" id="op" aria-live="polite"></div>
-    <div class="legend">Concept model, LOD0/1 · 6.0 × 3.0 m guarded envelope · robot motion is replayed from the MuJoCo simulation (real UR10e + Robotiq 2F-85 geometry); gantry and cutter motion are illustrative · drag to orbit, scroll to zoom, right-drag to pan</div>
+    <div class="pins" id="pins"></div>
+    <div class="card" id="card" hidden role="dialog" aria-labelledby="cardTitle">
+      <button class="x" id="cardClose" aria-label="Close">✕</button>
+      <div class="meta"><span class="pill" id="cardStep"></span><span class="tag" id="cardStage"></span></div>
+      <h2 id="cardTitle"></h2>
+      <p id="cardText"></p>
+      <div class="meta"><span class="tag">Part</span><span class="pill" id="cardPart"></span></div>
+      <div class="nav"><button id="cardPrev">← Previous step</button><button id="cardNext">Next step →</button></div>
+    </div>
+    <div class="legend">Click any numbered pin or any part to see what it does · numbers follow the fabric from roll to finished shirt · Concept model, LOD0/1 · 6.0 × 3.0 m guarded envelope · robot motion is replayed from the MuJoCo simulation (real UR10e + Robotiq 2F-85 geometry); gantry and cutter motion are illustrative · drag to orbit, scroll to zoom, right-drag to pan</div>
   </div>
   <aside class="rail">
     <div class="sum"><span class="tag">Development cell, parts</span><b>USD __TOTAL__</b></div>
@@ -87,6 +111,7 @@ const GLB = "__GLB__";
 const RIG = "__RIG__";
 const RIGMETA = __RIGMETA__;
 const SIM = __SIM__;
+const HOTSPOTS = __HOTSPOTS__;
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const canvas = document.getElementById('c'), bay = document.getElementById('bay');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
@@ -103,7 +128,8 @@ function applyTheme(){ scene.background = new THREE.Color(css('--stage')); }
 applyTheme(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 new MutationObserver(applyTheme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
 
-const byPrefix = (root, p) => { const out=[]; root.traverse(o => { if (o.name && o.name.startsWith(p)) out.push(o); }); return out; };
+const san = s => THREE.PropertyBinding.sanitizeNodeName(s);  // GLTFLoader stores names in this form (spaces -> _)
+const byPrefix = (root, p) => { const sp = san(p), out=[]; root.traverse(o => { if (o.name && o.name.startsWith(sp)) out.push(o); }); return out; };
 const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer;
 let model, rig, anim = {}, playing = true, speed = 8, links = [];
 const loader = new THREE.GLTFLoader();
@@ -125,7 +151,7 @@ loader.parse(b64(GLB), '', g => {
     RIGMETA.links.forEach(L => { const n = rig.getObjectByName(L.name); if (n) links.push({n, rest:n.quaternion.clone(), axis: L.axis ? new THREE.Vector3(...L.axis) : null}); });
     rig.traverse(o => { if (o.isMesh) o.material.side = THREE.DoubleSide; });
   });
-  view('iso'); buildList(); buildSim();
+  view('iso'); buildList(); buildSim(); buildPins();
 });
 
 // robot timeline from the simulation keyframes (joint-space interpolation, smoothstep)
@@ -162,8 +188,79 @@ function step(now){
       opEl.innerHTML = `<b>${fmt(r.tIn)} / ${fmt(total)}</b> · ${r.phase} ${r.s.to.to}<br>${r.s.to.op}<div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div>`;
     }
   }
+  placePins();
   controls.update(); renderer.render(scene, camera); requestAnimationFrame(step);
 }
+// ---------- clickable explanation pins ----------
+const pinsEl = document.getElementById('pins'), card = document.getElementById('card');
+let pins = [], active = null;
+const flow = () => pins.filter(p => p.h.step > 0).sort((a, b) => a.h.step - b.h.step || a.i - b.i);
+function targetsFor(h){
+  if (h.match === 'rig') return rig ? [rig] : [];
+  const list = byPrefix(model, h.match).filter(o => o.isMesh || o.children.length);
+  return h.first ? list.slice(0, 1) : list;
+}
+function buildPins(){
+  HOTSPOTS.forEach((h, i) => {
+    const b = document.createElement('button');
+    b.className = 'pin' + (h.step === 0 ? ' aux' : ''); b.textContent = h.step || 'i';
+    b.setAttribute('aria-label', `${h.title}: what it does`); b.setAttribute('aria-expanded', 'false');
+    b.onclick = e => { e.stopPropagation(); open(pins[i]); };
+    pinsEl.appendChild(b); pins.push({h, i, b, box: new THREE.Box3(), v: new THREE.Vector3()});
+  });
+}
+function placePins(){
+  if (!model) return;
+  const r = canvas.getBoundingClientRect();
+  pins.forEach(p => {
+    const t = targetsFor(p.h); if (!t.length) { p.b.hidden = true; return; }
+    p.box.makeEmpty(); t.forEach(o => p.box.expandByObject(o));
+    p.box.getCenter(p.v); p.v.y = p.box.max.y + 0.06;
+    p.v.project(camera);
+    const behind = p.v.z > 1;
+    p.b.hidden = behind;
+    p.b.style.left = ((p.v.x + 1) / 2 * r.width) + 'px';
+    p.b.style.top = ((1 - p.v.y) / 2 * r.height) + 'px';
+  });
+}
+function open(p){
+  active = p;
+  pins.forEach(q => q.b.setAttribute('aria-expanded', String(q === p)));
+  document.getElementById('cardStep').textContent = p.h.step ? `Step ${p.h.step} of 14` : 'Supports the whole machine';
+  document.getElementById('cardStage').textContent = p.h.stage;
+  document.getElementById('cardTitle').textContent = p.h.title;
+  document.getElementById('cardText').textContent = p.h.text;
+  document.getElementById('cardPart').textContent = p.h.part;
+  const f = flow(), k = f.indexOf(p);
+  document.getElementById('cardPrev').disabled = k <= 0;
+  document.getElementById('cardNext').disabled = k < 0 || k >= f.length - 1;
+  card.hidden = false;
+}
+function closeCard(){ card.hidden = true; active = null; pins.forEach(q => q.b.setAttribute('aria-expanded', 'false')); }
+document.getElementById('cardClose').onclick = closeCard;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+document.getElementById('cardNext').onclick = () => { const f = flow(), k = f.indexOf(active); if (k >= 0 && k < f.length - 1) open(f[k + 1]); };
+document.getElementById('cardPrev').onclick = () => { const f = flow(), k = f.indexOf(active); if (k > 0) open(f[k - 1]); };
+const labelsBtn = document.getElementById('labels');
+labelsBtn.onclick = () => { const off = pinsEl.classList.toggle('off'); labelsBtn.textContent = off ? 'Show labels' : 'Hide labels'; labelsBtn.setAttribute('aria-pressed', String(!off)); };
+// click a part itself: find the pin whose part contains the clicked mesh
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(); let down = null;
+canvas.addEventListener('pointerdown', e => down = [e.clientX, e.clientY]);
+canvas.addEventListener('pointerup', e => {
+  if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5 || !model) return;
+  const r = canvas.getBoundingClientRect();
+  ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  const hit = ray.intersectObjects([model], true).find(h => h.object.visible && !/floor|guard_panel|interlocked_door/.test(nameOf(h.object)));
+  if (!hit) return;
+  let o = hit.object, inRig = false; for (let q = o; q; q = q.parent) if (q === rig) inRig = true;
+  if (inRig) { const p = pins.find(p => p.h.match === 'rig'); if (p) open(p); return; }
+  const nm = nameOf(o);
+  const p = pins.filter(p => p.h.match !== 'rig' && nm.startsWith(san(p.h.match.split(' ').slice(0, 2).join(' '))))
+               .sort((a, b) => (nm.startsWith(san(b.h.match)) - nm.startsWith(san(a.h.match))))[0];
+  if (p) open(p);
+});
+function nameOf(o){ for (let q = o; q; q = q.parent) if (q.name && /^A\d\d_/.test(q.name)) return q.name; return ''; }
 function resize(){ const r = bay.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(r.height,1); camera.updateProjectionMatrix(); }
 new ResizeObserver(resize).observe(bay); resize(); requestAnimationFrame(step);
 document.getElementById('speed').onchange = e => speed = +e.target.value;
@@ -193,7 +290,7 @@ function select(st){
   highlighted.forEach(([m,c]) => m.emissive && m.emissive.copy(c)); highlighted = [];
   document.querySelectorAll('.st').forEach(b => b.setAttribute('aria-pressed', String(!!st && b.dataset.id === st.id)));
   if (!st || !st.group || !model) return;
-  const grp = model.getObjectByName(st.group); if (!grp) return;
+  const grp = model.getObjectByName(san(st.group)); if (!grp) return;
   grp.traverse(o => { if (o.isMesh && o.material.emissive) { highlighted.push([o.material, o.material.emissive.clone()]); o.material.emissive = new THREE.Color(css('--sel')).multiplyScalar(0.35); } });
   const box = new THREE.Box3().setFromObject(grp), c = box.getCenter(new THREE.Vector3()), r = Math.max(1.2, box.getSize(new THREE.Vector3()).length());
   tweenTo([c.x - r*0.55, c.y + r*0.75, c.z + r*0.95], [c.x, c.y, c.z]);
