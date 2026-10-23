@@ -157,6 +157,7 @@ loader.parse(b64(GLB), '', g => {
     rig = r.scene; rig.position.set(3.3, RIGMETA.base_y, RIGMETA.base_z); cellRoot.add(rig);
     RIGMETA.links.forEach(L => { const n = rig.getObjectByName(L.name); if (n) links.push({n, rest:n.quaternion.clone(), axis: L.axis ? new THREE.Vector3(...L.axis) : null}); });
     rig.traverse(o => { if (o.isMesh) o.material.side = THREE.DoubleSide; });
+    buildCarried(cellRoot);
   });
   view('iso'); buildList(); buildSim(); buildPins();
 });
@@ -178,6 +179,55 @@ function gantryAt(t){
   t = (t * 1.0) % G_T; const s = G_SEG.find(s => t < s.t0 + s.w[3] + s.w[4]) || G_SEG[G_SEG.length - 1];
   const u = Math.min(1, (t - s.t0) / s.w[3]), e = u*u*(3-2*u);
   return {x: s.p[0] + (s.w[0] - s.p[0]) * e, y: s.p[1] + (s.w[1] - s.p[1]) * e, dip: s.p[2] + (s.w[2] - s.p[2]) * e};
+}
+
+// carried fabric (illustrative): panels ride the gantry needle bar while it carries them, and the gripper
+// holds the shirt from the panel grasp at staging until it is released on the inspection table.
+function teeShape(sleeves){
+  const s = new THREE.Shape(), w = 0.24, L = 0.68, sh = 0.30, nk = 0.09;
+  s.moveTo(-w, -L/2); s.lineTo(w, -L/2); s.lineTo(w, L/2 - 0.16);
+  if (sleeves) { s.lineTo(w + 0.17, L/2 - 0.22); s.lineTo(w + 0.24, L/2 - 0.08); s.lineTo(sh - 0.04, L/2); }
+  else s.lineTo(sh - 0.08, L/2);
+  s.lineTo(nk, L/2); s.quadraticCurveTo(0, L/2 - 0.09, -nk, L/2);
+  if (sleeves) { s.lineTo(-(sh - 0.04), L/2); s.lineTo(-(w + 0.24), L/2 - 0.08); s.lineTo(-(w + 0.17), L/2 - 0.22); }
+  else s.lineTo(-(sh - 0.08), L/2);
+  s.lineTo(-w, L/2 - 0.16); s.lineTo(-w, -L/2);
+  return new THREE.ShapeGeometry(s);
+}
+const carried = {};
+function buildCarried(cellRoot){
+  const mat = new THREE.MeshStandardMaterial({color: 0xf3f1ea, roughness: 0.95, side: THREE.DoubleSide});
+  // gripper: plane perpendicular to the tool axis (wrist_3 local +y), at the fingertips, scaled to read clearly
+  const w3 = links[6] && links[6].n; if (!w3) return;
+  const mk = (geo, name) => { const m = new THREE.Mesh(geo, mat); m.name = name; m.rotation.x = -Math.PI / 2; m.position.y = 0.262; m.scale.setScalar(0.8); m.visible = false; w3.add(m); return m; };
+  carried.body = mk(teeShape(false), 'fabric_carried_body'); carried.tee = mk(teeShape(true), 'fabric_carried_tee');
+  // gantry: panel just under the needle bar, in the cell frame (z up)
+  const bar = byPrefix(model, 'A03 T1 needle bar')[0];
+  if (bar) {
+    const bb = new THREE.Box3().setFromObject(bar), c = bb.getCenter(new THREE.Vector3());
+    const tip = cellRoot.worldToLocal(new THREE.Vector3(c.x, bb.min.y, c.z));
+    carried.g0 = {x: tip.x, y: tip.y, z: tip.z - 0.004};
+    carried.gPanel = new THREE.Mesh(teeShape(false), mat); carried.gPanel.name = 'fabric_carried_gantry';
+    carried.gSleeve = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.24), mat); carried.gSleeve.name = 'fabric_carried_sleeve';
+    [carried.gPanel, carried.gSleeve].forEach(m => { m.visible = false; m.scale.setScalar(0.8); cellRoot.add(m); });
+  }
+  const at = (pred, f) => { const g = segs.find(pred); return g ? g.t0 + g.mv + g.dw * f : null; };
+  carried.tGrasp = at(g => g.to.op === KF[0].op && /^handoff/.test(g.to.to), 0.6);
+  carried.tSleeves = at(g => /^Grasp both sleeves/.test(g.to.op) && /^handoff/.test(g.to.to), 0.6);
+  carried.tRelease = at(g => /^Release/.test(g.to.op) && /^inspection/.test(g.to.to), 0.4);
+}
+const G_CARRY = {2:'p', 3:'p', 4:'p', 8:'p', 9:'p', 10:'p', 14:'s', 15:'s', 16:'s'};  // gantry segments that carry a panel or sleeve
+function updateCarried(t, gp){
+  if (carried.body && carried.tGrasp !== null) {
+    const r = t % total, held = r >= carried.tGrasp && r < carried.tRelease, full = r >= carried.tSleeves;
+    carried.body.visible = held && !full; carried.tee.visible = held && full;
+  }
+  if (carried.gPanel) {
+    const gt = t % G_T, i = G_SEG.indexOf(G_SEG.find(s => gt < s.t0 + s.w[3] + s.w[4]) || G_SEG[G_SEG.length - 1]), k = G_CARRY[i];
+    for (const [m, on] of [[carried.gPanel, k === 'p'], [carried.gSleeve, k === 's']]) {
+      m.visible = on; m.position.set(carried.g0.x + gp.x - G_REST.x, carried.g0.y + gp.y - G_REST.y, carried.g0.z - gp.dip);
+    }
+  }
 }
 
 // robot timeline: collision-checked MuJoCo waypoints, interpolated exactly as the simulation verified them
@@ -205,6 +255,7 @@ function step(now){
     anim.gx.forEach(a => a.o.position.x = a.x + (gp.x - G_REST.x));
     anim.gy.forEach(a => a.o.position.y = a.y + (gp.y - G_REST.y));
     anim.gz.forEach(a => a.o.position.z = a.z - gp.dip);
+    updateCarried(t, gp);
     // roll and rollers spin about their own axes (rest orientation kept)
     anim.roll.forEach(r => r.o.quaternion.copy(r.rest).premultiply(new THREE.Quaternion().setFromAxisAngle(r.axis, -t * 0.05)));
     anim.rollers.forEach(r => r.o.quaternion.copy(r.rest).premultiply(new THREE.Quaternion().setFromAxisAngle(r.axis, t * 0.6)));

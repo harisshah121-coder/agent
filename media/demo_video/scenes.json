@@ -1,0 +1,682 @@
+[
+ {
+  "id": "s01",
+  "kind": "3d",
+  "sentences": [
+   "Fabric goes in one end. A finished, inspected T-shirt comes out the other.",
+   [
+    "This is Roll-to-Garment: one guarded machine, directed by A.I., that turns a roll of knit fabric into finished shirts.",
+    "This is Roll-to-Garment: one guarded machine, directed by AI, that turns a roll of knit fabric into finished shirts."
+   ]
+  ],
+  "shot": {
+   "mode": "orbit",
+   "c": [
+    3.2,
+    0.7,
+    -1.5
+   ],
+   "r": 9.6,
+   "h": 5.2,
+   "a0": -62,
+   "a1": -30,
+   "simT0": 40,
+   "rate": 2.0
+  },
+  "lowers": []
+ },
+ {
+  "id": "s02",
+  "kind": "slide",
+  "sentences": [
+   "In the next few minutes: the problem, the machine at work, the software, what our simulations show, and the plan."
+  ],
+  "html": "\n<div class=\"hero\">\n  <div class=\"eyebrow\">Investor and partner briefing \u00b7 October 2026</div>\n  <h1>Roll-to-Garment</h1>\n  <p class=\"lede\">An AI-directed cell that turns a roll of knit fabric into finished T-shirts</p>\n  <div class=\"chips\">\n    <span data-at=\"0\">The problem</span><span data-at=\"0\" style=\"--d:.6s\">The machine at work</span><span data-at=\"0\" style=\"--d:1.4s\">The software</span><span data-at=\"0\" style=\"--d:2s\">What simulation shows</span><span data-at=\"0\" style=\"--d:2.8s\">The plan</span>\n  </div>\n</div>"
+ },
+ {
+  "id": "s03",
+  "kind": "slide",
+  "sentences": [
+   "Almost every T-shirt is sewn by hand, far from where it is sold, in big batches ordered months ahead on a guess.",
+   "Small orders cost more, because every new job pays again for setup, cutting and labour.",
+   [
+    "And in 2026, U.S. duties on T-shirts from Asia run at roughly 25 to 37 percent, and the duty-free small-parcel exemption ended in August 2025.",
+    "And in 2026, US duties on T-shirts from Asia run at roughly 25\u201337%, and the duty-free small-parcel exemption ended in August 2025."
+   ],
+   "Local, small-batch production is suddenly valuable. But no machine does it."
+  ],
+  "html": "\n<h2 class=\"title\">The problem</h2>\n<div class=\"grid4\">\n  <div class=\"card\" data-at=\"0\"><b>Far away</b><span>Cut and sewn by hand, thousands of kilometres from the customer</span></div>\n  <div class=\"card\" data-at=\"0\" style=\"--d:2.2s\"><b>Big batches</b><span>Ordered months ahead on a guess</span></div>\n  <div class=\"card\" data-at=\"1\"><b>Small orders cost more</b><span>Every new job pays again for setup, cutting and labour</span></div>\n  <div class=\"card hot\" data-at=\"2\"><b>25\u201337 %</b><span>US duties on Asian tees in 2026; small-parcel duty exemption ended Aug 2025</span></div>\n</div>\n<p class=\"punch\" data-at=\"3\">Local, small-batch production is valuable. No machine does it.</p>\n<p class=\"src\">Sources: project research R13; white paper \u00a719</p>"
+ },
+ {
+  "id": "s04",
+  "kind": "slide",
+  "sentences": [
+   "Our research found nobody selling a conventional-stitch, roll-to-garment cell near one hundred thousand dollars.",
+   "Our first customers are uniform and teamwear contract sewers, who need re-orders of 50 to 500 pieces in days.",
+   [
+    "For scale, the U.S. Defense Logistics Agency obligated about 1.9 billion dollars on clothing and textiles in fiscal 2024.",
+    "For scale, the US Defense Logistics Agency obligated about $1.9 billion on clothing and textiles in fiscal 2024."
+   ]
+  ],
+  "html": "\n<h2 class=\"title\">The opening</h2>\n<div class=\"stats\">\n  <div class=\"stat\" data-at=\"0\"><b>None</b><span>Conventional-stitch roll-to-garment cells for sale near USD 100k</span></div>\n  <div class=\"stat\" data-at=\"1\"><b>50\u2013500</b><span>Piece re-orders that uniform and teamwear sewers need in days</span></div>\n  <div class=\"stat\" data-at=\"2\"><b>USD 1.878B</b><span>DLA clothing and textiles obligations, FY2024</span></div>\n</div>\n<p class=\"src\">Source: project research R13 (DLA FY2024 obligations; market scan)</p>"
+ },
+ {
+  "id": "s05",
+  "kind": "slide",
+  "sentences": [
+   "The target: at least 100 premium T-shirts per 12-hour shift, with one operator, from a cell that sells for about one hundred thousand dollars.",
+   "We design for people stepping in. If one shirt in a hundred needs help, a fully hands-off 100-shirt run happens only about 37 percent of the time, so the cell measures every intervention."
+  ],
+  "html": "\n<h2 class=\"title\">The goal</h2>\n<div class=\"stats\">\n  <div class=\"stat\" data-at=\"0\"><b>100+</b><span>Premium T-shirts per 12-hour shift</span></div>\n  <div class=\"stat\" data-at=\"0\" style=\"--d:2.4s\"><b>1</b><span>Operator supervising</span></div>\n  <div class=\"stat\" data-at=\"0\" style=\"--d:4.2s\"><b>\u2248 USD 100k</b><span>Selling price of one cell</span></div>\n</div>\n<div class=\"callout\" data-at=\"1\"><b>37 %</b><span>Chance a 100-shirt run needs no help at all, if 1 shirt in 100 needs a person. Intervention is designed for and measured.</span></div>\n<p class=\"src\">Source: white paper targets (\u00a702, \u00a720)</p>"
+ },
+ {
+  "id": "s06",
+  "kind": "3d",
+  "sentences": [
+   "Here is the cell, about ten metres by five.",
+   "Fabric travels along the back through cutting and extraction, then along the front row through sewing and inspection."
+  ],
+  "shot": {
+   "mode": "path",
+   "p": [
+    [
+     3.0,
+     12.5,
+     0.6
+    ],
+    [
+     2.4,
+     7.6,
+     7.2
+    ]
+   ],
+   "t": [
+    [
+     3.0,
+     0,
+     -1.5
+    ],
+    [
+     3.1,
+     0.4,
+     -1.5
+    ]
+   ],
+   "simT0": 60,
+   "rate": 2.0
+  },
+  "lowers": [
+   {
+    "a": 0.6,
+    "b": 99,
+    "tag": "The cell",
+    "title": "About 10 m \u00d7 5 m, one operator"
+   }
+  ]
+ },
+ {
+  "id": "s07",
+  "kind": "3d",
+  "sentences": [
+   {
+    "at": 0.3,
+    "say": "Now the machine at work, at twice real speed.",
+    "show": "Now the machine at work, at twice real speed."
+   },
+   {
+    "at": 2.6,
+    "say": "At the back, the roll unwinds with low, steady tension onto the cutter's vacuum bed.",
+    "show": "At the back, the roll unwinds with low, steady tension onto the cutter's vacuum bed."
+   },
+   {
+    "at": 7.0,
+    "say": "The knife cuts every panel of the shirt from a single ply of knit.",
+    "show": "The knife cuts every panel of the shirt from a single ply of knit."
+   },
+   {
+    "at": 11.4,
+    "say": "The overhead gantry lifts each panel with needle grippers, one ply at a time, and lays the kit out in order on the staging table.",
+    "show": "The overhead gantry lifts each panel with needle grippers, one ply at a time, and lays the kit out in order on the staging table."
+   },
+   {
+    "at": 21.0,
+    "say": "Sleeves go to their own flat hemming head, so they are hemmed while still flat.",
+    "show": "Sleeves go to their own flat hemming head, so they are hemmed while still flat."
+   }
+  ],
+  "shot": {
+   "mode": "keys",
+   "hide_guards": true,
+   "rate": 2.0,
+   "segments": [
+    {
+     "sim0": 19.0,
+     "sim1": 79.0,
+     "keys": [
+      {
+       "at": 0.0,
+       "p": [
+        -0.3,
+        2.9,
+        1.7
+       ],
+       "t": [
+        0.8,
+        0.6,
+        -1.7
+       ]
+      },
+      {
+       "at": 4.0,
+       "p": [
+        -0.1,
+        2.9,
+        1.6
+       ],
+       "t": [
+        0.9,
+        0.6,
+        -1.8
+       ]
+      },
+      {
+       "at": 6.5,
+       "p": [
+        2.0,
+        3.4,
+        1.2
+       ],
+       "t": [
+        2.6,
+        0.8,
+        -2.4
+       ]
+      },
+      {
+       "at": 9.0,
+       "p": [
+        2.3,
+        3.4,
+        1.2
+       ],
+       "t": [
+        2.8,
+        0.8,
+        -2.4
+       ]
+      },
+      {
+       "at": 11.2,
+       "p": [
+        4.0,
+        3.6,
+        1.4
+       ],
+       "t": [
+        4.2,
+        1.0,
+        -2.0
+       ]
+      },
+      {
+       "at": 20.0,
+       "p": [
+        4.6,
+        3.6,
+        1.4
+       ],
+       "t": [
+        4.5,
+        1.0,
+        -2.0
+       ]
+      },
+      {
+       "at": 22.5,
+       "p": [
+        5.7,
+        3.4,
+        1.3
+       ],
+       "t": [
+        5.1,
+        1.0,
+        -1.8
+       ]
+      },
+      {
+       "at": 30.0,
+       "p": [
+        5.9,
+        3.3,
+        1.1
+       ],
+       "t": [
+        5.3,
+        1.0,
+        -1.8
+       ]
+      }
+     ],
+     "frames": 900
+    }
+   ]
+  },
+  "lowers": [
+   {
+    "a": 0.0,
+    "b": 6.4,
+    "tag": "ST01",
+    "title": "Roll handling"
+   },
+   {
+    "a": 6.6,
+    "b": 11.0,
+    "tag": "ST02",
+    "title": "Single-ply cutting"
+   },
+   {
+    "a": 11.2,
+    "b": 20.6,
+    "tag": "ST03\u2013ST04",
+    "title": "Gantry extraction and staging"
+   },
+   {
+    "a": 20.8,
+    "b": 30.0,
+    "tag": "ST05",
+    "title": "Flat sleeve hemmer"
+   }
+  ],
+  "fixed_frames": 900
+ },
+ {
+  "id": "s08",
+  "kind": "3d",
+  "sentences": [
+   {
+    "at": 0.3,
+    "say": "Now one full sewing cycle. The U.R. ten E. arm rides a track and grasps the front and back panels.",
+    "show": "Now one full sewing cycle. The UR10e arm rides a track and grasps the front and back panels."
+   },
+   {
+    "at": 9.133333333333333,
+    "say": "At the overlock, it joins both shoulders.",
+    "show": "At the overlock, it joins both shoulders."
+   },
+   {
+    "at": 12.333333333333332,
+    "say": "Every move is a collision-checked plan from the Moo-Joe-Co simulator, using the real arm's geometry.",
+    "show": "Every move is a collision-checked plan from the MuJoCo simulator, using the real arm's geometry."
+   },
+   {
+    "at": 21.133333333333333,
+    "say": "The collar module stretches the rib by the right ratio and sews on the neckband, the hardest seam on a T-shirt.",
+    "show": "The collar module stretches the rib by the right ratio and sews on the neckband, the hardest seam on a T-shirt."
+   },
+   {
+    "at": 33.13333333333333,
+    "say": "Then the coverstitch topstitches the neck to keep it flat.",
+    "show": "Then the coverstitch topstitches the neck to keep it flat."
+   },
+   {
+    "at": 42.63333333333333,
+    "say": "It collects both sleeves, already hemmed flat by the gantry-fed hemmer.",
+    "show": "It collects both sleeves, already hemmed flat by the gantry-fed hemmer."
+   },
+   {
+    "at": 52.13333333333333,
+    "say": "Back at the overlock, it sets each sleeve into the armhole, the longest step in the cycle.",
+    "show": "Back at the overlock, it sets each sleeve into the armhole, the longest step in the cycle."
+   },
+   {
+    "at": 66.86666666666667,
+    "say": "Then it closes both sides.",
+    "show": "Then it closes both sides."
+   },
+   {
+    "at": 69.26666666666667,
+    "say": "Seam times here are estimates from industry tables, until bench tests measure them.",
+    "show": "Seam times here are estimates from industry tables, until bench tests measure them."
+   },
+   {
+    "at": 78.13333333333334,
+    "say": "The coverstitch sews the bottom hem.",
+    "show": "The coverstitch sews the bottom hem."
+   },
+   {
+    "at": 80.73333333333333,
+    "say": "Each shirt takes about 313 seconds of arm time, inside a 328-second budget.",
+    "show": "Each shirt takes about 313 seconds of arm time, inside a 328-second budget."
+   },
+   {
+    "at": 90.13333333333334,
+    "say": "Finally, the shirt goes onto the inspection table, where cameras check every seam, and the arm returns for the next one.",
+    "show": "Finally, the shirt goes onto the inspection table, where cameras check every seam, and the arm returns for the next one."
+   }
+  ],
+  "shot": {
+   "mode": "keys",
+   "hide_guards": true,
+   "rate": 2.0,
+   "segments": [
+    {
+     "sim0": 0.5,
+     "sim1": 18.0,
+     "frames": 262,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        0.8,
+        2.4,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 18.0,
+     "sim1": 42.0,
+     "frames": 360,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        -0.9,
+        2.3,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 44.0,
+     "sim1": 68.0,
+     "frames": 360,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        0.8,
+        2.4,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 77.0,
+     "sim1": 96.0,
+     "frames": 285,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        -0.9,
+        2.3,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 109.5,
+     "sim1": 128.5,
+     "frames": 285,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        0.8,
+        2.4,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 128.5,
+     "sim1": 158.0,
+     "frames": 442,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        -0.9,
+        2.3,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 193.5,
+     "sim1": 216.0,
+     "frames": 338,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        0.8,
+        2.4,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 252.0,
+     "sim1": 276.0,
+     "frames": 360,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        -0.9,
+        2.3,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    },
+    {
+     "sim0": 291.0,
+     "sim1": 312.8,
+     "frames": 327,
+     "keys": [
+      {
+       "at": 0,
+       "off": [
+        0.8,
+        2.4,
+        2.0
+       ],
+       "look": [
+        0,
+        0.75,
+        -0.2
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "lowers": [
+   {
+    "a": 0.2,
+    "b": 8.633333333333333,
+    "tag": "ST04",
+    "title": "Grasp front and back panels"
+   },
+   {
+    "a": 8.933333333333332,
+    "b": 20.633333333333333,
+    "tag": "OP-03 \u00b7 Overlock",
+    "title": "Join both shoulders"
+   },
+   {
+    "a": 20.933333333333334,
+    "b": 32.63333333333333,
+    "tag": "OP-05 \u00b7 Collar module",
+    "title": "Attach the stretched neck rib"
+   },
+   {
+    "a": 32.93333333333334,
+    "b": 42.13333333333333,
+    "tag": "OP-06 \u00b7 Coverstitch",
+    "title": "Topstitch the neck"
+   },
+   {
+    "a": 42.43333333333334,
+    "b": 51.63333333333333,
+    "tag": "ST04",
+    "title": "Collect sleeves hemmed by the gantry"
+   },
+   {
+    "a": 51.93333333333334,
+    "b": 66.36666666666667,
+    "tag": "OP-08 \u00b7 Overlock",
+    "title": "Set both sleeves"
+   },
+   {
+    "a": 66.66666666666667,
+    "b": 77.63333333333334,
+    "tag": "OP-09 \u00b7 Overlock",
+    "title": "Close both sides"
+   },
+   {
+    "a": 77.93333333333334,
+    "b": 89.63333333333334,
+    "tag": "OP-10 \u00b7 Coverstitch",
+    "title": "Bottom hem"
+   },
+   {
+    "a": 89.93333333333334,
+    "b": 100.53333333333335,
+    "tag": "ST07",
+    "title": "Release on the inspection table"
+   }
+  ],
+  "fixed_frames": 3019
+ },
+ {
+  "id": "s15",
+  "kind": "slide",
+  "sentences": [
+   "The software is where most of the value lives.",
+   "A designer describes the shirt in plain language. That becomes one garment record, which generates the pattern, packs it onto the fabric, and tunes every step to that fabric.",
+   "A compiler turns the garment into sewing operations, a scheduler sequences them, and the skill runtime executes them with perception in the loop.",
+   "The same job runs on the digital twin and on the real machine, and every run is logged, including every time a person stepped in."
+  ],
+  "html": "\n<h2 class=\"title\">The software: from conversation to machine</h2>\n<div class=\"flow\">\n  <div class=\"node\" data-at=\"1\"><i>M01</i>Design workspace<span>Talk or sketch</span></div>\n  <div class=\"node\" data-at=\"1\" style=\"--d:2s\"><i>M02</i>Garment record<span>One source of truth</span></div>\n  <div class=\"node\" data-at=\"1\" style=\"--d:4s\"><i>M03</i>Pattern engine<span>Parametric panels</span></div>\n  <div class=\"node\" data-at=\"1\" style=\"--d:5.2s\"><i>M04</i>Nesting<span>Packs the fabric</span></div>\n  <div class=\"node\" data-at=\"1\" style=\"--d:6.4s\"><i>M05</i>Material profiles<span>Tunes every step</span></div>\n  <div class=\"node\" data-at=\"2\"><i>M06</i>Assembly compiler<span>Garment \u2192 operations</span></div>\n  <div class=\"node\" data-at=\"2\" style=\"--d:1.8s\"><i>M07</i>Scheduler<span>Sequences stations</span></div>\n  <div class=\"node\" data-at=\"2\" style=\"--d:3.2s\"><i>M08</i>Skill runtime<span>Behaviour trees</span></div>\n  <div class=\"node\" data-at=\"3\"><i>M09</i>Motion and hardware<span>Same job: twin or cell</span></div>\n</div>\n<div class=\"side\">\n  <div class=\"tagx\" data-at=\"2\" style=\"--d:4.4s\"><i>M11</i>Perception in the loop</div>\n  <div class=\"tagx\" data-at=\"3\" style=\"--d:1.5s\"><i>M13</i>Digital twin</div>\n  <div class=\"tagx\" data-at=\"3\" style=\"--d:3.5s\"><i>M14</i>Every run logged, every intervention counted</div>\n</div>"
+ },
+ {
+  "id": "s16",
+  "kind": "slide",
+  "sentences": [
+   [
+    "A.I. assistants can read, design and operate jobs through an M.C.P. server.",
+    "AI assistants can read, design and operate jobs through an MCP server."
+   ],
+   [
+    "Approvals stay with people, and an independent hardware safety layer can stop the cell at any time. The A.I. never commands safety.",
+    "Approvals stay with people, and an independent hardware safety layer can stop the cell at any time. The AI never commands safety."
+   ]
+  ],
+  "html": "\n<h2 class=\"title\">Where AI is allowed, and where it is not</h2>\n<div class=\"tiers\">\n  <div class=\"tier\" data-at=\"0\"><b>Read</b><span>Status, logs, quality data</span></div>\n  <div class=\"tier\" data-at=\"0\" style=\"--d:1.2s\"><b>Design-write</b><span>Propose garments, patterns, jobs</span></div>\n  <div class=\"tier\" data-at=\"0\" style=\"--d:2.2s\"><b>Operate</b><span>Start and pause approved jobs</span></div>\n  <div class=\"tier lock\" data-at=\"1\"><b>Never exposed</b><span>Approvals (people) \u00b7 Safety (independent hardware, M10)</span></div>\n</div>\n<p class=\"src\">M12 MCP server \u00b7 M10 independent safety layer (Software guide)</p>"
+ },
+ {
+  "id": "s17",
+  "kind": "slide",
+  "sentences": [
+   "What do the simulations show today?",
+   "The arm needs 313 seconds per shirt against a 328-second budget. It fits, with a 4.7 percent margin, short of our 15 percent target.",
+   "Over 300 simulated shifts at 80 percent availability, 79 percent reach 100 shirts, against a 90 percent target.",
+   "Seam times and failure rates are still estimates, and fabric behaviour is not simulated. The first bench experiments measure exactly that."
+  ],
+  "html": "\n<h2 class=\"title\">What simulation shows today</h2>\n<div class=\"stats\">\n  <div class=\"stat\" data-at=\"1\"><b>313 s</b><span>Robot time per shirt, of a 328 s budget (collision-checked, 0 contacts)</span></div>\n  <div class=\"stat warn\" data-at=\"1\" style=\"--d:3.6s\"><b>4.7 %</b><span>Time margin \u00b7 target 15 %</span></div>\n  <div class=\"stat warn\" data-at=\"2\"><b>79 %</b><span>Of 300 simulated shifts reach 100 shirts at 80 % availability \u00b7 target 90 %</span></div>\n</div>\n<div class=\"honest\" data-at=\"3\">\n  <div><b>Simulated</b>Real UR10e and gripper geometry, every move collision-checked (MuJoCo); shift Monte Carlo (SimPy)</div>\n  <div><b>Estimated</b>Seam times, regrasp, stoppages and interventions, from industry tables</div>\n  <div><b>Not simulated</b>Fabric behaviour. Bench experiments measure it.</div>\n</div>\n<p class=\"src\">sim/results/reach_cycle.json \u00b7 sim/results/throughput_des.json</p>"
+ },
+ {
+  "id": "s18",
+  "kind": "slide",
+  "sentences": [
+   "Build-cost scenarios run from 52 to 140 thousand dollars per cell, against a 100 thousand dollar price.",
+   "For an operator selling shirts at 12 dollars, the model breaks even near 50 a day, and earns about 74 thousand dollars a year at 100 a day. These are models to be tested, not forecasts."
+  ],
+  "html": "\n<h2 class=\"title\">The economics (model, not forecast)</h2>\n<div class=\"stats two\">\n  <div class=\"stat\" data-at=\"0\"><b>USD 52\u2013140k</b><span>Build-and-test cost scenarios per cell</span></div>\n  <div class=\"stat\" data-at=\"0\" style=\"--d:3.6s\"><b>USD 100k</b><span>Reference selling price</span></div>\n  <div class=\"stat\" data-at=\"1\"><b>\u2248 50 / day</b><span>Operator break-even at USD 12 per shirt</span></div>\n  <div class=\"stat\" data-at=\"1\" style=\"--d:4.4s\"><b>\u2248 USD 74k / yr</b><span>Operator profit at 100 shirts a day, 250 days</span></div>\n</div>\n<p class=\"src\">Source: white paper \u00a720\u201322 (conditional arithmetic, to be replaced by measured cost and yield)</p>"
+ },
+ {
+  "id": "s19",
+  "kind": "slide",
+  "sentences": [
+   "The plan: build the development cell and run three bench experiments: robot-fed overlock, single-ply needle picking, and neckband stretch.",
+   "Then film one unattended run, roll to finished shirt, with measured takt time, yield and interventions.",
+   "Alongside it, three to five customer letters of intent, and safety certification under way. That is what the seed round funds."
+  ],
+  "html": "\n<h2 class=\"title\">The plan</h2>\n<div class=\"steps\">\n  <div class=\"stepx\" data-at=\"0\"><i>1</i><b>Development cell</b><span>Build the first cell from the guides</span></div>\n  <div class=\"stepx\" data-at=\"0\" style=\"--d:2.6s\"><i>2</i><b>Bench experiments</b><span>Robot-fed overlock \u00b7 needle pick \u00b7 neckband stretch</span></div>\n  <div class=\"stepx\" data-at=\"1\"><i>3</i><b>Unattended run on video</b><span>Roll to tee, with measured takt, yield, interventions</span></div>\n  <div class=\"stepx\" data-at=\"2\"><i>4</i><b>Customers and certification</b><span>3\u20135 letters of intent \u00b7 safety certification started</span></div>\n</div>\n<p class=\"punch\" data-at=\"2\" style=\"--d:4.5s\">That is what the seed round funds.</p>"
+ },
+ {
+  "id": "s20",
+  "kind": "3d",
+  "sentences": [
+   "Fabric in. T-shirts out. Made close to the customer, in the quantity they actually need.",
+   "Roll-to-Garment."
+  ],
+  "shot": {
+   "mode": "orbit",
+   "c": [
+    3.2,
+    0.7,
+    -1.5
+   ],
+   "r": 9.0,
+   "h": 5.6,
+   "a0": -20,
+   "a1": -40,
+   "simT0": 200,
+   "rate": 2.0
+  },
+  "lowers": []
+ }
+]

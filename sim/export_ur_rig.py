@@ -63,12 +63,16 @@ for n in UR_LINKS:
     meshes = geoms_by_link[b]
     if meshes:
         merged = trimesh.util.concatenate(meshes)
-        if len(merged.faces) > 6000:  # keep the page light: decimate per link, keep colours per face via nearest
+        target = 24000 if n == "wrist_3_link" else 8000   # wrist_3 carries the many small gripper parts
+        if len(merged.faces) > target:  # keep the page light: decimate per link, keep colours per face via nearest
             colors = merged.visual.face_colors
-            dec = merged.simplify_quadric_decimation(face_count=6000)
-            _, _, tri = trimesh.proximity.closest_point(merged, dec.triangles_center)
-            dec.visual = trimesh.visual.ColorVisuals(dec, face_colors=colors[tri])
-            merged = dec
+            welded = merged.copy(); welded.merge_vertices()  # decimating unwelded triangle soup shreds the surface
+            dec = welded.simplify_quadric_decimation(face_count=target)
+            if dec.area / merged.area > 0.95:  # only accept a decimation that keeps the surface
+                _, _, tri = trimesh.proximity.closest_point(merged, dec.triangles_center)
+                dec.visual = trimesh.visual.ColorVisuals(dec, face_colors=colors[tri])
+                merged = dec
+            print(n, len(merged.faces), "faces, area kept", round(min(1.0, dec.area / merged.area if merged is not dec else dec.area / welded.area), 3))
         scene.add_geometry(merged, geom_name=n + "_mesh", parent_node_name=n, node_name=n + "_geom")
     jid = m.body_jntadr[b]
     axis = m.jnt_axis[jid].tolist() if jid >= 0 else None
