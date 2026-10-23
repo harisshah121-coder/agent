@@ -9,9 +9,9 @@ World frame: mm, origin at the front-left floor corner of the guarded envelope,
 Layout (revised after the 2026-10-23 model audit):
   front row  y 150-750  : overlock | collar module | coverstitch | inspection (x 5050-5950)
   track      y 800-1080 : 7th-axis track, UR10e base at y = 940
-  back zone  y 1250-2900: cutter (cutting zone x 1200-3700, pick-off x 3700-4300),
-                          staging x 4370-5290, flat hemmer x 5310-5910, tool stand
-  gantry     columns at x 3760 / 5890, y 1140 / 2945, X beams at z 2300
+  back zone  y 1250-2900: cutter (cutting zone x 1200-3700, pick-off x 3700-4240),
+                          staging x 4400-5320, flat hemmer x 5310-5910, tool stand
+  gantry     columns at (4350,1300) (5890,1300) (3760,2945) (5890,2945); X beams at z 2300
 Run:  /home/user/.venvs/cad/bin/python cad/concept/cell_concept.py
 """
 from __future__ import annotations
@@ -25,7 +25,12 @@ OUT.mkdir(exist_ok=True)
 # Layout constants (mm) shared with sim/ and the viewer
 TRACK_Y, TRACK_X0, TRACK_X1 = 940, 1700, 5300
 UR_HOME_X, UR_BASE_Z = 3300, 820
-GANTRY_X0, GANTRY_X1, GANTRY_Y0, GANTRY_Y1, GANTRY_H = 3760, 5890, 1140, 2945, 2300
+GANTRY_X0, GANTRY_X1, GANTRY_Y0, GANTRY_Y1, GANTRY_H = 3760, 5890, 1300, 2945, 2300
+# Front-left column stands in the gap between the pick-off conveyor (ends x 4300) and the staging table (starts x 4400),
+# 0.36 m from the robot track axis; the front X beam overhangs 0.6 m to reach the pick-off zone.
+GANTRY_COLUMNS = [(4350, 1300), (5890, 1300), (3760, 2945), (5890, 2945)]
+GANTRY_TRAVEL_X = (3880, 5650)  # Y-beam centre travel limits (audit sweep); tool end stays inside the right guard
+GANTRY_TRAVEL_Y = (1450, 2780)  # carriage centre travel limits
 
 C = {
     "alu": (0.78, 0.80, 0.82, 1), "steel": (0.35, 0.37, 0.40, 1), "dark": (0.15, 0.16, 0.18, 1),
@@ -99,9 +104,9 @@ CUT_X0, CUT_X1, CUT_Y0, CUT_Y1 = 1200, 3700, 1250, 2900
 def a02():
     p = [box(CUT_X1 - CUT_X0, CUT_Y1 - CUT_Y0, 820, CUT_X0, CUT_Y0, 0, "steel", "A02 cutter base, cutting zone (P-ST02-001)"),
          box(CUT_X1 - CUT_X0, CUT_Y1 - CUT_Y0, 60, CUT_X0, CUT_Y0, 820, "felt", "A02 vacuum conveyor felt belt"),
-         box(600, CUT_Y1 - CUT_Y0, 820, CUT_X1, CUT_Y0, 0, "steel", "A02 pick-off conveyor extension frame"),
-         box(600, CUT_Y1 - CUT_Y0, 60, CUT_X1, CUT_Y0, 820, "felt", "A02 pick-off conveyor belt")]
-    for x in (CUT_X0, CUT_X1 + 600):
+         box(540, CUT_Y1 - CUT_Y0, 820, CUT_X1, CUT_Y0, 0, "steel", "A02 pick-off conveyor extension frame"),
+         box(540, CUT_Y1 - CUT_Y0, 60, CUT_X1, CUT_Y0, 820, "felt", "A02 pick-off conveyor belt")]
+    for x in (CUT_X0, CUT_X1 + 540):
         p.append(cyl(60, CUT_Y1 - CUT_Y0, x, (CUT_Y0 + CUT_Y1) / 2, 850, "dark", "A02 conveyor drum", axis="y"))
     gx = 2450
     for y in (CUT_Y0 - 60, CUT_Y1):
@@ -109,27 +114,28 @@ def a02():
     p.append(box(200, CUT_Y1 - CUT_Y0 + 120, 160, gx - 100, CUT_Y0 - 60, 1120, "light", "A02 cutting gantry beam"))
     p.append(box(220, 220, 320, gx - 110, 1900, 900, "dark", "A02 cutting head (DRT + EOT)"))
     p.append(box(900, 500, 900, 2000, 3060, 0, "steel", "A02 vacuum blower 5.5 kW, outside guard, ducted"))
-    for y in (CUT_Y0 - 80, CUT_Y1 + 10):
+    for y in (CUT_Y0 + 10, CUT_Y1 - 70):  # posts stand on the cutter frame, outside the robot corridor
         p.append(box(60, 60, 1300, 3500, y, 880, "alu", "A10 camera bridge post"))
-    p.append(box(60, CUT_Y1 - CUT_Y0 + 150, 60, 3500, CUT_Y0 - 80, 2180, "alu", "A10 camera bridge"))
+    p.append(box(60, CUT_Y1 - CUT_Y0 - 20, 60, 3500, CUT_Y0 + 10, 2180, "alu", "A10 camera bridge"))
     p.append(box(90, 90, 140, 3485, 2030, 2040, "cam", "A10 24 MP bed camera (P-ST10-002)"))
     return asm("A02 Cutter", p)
 
 # ---------------- A03 extraction and buffer (staging + kit) ----------------
 def a03():
-    p = [box(920, 1300, 820, 4370, 1400, 0, "steel", "A03 staging table frame"),
-         box(920, 1300, 30, 4370, 1400, 820, "light", "A03 staging table top (backlit)")]
+    p = [box(920, 1300, 820, 4400, 1400, 0, "steel", "A03 staging table frame"),
+         box(920, 1300, 30, 4400, 1400, 820, "light", "A03 staging table top (backlit)")]
     z = 851
-    p.append(plate([(4370 + x, 1430 + y) for x, y in TEE], z, 2, "fabric", "A03 kit front panel"))
-    p.append(plate([(4370 + x, 2060 + y) for x, y in TEE], z, 2, "fabric", "A03 kit back panel"))
-    p.append(box(500, 40, 2, 4370, 2670, z, "rib", "A03 kit neck rib strip"))
+    p.append(plate([(4400 + x, 1430 + y) for x, y in TEE], z, 2, "fabric", "A03 kit front panel"))
+    p.append(plate([(4400 + x, 2060 + y) for x, y in TEE], z, 2, "fabric", "A03 kit back panel"))
+    p.append(box(500, 40, 2, 4400, 2670, z, "rib", "A03 kit neck rib strip"))
     for i, x0 in enumerate((1450, 2050, 2650)):
         p.append(plate([(x0 + x, 1350 + y) for x, y in TEE], 881, 2, "fabric", f"A02 cut front {i}"))
         p.append(plate([(x0 + x, 2000 + y) for x, y in TEE], 881, 2, "fabric", f"A02 cut back {i}"))
     p.append(plate([(3760 + x, 1400 + y) for x, y in SLEEVE], 881, 2, "fabric", "A02 cut sleeve L"))
     p.append(plate([(3760 + x, 1800 + y) for x, y in SLEEVE], 881, 2, "fabric", "A02 cut sleeve R"))
-    p.append(box(70, 70, 40, 4390, 1310, 1900, "cam", "A03 staging camera (P-ST10-004)"))
-    p.append(box(60, 60, 600, 4320, 1290, 1340, "alu", "A03 staging camera post"))
+    p.append(box(70, 70, 50, 4795, 2030, 3080, "cam", "A03 staging camera, above gantry travel (P-ST10-004)"))
+    p.append(box(40, 40, 3170, 4810, 3030, 0, "alu", "A03 staging camera post, outside back guard"))
+    p.append(box(40, 1040, 30, 4810, 2030, 3130, "alu", "A03 staging camera arm"))
     return asm("A03 Extraction and buffer", p)
 
 # ---------------- A04 manipulation ----------------
@@ -149,21 +155,23 @@ def ur10e_simplified(x, y, z):
 
 def a04():
     p = []
-    for x in (GANTRY_X0, GANTRY_X1):
-        for y in (GANTRY_Y0, GANTRY_Y1):
-            p.append(box(80, 80, GANTRY_H, x - 40, y - 40, 0, "alu", "A04 gantry column"))
+    for x, y in GANTRY_COLUMNS:
+        p.append(box(80, 80, GANTRY_H, x - 40, y - 40, 0, "alu", "A04 gantry column"))
     for y in (GANTRY_Y0, GANTRY_Y1):
         p.append(box(GANTRY_X1 - GANTRY_X0 + 120, 120, 150, GANTRY_X0 - 60, y - 60, GANTRY_H, "festo", "A04 Festo EGC-120 X axis (P-ST04-001)"))
     gx = 4800
     p.append(box(110, GANTRY_Y1 - GANTRY_Y0 + 120, 120, gx - 55, GANTRY_Y0 - 60, GANTRY_H + 150, "festo", "A04 Festo EGC-80 Y axis 1500 stroke"))
     p.append(box(160, 160, 160, gx - 80, 2000, GANTRY_H + 50, "dark", "A04 Y carriage + valve terminal (P-ST09-014)"))
-    p.append(box(80, 80, 900, gx - 40, 2040, GANTRY_H - 700, "festo", "A04 Z axis"))
-    p.append(box(60, 30, 30, gx + 40, 2065, GANTRY_H - 650, "cam", "A03 double-ply sensor UDC-18GS (P-ST03-003)"))
-    p.append(box(160, 160, 60, gx - 80, 2000, GANTRY_H - 760, "dark", "A04 ATI QC-11 tool changer (P-ST04-003)"))
-    p.append(box(600, 90, 70, gx - 300, 2035, GANTRY_H - 830, "alu", "A03 T1 needle bar"))
-    p.append(box(600, 30, 40, gx - 300, 2005, GANTRY_H - 820, "festo", "A03 EXAIR air knife nose (P-ST03-002)"))
+    # Z axis: 1400 mm column sliding through the Y carriage; the tool hangs 0.56 m above the
+    # staging surface at rest and reaches it with a 0.55 m stroke while the column top stays in the carriage.
+    ZB = 1600  # Z column bottom at rest (mm)
+    p.append(box(80, 80, 1400, gx - 40, 2040, ZB, "festo", "A04 Z axis"))
+    p.append(box(60, 30, 30, gx + 40, 2065, ZB + 100, "cam", "A03 double-ply sensor UDC-18GS (P-ST03-003)"))
+    p.append(box(160, 160, 60, gx - 80, 2000, ZB - 60, "dark", "A04 ATI QC-11 tool changer (P-ST04-003)"))
+    p.append(box(600, 90, 70, gx - 300, 2035, ZB - 130, "alu", "A03 T1 needle bar"))
+    p.append(box(600, 30, 40, gx - 300, 2005, ZB - 120, "festo", "A03 EXAIR air knife nose (P-ST03-002)"))
     for i in range(6):
-        p.append(cyl(18, 60, gx - 250 + i * 100, 2080, GANTRY_H - 860, "dark", "A03 Schmalz SNG-M needle head (P-ST03-001)"))
+        p.append(cyl(18, 60, gx - 250 + i * 100, 2080, ZB - 160, "dark", "A03 Schmalz SNG-M needle head (P-ST03-001)"))
     # tool stand with parked T4 vacuum pad
     p.append(box(500, 300, 800, 5350, 2560, 0, "steel", "A04 tool stand"))
     p.append(cyl(75, 60, 5480, 2710, 830, "dark", "A03 T4 Piab KCS 150 vacuum pad, parked (P-ST03-004)"))
@@ -177,9 +185,9 @@ def a04():
     return asm("A04 Manipulation", p)
 
 # ---------------- A05 sewing heads, A06 collar ----------------
-def station(x, y, label, pid, cyl_arm=False, rot=False):
+def station(x, y, label, pid, cyl_arm=False, rot=False, L_rot=600):
     """Sewing table 1100 x 600 (rot=True: 600 x 1100 along Y) with head, box, camera, thread stand and sensor."""
-    L, W = (600, 1100) if rot else (1100, 600)
+    L, W = (L_rot, 1100) if rot else (1100, 600)
     p = [box(L, W, 30, x, y, 760, "table", f"{label} table")]
     for dx in (40, L - 80):
         for dy in (40, W - 80):
@@ -202,7 +210,7 @@ def station(x, y, label, pid, cyl_arm=False, rot=False):
 def a05():
     p = station(1500, 150, "A05 overlock JUKI MO-6814S", "P-ST05-001")
     p += station(3900, 150, "A05 coverstitch JUKI MF-7923", "P-ST05-003", cyl_arm=True)
-    p += station(5310, 1400, "A05 flat hemmer Jack W4-UT", "P-ST05-006", rot=True)
+    p += station(5350, 1400, "A05 flat hemmer Jack W4-UT", "P-ST05-006", rot=True, L_rot=560)
     return asm("A05 Sewing heads", p)
 
 def a06():

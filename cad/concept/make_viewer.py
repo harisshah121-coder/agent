@@ -25,7 +25,8 @@ rc = json.loads((root / "sim/results/reach_cycle.json").read_text())
 td = json.loads((root / "sim/results/throughput_des.json").read_text())
 sim = {"arm_s": rc["layout_B_seventh_axis"]["cycle"]["arm_occupancy_s"], "required_s": rc["assumptions"]["required_interval_s"],
        "fixed_fail": [k for k, v in rc["layout_A_fixed_pedestal"]["reach"].items() if not v["reachable"]],
-       "a080": [c for c in td["cases_availability_080"] if c["p_intervention"] == 0.01]}
+       "a080": [c for c in td["cases_availability_080"] if c["p_intervention"] == 0.01],
+       "obstacles": rc["layout_B_seventh_axis"]["cycle"]["checks"]["obstacles"]}
 html = (root / "cad/concept/viewer_template.html").read_text(encoding="utf-8")
 html = html.replace("__HOTSPOTS__", json.dumps(HOTSPOTS)).replace("__RIG__", rig).replace("__RIGMETA__", rigmeta).replace("__SIM__", json.dumps(sim))
 html = html.replace("__STATIONS__", json.dumps(stations)).replace("__TOTAL__", f"{total:,}").replace("__GLB__", glb)

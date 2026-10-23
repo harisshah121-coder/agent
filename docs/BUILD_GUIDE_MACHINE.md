@@ -69,7 +69,7 @@ Selected (R02 F10 option a): **one servo belt gantry with 2–3 pick heads over 
  └──────────────────────────────────────────────────────────────┘
    operator side: HMI, light curtains at roll-load and output openings
 ```
-Footprint ≈ 6 m × 3 m inside guarding plus a 1 m operator aisle (R07 §1e layout assumption). The drawing above is schematic; the audited layout is `cad/concept/cell_concept.py` (front row y 0.15–0.75 m: overlock, collar module, coverstitch, inspection; robot track y 0.80–1.08 m; back zone: cutter cutting zone x 1.2–3.7 m and pick-off x 3.7–4.3 m, staging, flat hemmer, tool stand under the gantry; vacuum blower outside the back guard). It passes the collision audit in `docs/logs/MODEL_AUDIT.md`.
+Footprint ≈ 6 m × 3 m inside guarding plus a 1 m operator aisle (R07 §1e layout assumption). The drawing above is schematic; the audited layout is `cad/concept/cell_concept.py` (front row y 0.15–0.75 m: overlock, collar module, coverstitch, inspection; robot track y 0.80–1.08 m; back zone: cutter cutting zone x 1.2–3.7 m and pick-off x 3.7–4.3 m, staging, flat hemmer, tool stand under the gantry; vacuum blower outside the back guard; gantry columns at (4.35, 1.30), (5.89, 1.30), (3.76, 2.945), (5.89, 2.945) m so the front-left column clears the robot; gantry travel limited to x 3.88–5.65 m, y 1.45–2.78 m; staging camera mounted above the gantry with its post outside the back guard; hemmer turned 90° at x 5.35 m). It passes the static and swept-volume collision audit in `docs/logs/MODEL_AUDIT.md`, and the UR10e cycle is collision-checked against it in MuJoCo (Simulation guide §8.3).
 
 ### 2.3 Utilities
 | Utility | Requirement (est.) | Basis |
@@ -102,7 +102,7 @@ Each station lists requirements (REQ), selected parts (P-IDs, priced in §7), in
 ### 3.2 ST02 Cutting
 - **REQ-ST02-01** Single-ply cutting of jersey on a vacuum conveyor; cut accuracy at the fabric ≤ ±0.5 mm on straight edges; notches cut.
 - **REQ-ST02-02** Machine-readable job load, start, done and fault; known piece locations after each index.
-- **Layout**: a 2.5 m cutting zone followed by a 0.6 m pick-off conveyor where the gantry picks, clear of the cutting beam; blower outside the guard (model audit, Simulation guide §8.2).
+- **Layout**: a 2.5 m cutting zone followed by a 0.54 m pick-off conveyor where the gantry picks, clear of the cutting beam; blower outside the guard (model audit, Simulation guide §8.2).
 - **Selected**: P-ST02-001 iECHO TK4S-2516 with conveyor and cradle feeder (FOB USD 20–40k; driven rotary and oscillating tools; DXF/HPGL/ISO input). **Alternate (preferred if budget allows)**: used Zünd G3 L / S3 L with conveyor (est. USD 40–90k), the best-documented integration (ZCC Modbus TCP pick-and-place interface, REST KPIs, hot folders) (R01 §I).
 - **Why not build one**: the component route costs ≈ USD 17–20k for cutting plus USD 6–10k for roll handling before labour, about 2× the white paper's allowance, with no safety-certified controller (R01 §I).
 - **Fabric facts**: jersey curls when cut free; fabric-side error dominates machine accuracy (machines are ±0.1 mm class, knife-force shift up to 2 mm); use a driven decagonal rotary blade for jersey and a 0.63 mm oscillating blade for tight radii (R01 §H).
@@ -120,7 +120,7 @@ Each station lists requirements (REQ), selected parts (P-IDs, priced in §7), in
 ### 3.4 ST04 Manipulation
 - **REQ-ST04-01** Cover 3 m × 1.5 m with 2–5 kg payload; place plies at sewing stations to ±0.5 mm (vision-corrected).
 - **Simulation result**: a fixed pedestal cannot reach the overlock or the inspection table, so the UR10e rides P-ST04-007, a 7th-axis track along the sewing row (Simulation guide §8.1).
-- **Selected**: P-ST04-001 Festo EGC belt gantry (X 3000 mm, 2 × Y 1500 mm, Z) with CMMT-AS EtherCAT drives; P-ST04-002 UR10e on a pedestal at the sewing stations; P-ST04-003 ATI QC-11 tool changer; tools T1–T4 (§3.3, P-ST04-004 Robotiq 2F-85 with printed hard tips as T3); P-ST04-005 GelSight Mini tactile tip; P-ST04-006 RealSense D405 wrist camera. Prototype alternate for the gantry: Vention belt gantry.
+- **Selected**: P-ST04-001 Festo EGC belt gantry (X 3000 mm, 2 × Y 1500 mm, Z) with CMMT-AS EtherCAT drives; P-ST04-002 UR10e on the P-ST04-007 track along the sewing row (D-013); P-ST04-003 ATI QC-11 tool changer; tools T1–T4 (§3.3, P-ST04-004 Robotiq 2F-85 with printed hard tips as T3); P-ST04-005 GelSight Mini tactile tip; P-ST04-006 RealSense D405 wrist camera. Prototype alternate for the gantry: Vention belt gantry.
 - **Why UR10e**: ROS 2 driver (Universal_Robots_ROS2_Driver), RTDE at 500 Hz for external guidance, MuJoCo Menagerie model, free STEP, PL d safety functions (R02 F1.1, F9; R15). Alternates: FANUC CRX-10iA/L, Doosan M1013 (R02 F1).
 - **Gripper toolbox**: T1 needle bar (panels), T2 small needle head (rib), T3 pinch/edge gripper with tactile tip (alignment at heads), T4 vacuum pad (stabilise), T5 driven-roller edge feeder (phase 2, in-house) (R03 Recommendation).
 - **Integration**: gantry via TwinCAT NC PTP; UR10e via RTDE from ROS 2 (IF-ST04-ST09-DATA-01); STO wiring of both to TwinSAFE (IF-ST04-ST09-ELEC-01).

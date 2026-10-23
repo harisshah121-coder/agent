@@ -82,23 +82,25 @@ The first concept model had 30 collisions between stations: gantry columns throu
 - Vacuum blower outside the back guard, ducted.
 - A dedicated flat coverstitch head for sleeve hems under the gantry (P-ST05-006, Jack W4-UT class, USD 2,061 reseller).
 
-### 8.3 Cycle time
-With sleeve hems moved to the gantry-fed hemmer, the arm's occupancy per shirt is **287 s** against the **328 s** required interval: a **12.6 % margin**, still short of the 15 % gate. Seam and regrasp times are estimates (R16 F1, F9).
+### 8.3 Cycle time (collision-checked)
+`sim/reach_cycle.py` now plans every arm move in MuJoCo against 131 fixed obstacle boxes exported from the concept model (`cad/concept/export_boxes.py` → `sim/results/cell_boxes.json`): straight-line Cartesian approaches, a fixed tuck pose for track transits, base-offset search at each station, and a closed loop (the last pose returns to the first). An exact replay of the 777 keyframes, interpolated as the viewer does, found **0 contacts in 3,812 samples**.
+
+Arm occupancy per shirt: **312.8 s** against the **328 s** interval, a **4.7 % margin**. The earlier 287 s figure used estimated, non-collision-checked moves and was optimistic. Seam times, the 8 s regrasp, acceleration and settle values are estimates (R16 F1, F9); fabric is not simulated.
 
 ### 8.4 Throughput over full shifts
 300 simulated 12-hour shifts per case, 1 % of shirts needing a person:
 
 | Scenario | Availability | Mean accepted | 10th percentile | Shifts reaching 100 |
 |---|---|---|---|---|
-| Audited layout (track + flat hemmer) | ~0.92 | 131 | 123 | 100 % |
-| Audited layout (track + flat hemmer) | 0.80 | 116 | 98 | **89 %** |
-| Without flat hemmer | 0.80 | 105 | 87 | 67 % |
+| Audited layout (track + flat hemmer) | ~0.92 | 120.9 | 114 | 100 % |
+| Audited layout (track + flat hemmer) | 0.80 | 107.7 | 93 | **79 %** |
+| Without flat hemmer (+35 s arm time) | 0.80 | 96.5 | n/a | 46 % |
 
-Gate (≥ 90 % at 0.80 availability): missed by one point. Availability dominates: the same layout at about 0.92 availability reaches 100 in every simulated shift.
+Gate (≥ 90 % at 0.80 availability): missed (79 %). Availability dominates: at about 0.92 availability every simulated shift reaches 100.
 
 ### 8.5 Decisions and next steps from these results
 1. Track (done, D-013) and flat hemmer (done, D-015).
-2. Close the last margin with the cheapest lever first: MTTR ≤ 10 min per stoppage (accessible jam clearing, fast thread recovery). This moves availability above 0.85, where the gate passes.
+2. Close the gap with the cheapest levers first: MTTR ≤ 10 min per stoppage (accessible jam clearing, fast thread recovery) to lift availability toward 0.9, and cut arm time (shorter regrasp, a second gripper finger set, or moving one more seam off the arm) to recover the 15 % margin.
 3. Measure the real seam presentation and regrasp times on the bench (Guide 1 §10 experiment 1); they decide the margin.
 4. Add the gantry's own timeline to L1 (it now carries extraction, the flat hemmer and the tool changes) and check it stays under the interval.
 
@@ -120,9 +122,9 @@ python3.13 -m venv ~/.venvs/sim && ~/.venvs/sim/bin/pip install mujoco robot_des
 | Step | Deliverable | Gate | Depends on |
 |---|---|---|---|
 | 1 | L1 on concept layout | Reach and timing | done |
-| 2 | L2 shift model | ≥ 90 % of shifts reach 100 at 80 % availability | done (89 % on the audited layout; MTTR target closes it) |
-| 3 | L1/L2 with flat-sleeve-hem plan and audited layout | Both gates pass | done for layout; margin gate open (12.6 % vs 15 %) |
-| 4 | L1 with full collision geometry from Guide 3 C3 | Zero collisions on all paths | Guide 3 C2–C3 |
+| 2 | L2 shift model | ≥ 90 % of shifts reach 100 at 80 % availability | done (79 % on the audited layout; availability and arm-time levers in §8.5) |
+| 3 | L1/L2 with flat-sleeve-hem plan and audited layout | Both gates pass | done for layout; margin gate open (4.7 % vs 15 %) |
+| 4 | L1 with full collision geometry from Guide 3 C3 | Zero collisions on all paths | box-level done (0 contacts); mesh-level waits on Guide 3 C2–C3 |
 | 5 | L3 software-in-the-loop | 100 jobs fault-free | Guide 2 S2–S4 |
 | 6 | L4 virtual commissioning | All PLC test cases pass | TwinCAT project |
 | 7 | L5 camera coverage (optional) | Coverage check | GPU machine |

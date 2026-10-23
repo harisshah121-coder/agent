@@ -13,103 +13,103 @@
  "cases": [
   {
    "scenario": "Audited layout: track + gantry-fed flat hemmer",
-   "arm_s": 287.0,
+   "arm_s": 312.8,
    "p_intervention": 0.0,
-   "mean_accepted": 131.9,
-   "p10": 125,
-   "p90": 140,
+   "mean_accepted": 121.7,
+   "p10": 114,
+   "p90": 128,
    "prob_ge_100": 1.0,
    "mean_interventions": 0
   },
   {
    "scenario": "Audited layout: track + gantry-fed flat hemmer",
-   "arm_s": 287.0,
+   "arm_s": 312.8,
    "p_intervention": 0.005,
-   "mean_accepted": 131.5,
-   "p10": 124,
-   "p90": 139,
-   "prob_ge_100": 1.0,
-   "mean_interventions": 0.7
-  },
-  {
-   "scenario": "Audited layout: track + gantry-fed flat hemmer",
-   "arm_s": 287.0,
-   "p_intervention": 0.01,
-   "mean_accepted": 131.0,
-   "p10": 123,
-   "p90": 139,
-   "prob_ge_100": 1.0,
-   "mean_interventions": 1.3
-  },
-  {
-   "scenario": "Audited layout: track + gantry-fed flat hemmer",
-   "arm_s": 287.0,
-   "p_intervention": 0.02,
-   "mean_accepted": 130.3,
-   "p10": 122,
-   "p90": 138,
-   "prob_ge_100": 1.0,
-   "mean_interventions": 2.7
-  },
-  {
-   "scenario": "Audited layout: track + gantry-fed flat hemmer",
-   "arm_s": 287.0,
-   "p_intervention": 0.05,
-   "mean_accepted": 128.2,
-   "p10": 120,
-   "p90": 136,
-   "prob_ge_100": 1.0,
-   "mean_interventions": 6.6
-  },
-  {
-   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
-   "arm_s": 322.0,
-   "p_intervention": 0.0,
-   "mean_accepted": 118.1,
-   "p10": 111,
-   "p90": 125,
-   "prob_ge_100": 1.0,
-   "mean_interventions": 0
-  },
-  {
-   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
-   "arm_s": 322.0,
-   "p_intervention": 0.005,
-   "mean_accepted": 117.7,
-   "p10": 110,
-   "p90": 125,
+   "mean_accepted": 121.4,
+   "p10": 115,
+   "p90": 128,
    "prob_ge_100": 1.0,
    "mean_interventions": 0.6
   },
   {
-   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
-   "arm_s": 322.0,
+   "scenario": "Audited layout: track + gantry-fed flat hemmer",
+   "arm_s": 312.8,
    "p_intervention": 0.01,
-   "mean_accepted": 117.4,
-   "p10": 110,
-   "p90": 124,
+   "mean_accepted": 120.9,
+   "p10": 114,
+   "p90": 127,
    "prob_ge_100": 1.0,
    "mean_interventions": 1.2
   },
   {
-   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
-   "arm_s": 322.0,
+   "scenario": "Audited layout: track + gantry-fed flat hemmer",
+   "arm_s": 312.8,
    "p_intervention": 0.02,
-   "mean_accepted": 116.6,
-   "p10": 109,
-   "p90": 123,
+   "mean_accepted": 120.2,
+   "p10": 112,
+   "p90": 127,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 2.5
+  },
+  {
+   "scenario": "Audited layout: track + gantry-fed flat hemmer",
+   "arm_s": 312.8,
+   "p_intervention": 0.05,
+   "mean_accepted": 118.1,
+   "p10": 111,
+   "p90": 125,
    "prob_ge_100": 0.99,
-   "mean_interventions": 2.4
+   "mean_interventions": 6.0
   },
   {
    "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
-   "arm_s": 322.0,
+   "arm_s": 347.8,
+   "p_intervention": 0.0,
+   "mean_accepted": 109.0,
+   "p10": 104,
+   "p90": 115,
+   "prob_ge_100": 0.97,
+   "mean_interventions": 0
+  },
+  {
+   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
+   "arm_s": 347.8,
+   "p_intervention": 0.005,
+   "mean_accepted": 108.8,
+   "p10": 102,
+   "p90": 115,
+   "prob_ge_100": 0.95,
+   "mean_interventions": 0.6
+  },
+  {
+   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
+   "arm_s": 347.8,
+   "p_intervention": 0.01,
+   "mean_accepted": 108.8,
+   "p10": 102,
+   "p90": 115,
+   "prob_ge_100": 0.95,
+   "mean_interventions": 1.2
+  },
+  {
+   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
+   "arm_s": 347.8,
+   "p_intervention": 0.02,
+   "mean_accepted": 108.4,
+   "p10": 101,
+   "p90": 115,
+   "prob_ge_100": 0.93,
+   "mean_interventions": 2.3
+  },
+  {
+   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
+   "arm_s": 347.8,
    "p_intervention": 0.05,
-   "mean_accepted": 114.1,
-   "p10": 106,
-   "p90": 121,
-   "prob_ge_100": 0.98,
-   "mean_interventions": 6.0
+   "mean_accepted": 106.7,
+   "p10": 101,
+   "p90": 112,
+   "prob_ge_100": 0.93,
+   "mean_interventions": 5.5
   }
  ],
  "cases_availability_080": [
@@ -117,33 +117,33 @@
    "scenario": "Audited layout: track + gantry-fed flat hemmer",
    "availability_case": "~0.80 (MTBF 2 h, MTTR 30 min)",
    "p_intervention": 0.01,
-   "mean_accepted": 116.2,
-   "p10": 98,
-   "prob_ge_100": 0.89
+   "mean_accepted": 107.7,
+   "p10": 93,
+   "prob_ge_100": 0.79
   },
   {
    "scenario": "Audited layout: track + gantry-fed flat hemmer",
    "availability_case": "~0.80 (MTBF 2 h, MTTR 30 min)",
    "p_intervention": 0.05,
-   "mean_accepted": 113.0,
-   "p10": 94,
-   "prob_ge_100": 0.83
-  },
-  {
-   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
-   "availability_case": "~0.80 (MTBF 2 h, MTTR 30 min)",
-   "p_intervention": 0.01,
-   "mean_accepted": 104.5,
-   "p10": 87,
+   "mean_accepted": 104.9,
+   "p10": 89,
    "prob_ge_100": 0.67
   },
   {
    "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
    "availability_case": "~0.80 (MTBF 2 h, MTTR 30 min)",
+   "p_intervention": 0.01,
+   "mean_accepted": 96.5,
+   "p10": 80,
+   "prob_ge_100": 0.46
+  },
+  {
+   "scenario": "Without flat hemmer (arm also hems sleeves, +35 s)",
+   "availability_case": "~0.80 (MTBF 2 h, MTTR 30 min)",
    "p_intervention": 0.05,
-   "mean_accepted": 101.1,
-   "p10": 85,
-   "prob_ge_100": 0.61
+   "mean_accepted": 95.0,
+   "p10": 82,
+   "prob_ge_100": 0.38
   }
  ]
 }

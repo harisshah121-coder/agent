@@ -69,7 +69,7 @@ Result: **PASS** (0 issue(s))
 | guarded envelope length X (panel + posts) | 6000 | 6000 | ±10 | yes |
 | guarded envelope depth Y (panel + posts) | 3000 | 3000 | ±10 | yes |
 | gantry X beam span (stroke ~2100 + carriage) | 2130 | 2130 | ±20 | yes |
-| gantry Y beam span (>= 1500 stroke + carriage) | 1805 | 1805 | ±20 | yes |
+| gantry Y beam span (>= 1500 stroke + carriage) | 1645 | 1645 | ±20 | yes |
 | cutter bed width Y (TK4S-2516 1.6 m bed + frame) | 1650 | 1650 | ±20 | yes |
 | cutter cutting-zone length X (2.5 m) | 2500 | 2500 | ±10 | yes |
 | 7th-axis track length (~3.2 m stroke) | 3600 | 3600 | ±20 | yes |
@@ -77,5 +77,11 @@ Result: **PASS** (0 issue(s))
 | roll face width (1.8 m web + 0.1 m) | 1900 | 1900 | ±10 | yes |
 
 ## Collisions between assemblies
+
+None.
+
+## Gantry swept-volume check
+
+The gantry's beam, carriage, Z column and tool are swept over their full X/Y travel at rest height and checked against every fixed part.
 
 None.

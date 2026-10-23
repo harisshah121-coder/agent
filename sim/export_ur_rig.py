@@ -76,8 +76,9 @@ for n in UR_LINKS:
     parent_name = n
 
 out = ROOT / "cad/out"; scene.export(out / "ur10e_rig.glb")
-legs = json.loads((ROOT / "sim/results/reach_cycle.json").read_text())["layout_B_seventh_axis"]["cycle"]["legs"]
-meta["keyframes"] = [{"to": l["to"], "op": l["op"], "base_x": l["base_x"], "q": l["q"], "move_s": l["move_s"], "dwell_s": l["dwell_s"] + l["regrasp_s"]} for l in legs]
+cyc = json.loads((ROOT / "sim/results/reach_cycle.json").read_text())["layout_B_seventh_axis"]["cycle"]
+assert cyc["feasible"] and cyc["replay_check"]["contacts"] == 0, "robot cycle must be collision-free before export"
+meta["keyframes"] = cyc["keyframes"]   # collision-checked waypoints, replayed by the viewer exactly as verified
 meta["base_y"], meta["base_z"] = 0.94, 0.82
 (out / "ur10e_rig.json").write_text(json.dumps(meta, indent=1))
 print("rig glb bytes", (out / "ur10e_rig.glb").stat().st_size, "links", [l["name"] for l in meta["links"]], "keyframes", len(meta["keyframes"]))

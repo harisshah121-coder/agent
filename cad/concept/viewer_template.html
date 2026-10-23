@@ -93,7 +93,7 @@ select{font:500 13px/1 var(--body);color:var(--fg);background:var(--panel);borde
       <div class="meta"><span class="tag">Part</span><span class="pill" id="cardPart"></span></div>
       <div class="nav"><button id="cardPrev">← Previous step</button><button id="cardNext">Next step →</button></div>
     </div>
-    <div class="legend">Click any numbered pin or any part to see what it does · numbers follow the fabric from roll to finished shirt · Concept model, LOD0/1 · 6.0 × 3.0 m guarded envelope · robot motion is replayed from the MuJoCo simulation (real UR10e + Robotiq 2F-85 geometry); gantry and cutter motion are illustrative · drag to orbit, scroll to zoom, right-drag to pan</div>
+    <div class="legend">Click any numbered pin or any part to see what it does · numbers follow the fabric from roll to finished shirt · Robot arm: simulated motion (MuJoCo, real UR10e + gripper geometry, collision-checked against the whole cell). Gantry, cutter and rolls: illustrative motion inside their real travel limits · drag to orbit, scroll to zoom, right-drag to pan</div>
   </div>
   <aside class="rail">
     <div class="sum"><span class="tag">Development cell, parts</span><b>USD __TOTAL__</b></div>
@@ -129,7 +129,11 @@ applyTheme(); matchMedia('(prefers-color-scheme: dark)').addEventListener('chang
 new MutationObserver(applyTheme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
 
 const san = s => THREE.PropertyBinding.sanitizeNodeName(s);  // GLTFLoader stores names in this form (spaces -> _)
-const byPrefix = (root, p) => { const sp = san(p), out=[]; root.traverse(o => { if (o.name && o.name.startsWith(sp)) out.push(o); }); return out; };
+const byPrefix = (root, p) => {
+  const sp = san(p), hit = new Set(); root.traverse(o => { if (o.name && o.name.startsWith(sp)) hit.add(o); });
+  // keep only the top-most match: the loader stores a node and its mesh under the same name
+  return [...hit].filter(o => { for (let q = o.parent; q; q = q.parent) if (hit.has(q)) return false; return true; });
+};
 const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer;
 let model, rig, anim = {}, playing = true, speed = 8, links = [];
 const loader = new THREE.GLTFLoader();
@@ -138,10 +142,13 @@ loader.parse(b64(GLB), '', g => {
   model.traverse(o => { if (o.isMesh) { const m=o.material; if (m.transparent || m.opacity < 1) m.depthWrite=false; m.side = THREE.DoubleSide; } });
   const keep = list => list.map(o => ({o, x:o.position.x, y:o.position.y, z:o.position.z}));
   anim.cutter = keep(['A02 cutting gantry beam','A02 cutting head','A02 gantry side'].flatMap(p => byPrefix(model,p)));
-  anim.yaxis = keep(['A04 Festo EGC-80','A04 Y carriage','A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 EXAIR','A03 Schmalz','A03 double-ply'].flatMap(p => byPrefix(model,p)));
-  anim.zaxis = keep(['A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 EXAIR','A03 Schmalz','A03 double-ply'].flatMap(p => byPrefix(model,p)));
-  anim.roll = ['A01 fabric roll','A01 roll shaft'].flatMap(p => byPrefix(model,p));
-  anim.rollers = byPrefix(model,'A06 expansion roller');
+  const ZG = ['A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 EXAIR','A03 Schmalz','A03 double-ply'];
+  anim.gz = keep(ZG.flatMap(p => byPrefix(model,p)));
+  anim.gy = keep(['A04 Y carriage', ...ZG].flatMap(p => byPrefix(model,p)));
+  anim.gx = keep(['A04 Festo EGC-80', 'A04 Y carriage', ...ZG].flatMap(p => byPrefix(model,p)));
+  const spin = (list, axis) => list.map(o => ({o, rest: o.quaternion.clone(), axis}));
+  anim.roll = spin(['A01 fabric roll','A01 roll shaft'].flatMap(p => byPrefix(model,p)), new THREE.Vector3(0, 1, 0));
+  anim.rollers = [...spin(byPrefix(model,'A06 expansion roller 1'), new THREE.Vector3(0, 1, 0)), ...spin(byPrefix(model,'A06 expansion roller 2'), new THREE.Vector3(0, 0, 1))];
   anim.carriage = keep(['A04 7th-axis carriage','A04 UR10e pedestal'].flatMap(p => byPrefix(model,p)));
   // simplified robot is replaced by the real rig
   ['A04 UR10e base','A04 UR10e shoulder','A04 UR10e upper','A04 UR10e forearm','A04 UR10e wrist','A04 Robotiq','A04 GelSight','A04 RealSense'].flatMap(p => byPrefix(model,p)).forEach(o => o.visible = false);
@@ -154,13 +161,32 @@ loader.parse(b64(GLB), '', g => {
   view('iso'); buildList(); buildSim(); buildPins();
 });
 
-// robot timeline from the simulation keyframes (joint-space interpolation, smoothstep)
+// gantry timeline (model frame, metres): beam centre x, carriage y, tool dip. Travel limits from the CAD audit:
+// x 3.88-5.65, y 1.45-2.78, dip <= 0.55 m (tool reaches the work surface, Z column stays in its carriage).
+const G_REST = {x: 4.80, y: 2.08};
+const G_WP = [ // [x, y, dip, seconds to get here, dwell]
+  [3.90, 1.75, 0, 2.5, 0], [3.90, 1.75, 0.52, 1.0, 1.0], [3.90, 1.75, 0, 1.0, 0],      // pick front panel off the pick-off belt (clear of the end drum)
+  [4.65, 1.73, 0, 1.6, 0], [4.65, 1.73, 0.53, 1.0, 0.8], [4.65, 1.73, 0, 1.0, 0],      // place it on the staging table
+  [3.90, 2.30, 0, 1.8, 0], [3.90, 2.30, 0.52, 1.0, 1.0], [3.90, 2.30, 0, 1.0, 0],      // pick back panel
+  [4.65, 2.36, 0, 1.6, 0], [4.65, 2.36, 0.53, 1.0, 0.8], [4.65, 2.36, 0, 1.0, 0],      // place it
+  [3.90, 1.60, 0, 2.0, 0], [3.90, 1.60, 0.52, 1.0, 1.0], [3.90, 1.60, 0, 1.0, 0],      // pick a sleeve
+  [5.60, 1.55, 0, 2.6, 0], [5.60, 1.55, 0.52, 1.0, 6.0], [5.60, 1.55, 0, 1.0, 0],      // lay it flat on the hemmer table beside the head; the head's puller feeds it
+  [4.80, 2.08, 0, 1.8, 3.0]];
+const G_SEG = []; let G_T = 0;
+G_WP.forEach((w, i) => { const p = G_WP[(i - 1 + G_WP.length) % G_WP.length]; G_SEG.push({p, w, t0: G_T}); G_T += w[3] + w[4]; });
+function gantryAt(t){
+  t = (t * 1.0) % G_T; const s = G_SEG.find(s => t < s.t0 + s.w[3] + s.w[4]) || G_SEG[G_SEG.length - 1];
+  const u = Math.min(1, (t - s.t0) / s.w[3]), e = u*u*(3-2*u);
+  return {x: s.p[0] + (s.w[0] - s.p[0]) * e, y: s.p[1] + (s.w[1] - s.p[1]) * e, dip: s.p[2] + (s.w[2] - s.p[2]) * e};
+}
+
+// robot timeline: collision-checked MuJoCo waypoints, interpolated exactly as the simulation verified them
 const KF = RIGMETA.keyframes; let segs = [], total = 0;
-KF.forEach((k, i) => { const prev = KF[(i - 1 + KF.length) % KF.length]; const mv = Math.max(k.move_s, i === 0 ? 2 : 0.5); segs.push({from:prev, to:k, t0:total, mv, dw:k.dwell_s}); total += mv + k.dwell_s; });
+KF.forEach((k, i) => { const prev = KF[(i - 1 + KF.length) % KF.length]; const mv = Math.max(k.move_s, 0.02); segs.push({from:prev, to:k, t0:total, mv, dw:k.dwell_s, lin: !!k.linear}); total += mv + k.dwell_s; });
 const opEl = document.getElementById('op');
 function robotAt(t){
   t = t % total; const s = segs.find(s => t < s.t0 + s.mv + s.dw) || segs[segs.length-1];
-  const u = Math.min(1, (t - s.t0) / s.mv), e = u*u*(3-2*u);
+  const u = Math.min(1, (t - s.t0) / s.mv), e = s.lin ? u : u*u*(3-2*u);
   const q = s.to.q.map((qi, j) => s.from.q[j] + (qi - s.from.q[j]) * e);
   const bx = s.from.base_x + (s.to.base_x - s.from.base_x) * e;
   return {q, bx, s, phase: u < 1 ? 'moving to' : 'at', tIn: t};
@@ -172,20 +198,23 @@ function step(now){
   if (playing) simT += dt * speed;
   const t = simT;
   if (model) {
+    // cutter beam sweeps its 2.5 m cutting zone (illustrative)
     anim.cutter.forEach(a => a.o.position.x = a.x + Math.sin(t * 0.08) * 0.8);
-    const g = (Math.sin(t * 0.06) + 1) / 2;
-    anim.yaxis.forEach(a => a.o.position.x = a.x - 0.9 + g * 1.0);
-    const dip = Math.max(0, Math.cos(t * 0.12)) ** 8 * 0.45;
-    anim.zaxis.forEach(a => a.o.position.z = a.z - dip);
-    anim.roll.forEach(o => o.rotation.y = -t * 0.05);
-    anim.rollers.forEach(o => o.rotation.y = t * 0.6);
+    // overhead gantry: waypoint timeline inside its travel limits (illustrative, kinematically consistent)
+    const gp = gantryAt(t);
+    anim.gx.forEach(a => a.o.position.x = a.x + (gp.x - G_REST.x));
+    anim.gy.forEach(a => a.o.position.y = a.y + (gp.y - G_REST.y));
+    anim.gz.forEach(a => a.o.position.z = a.z - gp.dip);
+    // roll and rollers spin about their own axes (rest orientation kept)
+    anim.roll.forEach(r => r.o.quaternion.copy(r.rest).premultiply(new THREE.Quaternion().setFromAxisAngle(r.axis, -t * 0.05)));
+    anim.rollers.forEach(r => r.o.quaternion.copy(r.rest).premultiply(new THREE.Quaternion().setFromAxisAngle(r.axis, t * 0.6)));
     if (links.length === 7) {
       const r = robotAt(t);
       rig.position.x = r.bx;
       anim.carriage.forEach(a => a.o.position.x = a.x + (r.bx - 3.3));
       for (let j = 0; j < 6; j++) { const L = links[j + 1]; L.n.quaternion.copy(L.rest).multiply(new THREE.Quaternion().setFromAxisAngle(L.axis, r.q[j])); }
       const pct = (r.tIn / total) * 100;
-      opEl.innerHTML = `<b>${fmt(r.tIn)} / ${fmt(total)}</b> · ${r.phase} ${r.s.to.to}<br>${r.s.to.op}<div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div>`;
+      opEl.innerHTML = `<b>${fmt(r.tIn)} / ${fmt(total)}</b> · ${/moving|transit/.test(r.s.to.to) ? r.s.to.to : r.phase + ' ' + r.s.to.to}<br>${r.s.to.op}<div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div>`;
     }
   }
   placePins();
@@ -267,13 +296,16 @@ document.getElementById('speed').onchange = e => speed = +e.target.value;
 function buildSim(){
   const a = SIM.a080.find(c => c.scenario.startsWith('Audited')), b = SIM.a080.find(c => c.scenario.startsWith('Without'));
   const margin = ((1 - SIM.arm_s / SIM.required_s) * 100).toFixed(1);
-  document.getElementById('simbox').innerHTML = `<span class="tag">Simulation results</span>
+  document.getElementById('simbox').innerHTML = `<span class="tag">Simulation results (inputs partly estimated)</span>
     <div class="kv"><span>Robot time per shirt</span><span>${SIM.arm_s.toFixed(0)} s of ${SIM.required_s.toFixed(0)} s</span></div>
-    <div class="kv"><span>Margin (gate 15 %)</span><span class="pill ${margin < 15 ? 'warn' : ''}">${margin} %</span></div>
+    <div class="kv"><span>Time margin (target 15 %)</span><span class="pill ${margin < 15 ? 'warn' : ''}">${margin} %</span></div>
     <div class="kv"><span>Shifts reaching 100 shirts</span><span class="pill ${a.prob_ge_100 < 0.9 ? 'warn' : ''}">${Math.round(a.prob_ge_100*100)} %</span></div>
-    <div class="kv"><span>Mean accepted per 12 h shift</span><span>${a.mean_accepted}</span></div>
+    <div class="kv"><span>Average accepted per 12 h shift</span><span>${a.mean_accepted}</span></div>
     <div class="kv"><span>Without the flat hemmer</span><span>${Math.round(b.prob_ge_100*100)} % · ${b.mean_accepted}</span></div>
-    <p class="note" style="margin:0">80 % availability, 1 % of shirts need a person, 300 simulated shifts. A fixed robot stand could not reach the ${SIM.fixed_fail.join(' or the ')}, so the robot rides a 7th-axis track.</p>`;
+    <details><summary class="note" style="cursor:pointer">How these numbers were made</summary>
+    <p class="note" style="margin:6px 0 0"><b>Simulated:</b> the real UR10e and gripper geometry moving on its track through every sewing step, with collision checks against all ${SIM.obstacles} fixed parts of the cell (MuJoCo), and 300 random 12-hour shifts with stoppages and interventions (SimPy).</p>
+    <p class="note" style="margin:6px 0 0"><b>Estimated, not measured:</b> how long each seam takes, regrasp time, how often the machine stops and how often a person is needed. These come from industry sewing-time tables. Bench tests will replace them.</p>
+    <p class="note" style="margin:6px 0 0"><b>Not simulated:</b> how the fabric itself behaves. No simulator can prove that yet; the first bench experiments do.</p></details>`;
 }
 // camera presets (three.js world is Y-up; model x→x, model y→-z, model z→y)
 const P = {iso:[[-3.4,7.4,7.8],[2.9,0.5,-1.4]], top:[[3.0,11,-1.49],[3.0,0,-1.5]], front:[[3.0,1.9,5.2],[3.0,0.9,-1.2]]};
