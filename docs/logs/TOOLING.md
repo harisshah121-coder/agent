@@ -30,3 +30,21 @@ Servers that exist only on GitHub/PyPI (no claude.ai catalog entry) are register
 - Parts pricing: LukeL99/nexar-mcp (Octopart/Nexar API; free tier), Partuno (DigiKey + Mouser; own keys). Useful for the electrical BOM.
 - CAD: PTC Onshape FeatureScript MCP (official, Aug 2026); Fusion 360 and FreeCAD community MCPs; "3D CAD Converter" plugin (Windows, local file conversion) is optional for the owner's PC.
 - Nothing else in the catalogs or on the web changes the plan.
+
+## Installed in the container (verified 2026-10-22)
+| Venv / path | Contents |
+|---|---|
+| /home/user/.venvs/cad | build123d 0.13.0, build123d-mcp 0.3.91, build123d-drafting-helpers 0.15.5 |
+| /home/user/.venvs/sim | mujoco 3.16.0, genesis-world 1.4.4 |
+| /home/user/.venvs/garment | pygarment 2.0.2 (GarmentCode) |
+| /home/user/.venvs/app | fastapi 0.156.4, mcp 2.3.0, ortools 9.15 |
+| /home/user/.venvs/tools | kicad-mcp-pro 4.3.0, mcp-server-kicad 0.21.1, onshape-to-robot 1.8.3, robodk 6.0.2 |
+| /home/user/.venvs/nexar, /home/user/.venvs/partuno | Nexar/Octopart MCP deps; partuno 4.0.1 |
+| /home/user/tools | GarmentCode, blender-mcp, kicad-mcp-pro, nexar-mcp, ros-mcp-server, text-to-cad (clones) |
+
+The container is ephemeral: these venvs vanish when the session ends. `.mcp.json` points at them; a new session must re-run the install commands in the 3D guide §2 and this table.
+
+## What the owner adds for the parts-pricing servers
+- Nexar/Octopart: free account at nexar.com → app credentials → set `NEXAR_CLIENT_ID` and `NEXAR_CLIENT_SECRET` as environment secrets in the Claude cloud environment settings.
+- Partuno: DigiKey and Mouser API keys (variable names per the partuno README) in the same place.
+- KiCad MCP needs the KiCad 10 binary for anything beyond file parsing; only needed when cabinet schematics move from QElectroTech to KiCad.

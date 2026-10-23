@@ -1,6 +1,8 @@
-# Roll-to-Garment: project master document (v0, 2026-10-21)
+# Roll-to-Garment: project master document (v1, 2026-10-23)
 
-This is the one document that says what the project is and everything we need to do. v0 is written from the owner's white paper (research snapshot dated 19 October 2026) and the session-1 decisions. v1 will be rewritten from the finished research and the three build guides.
+This is the one document that says what the project is and everything we need to do. v1 adds the research results (docs/research, R01–R16), the three master build guides, the gaps found and the seed case.
+
+**The three guides**: `BUILD_GUIDE_MACHINE.md` (every station, real parts, BOM, assembly, tests) · `BUILD_GUIDE_SOFTWARE.md` (M01–M14, stack, MCP, safety boundary, build order) · `BUILD_GUIDE_3D_MODEL.md` (toolchain, vendor geometry, assemblies A00–A10, simulation, Blender, R3).
 
 ## 1. What we are building
 An AI-directed roll-to-garment manufacturing cell: a modular, guarded industrial machine that takes a roll of knit fabric at one end and delivers finished, inspected garments at the other, with one operator supervising and an AI software stack doing the design-to-machine work. First product: a premium short-sleeve T-shirt. The same cell and software are designed to extend to other cut-and-sew garments.
@@ -56,8 +58,8 @@ Comparables and positioning in white paper sections 17–19; machine cost and ma
 ## 7. Everything we need to do (phase map)
 | Phase | What | Output |
 |---|---|---|
-| 1 (now) | Research every element; write the three master build guides, the dossier, the gap analysis, the seed thesis | `docs/` set, draft PR |
-| 2 | 3D model: toolchain, vendor geometry import, every assembly, kinematics, cycle-time simulation, Blender animation, R3 walkthrough | model repo, demos |
+| 1 (done) | Research every element; write the three master build guides | `docs/` set |
+| 2 (next) | 3D model: toolchain, vendor geometry import, every assembly, kinematics, cycle-time simulation, Blender animation, R3 walkthrough | model repo, demos |
 | 3 | Software: M01–M14 in build order with simulation backend first, then hardware-in-the-loop | running stack against the digital twin |
 | 4 | Machine: procurement, sub-assembly builds, station bring-up, integration, FAT, 100-shirt shift test | working cell |
 | 5 | Seed raise: deck, data room, investor pipeline | term sheet |
@@ -74,3 +76,30 @@ Comparables and positioning in white paper sections 17–19; machine cost and ma
 
 ## 9. Glossary
 See white paper appendix E; the spine adds project-specific terms.
+
+## 10. Gaps found by the research (and where each is handled)
+| ID | Gap | Evidence | Fix | Where |
+|---|---|---|---|---|
+| GAP-01 | Development cell costs about USD 248k in parts, 2–5× the white paper's USD 52k/83k/140k scenarios | parts.csv; R01, R02, R06, R07 | Seed funds the development cell; cost-down plan to a USD 100k sellable cell | Machine guide §7.3 |
+| GAP-02 | Robot-fed curved overlock seam on curling jersey is not demonstrated anywhere public | R04, R12 | First bench experiment before buying the full cell | Machine guide §10 #1 |
+| GAP-03 | No overlock/coverstitch head has electronic differential feed; rib stretch must come from handling | R04 | In-house expansion-roller collar module | Machine guide §3.6 |
+| GAP-04 | No purchasable autonomous collar unit (bought-in operator-loaded est. USD 30–60k) | R04 | Build in-house, modelled on Atlanta 1289/1996 | Machine guide §3.6 |
+| GAP-05 | Human SAM 6.5–8.5 min exceeds the 5.47 min required interval | R16 F9 | Pipeline 3–4 shirts; separate extraction carriage; ST04 and ST06 measured first | Machine guide §1.3 |
+| GAP-06 | Frame/guarding alone exceeds the white paper's conservative line | R07 | Weldment and simpler guarding in cost-down | Machine guide §3.0, §7.3 |
+| GAP-07 | No capex line for folding/bagging/decoration in the white paper | R08 | Optional modules priced separately | Machine guide §3.7–3.8 |
+| GAP-08 | Electroadhesion grippers not purchasable; needle marks on jersey unquantified | R03 | Needle + vacuum toolbox; 1,000-cycle wash test | Machine guide §3.3 |
+| GAP-09 | No vendor CAD for cutter and any sewing head | R04, R15 | LOD0 envelopes, NDA requests, 3D scans | 3D guide §4 |
+| GAP-10 | White paper source register misses the ARM Institute automated T-shirt assembly project (2025) | R12 | Add to the register; contact for results | Research log |
+| GAP-11 | Template sewing is the proven deterministic route for knit seams, while the white paper leans against fixtures | R12 | Keep template/automat routes as fallback for hems | Machine guide §3.5 |
+
+## 11. Seed case (summary; detail in research R13)
+- **Open slot**: nobody sells a conventional-stitch roll-to-garment cell near USD 100k (R13).
+- **Beachhead**: Berry-Amendment and uniform/teamwear contract sewers (DLA clothing and textiles obligated USD 1.878B in FY2024, USD 624M to cut-and-sew contractors) who need 50–500-piece reorders in days (R13).
+- **Why now**: US apparel duties on Asian tees ~25–37 % in 2026 and de minimis ended 2025-08-29; physical-AI tooling (cheap compute, open policies, simulation) matured in 2025–2026 (R13, R10).
+- **Proof investors will demand** (SoftWear × Tianyuan is the cautionary precedent): one unattended roll-to-tee run on video with measured takt, yield and interventions; BOM-backed cost; 3–5 LOIs; safety certification started (R13).
+- **Raise sizing**: market median seed is USD 4.5M at USD 23.9M post (R13). The owner's USD 10M target is above median and must be justified by the development cell (≈ USD 0.25M parts plus team of 6–8 engineers for 18–24 months) and the first two customer pilot cells; the milestone plan above is the justification.
+
+## 12. Next actions
+1. Phase 2 (3D model): checkpoints C1 (vendor geometry register) and C2 (LOD0 envelopes A00–A10) from the 3D guide, then C3 reach study and C4 cycle time.
+2. In parallel: the three bench experiments (overlock presentation, needle-pick, rib stretch) from Machine guide §10.
+3. Quote requests in Machine guide §7.4.

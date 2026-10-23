@@ -12,7 +12,7 @@ This repository is the working home of an AI-directed roll-to-garment manufactur
 ## Where things are
 - `docs/source/`: the white paper (PDF and extracted text, grep it rather than reading it whole).
 - `docs/research/`: sourced research reports R01–R17 and the briefs that produced them.
-- `docs/01_RESEARCH_DOSSIER.md`, `docs/02_GAP_ANALYSIS.md`, `docs/03_SEED_THESIS.md`: synthesis.
+- Gap register and seed summary: sections 10–11 of `docs/00_PROJECT_MASTER.md` (decision D-012).
 - `docs/spine/`: machine-readable registries (parts, interfaces, takt) that the guides reference by ID.
 - `docs/logs/`: session log, decisions, research log, tooling status, audits.
 - `docs/superpowers/`: design specs and implementation plans.

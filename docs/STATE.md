@@ -1,32 +1,29 @@
 # Project state
 
-Updated: 2026-10-21 (session 1)
+Updated: 2026-10-23 (session 1 end)
 
 ## Phase
-Phase 1: research and master build guides. Code, CAD and purchasing are later phases.
+Phase 1 (research and master build guides): **done**. Phase 2 (3D model): next.
 
 ## Status
 | Item | Status |
 |---|---|
-| Tooling activated (plugins, connectors, skills) | Done by owner; see logs/TOOLING.md |
-| Spec and plan | Written: docs/superpowers/specs, docs/superpowers/plans |
-| Context files (CLAUDE.md, logs, master v0) | Written |
-| Research fan-out R01–R17 | In progress |
-| Dossier, gap analysis, seed thesis | Not started |
-| Architecture spine and registries | Not started |
-| Guide 1 machine / Guide 2 software / Guide 3 3D model | Not started |
-| Independent audit | Not started |
-| Push, draft PR | Not started |
+| Research R01–R16 | Done. R03, R04, R08, R12, R13, R15 complete; R01, R02, R05, R06, R07, R09, R10, R11, R14, R16 closed out with findings only (sources inline) after repeated usage-limit stops |
+| R17 tooling | Installs done (see logs/TOOLING.md); report not written; `.mcp.json` written by hand |
+| Machine guide | Done: docs/BUILD_GUIDE_MACHINE.md (BOM generated from docs/spine/parts.csv) |
+| Software guide | Done: docs/BUILD_GUIDE_SOFTWARE.md |
+| 3D model guide | Done: docs/BUILD_GUIDE_3D_MODEL.md |
+| Project master v1 with gaps and seed case | Done |
+| Independent audit | Skipped at owner's request (token cost); `scripts/check_docs.py` passes |
+| Draft PR | Blocked: the GitHub repo has no default branch |
 
 ## Next actions
-1. Collect research reports; log each in logs/RESEARCH_LOG.md.
-2. Write dossier, gap analysis, seed thesis.
-3. Write spine, registries, checker.
-4. Dispatch guide writers; run checker; audit; fix.
-5. Finalize master document; push; draft PR.
+1. 3D guide checkpoint C1: vendor geometry register (`cad/vendor/REGISTER.csv`).
+2. 3D guide checkpoint C2: LOD0 envelopes for A00–A10 in build123d on the floor plan.
+3. C3 reach study and C4 cycle-time study in MuJoCo.
 
 ## Open decisions for the owner
-- The GitHub repository has no default branch yet, so no pull request can be opened: create `main` on GitHub (empty or from this branch) or tell me to push one.
+- Create a `main` branch on GitHub so a pull request can be opened.
 - Company/product name (placeholder: Roll-to-Garment, R2G).
-- Target first deployment region (affects CE vs UL/NFPA route and supplier choices).
-- Budget tier to design to first ($52k / $83k / $140k scenarios from the white paper).
+- First deployment region (CE vs UL/NFPA route).
+- Gantry + UR10e (selected) vs. lower-cost presentation for the first cell.

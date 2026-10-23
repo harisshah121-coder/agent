@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "build123d": {
+      "command": "/home/user/.venvs/cad/bin/build123d-mcp",
+      "args": []
+    },
+    "kicad": {
+      "command": "/home/user/.venvs/tools/bin/kicad-mcp-pro",
+      "args": []
+    },
+    "nexar-octopart": {
+      "command": "/home/user/.venvs/nexar/bin/python",
+      "args": ["/home/user/tools/nexar-mcp/octopart_server.py"],
+      "env": {
+        "NEXAR_CLIENT_ID": "${NEXAR_CLIENT_ID}",
+        "NEXAR_CLIENT_SECRET": "${NEXAR_CLIENT_SECRET}"
+      }
+    },
+    "partuno-digikey-mouser": {
+      "command": "/home/user/.venvs/partuno/bin/partuno-mcp",
+      "args": []
+    }
+  }
+}

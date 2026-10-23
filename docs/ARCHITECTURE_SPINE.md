@@ -1,4 +1,4 @@
-# Architecture spine (v0 structure, 2026-10-21)
+# Architecture spine (v1, 2026-10-23)
 
 The single definition of every identifier the three build guides share. Part selections, interface specifications and the takt budget are filled in from the research dossier (Task 4) and live in the machine-readable registries under `docs/spine/`. v0 fixes the structure so the guides can be written against it.
 
@@ -51,7 +51,7 @@ The single definition of every identifier the three build guides share. Part sel
 | M14 | Data, logging, observability | Event log, metrics, traces, run records, autonomy and quality statistics |
 
 ## 4. 3D assemblies
-`A00`–`A10` mirror `ST00`–`ST10` one-to-one. Each assembly is a build123d module exporting STEP and glTF, with a joints file for URDF/MJCF generation. Sub-assemblies use `Ann.m` (for example `A04.2` gripper toolbox). Vendor geometry is referenced by `part_id` and stored under `cad/vendor/<part_id>/`.
+`A00`–`A10` mirror `ST00`–`ST10` one-to-one: A00 frame and guarding, A01 roll handling, A02 cutter, A03 extraction and buffer, A04 manipulation, A05 sewing heads, A06 collar module, A07 finishing and output, A08 decoration, A09 control and safety, A10 vision and compute. Each assembly is a build123d module exporting STEP and glTF, with a joints file for URDF/MJCF generation. Sub-assemblies use `Ann.m` (for example `A04.2` gripper toolbox). Vendor geometry is referenced by `part_id` and stored under `cad/vendor/<part_id>/`.
 
 ## 5. Interface kinds and what each row must specify
 | Kind | Required fields in `spec` |

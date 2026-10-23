@@ -13,3 +13,4 @@
 - Second session-limit stop (reset 11:40 UTC) hit all 17 agents again; partial reports of 6–140 lines each were saved. 18:30 UTC: owner said "try again"; all 17 agents resumed from their transcripts.
 - Third session-limit stop (reset 23:30 UTC 2026-10-21). 2026-10-22 00:15 UTC: owner said "try again"; all 17 agents resumed with a finish-first instruction (complete all seven sections and Sources before any further searching).
 - Fourth session-limit stop (reset 05:00 UTC 2026-10-22). 06:00 UTC: owner said "resume"; all 17 agents resumed with a no-more-searching, close-out instruction. Reports now total ~4,300 lines.
+- 2026-10-22/23: owner asked to finish quickly. Stopped all research agents; wrote the three guides directly from the saved research; generated the BOM from the parts registry (53 parts, ~USD 248k); master v1 with gap register and seed summary; wrote .mcp.json for build123d, KiCad, Nexar and Partuno MCP servers. Audit pass skipped to save tokens.
