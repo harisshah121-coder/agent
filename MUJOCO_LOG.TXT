@@ -1,0 +1,8 @@
+WARNING Fri Oct 23 09:35:36 2026: Attach conflict when attaching 'robotiq_2f85' to 'ur10e', policy is 'warning'
+impratio: parent has 1 (default), child has 10, keeping parent value
+cone: parent has 0 (default), child has 1, keeping parent value
+
+WARNING Fri Oct 23 09:35:50 2026: Attach conflict when attaching 'robotiq_2f85' to 'ur10e', policy is 'warning'
+impratio: parent has 1 (default), child has 10, keeping parent value
+cone: parent has 0 (default), child has 1, keeping parent value
+

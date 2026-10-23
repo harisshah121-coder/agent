@@ -16,3 +16,5 @@
 | D-012 | 2026-10-22 | Skip separate dossier/gap/seed files; gap register and seed summary live in the project master | Accepted | Owner asked to finish quickly |
 | D-013 | 2026-10-23 | UR10e on a 7th-axis track (P-ST04-007) instead of a fixed pedestal | Accepted | L1 sim: fixed pedestal misses overlock and inspection |
 | D-014 | 2026-10-23 | Add Build Guide 4 (simulation) with seven levels and gates | Accepted | Owner request |
+| D-015 | 2026-10-23 | Dedicated flat coverstitch head (P-ST05-006) under the gantry for sleeve hems | Accepted | Frees ~35 s of arm time; +22 points of shifts reaching 100 |
+| D-016 | 2026-10-23 | Cutter = 2.5 m cutting zone + 0.6 m pick-off conveyor; gantry columns at x 3.76/5.89 m; blower outside guard | Accepted | Model audit collisions |

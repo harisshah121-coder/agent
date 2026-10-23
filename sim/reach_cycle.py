@@ -17,13 +17,14 @@ APPROACH = 0.05      # TCP height above the work surface, m
 PEDESTAL = 0.82      # base height used in the concept model, m
 
 # TCP targets (x, y, surface z) in metres, from the concept layout
-TARGETS = {
-    "handoff (staging front edge)": (4.30, 1.50, 0.85),
-    "overlock needle (ST05)":       (1.95, 0.55, 0.82),
-    "collar module (ST06)":         (3.10, 0.55, 0.82),
-    "coverstitch needle (ST05)":    (4.25, 0.55, 0.82),
-    "inspection table (ST07)":      (5.45, 0.60, 0.84),
+TARGETS = {  # revised layout after the 2026-10-23 model audit (cad/concept/cell_concept.py)
+    "handoff (staging front edge)": (4.45, 1.48, 0.85),
+    "overlock needle (ST05)":       (1.95, 0.45, 0.79),
+    "collar module (ST06)":         (3.15, 0.45, 0.79),
+    "coverstitch needle (ST05)":    (4.35, 0.45, 0.79),
+    "inspection table (ST07)":      (5.50, 0.45, 0.84),
 }
+TRACK = (0.94, 1.91, 5.09)  # base y, base x min/max (3.6 m rail minus carriage)
 
 def build(base_xy):
     spec = mujoco.MjSpec.from_file(d.MJCF_PATH)
@@ -82,8 +83,7 @@ SEQ = [("handoff (staging front edge)", 6, "grasp front+back, register"),
        ("overlock needle (ST05)", 15, "OP-03 shoulders"),
        ("collar module (ST06)", 20, "load body for OP-05 rib attach (module sews ~40 s on its own)"),
        ("coverstitch needle (ST05)", 20, "OP-06 neck topstitch"),
-       ("handoff (staging front edge)", 6, "grasp sleeves"),
-       ("coverstitch needle (ST05)", 24, "OP-07 two sleeve hems"),
+       ("handoff (staging front edge)", 6, "grasp two sleeves already hemmed flat by the gantry-fed hemmer (P-ST05-006)"),
        ("overlock needle (ST05)", 50, "OP-08 set two sleeves"),
        ("overlock needle (ST05)", 50, "OP-09 close two sides"),
        ("coverstitch needle (ST05)", 25, "OP-10 bottom hem"),
@@ -104,7 +104,7 @@ def cycle(base_xy=None, track=None):
         mv = 0.0 if q is None else move_time(q, q1)
         tr = 0.0 if (tx is None or not track) else track_time(tx, bx)
         leg = max(mv, tr) + dwell + REGRASP
-        legs.append({"to": name, "op": op, "move_s": round(max(mv, tr), 2), "dwell_s": dwell, "regrasp_s": REGRASP, "leg_s": round(leg, 1)})
+        legs.append({"to": name, "op": op, "base_x": round(bx, 3), "q": [round(float(v), 4) for v in q1], "move_s": round(max(mv, tr), 2), "dwell_s": dwell, "regrasp_s": REGRASP, "leg_s": round(leg, 1)})
         times.append(leg); q = q1; tx = bx
     return {"feasible": True, "arm_occupancy_s": round(sum(times), 1), "legs": legs}
 
@@ -115,8 +115,12 @@ if __name__ == "__main__":
                            "regrasp_s": REGRASP, "required_interval_s": 328.3},
            "layout_A_fixed_pedestal": {"base_xy": fixed, "reach": reach_table(fixed)}}
     res["layout_A_fixed_pedestal"]["cycle"] = cycle(base_xy=fixed)
-    track = (0.95, 2.0, 5.2)
+    track = TRACK
     res["layout_B_seventh_axis"] = {"track_y": track[0], "track_x": [track[1], track[2]], "cycle": cycle(track=track)}
+    res["layout_B_seventh_axis"]["reach"] = {}
+    for name, t in TARGETS.items():
+        bx = min(max(t[0], track[1]), track[2]); rr = reach_table((bx, track[0]))[name]; rr["base_x"] = round(bx, 3)
+        res["layout_B_seventh_axis"]["reach"][name] = rr
     (OUT / "reach_cycle.json").write_text(json.dumps(res, indent=1))
     for k, v in res["layout_A_fixed_pedestal"]["reach"].items():
         print(f"A fixed  | {k:32s} dist {v['horizontal_distance_m']:.2f} m  err {v['tcp_error_mm']:7.1f} mm  reachable={v['reachable']}")

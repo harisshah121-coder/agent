@@ -14,8 +14,8 @@ import simpy
 R = Path(__file__).resolve().parent / "results"
 arm_s = json.loads((R / "reach_cycle.json").read_text())["layout_B_seventh_axis"]["cycle"]["arm_occupancy_s"]
 SHIFT = 12 * 3600
-SCEN = {"B: 7th-axis arm does all seams": arm_s,
-        "B-opt: gantry presents sleeve hems flat (arm -35 s)": arm_s - 35}
+SCEN = {"Audited layout: track + gantry-fed flat hemmer": arm_s,
+        "Without flat hemmer (arm also hems sleeves, +35 s)": arm_s + 35}
 
 def shift(arm_time, p_int, seed, wip=4, mtbf=2 * 3600, mttr=600, rec_mean=180, yield_=0.95):
     rnd = random.Random(seed); env = simpy.Environment()
@@ -46,6 +46,16 @@ def shift(arm_time, p_int, seed, wip=4, mtbf=2 * 3600, mttr=600, rec_mean=180, y
     env.process(source(env)); env.process(breakdowns(env)); env.run(until=SHIFT)
     return out
 
+def run_availability_080():
+    out = []
+    for name, arm in SCEN.items():
+        for p in (0.01, 0.05):
+            oks = sorted(shift(arm, p, s, mttr=1800)["ok"] for s in range(300))
+            out.append({"scenario": name, "availability_case": "~0.80 (MTBF 2 h, MTTR 30 min)", "p_intervention": p,
+                        "mean_accepted": round(statistics.mean(oks), 1), "p10": oks[30], "prob_ge_100": round(sum(o >= 100 for o in oks) / 300, 2)})
+            print(out[-1])
+    return out
+
 if __name__ == "__main__":
     res = {"assumptions": {"cutter_s": 90, "gantry_s": 120, "inspection_s": 60, "wip_cap": 4, "mtbf_s": 7200, "mttr_s": 600,
                            "intervention_recovery_mean_s": 180, "yield": 0.95, "shifts_per_case": 300}, "cases": []}
@@ -60,4 +70,5 @@ if __name__ == "__main__":
                    "mean_interventions": round(statistics.mean(ints), 1)}
             res["cases"].append(row)
             print(f"{name[:44]:44s} p={p:<5} mean {row['mean_accepted']:6.1f}  p10 {row['p10']:4d}  P(>=100) {row['prob_ge_100']:.2f}  interventions {row['mean_interventions']}")
+    res["cases_availability_080"] = run_availability_080()
     (R / "throughput_des.json").write_text(json.dumps(res, indent=1))

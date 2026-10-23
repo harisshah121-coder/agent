@@ -16,11 +16,12 @@ Phase 1 (research and master build guides): **done**. Phase 2 (3D model): next.
 | Project master v1 with gaps and seed case | Done |
 | Independent audit | Skipped at owner's request (token cost); `scripts/check_docs.py` passes |
 | 3D concept model + viewer | Done: cad/concept/cell_concept.py, cad/out/cell_concept.step/.glb, viewer published as a private artifact |
-| Simulation guide + L1/L2 sims | Done: docs/BUILD_GUIDE_SIMULATION.md, sim/; found reach failure (fixed with track) and thin cycle margin |
+| Simulation guide + L1/L2 sims | Done: docs/BUILD_GUIDE_SIMULATION.md, sim/; audited layout: arm 287 s of 328 s, 89 % of shifts reach 100 |
+| Model audit | PASS: docs/logs/MODEL_AUDIT.md (all parts placed, dimensions, zero collisions) |
 | Draft PR | Blocked: the GitHub repo has no default branch |
 
 ## Next actions
-0. Re-plan sleeve hems as gantry-presented; rerun sims to pass both gates (Simulation guide §10 step 3).
+0. Close the last margin: MTTR target and bench seam timing; add the gantry timeline to L1 (Simulation guide §8.5).
 1. 3D guide checkpoint C1: vendor geometry register (`cad/vendor/REGISTER.csv`).
 2. 3D guide checkpoint C2: LOD0 envelopes for A00–A10 in build123d on the floor plan.
 3. C3 reach study and C4 cycle-time study in MuJoCo.

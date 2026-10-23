@@ -30,6 +30,16 @@ button{font:500 13px/1 var(--body);color:var(--fg);background:var(--panel);borde
 button:hover{border-color:var(--muted)}
 button:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
 button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+select{font:500 13px/1 var(--body);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 8px}
+.op{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:64px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 11px;font-size:13px;max-width:min(520px,calc(100% - 32px))}
+.op b{font-family:var(--mono);font-weight:500;color:var(--sel)}
+.op .bar{height:3px;background:var(--line);border-radius:2px;margin-top:6px;overflow:hidden}
+.op .bar i{display:block;height:100%;background:var(--accent)}
+.simbox{border:1px solid var(--line);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+.kv span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pill{font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:4px;border:1px solid var(--line)}
+.pill.warn{color:var(--accent);border-color:var(--accent)}
 .legend{position:absolute;left:max(16px,env(safe-area-inset-left,0px));bottom:16px;font-family:var(--mono);font-size:11px;color:var(--muted);max-width:min(560px,calc(100% - 32px))}
 .rail{background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding-block:16px;padding-left:16px;padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px;min-width:0}
 .sum{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
@@ -55,11 +65,15 @@ button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(
       <button id="iso">Overview</button>
       <button id="top">Plan view</button>
       <button id="front">Operator side</button>
+      <label class="tag" for="speed">Speed</label>
+      <select id="speed"><option value="1">1×</option><option value="4">4×</option><option value="8" selected>8×</option><option value="20">20×</option></select>
     </div>
-    <div class="legend">Concept model, LOD0/1 · 6.0 × 3.0 m guarded envelope · drag to orbit, scroll to zoom, right-drag to pan · flow runs roll → cutter → gantry pick → sewing → inspection → belt</div>
+    <div class="op" id="op" aria-live="polite"></div>
+    <div class="legend">Concept model, LOD0/1 · 6.0 × 3.0 m guarded envelope · robot motion is replayed from the MuJoCo simulation (real UR10e + Robotiq 2F-85 geometry); gantry and cutter motion are illustrative · drag to orbit, scroll to zoom, right-drag to pan</div>
   </div>
   <aside class="rail">
     <div class="sum"><span class="tag">Development cell, parts</span><b>USD __TOTAL__</b></div>
+    <div class="simbox" id="simbox"></div>
     <div id="list" style="display:flex;flex-direction:column;gap:4px"></div>
     <p class="note">Geometry is sized from vendor datasheets in Build Guide 1. Bought parts (cutter, sewing heads, UR10e) are simplified envelopes until vendor STEP files replace them. Prices are dated 2026-10-21 estimates and reseller quotes.</p>
   </aside>
@@ -70,6 +84,9 @@ button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(
 <script>
 const STATIONS = __STATIONS__;
 const GLB = "__GLB__";
+const RIG = "__RIG__";
+const RIGMETA = __RIGMETA__;
+const SIM = __SIM__;
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const canvas = document.getElementById('c'), bay = document.getElementById('bay');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
@@ -87,45 +104,80 @@ applyTheme(); matchMedia('(prefers-color-scheme: dark)').addEventListener('chang
 new MutationObserver(applyTheme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
 
 const byPrefix = (root, p) => { const out=[]; root.traverse(o => { if (o.name && o.name.startsWith(p)) out.push(o); }); return out; };
-let model, anim = {}, playing = true;
-const bin = Uint8Array.from(atob(GLB), c => c.charCodeAt(0)).buffer;
-new THREE.GLTFLoader().parse(bin, '', g => {
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer;
+let model, rig, anim = {}, playing = true, speed = 8, links = [];
+const loader = new THREE.GLTFLoader();
+loader.parse(b64(GLB), '', g => {
   model = g.scene; scene.add(model);
-  model.traverse(o => { if (o.isMesh) { const m=o.material; if (m.transparent || m.opacity < 1) { m.depthWrite=false; } m.side = THREE.DoubleSide; } });
+  model.traverse(o => { if (o.isMesh) { const m=o.material; if (m.transparent || m.opacity < 1) m.depthWrite=false; m.side = THREE.DoubleSide; } });
   const keep = list => list.map(o => ({o, x:o.position.x, y:o.position.y, z:o.position.z}));
-  anim.cutter = keep([...byPrefix(model,'A02 cutting gantry beam'), ...byPrefix(model,'A02 cutting head'), ...byPrefix(model,'A02 gantry side')]);
-  anim.yaxis = keep(['A04 Festo EGC-80','A04 Y carriage','A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 Schmalz'].flatMap(p => byPrefix(model,p)));
-  anim.zaxis = keep(['A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 Schmalz'].flatMap(p => byPrefix(model,p)));
-  anim.roll = [...byPrefix(model,'A01 fabric roll'), ...byPrefix(model,'A01 roll shaft')];
+  anim.cutter = keep(['A02 cutting gantry beam','A02 cutting head','A02 gantry side'].flatMap(p => byPrefix(model,p)));
+  anim.yaxis = keep(['A04 Festo EGC-80','A04 Y carriage','A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 EXAIR','A03 Schmalz','A03 double-ply'].flatMap(p => byPrefix(model,p)));
+  anim.zaxis = keep(['A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 EXAIR','A03 Schmalz','A03 double-ply'].flatMap(p => byPrefix(model,p)));
+  anim.roll = ['A01 fabric roll','A01 roll shaft'].flatMap(p => byPrefix(model,p));
   anim.rollers = byPrefix(model,'A06 expansion roller');
-  // UR10e pivot about its base axis
-  const trackParts = keep([...byPrefix(model,'A04 7th-axis carriage'), ...byPrefix(model,'A04 UR10e')]); anim.track = trackParts;
-  const ur = byPrefix(model,'A04 UR10e').filter(o => !/pedestal|base/.test(o.name)).concat(byPrefix(model,'A04 Robotiq'));
-  if (ur.length) { const parent = ur[0].parent; const piv = new THREE.Object3D(); piv.position.set(3.3, 0.95, 0); parent.add(piv); piv.updateMatrixWorld(true); ur.forEach(o => piv.attach(o)); anim.ur = piv; }
-  view('iso');
-  buildList();
+  anim.carriage = keep(['A04 7th-axis carriage','A04 UR10e pedestal'].flatMap(p => byPrefix(model,p)));
+  // simplified robot is replaced by the real rig
+  ['A04 UR10e base','A04 UR10e shoulder','A04 UR10e upper','A04 UR10e forearm','A04 UR10e wrist','A04 Robotiq','A04 GelSight','A04 RealSense'].flatMap(p => byPrefix(model,p)).forEach(o => o.visible = false);
+  const cellRoot = model.children[0];
+  loader.parse(b64(RIG), '', r => {
+    rig = r.scene; rig.position.set(3.3, RIGMETA.base_y, RIGMETA.base_z); cellRoot.add(rig);
+    RIGMETA.links.forEach(L => { const n = rig.getObjectByName(L.name); if (n) links.push({n, rest:n.quaternion.clone(), axis: L.axis ? new THREE.Vector3(...L.axis) : null}); });
+    rig.traverse(o => { if (o.isMesh) o.material.side = THREE.DoubleSide; });
+  });
+  view('iso'); buildList(); buildSim();
 });
 
-const t0 = performance.now(); let tPause = 0, tOff = 0;
+// robot timeline from the simulation keyframes (joint-space interpolation, smoothstep)
+const KF = RIGMETA.keyframes; let segs = [], total = 0;
+KF.forEach((k, i) => { const prev = KF[(i - 1 + KF.length) % KF.length]; const mv = Math.max(k.move_s, i === 0 ? 2 : 0.5); segs.push({from:prev, to:k, t0:total, mv, dw:k.dwell_s}); total += mv + k.dwell_s; });
+const opEl = document.getElementById('op');
+function robotAt(t){
+  t = t % total; const s = segs.find(s => t < s.t0 + s.mv + s.dw) || segs[segs.length-1];
+  const u = Math.min(1, (t - s.t0) / s.mv), e = u*u*(3-2*u);
+  const q = s.to.q.map((qi, j) => s.from.q[j] + (qi - s.from.q[j]) * e);
+  const bx = s.from.base_x + (s.to.base_x - s.from.base_x) * e;
+  return {q, bx, s, phase: u < 1 ? 'moving to' : 'at', tIn: t};
+}
+const fmt = s => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+let simT = 0, last = performance.now();
 function step(now){
-  const t = (playing ? now - tOff : tPause) / 1000;
+  const dt = (now - last) / 1000; last = now;
+  if (playing) simT += dt * speed;
+  const t = simT;
   if (model) {
-    const s = Math.sin(t * 0.6);
-    anim.cutter.forEach(a => a.o.position.x = a.x + s * 1.0);
-    const g = (Math.sin(t * 0.45) + 1) / 2;              // 0 at cutter exit, 1 at staging
-    anim.yaxis.forEach(a => a.o.position.x = a.x - 1.2 + g * 2.0);
-    const dip = Math.max(0, Math.cos(t * 0.9)) ** 8 * 0.35;
+    anim.cutter.forEach(a => a.o.position.x = a.x + Math.sin(t * 0.08) * 0.8);
+    const g = (Math.sin(t * 0.06) + 1) / 2;
+    anim.yaxis.forEach(a => a.o.position.x = a.x - 0.9 + g * 1.0);
+    const dip = Math.max(0, Math.cos(t * 0.12)) ** 8 * 0.45;
     anim.zaxis.forEach(a => a.o.position.z = a.z - dip);
-    anim.roll.forEach(o => o.rotation.y = -t * 0.8);
-    anim.rollers.forEach(o => o.rotation.y = t * 3);
-    if (anim.ur) { anim.ur.rotation.z = Math.sin(t * 0.5) * 0.9; anim.ur.position.x = 3.3 + Math.sin(t * 0.25) * 1.2; }
-    if (anim.track) anim.track.filter(a => /carriage|pedestal|base/.test(a.o.name)).forEach(a => a.o.position.x = a.x + Math.sin(t * 0.25) * 1.2);
+    anim.roll.forEach(o => o.rotation.y = -t * 0.05);
+    anim.rollers.forEach(o => o.rotation.y = t * 0.6);
+    if (links.length === 7) {
+      const r = robotAt(t);
+      rig.position.x = r.bx;
+      anim.carriage.forEach(a => a.o.position.x = a.x + (r.bx - 3.3));
+      for (let j = 0; j < 6; j++) { const L = links[j + 1]; L.n.quaternion.copy(L.rest).multiply(new THREE.Quaternion().setFromAxisAngle(L.axis, r.q[j])); }
+      const pct = (r.tIn / total) * 100;
+      opEl.innerHTML = `<b>${fmt(r.tIn)} / ${fmt(total)}</b> · ${r.phase} ${r.s.to.to}<br>${r.s.to.op}<div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div>`;
+    }
   }
   controls.update(); renderer.render(scene, camera); requestAnimationFrame(step);
 }
 function resize(){ const r = bay.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(r.height,1); camera.updateProjectionMatrix(); }
 new ResizeObserver(resize).observe(bay); resize(); requestAnimationFrame(step);
-
+document.getElementById('speed').onchange = e => speed = +e.target.value;
+function buildSim(){
+  const a = SIM.a080.find(c => c.scenario.startsWith('Audited')), b = SIM.a080.find(c => c.scenario.startsWith('Without'));
+  const margin = ((1 - SIM.arm_s / SIM.required_s) * 100).toFixed(1);
+  document.getElementById('simbox').innerHTML = `<span class="tag">Simulation results</span>
+    <div class="kv"><span>Robot time per shirt</span><span>${SIM.arm_s.toFixed(0)} s of ${SIM.required_s.toFixed(0)} s</span></div>
+    <div class="kv"><span>Margin (gate 15 %)</span><span class="pill ${margin < 15 ? 'warn' : ''}">${margin} %</span></div>
+    <div class="kv"><span>Shifts reaching 100 shirts</span><span class="pill ${a.prob_ge_100 < 0.9 ? 'warn' : ''}">${Math.round(a.prob_ge_100*100)} %</span></div>
+    <div class="kv"><span>Mean accepted per 12 h shift</span><span>${a.mean_accepted}</span></div>
+    <div class="kv"><span>Without the flat hemmer</span><span>${Math.round(b.prob_ge_100*100)} % · ${b.mean_accepted}</span></div>
+    <p class="note" style="margin:0">80 % availability, 1 % of shirts need a person, 300 simulated shifts. A fixed robot stand could not reach the ${SIM.fixed_fail.join(' or the ')}, so the robot rides a 7th-axis track.</p>`;
+}
 // camera presets (three.js world is Y-up; model x→x, model y→-z, model z→y)
 const P = {iso:[[-3.4,7.4,7.8],[2.9,0.5,-1.4]], top:[[3.0,11,-1.49],[3.0,0,-1.5]], front:[[3.0,1.9,5.2],[3.0,0.9,-1.2]]};
 function tweenTo(pos, tgt){ const p0=camera.position.clone(), q0=controls.target.clone(), p1=new THREE.Vector3(...pos), q1=new THREE.Vector3(...tgt); const T=650, s=performance.now(); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -133,7 +185,7 @@ function tweenTo(pos, tgt){ const p0=camera.position.clone(), q0=controls.target
 function view(k){ tweenTo(...P[k]); }
 ['iso','top','front'].forEach(k => document.getElementById(k).onclick = () => { select(null); view(k); });
 const playBtn = document.getElementById('play');
-playBtn.onclick = () => { playing = !playing; const now = performance.now(); if (!playing) tPause = now - tOff; else tOff = now - tPause; playBtn.textContent = playing ? 'Pause workflow' : 'Play workflow'; playBtn.setAttribute('aria-pressed', playing); };
+playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? 'Pause workflow' : 'Play workflow'; playBtn.setAttribute('aria-pressed', playing); };
 if (matchMedia('(prefers-reduced-motion: reduce)').matches) playBtn.click();
 
 let highlighted = [];

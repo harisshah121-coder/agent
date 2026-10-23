@@ -1,0 +1,272 @@
+{
+ "links": [
+  {
+   "name": "base",
+   "rest_pos": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rest_quat_wxyz": [
+    0.0,
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "axis": null
+  },
+  {
+   "name": "shoulder_link",
+   "rest_pos": [
+    0.0,
+    0.0,
+    0.181
+   ],
+   "rest_quat_wxyz": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "upper_arm_link",
+   "rest_pos": [
+    0.0,
+    0.176,
+    0.0
+   ],
+   "rest_quat_wxyz": [
+    0.7071067811865475,
+    0.0,
+    0.7071067811865475,
+    0.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "name": "forearm_link",
+   "rest_pos": [
+    0.0,
+    -0.137,
+    0.613
+   ],
+   "rest_quat_wxyz": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "name": "wrist_1_link",
+   "rest_pos": [
+    0.0,
+    0.0,
+    0.571
+   ],
+   "rest_quat_wxyz": [
+    0.7071067811865475,
+    0.0,
+    0.7071067811865475,
+    0.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "name": "wrist_2_link",
+   "rest_pos": [
+    0.0,
+    0.135,
+    0.0
+   ],
+   "rest_quat_wxyz": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "wrist_3_link",
+   "rest_pos": [
+    0.0,
+    0.0,
+    0.12
+   ],
+   "rest_quat_wxyz": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  }
+ ],
+ "keyframes": [
+  {
+   "to": "handoff (staging front edge)",
+   "op": "grasp front+back, register",
+   "base_x": 4.45,
+   "q": [
+    -1.8989,
+    -1.5199,
+    2.4085,
+    -2.4594,
+    -1.5708,
+    -1.897
+   ],
+   "move_s": 0.0,
+   "dwell_s": 14.0
+  },
+  {
+   "to": "overlock needle (ST05)",
+   "op": "OP-03 shoulders",
+   "base_x": 1.95,
+   "q": [
+    1.2078,
+    -1.4669,
+    2.5362,
+    -2.6401,
+    -1.5708,
+    1.2066
+   ],
+   "move_s": 3.0,
+   "dwell_s": 23.0
+  },
+  {
+   "to": "collar module (ST06)",
+   "op": "load body for OP-05 rib attach (module sews ~40 s on its own)",
+   "base_x": 3.15,
+   "q": [
+    1.2078,
+    -1.4669,
+    2.5362,
+    -2.6401,
+    -1.5708,
+    1.2066
+   ],
+   "move_s": 1.7,
+   "dwell_s": 28.0
+  },
+  {
+   "to": "coverstitch needle (ST05)",
+   "op": "OP-06 neck topstitch",
+   "base_x": 4.35,
+   "q": [
+    1.2078,
+    -1.4669,
+    2.5362,
+    -2.6401,
+    -1.5708,
+    -0.3619
+   ],
+   "move_s": 1.7,
+   "dwell_s": 28.0
+  },
+  {
+   "to": "handoff (staging front edge)",
+   "op": "grasp two sleeves already hemmed flat by the gantry-fed hemmer (P-ST05-006)",
+   "base_x": 4.45,
+   "q": [
+    -1.8989,
+    -1.5199,
+    2.4085,
+    -2.4594,
+    -1.5708,
+    -1.897
+   ],
+   "move_s": 2.43,
+   "dwell_s": 14.0
+  },
+  {
+   "to": "overlock needle (ST05)",
+   "op": "OP-08 set two sleeves",
+   "base_x": 1.95,
+   "q": [
+    1.2078,
+    -1.4669,
+    2.5362,
+    -2.6401,
+    -1.5708,
+    1.2066
+   ],
+   "move_s": 3.0,
+   "dwell_s": 58.0
+  },
+  {
+   "to": "overlock needle (ST05)",
+   "op": "OP-09 close two sides",
+   "base_x": 1.95,
+   "q": [
+    1.2078,
+    -1.4669,
+    2.5362,
+    -2.6401,
+    -1.5708,
+    1.2066
+   ],
+   "move_s": 0.25,
+   "dwell_s": 58.0
+  },
+  {
+   "to": "coverstitch needle (ST05)",
+   "op": "OP-10 bottom hem",
+   "base_x": 4.35,
+   "q": [
+    1.2078,
+    -1.4669,
+    2.5362,
+    -2.6401,
+    -1.5708,
+    -0.3619
+   ],
+   "move_s": 2.9,
+   "dwell_s": 33.0
+  },
+  {
+   "to": "inspection table (ST07)",
+   "op": "release on inspection table",
+   "base_x": 5.09,
+   "q": [
+    1.9917,
+    -1.3559,
+    2.2354,
+    -2.4503,
+    -1.5708,
+    1.9897
+   ],
+   "move_s": 2.02,
+   "dwell_s": 14.0
+  }
+ ],
+ "base_y": 0.94,
+ "base_z": 0.82
+}

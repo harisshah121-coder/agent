@@ -91,7 +91,8 @@ See white paper appendix E; the spine adds project-specific terms.
 | GAP-09 | No vendor CAD for cutter and any sewing head | R04, R15 | LOD0 envelopes, NDA requests, 3D scans | 3D guide §4 |
 | GAP-10 | White paper source register misses the ARM Institute automated T-shirt assembly project (2025) | R12 | Add to the register; contact for results | Research log |
 | GAP-12 | A fixed-pedestal UR10e cannot reach the overlock (90 mm short) or inspection table (870 mm short) | sim/results/reach_cycle.json | 7th-axis track added (P-ST04-007) | Simulation guide §8.1 |
-| GAP-13 | Arm occupancy 321 s vs 328 s interval: 2 % margin; only 72 % of shifts reach 100 at 80 % availability | sim/results/throughput_des.json | Gantry presents sleeve hems flat (+13 shirts/shift); MTTR ≤ 10 min | Simulation guide §8.2–8.4 |
+| GAP-13 | Arm occupancy 287 s vs 328 s (12.6 % margin, gate 15 %); 89 % of shifts reach 100 at 80 % availability (gate 90 %) | sim/results/*.json | Flat hemmer added (P-ST05-006); MTTR ≤ 10 min; bench-measure seam times | Simulation guide §8.3–8.5 |
+| GAP-14 | First concept model had 30 inter-station collisions and a hem plan the gantry could not reach | docs/logs/MODEL_AUDIT.md | Layout revised; audit script passes | Simulation guide §8.2 |
 | GAP-11 | Template sewing is the proven deterministic route for knit seams, while the white paper leans against fixtures | R12 | Keep template/automat routes as fallback for hems | Machine guide §3.5 |
 
 ## 11. Seed case (summary; detail in research R13)

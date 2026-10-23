@@ -22,73 +22,73 @@
   ],
   "reach": {
    "handoff (staging front edge)": {
-    "horizontal_distance_m": 1.166,
+    "horizontal_distance_m": 1.288,
     "tcp_error_mm": 0.0,
     "tool_tilt_deg": 0.0,
     "reachable": true,
     "q_rad": [
-     3.532,
-     -0.63,
-     0.973,
-     -1.914,
+     3.473,
+     -0.302,
+     0.325,
+     -1.594,
      -1.571,
-     0.39
+     0.331
     ]
    },
    "overlock needle (ST05)": {
-    "horizontal_distance_m": 1.395,
-    "tcp_error_mm": 90.4,
+    "horizontal_distance_m": 1.423,
+    "tcp_error_mm": 114.4,
     "tool_tilt_deg": 0.1,
     "reachable": false,
     "q_rad": [
-     0.127,
-     -0.184,
-     0.154,
-     -1.544,
+     0.197,
+     -0.141,
+     0.117,
+     -1.549,
      -1.571,
-     0.126
+     0.197
     ]
    },
    "collar module (ST06)": {
-    "horizontal_distance_m": 0.403,
+    "horizontal_distance_m": 0.474,
     "tcp_error_mm": 0.0,
     "tool_tilt_deg": 0.0,
     "reachable": true,
     "q_rad": [
-     0.605,
-     -1.707,
-     2.668,
-     -2.533,
+     0.873,
+     -1.49,
+     2.565,
+     -2.645,
      -1.571,
-     -0.964
+     -2.266
     ]
    },
    "coverstitch needle (ST05)": {
-    "horizontal_distance_m": 1.012,
+    "horizontal_distance_m": 1.142,
     "tcp_error_mm": 0.0,
     "tool_tilt_deg": 0.0,
     "reachable": true,
     "q_rad": [
-     2.616,
-     -0.849,
-     1.446,
-     -2.168,
+     2.584,
+     -0.628,
+     1.083,
+     -2.026,
      -1.571,
-     2.138
+     -0.557
     ]
    },
    "inspection table (ST07)": {
-    "horizontal_distance_m": 2.171,
-    "tcp_error_mm": 869.0,
-    "tool_tilt_deg": 8.7,
+    "horizontal_distance_m": 2.246,
+    "tcp_error_mm": 1233.7,
+    "tool_tilt_deg": 109.0,
     "reachable": false,
     "q_rad": [
-     6.226,
-     3.263,
-     -0.056,
-     -1.656,
-     -4.563,
-     -0.493
+     6.177,
+     3.724,
+     -1.076,
+     6.283,
+     -0.76,
+     -6.283
     ]
    }
   },
@@ -98,18 +98,27 @@
   }
  },
  "layout_B_seventh_axis": {
-  "track_y": 0.95,
+  "track_y": 0.94,
   "track_x": [
-   2.0,
-   5.2
+   1.91,
+   5.09
   ],
   "cycle": {
    "feasible": true,
-   "arm_occupancy_s": 321.2,
+   "arm_occupancy_s": 287.0,
    "legs": [
     {
      "to": "handoff (staging front edge)",
      "op": "grasp front+back, register",
+     "base_x": 4.45,
+     "q": [
+      -1.8989,
+      -1.5199,
+      2.4085,
+      -2.4594,
+      -1.5708,
+      -1.897
+     ],
      "move_s": 0.0,
      "dwell_s": 6,
      "regrasp_s": 8.0,
@@ -118,54 +127,100 @@
     {
      "to": "overlock needle (ST05)",
      "op": "OP-03 shoulders",
-     "move_s": 2.8,
+     "base_x": 1.95,
+     "q": [
+      1.2078,
+      -1.4669,
+      2.5362,
+      -2.6401,
+      -1.5708,
+      1.2066
+     ],
+     "move_s": 3.0,
      "dwell_s": 15,
      "regrasp_s": 8.0,
-     "leg_s": 25.8
+     "leg_s": 26.0
     },
     {
      "to": "collar module (ST06)",
      "op": "load body for OP-05 rib attach (module sews ~40 s on its own)",
-     "move_s": 2.12,
+     "base_x": 3.15,
+     "q": [
+      1.2078,
+      -1.4669,
+      2.5362,
+      -2.6401,
+      -1.5708,
+      1.2066
+     ],
+     "move_s": 1.7,
      "dwell_s": 20,
      "regrasp_s": 8.0,
-     "leg_s": 30.1
+     "leg_s": 29.7
     },
     {
      "to": "coverstitch needle (ST05)",
      "op": "OP-06 neck topstitch",
-     "move_s": 2.3,
+     "base_x": 4.35,
+     "q": [
+      1.2078,
+      -1.4669,
+      2.5362,
+      -2.6401,
+      -1.5708,
+      -0.3619
+     ],
+     "move_s": 1.7,
      "dwell_s": 20,
      "regrasp_s": 8.0,
-     "leg_s": 30.3
+     "leg_s": 29.7
     },
     {
      "to": "handoff (staging front edge)",
-     "op": "grasp sleeves",
-     "move_s": 2.39,
+     "op": "grasp two sleeves already hemmed flat by the gantry-fed hemmer (P-ST05-006)",
+     "base_x": 4.45,
+     "q": [
+      -1.8989,
+      -1.5199,
+      2.4085,
+      -2.4594,
+      -1.5708,
+      -1.897
+     ],
+     "move_s": 2.43,
      "dwell_s": 6,
      "regrasp_s": 8.0,
      "leg_s": 16.4
     },
     {
-     "to": "coverstitch needle (ST05)",
-     "op": "OP-07 two sleeve hems",
-     "move_s": 2.39,
-     "dwell_s": 24,
-     "regrasp_s": 8.0,
-     "leg_s": 34.4
-    },
-    {
      "to": "overlock needle (ST05)",
      "op": "OP-08 set two sleeves",
-     "move_s": 2.75,
+     "base_x": 1.95,
+     "q": [
+      1.2078,
+      -1.4669,
+      2.5362,
+      -2.6401,
+      -1.5708,
+      1.2066
+     ],
+     "move_s": 3.0,
      "dwell_s": 50,
      "regrasp_s": 8.0,
-     "leg_s": 60.8
+     "leg_s": 61.0
     },
     {
      "to": "overlock needle (ST05)",
      "op": "OP-09 close two sides",
+     "base_x": 1.95,
+     "q": [
+      1.2078,
+      -1.4669,
+      2.5362,
+      -2.6401,
+      -1.5708,
+      1.2066
+     ],
      "move_s": 0.25,
      "dwell_s": 50,
      "regrasp_s": 8.0,
@@ -174,20 +229,115 @@
     {
      "to": "coverstitch needle (ST05)",
      "op": "OP-10 bottom hem",
-     "move_s": 2.75,
+     "base_x": 4.35,
+     "q": [
+      1.2078,
+      -1.4669,
+      2.5362,
+      -2.6401,
+      -1.5708,
+      -0.3619
+     ],
+     "move_s": 2.9,
      "dwell_s": 25,
      "regrasp_s": 8.0,
-     "leg_s": 35.8
+     "leg_s": 35.9
     },
     {
      "to": "inspection table (ST07)",
      "op": "release on inspection table",
-     "move_s": 1.45,
+     "base_x": 5.09,
+     "q": [
+      1.9917,
+      -1.3559,
+      2.2354,
+      -2.4503,
+      -1.5708,
+      1.9897
+     ],
+     "move_s": 2.02,
      "dwell_s": 6,
      "regrasp_s": 8.0,
-     "leg_s": 15.4
+     "leg_s": 16.0
     }
    ]
+  },
+  "reach": {
+   "handoff (staging front edge)": {
+    "horizontal_distance_m": 0.54,
+    "tcp_error_mm": 0.0,
+    "tool_tilt_deg": 0.0,
+    "reachable": true,
+    "q_rad": [
+     -1.899,
+     -1.52,
+     2.409,
+     -2.459,
+     -1.571,
+     -1.897
+    ],
+    "base_x": 4.45
+   },
+   "overlock needle (ST05)": {
+    "horizontal_distance_m": 0.49,
+    "tcp_error_mm": 0.0,
+    "tool_tilt_deg": 0.0,
+    "reachable": true,
+    "q_rad": [
+     1.208,
+     -1.467,
+     2.536,
+     -2.64,
+     -1.571,
+     1.207
+    ],
+    "base_x": 1.95
+   },
+   "collar module (ST06)": {
+    "horizontal_distance_m": 0.49,
+    "tcp_error_mm": 0.0,
+    "tool_tilt_deg": 0.0,
+    "reachable": true,
+    "q_rad": [
+     1.208,
+     -1.467,
+     2.536,
+     -2.64,
+     -1.571,
+     1.207
+    ],
+    "base_x": 3.15
+   },
+   "coverstitch needle (ST05)": {
+    "horizontal_distance_m": 0.49,
+    "tcp_error_mm": 0.0,
+    "tool_tilt_deg": 0.0,
+    "reachable": true,
+    "q_rad": [
+     1.208,
+     -1.467,
+     2.536,
+     -2.64,
+     -1.571,
+     -0.362
+    ],
+    "base_x": 4.35
+   },
+   "inspection table (ST07)": {
+    "horizontal_distance_m": 0.639,
+    "tcp_error_mm": 0.0,
+    "tool_tilt_deg": 0.0,
+    "reachable": true,
+    "q_rad": [
+     1.992,
+     -1.356,
+     2.235,
+     -2.45,
+     -1.571,
+     1.99
+    ],
+    "base_x": 5.09
+   }
   }
  }
 }

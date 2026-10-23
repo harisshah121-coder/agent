@@ -59,49 +59,55 @@ The right-hand column is answered by the bench experiments in Guide 1 §10 and b
 - **L6 cloth exploration**: MuJoCo flex or Genesis cloth to compare grasp patterns (needle bar spacing, edge-roller strategies); results inform bench experiments, never purchase decisions.
 - **L7 calibrated twin**: replace every estimate in L1/L2 with measured values from M14 (move times, seam times, intervention rates and recovery times, stoppage data); the twin then forecasts the effect of each design change before it is made.
 
-## 8. First results (2026-10-23)
-Run from this repository: `sim/reach_cycle.py` (L1) and `sim/throughput_des.py` (L2). Raw results: `sim/results/reach_cycle.json`, `sim/results/throughput_des.json`.
+## 8. Results (2026-10-23, audited layout)
+Run from this repository: `sim/reach_cycle.py` (L1) and `sim/throughput_des.py` (L2). Raw results: `sim/results/reach_cycle.json`, `sim/results/throughput_des.json`. The viewer replays the L1 joint solutions on the real UR10e and Robotiq 2F-85 geometry (`sim/export_ur_rig.py`).
 
-### 8.1 Reach: the fixed-pedestal layout fails
+### 8.1 Reach: a fixed pedestal fails; the track works
 UR10e on a fixed pedestal at (3.30, 0.90) m, base 0.82 m high, gripper 0.17 m, approach 0.05 m:
 
-| Target | Horizontal distance | Result |
-|---|---|---|
-| Handoff at staging front edge | 1.17 m | reachable |
-| Overlock needle (ST05) | 1.40 m | **unreachable, 90 mm short** |
-| Collar module (ST06) | 0.40 m | reachable |
-| Coverstitch needle (ST05) | 1.01 m | reachable |
-| Inspection table (ST07) | 2.17 m | **unreachable, 870 mm short** |
+| Target | Horizontal distance | Fixed pedestal | On the track |
+|---|---|---|---|
+| Handoff at staging front edge | 1.29 m | reachable | reachable |
+| Overlock needle (ST05) | 1.42 m | **114 mm short** | reachable |
+| Collar module (ST06) | 0.47 m | reachable | reachable |
+| Coverstitch needle (ST05) | 1.14 m | reachable | reachable |
+| Inspection table (ST07) | 2.25 m | **1,234 mm short** | reachable |
 
-**Change made**: the UR10e now rides a 7th-axis track along the sewing row (P-ST04-007, est. USD 9,000, R02 F10 price basis). The 3D model, parts registry and Guide 1 BOM are updated.
+Decision D-013: the UR10e rides P-ST04-007, a 3.6 m track along the sewing row at y = 0.94 m.
 
-### 8.2 Cycle time: the arm is the bottleneck with no margin
-With the track, every target is reachable. The arm's occupancy per shirt is **321 s**, against the **328 s** required interval (100 shirts per 12 h at 80 % availability and 95 % yield). That margin is 2 %, below the 15 % gate. Seam and regrasp times are estimates (R16 F1, F9), so this number moves once bench data exists.
+### 8.2 Model audit changed the layout
+The first concept model had 30 collisions between stations: gantry columns through the cutter base, the cutter's vacuum blower through the robot track and two sewing tables, and the track through the inspection table. It also placed the "gantry-presented flat sleeve hem" on a coverstitch head the gantry cannot reach. The revised layout (`cad/concept/cell_concept.py`, audit `docs/logs/MODEL_AUDIT.md`, result PASS):
+- Cutter split into a 2.5 m cutting zone and a 0.6 m pick-off conveyor; the gantry picks from the pick-off zone, clear of the cutting beam.
+- Gantry columns at x 3.76 / 5.89 m; X stroke about 2.1 m over pick-off, staging, flat hemmer and tool stand.
+- Vacuum blower outside the back guard, ducted.
+- A dedicated flat coverstitch head for sleeve hems under the gantry (P-ST05-006, Jack W4-UT class, USD 2,061 reseller).
 
-### 8.3 Throughput over full shifts
-300 simulated 12-hour shifts per case:
+### 8.3 Cycle time
+With sleeve hems moved to the gantry-fed hemmer, the arm's occupancy per shirt is **287 s** against the **328 s** required interval: a **12.6 % margin**, still short of the 15 % gate. Seam and regrasp times are estimates (R16 F1, F9).
 
-| Scenario | Availability | Interventions per garment | Mean accepted | 10th percentile | Shifts reaching 100 |
-|---|---|---|---|---|---|
-| Arm does all seams | ~0.92 | 1 % | 118 | 111 | 100 % |
-| Arm does all seams | 0.80 | 1 % | 105 | 88 | 72 % |
-| Arm does all seams | 0.80 | 5 % | 102 | 86 | 63 % |
-| Gantry presents sleeve hems flat | 0.80 | 1 % | 116 | 97 | 88 % |
-| Gantry presents sleeve hems flat | 0.80 | 5 % | 113 | 93 | 81 % |
+### 8.4 Throughput over full shifts
+300 simulated 12-hour shifts per case, 1 % of shirts needing a person:
 
-**Reading**: the target is reachable but fragile. Moving the two sleeve hems off the arm, so the gantry presents flat sleeves to the coverstitch head, adds about 13 shirts per shift. Availability matters more than intervention rate in this range, so stoppage recovery time (MTTR) is a design priority.
+| Scenario | Availability | Mean accepted | 10th percentile | Shifts reaching 100 |
+|---|---|---|---|---|
+| Audited layout (track + flat hemmer) | ~0.92 | 131 | 123 | 100 % |
+| Audited layout (track + flat hemmer) | 0.80 | 116 | 98 | **89 %** |
+| Without flat hemmer | 0.80 | 105 | 87 | 67 % |
 
-### 8.4 Decisions from these results
-1. Add the 7th-axis track (done: P-ST04-007).
-2. Re-plan OP-07 sleeve hems as a gantry-presented flat operation, freeing about 35 s of arm time; validate in L3.
-3. Make MTTR a design requirement: target ≤ 10 minutes per stoppage, through accessible jam clearing and fast thread recovery.
-4. The bench experiments that matter most, in order: seam presentation times at the overlock (the largest arm-time block), regrasp time with vision, and intervention recovery time.
+Gate (≥ 90 % at 0.80 availability): missed by one point. Availability dominates: the same layout at about 0.92 availability reaches 100 in every simulated shift.
+
+### 8.5 Decisions and next steps from these results
+1. Track (done, D-013) and flat hemmer (done, D-015).
+2. Close the last margin with the cheapest lever first: MTTR ≤ 10 min per stoppage (accessible jam clearing, fast thread recovery). This moves availability above 0.85, where the gate passes.
+3. Measure the real seam presentation and regrasp times on the bench (Guide 1 §10 experiment 1); they decide the margin.
+4. Add the gantry's own timeline to L1 (it now carries extraction, the flat hemmer and the tool changes) and check it stays under the interval.
 
 ## 9. Repository layout and how to run
 ```
 sim/
   reach_cycle.py       L1 reach + arm cycle time (MuJoCo, Menagerie UR10e)
   throughput_des.py    L2 shift throughput Monte Carlo (SimPy)
+  export_ur_rig.py     Rigged UR10e + Robotiq GLB and joint keyframes for the viewer
   results/             JSON outputs, committed
 ```
 ```bash
@@ -114,8 +120,8 @@ python3.13 -m venv ~/.venvs/sim && ~/.venvs/sim/bin/pip install mujoco robot_des
 | Step | Deliverable | Gate | Depends on |
 |---|---|---|---|
 | 1 | L1 on concept layout | Reach and timing | done |
-| 2 | L2 shift model | ≥ 90 % of shifts reach 100 at 80 % availability | done (fails at 72 %; fix in step 3) |
-| 3 | L1/L2 with flat-sleeve-hem plan and refined layout | Both gates pass | Guide 1 §1.2 update |
+| 2 | L2 shift model | ≥ 90 % of shifts reach 100 at 80 % availability | done (89 % on the audited layout; MTTR target closes it) |
+| 3 | L1/L2 with flat-sleeve-hem plan and audited layout | Both gates pass | done for layout; margin gate open (12.6 % vs 15 %) |
 | 4 | L1 with full collision geometry from Guide 3 C3 | Zero collisions on all paths | Guide 3 C2–C3 |
 | 5 | L3 software-in-the-loop | 100 jobs fault-free | Guide 2 S2–S4 |
 | 6 | L4 virtual commissioning | All PLC test cases pass | TwinCAT project |

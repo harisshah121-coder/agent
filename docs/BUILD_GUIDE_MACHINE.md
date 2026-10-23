@@ -30,7 +30,7 @@ The physical roll-to-garment cell: every station, the real parts selected for th
 | OP-04-rib-make | Meter, cut, close rib loop | ST06 | in-house rib unit | Lockstitch or overlock end-join |
 | OP-05-rib-attach | Attach rib to neckline, rib stretched, body not | ST06 | cylinder-arm overlock + expansion rollers | Stretch comes from handling; no head has electronic differential feed (R04) |
 | OP-06-neck-top | Back-neck tape / neck topstitch | ST05 | 406 coverstitch | Premium expectation |
-| OP-07-sleeve-hem | Hem both sleeves flat, before set-in | ST05 | 406 coverstitch | Flat hemming avoids tubular feeding (R16 F1) |
+| OP-07-sleeve-hem | Hem both sleeves flat, before set-in | ST05 | dedicated flat coverstitch (P-ST05-006), presented by the gantry | Flat hemming avoids tubular feeding (R16 F1); frees ~35 s of arm time (Simulation guide §8.3) |
 | OP-08-sleeve-set | Set both sleeves | ST05 | 514 overlock | Curved seam; the hardest automated seam |
 | OP-09-side | Close sides and underarms, insert care label | ST05 | 514 overlock | |
 | OP-10-bottom-hem | Bottom hem | ST05 | 406 coverstitch (cylinder bed) | Tubular |
@@ -69,7 +69,7 @@ Selected (R02 F10 option a): **one servo belt gantry with 2–3 pick heads over 
  └──────────────────────────────────────────────────────────────┘
    operator side: HMI, light curtains at roll-load and output openings
 ```
-Footprint ≈ 6 m × 3 m inside guarding plus a 1 m operator aisle (R07 §1e layout assumption). Final positions come from the 3D model reach study (Guide 3, checkpoint C3).
+Footprint ≈ 6 m × 3 m inside guarding plus a 1 m operator aisle (R07 §1e layout assumption). The drawing above is schematic; the audited layout is `cad/concept/cell_concept.py` (front row y 0.15–0.75 m: overlock, collar module, coverstitch, inspection; robot track y 0.80–1.08 m; back zone: cutter cutting zone x 1.2–3.7 m and pick-off x 3.7–4.3 m, staging, flat hemmer, tool stand under the gantry; vacuum blower outside the back guard). It passes the collision audit in `docs/logs/MODEL_AUDIT.md`.
 
 ### 2.3 Utilities
 | Utility | Requirement (est.) | Basis |
@@ -102,6 +102,7 @@ Each station lists requirements (REQ), selected parts (P-IDs, priced in §7), in
 ### 3.2 ST02 Cutting
 - **REQ-ST02-01** Single-ply cutting of jersey on a vacuum conveyor; cut accuracy at the fabric ≤ ±0.5 mm on straight edges; notches cut.
 - **REQ-ST02-02** Machine-readable job load, start, done and fault; known piece locations after each index.
+- **Layout**: a 2.5 m cutting zone followed by a 0.6 m pick-off conveyor where the gantry picks, clear of the cutting beam; blower outside the guard (model audit, Simulation guide §8.2).
 - **Selected**: P-ST02-001 iECHO TK4S-2516 with conveyor and cradle feeder (FOB USD 20–40k; driven rotary and oscillating tools; DXF/HPGL/ISO input). **Alternate (preferred if budget allows)**: used Zünd G3 L / S3 L with conveyor (est. USD 40–90k), the best-documented integration (ZCC Modbus TCP pick-and-place interface, REST KPIs, hot folders) (R01 §I).
 - **Why not build one**: the component route costs ≈ USD 17–20k for cutting plus USD 6–10k for roll handling before labour, about 2× the white paper's allowance, with no safety-certified controller (R01 §I).
 - **Fabric facts**: jersey curls when cut free; fabric-side error dominates machine accuracy (machines are ±0.1 mm class, knife-force shift up to 2 mm); use a driven decagonal rotary blade for jersey and a 0.63 mm oscillating blade for tight radii (R01 §H).
@@ -127,6 +128,7 @@ Each station lists requirements (REQ), selected parts (P-IDs, priced in §7), in
 
 ### 3.5 ST05 Sewing heads
 - **REQ-ST05-01** Permanently threaded 514 and 406 heads, PLC-controlled start/stop/speed/trim/foot, stitch counting, thread-break detection.
+- **Flat sleeve hems**: P-ST05-006, a Jack W4-UT-class flat coverstitch head under the gantry; the gantry presents flat sleeves before set-in.
 - **Selected**: P-ST05-001 JUKI MO-6814S overlock (USD 1,550, 7,000 sti/min, differential 1:0.6–1:4); P-ST05-003 JUKI MF-7923 UT51 coverstitch (USD 7,226; first-rig alternate Jack W4-UT USD 1,924–2,199); P-ST05-002 EFKA AB321A or JUKI SC-922 boxes with documented I/O (EFKA in1–i10/M7–M11 and 512-pulse output; SC-922 CN51 8 in/8 out, 360-pulse output); P-ST05-004 Eltex 15965 thread sensors; consumables P-ST05-005 (R04 Decisions 1, 2, 5, 7).
 - **Control pattern**: OEM box driven by PLC I/O for the first rig; move to an EtherCAT servo replacing the OEM motor (DLRoSS pattern) only where the robot must synchronise feed with the needle (R04 Decision 5).
 - **Speed**: plan 2,500–4,500 sti/min for robot-fed seams on jersey (est.).
@@ -215,14 +217,14 @@ Certification route: CE self-declaration for the development cell is not needed 
 | P-ST01-002 | ST01 | Erhardt+Leimer | ELGUIDER DRB class + FR 46 sensor | Web edge guide (alternate: own lateral shaft servo ~USD 800) | 1 | 4,000 | estimate | 4,000 | vendor STEP (E+L CAD download) |
 | P-ST01-003 | ST01 | Meech / Simco-Ion | 945IPS / Performax IQ Easy 1.8 m | 24 V DC static elimination bar across the web | 1 | 1,000 | estimate | 1,000 | vendor STEP on request |
 | P-ST01-004 | ST01 | Vestil | HYD-ROLL-47 | Roll lifter for 25-60 kg knit rolls | 1 | 1,685 | list | 1,685 | none: envelope model |
-| P-ST02-001 | ST02 | iECHO | TK4S-2516 with conveyor and cradle feeder | Single-ply conveyor knife cutter 1.6 x 2.5 m with driven rotary + oscillating tools (alternate: used Zund G3 L with conveyor est. USD 40-90k) | 1 | 30,000 | estimate | 30,000 | none: envelope model until vendor STEP (request under NDA) |
+| P-ST02-001 | ST02 | iECHO | TK4S-2516 with conveyor and cradle feeder | Single-ply conveyor knife cutter: 2.5 m cutting zone with driven rotary + oscillating tools plus 0.6 m pick-off conveyor extension (alternate: used Zund G3 L with conveyor est. USD 40-90k) | 1 | 30,000 | estimate | 30,000 | none: envelope model until vendor STEP (request under NDA) |
 | P-ST02-002 | ST02 | iECHO / Zund | decagonal rotary + 0.63 mm oscillating blades | Blade consumables first year | 1 | 500 | estimate | 500 | none: consumable |
 | P-ST03-001 | ST03 | Schmalz | SNG-M 4 0.8 | Needle gripper heads for T1 wide needle bar (4 needles 0.8 mm; 3 mm stroke) | 6 | 300 | estimate | 1,800 | vendor STEP (Schmalz) |
 | P-ST03-002 | ST03 | EXAIR | 6 in Super Air Knife kit | Air knife nose on T1 for edge control and blow-off | 1 | 627 | list | 627 | vendor STEP (EXAIR) |
 | P-ST03-003 | ST03 | Pepperl+Fuchs | UDC-18GS IO-Link | Ultrasonic double-ply detector (must be validated on knit) | 1 | 505 | list | 505 | vendor STEP (Pepperl+Fuchs) |
 | P-ST03-004 | ST03 | Piab | Kenos KCS 150 + COAX SX | T4 foam vacuum pad for stabilising and short lifts | 1 | 1,500 | estimate | 1,500 | vendor STEP (Piab) |
 | P-ST03-005 | ST03 | Festo | OVEM-14-H-B-QO-CE-N-LK (8037696) | IO-Link vacuum ejector with integrated sensing for T4 | 1 | 400 | estimate | 400 | vendor STEP (Festo) |
-| P-ST04-001 | ST04 | Festo | EGC-120 X 3000 + 2x EGC-80 Y 1500 + Z + CMMT-AS EtherCAT drives | Belt-drive Cartesian gantry over the 3 m x 1.5 m work envelope with 2-3 pick heads (prototype alternate: Vention belt gantry) | 1 | 25,000 | estimate | 25,000 | vendor STEP (Festo configurator) |
+| P-ST04-001 | ST04 | Festo | EGC-120 X ~2100 stroke + EGC-80 Y 1500 stroke + Z 900 + CMMT-AS EtherCAT drives | Belt-drive Cartesian gantry over the cutter pick-off conveyor, staging table, flat hemmer and tool stand (layout revised after model audit 2026-10-23) | 1 | 25,000 | estimate | 25,000 | vendor STEP (Festo configurator) |
 | P-ST04-002 | ST04 | Universal Robots | UR10e | 6-axis cobot at the sewing-presentation position (RTDE 500 Hz; ROS 2 driver; Menagerie model) | 1 | 49,596 | reseller | 49,596 | vendor STEP (UR support) + MuJoCo Menagerie (BSD-3) |
 | P-ST04-003 | ST04 | ATI Industrial Automation | QC-11 master + 3 tool plates + stands | Pneumatic tool changer (16 kg; 6x M5 air pass-through; 0.01 mm repeatability) | 1 | 3,500 | estimate | 3,500 | vendor STEP (ATI free CAD) |
 | P-ST04-004 | ST04 | Robotiq | 2F-85 + printed fingertips | T3 parallel-jaw edge/pinch gripper with WBCD-style hard tips | 1 | 4,700 | estimate | 4,700 | vendor STEP (Robotiq) + MuJoCo Menagerie (BSD-2) |
@@ -260,6 +262,7 @@ Certification route: CE self-declaration for the development cell is not needed 
 | P-ST10-005 | ST10 | NVIDIA | Jetson AGX Thor developer kit | Policy-learning and VLA development box | 1 | 3,499 | list | 3,499 | vendor STEP (NVIDIA) |
 | P-ST10-006 | ST10 | Teledyne DALSA | Linea Lite 4k + Kubler 5020 encoder | Line-scan web inspection on unwind (optional in v1) | 0 | 4,500 | estimate | 0 | vendor STEP (Teledyne) |
 | P-ST04-007 | ST04 | Vention | 7th-axis robot track ~3.2 m stroke + carriage plate | Linear track carrying the UR10e along the sewing row (required: fixed pedestal cannot reach overlock or inspection; sim/results/reach_cycle.json) | 1 | 9,000 | estimate | 9,000 | vendor STEP (Vention MachineBuilder) |
+| P-ST05-006 | ST05 | Jack | W4-UT (flat-bed coverstitch class) | Dedicated flat coverstitch head for sleeve hems presented by the gantry before set-in (frees ~35 s of arm time; Simulation guide 8.3) | 1 | 2,061 | reseller | 2,061 | scan: no vendor STEP (R04) |
 
 | Station | Subtotal USD |
 |---|---|
@@ -268,13 +271,13 @@ Certification route: CE self-declaration for the development cell is not needed 
 | ST02 | 30,500 |
 | ST03 | 4,832 |
 | ST04 | 92,578 |
-| ST05 | 11,476 |
+| ST05 | 13,537 |
 | ST06 | 7,550 |
 | ST07 | 10,810 |
 | ST08 | 0 |
 | ST09 | 39,281 |
 | ST10 | 19,949 |
-| **Total** | **256,560** |
+| **Total** | **258,621** |
 <!-- BOM:END -->
 
 ### 7.2 What is not yet in the BOM
