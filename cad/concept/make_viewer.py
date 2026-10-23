@@ -32,3 +32,16 @@ html = html.replace("__HOTSPOTS__", json.dumps(HOTSPOTS)).replace("__RIG__", rig
 html = html.replace("__STATIONS__", json.dumps(stations)).replace("__TOTAL__", f"{total:,}").replace("__GLB__", glb)
 (root / "cad/out/cell_viewer.html").write_text(html, encoding="utf-8")
 print("viewer bytes", len(html))
+
+# Offline copy for people without Claude or internet: inline three.js r147 and drop web fonts.
+vend = root / "cad/concept/vendor_js"
+off = html
+for name, url in [("three.min.js", "build/three.min.js"), ("OrbitControls.js", "examples/js/controls/OrbitControls.js"), ("GLTFLoader.js", "examples/js/loaders/GLTFLoader.js")]:
+    tag = f'<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/{url}"></script>'
+    assert tag in off, tag
+    off = off.replace(tag, "<script>" + (vend / name).read_text(encoding="utf-8").replace("</script", "<\\/script") + "</script>")
+off = "\n".join(l for l in off.splitlines() if "fonts.googleapis.com" not in l)
+if not off.lstrip().lower().startswith("<!doctype"):
+    off = '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n' + off
+(root / "cad/out/cell_viewer_offline.html").write_text(off, encoding="utf-8")
+print("offline viewer:", round(len(off) / 1e6, 2), "MB")
