@@ -24,3 +24,4 @@ Each row is one research task. Reports live in `docs/research/`. Status: queued 
 
 ## Known limitation (2026-10-23)
 R01, R02, R06 and R11 cite sources as [n] but their numbered source lists were never written, because the agents were stopped before the Sources step. Their URLs exist only in the agent transcripts of session 1. Claims from these reports used in the guides (cutter options, robot architecture, camera plan) should be re-sourced before they go into investor material. R11 is thin (96 lines).
+| R18 | Canada public funding (grants, credits, loans, public equity) | research/R18_canada_public_funding.html | done 2026-10-23 | Realistic CAD 1.3–3.5M non-repayable in 24 months + 0.5–3M interest-free loans; upside 6–8M with partner projects; SR&ED $6M limit enacted (C-15, 2026-03-26) | CCPC status vs foreign control; IRAP award size; NGen/Scale AI call timing |

@@ -18,3 +18,4 @@
 | D-014 | 2026-10-23 | Add Build Guide 4 (simulation) with seven levels and gates | Accepted | Owner request |
 | D-015 | 2026-10-23 | Dedicated flat coverstitch head (P-ST05-006) under the gantry for sleeve hems | Accepted | Frees ~35 s of arm time; +22 points of shifts reaching 100 |
 | D-016 | 2026-10-23 | Cutter = 2.5 m cutting zone + 0.6 m pick-off conveyor; gantry columns at x 3.76/5.89 m; blower outside guard | Accepted | Model audit collisions |
+| D-017 | 2026-10-23 | Recommend a Canadian-controlled Canadian parent (CCPC) through the seed, with a US subsidiary; foreign investors non-controlling | Proposed | Keeps 35% refundable SR&ED + Ontario 8% (R18) |
