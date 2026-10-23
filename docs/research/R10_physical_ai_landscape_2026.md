@@ -175,3 +175,207 @@ What remains unsolved (from the papers and vendor statements above): single-laye
 - **Software and licences.** JetPack 7 (Ubuntu 24.04) on Thor [95]; openpi is tested only on Ubuntu 22.04 (containerise) [1]; π0/π0.5 weights Apache-2.0 but LeRobot mirrors carry Gemma terms [2]; AgiBot World is CC BY-NC-SA 4.0 (no production training use) [44]; Cosmos under OpenMDW 1.1 [45]; Gemini Robotics VLA weights only for trusted testers [12]; Pi API beta terms unpublished [6]; Beckhoff TwinCAT functions are per-platform-level licences [67]; Cognex OneVision is a cloud service tied to Cognex devices [99].
 - **Drivers and runtimes.** TensorRT deployments exist for π0.5 and GR00T N1.7 on Thor (Jetson AI Lab tutorials) [171]; Isaac Lab 3.0 beta requires Isaac Sim 6.0.x and is "kit-less" with Newton [55][145]; MuJoCo Playground for GPU policy evaluation [146]; LeRobot `pip install lerobot` with hardware plugins for xArm, Franka, AgileX, GELLO [20].
 
+## Conflicts with the white paper
+
+No direct contradictions found. Checks made (grep of `docs/source/white_paper.txt`):
+
+- Line 1244 and reference [29] (phase-conditioned imitation learning, T-shirt hanging/removal): confirmed as Chen et al., arXiv 2605.29407 (28 May 2026); the paper reports hanging success 56% → 87% with autonomous recovery, exactly the limited claim the white paper makes [139].
+- Lines 1708–1720 (SoftWear "sourcing through enabled factories"; Silana "one worker per ten machines" treated as unaudited): consistent with 2026 sources. New facts, not conflicts: SoftWear's Gen-3 T-shirt workline was announced for H1 2026 and no launch confirmation was found by 2026-10-22 [117][119]; Silana's "4× faster" and "~200 pre-orders" claims are also unaudited [119].
+- Lines 1262–1266 (critical motion local, cloud only for design/planning): consistent with the field, but it excludes the most capable 2026 VLAs from the live loop (Gemini Robotics 2 VLA is trusted-tester only, π0.6/π0.7 are hosted via the Pi API, most Pi API demos ran on cloud inference) [6][12]. This is a constraint on adoption, not a contradiction.
+- Line 1331 (collar module example: 5 min per shirt gives ~110 shirts per shift): the measured 180 s per 4-operation subassembly and 360 s per 3 seams in the Siemens/Levi's cell are the same order of magnitude [138], so the white paper's takt model is realistic for a single-robot sewing station but confirms that 100 shirts/shift needs parallel stations or sub-minute handling steps.
+- The white paper does not name a compute platform, VLA or vision vendor, so none of the prices or statuses above contradict it.
+
+## Open questions and unknowns
+
+1. Can a learned single-ply pick reach >99% on knit T-shirt plies from a cut stack (not a pile of towels)? Cheapest check: replicate the WBCD gripper (3D-printed, hard tips, Velcro flip) on a bench arm with 200–600 demos and count 500 picks [137].
+2. Can collar/neckband placement reach ±2 mm with a learned policy, or must it stay deterministic with fixtures? Check: measure alignment error of an ACT policy vs a fixtured mechanism on 100 placements (the WBCD team's weakest step was alignment) [137].
+3. Real cycle time per ply-handling step on our gripper (the only public analogues are 23 s per T-shirt load [137] and 6–7 s per towel at Sewts [114]). Check: timed bench trial.
+4. Jetson T5000 lead time and whether the Thor developer kit is in stock at distributors (NVIDIA store out of stock on 2026-10-21) [91]. Check: quote request to an NVIDIA distributor (Arrow, Silicon Highway).
+5. Gemini Robotics On-Device 2 trusted-tester access and terms [12]; Pi API beta pricing and data-use terms [6]. Check: apply to both programmes.
+6. Intrinsic Flowstate: is there an on-premises runtime that satisfies the local-execution requirement, and what does a seat cost? Check: pilot enquiry [56].
+7. Micropsi MIRAI on fabric: never shown on cloth. Check: paid proof-of-concept on one alignment task [77].
+8. Sewts: would they license the towel-spreading perception for knit plies, or sell a modified VELUM? Check: direct enquiry [113].
+9. Cognex In-Sight 3900 / Keyence VS price and whether anomaly-detect copes with knit texture and colour lots. Check: trial units on 200 good and 20 defective shirts [97][100].
+10. GitHub star counts for openpi, LeRobot, Isaac Lab, OpenVLA-OFT could not be verified in this session (GitHub API blocked); only the ecosyste.ms figure for openpi (13,932, Sep 2026) is recorded [2]. Check: re-run `gh api` from an enabled session.
+11. CAD availability for Jetson Thor dev kit/modules, Siemens BX-35A, Orbbec Gemini 335Lg, Cognex In-Sight 3900 was not verified. Check: Jetson Download Center, Siemens CAx portal, Orbbec and Cognex product pages (login).
+12. Whether SoftWear's Gen-3 workline shipped in 2026 and at what price [117]. Check: Bestseller/SoftWear press, Texprocess Americas exhibitor list.
+13. Closing of the ABB Robotics sale to SoftBank (expected mid-to-late 2026) and its effect on ABB cobot roadmaps [107]. Check: ABB investor news.
+14. Roboflow and Overview.ai 2025–2026 status and pricing: not verified. Check: vendor pages.
+
+## Sources
+
+1. https://www.unite.ai/physical-intelligence-opens-pi-api-beta-for-robot-foundation-models/ — Pi API beta; openpi contents, Apache-2.0, GPU requirements, Ubuntu 22.04, websocket inference.
+2. https://www.aipotluck.org/product/pi0 — openpi stars (ecosyste.ms), weights on GCS, Gemma terms on LeRobot mirrors.
+3. https://www.pi.website/blog — Physical Intelligence release timeline (π0, open-sourcing, π0.5, MEM, RL token, π0.7).
+4. https://www.alphaxiv.org/abs/2511.14759v1 — π*0.6 / RECAP: laundry 4→8 successes/h, 40→75% success.
+5. https://www.humanoidsdaily.com/news/the-api-fication-of-robotics-physical-intelligence-unveils-real-world-performance-data-with-weave-and-ultra — Weave and Ultra deployment data on π0.6.
+6. https://www.tao.media/physical-intelligence-opens-pi-api-beta-for-fine-tuning-robot-foundation-models/ — Pi API beta workflow, cloud inference, early users.
+7. https://theaiinsider.tech/2026/10/14/physical-intelligence-opens-pi-api-beta-for-robot-model-training-and-deployment/ — Pi API early users incl. Formic, Almond 4-day iteration.
+8. https://providers.apievangelist.com/providers/physical-intelligence — third-party model timeline (π0.7 Apr 2026).
+9. https://ai.google.dev/gemini-api/docs/changelog — Gemini Robotics ER 1.5/1.6/2 API dates and deprecations.
+10. https://deepmind.google/blog/gemini-robotics-on-device-brings-ai-to-local-robotic-devices/ — On-Device model, SDK, 50–100 demos, trusted testers.
+11. https://deepmind.google/models/model-cards/gemini-robotics-er-2/ — ER 2 model card (Gemini 3.5 Flash base, Jul 2026).
+12. https://deepmind.google/models/model-cards/gemini-robotics-on-device-2/ — On-Device 2 model card, trusted testers, limitations.
+13. https://nextomoro.com/gemini-robotics — Gemini Robotics family timeline, trusted testers, SDK version.
+14. https://research.nvidia.com/labs/gear/gr00t-n1_6/ — GR00T N1.6 architecture, data, training.
+15. https://huggingface.co/nvidia/GR00T-N1.6-3B — GR00T N1.6 model card.
+16. https://www.globenewswire.com/news-release/2026/06/01/3303990/0/en/nvidia-announces-nvidia-isaac-gr00t-reference-humanoid-robot-for-academic-research.html — GR00T reference humanoid (Unitree H2 Plus, Jetson Thor).
+17. https://blogs.nvidia.com/?hashtags=embedded-ai — GR00T N1.6 and π0.5 on Jetson Thor, Franka FR3 Duo.
+18. https://arxiv.org/html/2502.19645v1 — OpenVLA-OFT results (LIBERO 97.1%, 25 Hz ALOHA).
+19. https://github.com/moojink/openvla-oft/blob/main/LIBERO.md — OpenVLA-OFT checkpoints and recipe.
+20. https://huggingface.co/lerobot — LeRobot org page: supported robots, plugins, SmolVLA.
+21. https://huggingface.co/docs/lerobot/index — LeRobot docs, dataset format, policies.
+22. https://huggingface.co/docs/lerobot/en/so101 — SO-101 hardware.
+23. https://arxiv.org/html/2609.22973v1 — federated VLA fine-tuning; SO-101 >10k units; SmolVLA data.
+24. https://www.bmwgroup.com/en/news/general/2026/humanoid-robot-in-leipzig.html — Figure 02 pilot numbers at Spartanburg.
+25. https://www.figure.ai/news/f-02-decommission — F.02 decommission, Sep 2026.
+26. https://siliconvalleyinvestclub.com/ko/companies/figure/ — Figure valuation and news timeline.
+27. https://www.techrepublic.com/article/news-tesla-optimus-robot-production-2027-sales-timeline — Optimus production ramp and 2027 target.
+28. https://tech.yahoo.com/home/articles/tesla-targets-1-000-optimus-151700577.html — Optimus 1,000/week target, hands issues.
+29. https://thenextweb.com/news/tesla-optimus-production-hands-suppliers — Optimus production detail (The Information summary; URL normalised from a malformed result link).
+30. https://www.globenewswire.com/news-release/2026/04/30/3285118/0/en/1x-opens-neo-factory-in-hayward-ca-america-s-first-vertically-integrated-humanoid-robot-factory-with-consumer-shipments-planned-for-2026.html — 1X NEO factory, Jetson Thor.
+31. https://www.dyna.co/research/dyna-1 — DYNA-1 24-h napkin results.
+32. https://www.prnewswire.com/news-releases/dyna-robotics-raises-120-million-to-advance-robotic-foundation-models-on-the-path-to-physical-artificial-general-intelligence-302556817.html — Dyna $120M Series A, deployments.
+33. https://startuply.vc/startup/dyna-robotics-18tlqg — Dyna valuation and totals.
+34. https://arstechnica.com/ai/2026/04/generalists-new-physical-robotics-ai-brings-production-level-success-rates — Generalist GEN-1.
+35. https://www.aboutamazon.com/news/company-news/amazon-covariant-ai-robots — Amazon–Covariant agreement.
+36. https://covariant.ai/insights/introducing-the-next-phase-of-our-ai-robotics-journey/ — Covariant leadership change.
+37. https://dealroom.co/companies/sereact — Sereact Series B, deployments; Covariant status listing.
+38. https://techfundingnews.com/sereact-grabs-e25m-to-develop-chatgpt-like-ai-robotics-solutions-that-automate-warehouse-processes/ — Sereact PickGPT, Series A.
+39. https://nomagic.ai/news/nomagic-secures-an-additional-10m-to-accelerate-commercial-growth-and-advance-its-technology-roadmap/ — Nomagic $10M extension, VLA plans.
+40. https://nomagic.ai/news/nomagic-secures-44-million-investment-to-drive-ai-innovation-in-robotics?utm — Nomagic $44M.
+41. https://nomagic.ai/news/nomagic-secures-8-million-euro-rd-loan-from-european-investment-bank/ — Nomagic ReactAI anomaly detection.
+42. https://nomagic.ai/news/nomagic-a-startup-out-of-poland-picks-up-8-6m-for-its-pick-and-place-warehouse-robots/ — Nomagic fashion-logistics wins (s.Oliver, BESTSECRET).
+43. https://agibot-world.com/ — AgiBot World 2026 dataset.
+44. https://huggingface.co/datasets/agibot-world/AgiBotWorld2026/blob/main/README.md?code=true — AgiBot World 2026 license (CC BY-NC-SA 4.0).
+45. https://www.nvidia.com/en-us/ai/cosmos/ — Cosmos 3, OpenMDW license, inspection use.
+46. https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Launches-Cosmos-3-the-Open-Frontier-Foundation-Model-for-Physical-AI/default.aspx — Cosmos 3 launch, Cosmos Coalition.
+47. https://deepmind.google/blog/genie-3-a-new-frontier-for-world-models/ — Genie 3.
+48. https://tech-insider.org/genie-3-vs-marble-vs-nvidia-cosmos-world-models-2026 — Project Genie, Marble pricing, Cosmos 3 Edge.
+49. https://ai.meta.com/research/publications/v-jepa-2-self-supervised-video-models-enable-understanding-prediction-and-planning/ — V-JEPA 2.
+50. https://rits.shanghai.nyu.edu/ai/introducing-v-jepa-2-metas-self-supervised-video-world-model-for-understanding-prediction-and-planning — V-JEPA 2 checkpoints.
+51. https://arxiv.org/html/2310.08864v9 — Open X-Embodiment.
+52. https://arxiv.org/html/2403.12945v2 — DROID.
+53. https://www.alphaxiv.org/abs/2412.13877 — RoboMIND.
+54. https://aloha-2.github.io/ — ALOHA 2.
+55. https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/refs/release_notes.html — Isaac Lab 3.0 beta, 2.3 release notes.
+56. https://www.intrinsic.ai/ — Intrinsic platform, Intrinsic Core.
+57. https://www.intrinsic.ai/blog/posts/intrinsic-joins-google-to-accelerate-physical-ai — Intrinsic joins Google.
+58. https://www.intrinsic.ai/blog/posts/trumpf-intrinsic-ai-enabled-robotics-for-the-machine-tool-industry — TRUMPF SortMaster Vision.
+59. https://www.intrinsic.ai/blog/posts/intrinsic-and-nvidia-deepen-platform-integrations-for-intelligent-robotics — Isaac Manipulator in Flowstate.
+60. https://linkedin.com/company/intrinsic — ROSCon 2026 partners, IFR case study.
+61. https://press.siemens.com/jp/en/pressrelease/pr-20260106-1 — Siemens CES 2026, Digital Twin Composer.
+62. https://siemens.com/en-us/company/artificial-intelligence/siemens-nvidia-partnership — Siemens–NVIDIA timeline.
+63. https://www.nvidia.com/en-gb/case-studies/siemens-accelerates-product-development-and-innovation-with-industrial-ai — Erlangen humanoid pilot, Industrial Copilot on NIM.
+64. https://press.siemens.com/global/en/pressrelease/siemens-drives-ai-adoption-industrial-operations-x-and-nvidia-accelerated-industrial — SIMATIC IPC BX-35A and NVIDIA-certified IPCs.
+65. https://www.beckhoff.com/en-en/company/news/multimedia-ai-technologies-for-industrial-automation.html — TwinCAT ML product family.
+66. https://www.beckhoff.com/en-us/products/automation/twincat-3-machine-learning — TwinCAT inference options (real-time vs GPU server).
+67. https://www.beckhoff.com/en-us/products/automation/twincat/tfxxxx-twincat-3-functions/tf7xxx-vision/tf7800.html — TF7800 ordering levels.
+68. https://www.rockwellautomation.com/en-us/company/news/press-releases/Rockwell-Automation-to-Increase-Scale-and-Scope-of-AI-in-Manufacturing-with-NVIDIA.html — Rockwell–NVIDIA 2024.
+69. https://www.rockwellautomation.com/en-us/company/news/press-releases/Rockwell-Automation-Brings-Autonomous-Operations-to-Life-Using-NVIDIA-Omniverse.html — Emulate3D + Omniverse.
+70. https://www.rockwellautomation.com/en-us/company/news/press-releases/rockwell-automation-to-advance-industrial-intelligence-through-e.html — Nemotron Nano in FactoryTalk.
+71. https://www.fanucamerica.com/press-releases/fanuc-accelerates-physical-ai-in-industrial-robotics-leveraging-nvidia-technologies — FANUC–NVIDIA, ROS 2 driver.
+72. https://www.universal-robots.com/products/ai-accelerator — UR AI Accelerator contents.
+73. https://www.universal-robots.com/products/physical-ai — UR physical AI, AI Trainer.
+74. https://www.universal-robots.com/news-and-media/news-center/universal-robots-unveils-its-ai-accelerator/ — AI Accelerator launch.
+75. https://www.micropsi-industries.com/ — MIRAI overview.
+76. https://www.micropsi-industries.com/product — MIRAI 2 workflow.
+77. https://www.micropsi-industries.com/buy-mirai — MIRAI licensing.
+78. https://www.brightmachines.com/about/ — Bright Machines history, Hybrid BRC.
+79. https://www.manilatimes.net/2026/10/05/tmt-newswire/globenewswire/teradyne-makes-strategic-investment-in-bright-machines-to-advance-ai-infrastructure-manufacturing/2439112 — Teradyne investment.
+80. https://siliconangle.com/2024/06/25/factory-robotics-startup-bright-machines-reels-126m — Bright Machines Series C, 50 servers/h claim.
+81. https://sacra.com/c/path-robotics — Path Robotics funding and growth.
+82. https://platform.tracxn.com/a/d/company/5dc1a1627ce88a31a941d9b8/machina%20labs — Machina Labs rounds.
+83. https://www.crunchbase.com/organization/rapid-robotics — Rapid Robotics acquired by RobCo, closed.
+84. https://dealroom.co/companies/rapid-robotics — Rapid Robotics profile.
+85. https://www.plusonerobotics.com/ — Plus One picks, Yonder.
+86. https://www.osaro.com/media — OSARO SightWorks, SOC 2.
+87. https://nimble.ai/ — Nimble $106M Series C.
+88. https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-thor — Jetson Thor specs.
+89. https://www.hackster.io/news/nvidia-tells-resellers-to-open-jetson-agx-thor-developer-kit-orders-at-3-499-06e8cbf52441.amp — Thor dev kit $3,499 (Aug 2025).
+90. https://www.hackster.io/news/nvidia-hikes-jetson-pricing-by-up-to-101-as-the-company-gets-caught-out-by-its-own-ai-bubble-91701d7c5783.amp — July 2026 Jetson price hikes.
+91. https://marketplace.nvidia.com/en-us/enterprise/robotics-edge/jetson-thor-developer-kit — Thor dev kit $5,499, out of stock.
+92. https://jetsonhacks.com/2026/08/26/jetsonhacks-august-2026-newsletter/ — price table, T4000 $2,999, Orin Nano 2.
+93. https://www.techinasia.com/news/nvidia-launches-jetson-agx-thor-robotics-chip-at-3499 — T5000 $2,999 at launch (1,000+ units).
+94. https://developer.nvidia.com/downloads/assets/embedded/secure/jetson/thor/docs/jetson-thor-series-modules-datasheet_ds-11945-001.pdf — Thor module datasheet.
+95. https://developer.nvidia.com/embedded/faq — current Jetson MSRPs (T5000 $4,999 1KU+, T4000 $2,999, Thor dev kit $5,499), part numbers, JetPack 7.
+96. https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/ — Orin specs.
+97. https://www.cognex.com/en/company/press-releases/in-sight-3900-high-performance-ai-vision-system — In-Sight 3900.
+98. https://www.cognex.com/en/company/press-releases/one-vision-adoption-ramps-as-manufacturers-scale-ai-vision — OneVision GA.
+99. https://www.cognex.com/en/products/machine-vision-software/one-vision — OneVision tools, In-Sight 6900.
+100. https://www.keyence.com/products/vision/vision-sys/vs/ — Keyence VS series.
+101. https://www.keyence.co.in/products/vision/vision-sys/vs/specs — VS models, CAD availability.
+102. https://www.zebra.com/us/en/products/oem/software/aurora-deep-learning.html — Zebra Aurora Deep Learning.
+103. https://www.prophesee.ai/development-center/ — Prophesee news (GenX320 kit, IDS, €20M).
+104. https://www.yaskawa-global.com/wp-content/uploads/2026/09/YR2026E_A4.pdf — Yaskawa Report 2026 (MOTOMAN NEXT use, Tokyo Robotics).
+105. https://www.yaskawa-global.com/newsrelease/news/179679 — MOTOMAN NEXT agentic system with Gemini ER 1.6.
+106. https://asia.nikkei.com/business/technology/artificial-intelligence/yaskawa-and-softbank-to-partner-on-ai-robots-that-navigate-workplaces — Yaskawa–SoftBank.
+107. https://www.abb.com/global/en/news/129685/abb-to-divest-robotics-division-to-softbank-group — ABB Robotics sale.
+108. https://group.softbank/en/news/press/20251008 — SoftBank acquisition terms and portfolio.
+109. https://ai.ethz.ch/news-and-events/ai-center-news/2025/09/mimic_Robotics_Seed_Round_2025.html — mimic seed round, approach.
+110. https://www.globenewswire.com/news-release/2025/11/03/3179052/0/en/mimic-robotics-raises-16-million-to-deploy-frontier-physical-ai-across-industries.html — mimic $16M.
+111. https://www.weaverobotics.com/ — Weave Isaac 0/1 status and field numbers.
+112. https://www.businessinsider.com/weave-robotics-ceo-kaan-dogrusoz-laundry-robot-isaac-1-2026-7 — Isaac 1 $8,000.
+113. https://www.sewts.com/automation-solutions/sewts-velum — VELUM specs.
+114. https://www.fanuc.eu/eu-en/news/intelligent-robots-commercial-laundries — VELUM field rate, robots.
+115. https://platform.tracxn.com/a/d/company/58c00725e4b006712ce557a6/sewts — Sewts funding.
+116. https://softwearautomation.com/softwear-automation-secures-20-million-in-series-b1-funding-round-led-by-strategic-partnership-with-bestseller/ — SoftWear Series B1.
+117. https://finance.yahoo.com/news/softwear-automation-secures-20m-bestseller-150000762.html — Gen-3 workline H1 2026 expectation.
+118. https://dealroom.co/companies/softwear-automation — SoftWear headcount, valuation.
+119. https://www.cbinsights.com/company/softwear-automation — SoftWear total raised; Gen-3 claim; sewts €7M; Silana claims.
+120. https://www.silana.com/ — Silana claims.
+121. https://www.silana.com/about — Silana team, €1.5M (Brutkasten).
+122. https://tracxn.com/d/companies/silana/__YRTTIk3zysKgndETT7wdGJoGMILpzNbiYB32rxq1Dms — Silana funding total.
+123. https://www.figure.ai/news/helix-learns-to-fold-laundry — Helix laundry.
+124. https://www.pi.website/blog/pi07 — π0.7 blog.
+125. https://www.pi.website/download/pi07.pdf — π0.7 paper (success-rate ranges, UR5e laundry).
+126. https://www.cbinsights.com/company/foldimate — FoldiMate history.
+127. https://platform.tracxn.com/a/d/company/53327d95e4b0398cae271a6b/laundroid — Laundroid deadpooled.
+128. https://www.cognex.com/products/machine-vision-software/visionpro-deep-learning — VisionPro Deep Learning.
+129. https://www.cognex.com/products/machine-vision/vision-software/visionpro-software — VisionPro edge learning (5–10 images).
+130. https://www.landing.ai/ — Landing AI products.
+131. https://landing.ai/agentic-object-detection — agentic object detection benchmark.
+132. https://arxiv.org/abs/2603.05108 — GaussTwin.
+133. https://www.emergentmind.com/papers/2601.03200 — 3DGS digital twin for manipulation results.
+134. https://arxiv.org/abs/2410.09453 — MMAD benchmark.
+135. https://arxiv.org/pdf/2608.29783 — InspectorGPT.
+136. https://www.alphaxiv.org/abs/2609.10243 — FolDeX benchmark results.
+137. https://arxiv.org/abs/2608.10718 — WBCD 2026 Track 4 champion (T-shirt loading).
+138. https://arxiv.org/abs/2606.16078 — Siemens/Sewbo/Levi's denim deployment case study.
+139. https://arxiv.org/abs/2605.29407 — phase-conditioned imitation learning with recovery.
+140. https://www.alphaxiv.org/abs/2602.16675 — world models for cloth unfolding.
+141. https://www.alphaxiv.org/abs/2610.10801 — variability in dynamic cloth manipulation.
+142. https://www.alphaxiv.org/abs/2606.15338 — SimWeaver.
+143. https://arxiv.org/pdf/2503.06669v4 — AgiBot World Colosseo (1M trajectories, license).
+144. http://widgets.economictimes.com/tech/technology/ces-2026-all-you-need-to-know-about-nvidias-major-announcements/articleshow/126369415.cms — CES 2026 Cosmos 2.5/Reason 2/GR00T N1.6.
+145. https://isaac-sim.github.io/IsaacLab/main/source/experimental-features/newton-physics-integration/index.html — Newton in Isaac Lab 3.0 beta.
+146. https://github.com/google-deepmind/mujoco_playground — MuJoCo Playground.
+147. https://developer.nvidia.com/newton-physics — Newton physics engine.
+148. https://www.edge-ai-vision.com/2025/03/nvidia-announces-isaac-gr00t-n1-the-worlds-first-open-humanoid-robot-foundation-model-and-simulation-frameworks-to-speed-robot-development — GTC 2025 GR00T N1, Newton, MuJoCo-Warp.
+149. https://www.intrinsic.ai/blog/posts/unlocking-the-value-of-physical-ai-for-manufacturing — Intrinsic Intelligence Cell, Automate 2026.
+150. https://www.intrinsic.ai/blog/posts/introducing-intrinsic-flowstate — Flowstate introduction.
+151. https://platform.tracxn.com/a/d/company/543ebec7e4b0c8a764cd08dd/micropsi%20industries — Micropsi funding, headcount.
+152. https://developer.nvidia.com/embedded/buy-jetson — Jetson buy page.
+153. https://www.yaskawa-global.com/newsrelease/product/170859 — MOTOMAN NEXT launch.
+154. https://www.crunchbase.com/organization/silana-automated-fashion-production — Silana convertible note.
+155. https://arxiv.org/abs/2604.15483 — π0.7 arXiv abstract.
+156. http://skild.ai/blogs/series-c — Skild Series C.
+157. https://tracxn.com/d/companies/skild/__2UONhWmLwU2veLVgMlZmmgvKLONC_6y_MfympgL6if4 — Skild totals, headcount.
+158. https://www.genesis.ai/press/genesis-ai-emerges-from-stealth-with-dollar105m-to-build-universal-robotics-found — Genesis AI $105M.
+159. https://www.genesis.ai/press/press-release-gene-265 — GENE-26.5.
+160. https://www.bloomberg.com/news/articles/2026-08-06/china-s-unitree-seeks-904-million-in-first-mainland-robotic-ipo — Unitree IPO.
+161. https://www.ambirobotics.com/media/ambi-robotics-deploys-prime-1-ai-foundation-model — PRIME-1.
+162. https://www.ambirobotics.com/media/ambi-robotics-launches-ai-skill-suite-powered-by-ambios/ — AI Skill Suite, fleet hours.
+163. https://www.ambirobotics.com/media/ambi-robotics-sells-out-ambistack-for-2025-as-fortune-500-customer-demand-accelerates — AmbiStack demand.
+164. https://platform.tracxn.com/a/d/company/531c9b20e4b0f7e166554b9b/formic — Formic funding.
+165. https://www.overview.ai/ — Overview.ai claims.
+166. https://arxiv.org/pdf/2309.13037 — GELLO (<$300 BOM, cost table).
+167. https://proceedings.mlr.press/v305/zhaxizhuoma25a.html — FastUMI (CoRL 2025), 15k demos.
+168. https://arxiv.org/abs/2402.10329 — Universal Manipulation Interface.
+169. https://arxiv.org/abs/2407.01512 — Open-TeleVision.
+170. https://arxiv.org/html/2410.07408v1 — ACDC digital cousins.
+171. https://arxiv.org/html/2610.24349v1 — FlashRT-PAI: π0.5 and GR00T N1.7 latency on Jetson Thor, official TensorRT paths.
+172. https://github.com/NVIDIA/Isaac-GR00T — Isaac GR00T repo (N1.7 current).
+173. https://openreview.net/pdf/bf9be8a40f23fcd36e76642daf9428ac9eff26c7.pdf — DexUMI (hand-exoskeleton data collection, 3.2× efficiency).
+174. https://www.silana.com/about and https://www.silana.com/ as above; https://deepmind.google/models/gemini-robotics — Gemini Robotics 2 family page; https://deepmind.google/models/gemini-robotics/on-device/ — On-Device 2 adaptation with <200 examples.
+175. https://www.rockwellautomation.com and https://www.universal-robots.com pages listed above were the only vendor pages used for Rockwell and UR.

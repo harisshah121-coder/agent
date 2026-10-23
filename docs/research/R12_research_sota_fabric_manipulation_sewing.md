@@ -2,7 +2,21 @@
 
 Research snapshot date: 2026-10-21. Author: research agent R12. Scope per `_BRIEFS.md` section R12.
 
-<!-- SUMMARY_PLACEHOLDER -->
+## Summary
+
+- All 8 academic references in the white paper's register ([03]–[09], [29]) verify against DOI/arXiv/publisher records; 19 of 21 vendor/standard entries verify as pages with the described content; [17] (CreateMe MOQ page) and [28] (UFACTORY) remain unverified. No mismatched citation found.
+- The white paper omits the closest public programme to this cell: ARM Institute "Automated T-Shirt Assembly System" (Henderson Sewing, HanesBrands, Apparel Robotics, SwRI; six T-shirt operations, completed 2025) and ARM's April 2026 closed-loop/tangential robotic sewing results.
+- Crumpled-garment unfolding and folding is well studied (FlingBot, SpeedFolding, ClothFunnels, UniFolding, FoldNet++): 80–95 % coverage in a few fling actions and 60–93 % fold success on T-shirts; best 24-hour unattended figure is DYNA-1's 99.4 % on napkins. None reaches the ~0.01 % per-garment intervention level the white paper derives.
+- Because ST02 cuts single-ply, the cell can avoid the crumpled state entirely: treat ST04 as flat-panel alignment, where mm-level results exist (GLW-ICP, Dong 2026; texture-matching servoing, RA-L 2025).
+- Robotic sewing evidence: dual-arm fixture-free feeding of prepared pairs (Tang 2025), roller-stretch sewing of different-length stretch plies (Jin 2025; directly applicable to ST06 neckband), closed-loop visual-servoed seams on stiffened fabric in factories (Siemens/Sewbo/Levi's). No paper demonstrates overlock 504 or coverstitch 406 on light knits by robot; this is the cell's biggest unproven step.
+- Single-ply pick-up: factory-scale evidence only for sensed low-pressure vacuum (>99 % on technical textiles) and mechanical pinch (RobotFactory RPT 130); electroadhesion is TRL 6 but humidity-sensitive; needle grippers risk damage on premium jersey.
+- Fabric modelling: Cusick drape + fabric tag data give bending/stretch parameters cheaply (Feng 2022, Ju 2024); real2sim fitting from video generalizes poorly across motions (Ru 2025); RGBench shows mainstream simulators ~20 % less accurate than a purpose-built garment simulator. Use simulation for geometry and scheduling, not for dynamic reliability claims.
+- Recommended M08 pattern: behaviour trees with precondition gates (state funnel), parametric primitives, force-verified grasps, phase estimation with recovery branches (56→87 % in Chen 2026), reward-model vetting of actions.
+- Recommended M11 pattern: semantic keypoints + CAD-point registration + template-mesh anchoring; depth-derived normals for texture-poor jersey; foundation-model keypoints offline only.
+- Benchmarks to adopt for acceptance: DYNA-1/RoboFolDeX/ICRA Cloth Competition protocols (24-h runs, held-out garments, interventions counted).
+- IP to review before freezing ST05 feed design: SoftWear feed-control patent family (US 10,889,929 … 12,157,222), Sewbo stiffening patents (US 10,132,027; 11,814,766; 12,385,177).
+- Mature fallback for deterministic knit seams: CNC template sewing (Jack MX-100A US$23,900 reseller, Richpeace 1300×900 mm field) for pocket/label/collar-point operations.
+
 
 ## Findings
 
@@ -212,3 +226,107 @@ Unsolved or without production evidence:
 | Synthetic-first training with keypoint-driven asset and demonstration synthesis and KG-DAgger recovery data | FoldNet / FoldNet++ | M13 → M08 data pipeline for ST07 fold/stack | >90 % real success from synthetic data for T-shirts |
 | Acceptance protocol: 24-h unattended runs, held-out garments, controlled initializations, interventions counted | DYNA-1; RoboFolDeX; ICRA Cloth Competition | M14 metrics; FAT/SAT plan | Only credible way to claim 100 shirts per 12-h shift |
 
+## Recommendation for this project
+
+| Decision | Selected option | Alternates | Reasoning and risk |
+|---|---|---|---|
+| D1 · Manipulation paradigm for ST04 (place and align plies) | **Keep every ply flat from ST02 to ST05 and treat ST04 as flat-panel pose alignment**, not as crumpled-garment manipulation: flat pick-up (low-pressure vacuum or roller, RollUP-style), place, then GLW-ICP alignment of edges and sewing lines to M03 geometry (Dong 2026, mm-level), with texture-matching visual servoing where pattern continuity matters. | (a) Fling/unfold pipelines (FlingBot → ClothFunnels → UniFolding) only as a recovery skill if a ply arrives wrinkled (RTFF). (b) End-to-end VLA (π0/openpi) for recovery branches only. | Single-ply cutting removes the crumpled state that the folding literature spends most of its effort on. Published fold/unfold success on unseen T-shirts is 60–93 %, far below the 0.01 % intervention budget the white paper derives; flat alignment has mm-level evidence. Risk: knit stretch during pick-up distorts geometry; mitigate with roller/vacuum transfer and post-place re-measurement. |
+| D2 · Sewing approach for ST05/ST06 | **Vision-steered feed with closed-loop seam-path correction on conventional overlock/coverstitch heads**, driven by a digital thread (M03 pattern → seam path → robot/feeder trajectories), as demonstrated by ARM/Siemens (closed-loop and tangential sewing) and Tang 2025 (dual-arm, fixture-free, edge detection); **neckband via known-length-ratio roller stretch** (Jin 2025). | (a) Template/jig CNC sewing (Richpeace, Jack MX-100A US$23,900 reseller) for pockets/labels/collar points where clamping is possible. (b) Sewbo-style PVA stiffening (patented; wet process) — not recommended for a 12-h unattended knit cell. | No paper demonstrates 504/406 stitch classes on light knits by robot; the ST05 feed-control design must be validated on the actual fabric early. Freedom-to-operate review against SoftWear's feed-control patent family is required before fixing the feeder design. |
+| D3 · Single-ply pick-up off the cutting bed (ST03) | **Hybrid low-pressure vacuum with differential-pressure "one-ply" verification plus mechanical pinch**, with a camera check of ply count/outline before transfer. | Electroadhesion fingers (MERGING, He 2022) as a second tool if humidity is controlled; microneedle soft gripper only after damage tests on the premium jersey. | Only vacuum (>99 % on technical textiles) and pinch (RobotFactory RPT 130) have factory evidence; EA is humidity-sensitive (>80 %), needles risk surface damage. |
+| D4 · Material profiles (M05) and simulation fidelity (M13) | **Populate M05 from a Cusick drape test + fabric tag data** (Ju et al. 2024; Feng 2022) and treat cloth dynamics in M13 as geometry-grade only; validate any dynamic claim against measured drape/fling data (RGBench protocol). | Differentiable-sim fitting (DiffCP/DiffCLOUD) for research only. | Mainstream simulators show ~20 % higher error than purpose-built ones (RGBench); Isaac FEM cloth status was still pending in the sources found. |
+| D5 · Perception stack (M11) | **Semantic keypoints + CAD-point registration + template-mesh anchoring**; depth→surface-normal inputs for texture-poor jersey; Cloth-Splatting-class mesh estimation only in slow loops. | Foundation-model keypoint extraction (CLASP) offline for SKU setup. | Real-time foundation-model perception is not yet sewing-speed. |
+| D6 · Skill runtime pattern (M08) | **Behaviour trees with precondition gates (state funnel), parametric primitives, force-based grasp verification, phase estimation with explicit recovery branches, and reward-model action vetting.** | — | This is the common denominator of every system that reports >85 % success. |
+| D7 · Acceptance and claims | **Adopt DYNA-1/RoboFolDeX-style protocols**: 24-h unattended runs, held-out garments, controlled initial states, interventions counted per garment; report per-garment intervention probability against the white paper's 0.01 % target. | — | Nothing in the public record supports "100 acceptable shirts per 12-h shift" yet; the claim must be earned by measurement. |
+
+## Integration notes
+
+- **Mechanical.** Flat-transfer end-effector (vacuum zones sized to the smallest T-shirt piece, or a RollUP-type motorized roller with a vacuum slot) on the ST04 gantry; parallel-jaw grippers with force sensing (papers used DH AG-95, Schunk WSG50, OnRobot RG2, YuMi jaws with sponge tips and rubber mats to raise pinch-grasp success). Sewing heads need an automatic presser foot and a feed interface that accepts an external correction signal (ARM/Siemens closed-loop seam correction; KSL synchronizes robot motion with the sewing drive and adds three extra axes for stitching end-effectors).
+- **Electrical / control.** Robot and feeder controllers must expose a real-time correction input; KSL's reference uses KUKA KR C4 with PROFINET/EtherNet-IP/EtherCAT; the ARM project controlled sewing machines from ROS. Electroadhesion (if used) needs a kV-class supply and humidity monitoring. All learned components stay below the independent safety layer (ISO 10218-2:2025 for the cell).
+- **Pneumatic.** Low-pressure vacuum with per-zone differential-pressure sensing for one-ply verification; optional directed airflow (DextAIRity used an 1100 L/s blower) for flattening large panels.
+- **Sensing.** Papers used Photoneo PhoXi / MotionCam3D M+, Azure Kinect, RealSense D415/D435/L515 (top-down, 0.65–1.25 m), grayscale cameras for texture matching, high-speed edge cameras at the needle (Tang 2025), GelSight-type tactile fingertips for edge tracking. Specify a top-down structured-light/ToF camera at ST04 and a needle-area edge camera at ST05/ST06.
+- **Data interfaces.** M03 must export pattern geometry (edges, notches, sewing lines, length ratios) in a form M11 can register against (CAD points for GLW-ICP; DXF for digital-thread trajectory generation as in the 2026 Siemens case study). M14 must log grasp outcomes, doubles, slips, seam deviations and operator interventions (training records the white paper already lists).
+- **Software.** Cloth-manipulation codebases are research-grade: SpeedFolding (YuMi/PhoXi-bound), FlingBot/ClothFunnels (Ubuntu 18.04, CUDA PyFlex), UniFolding (non-commercial licence; OMPL, GroundedSAM), GarmentLab (Isaac Sim 4.0), DexGarmentLab (Isaac Sim 4.5), Cloth-Splatting (CUDA 12.1, torch 2.2). Reuse algorithms and assets, not code paths. Compute in papers: single RTX 3090-class GPU for inference; 4× RTX 3090 for two days to train a sim policy.
+
+## Conflicts with the white paper
+
+- None of the white paper's research citations is wrong; all academic references [03]–[09], [29] verify (see audit). Minor corrections: [07] PMLR volume 205 lists year 2023; [10] "/BHA" suffix unverified; [17] CreateMe 100-unit MOQ page not re-located; [28] not re-checked here.
+- Material omission rather than contradiction: the white paper's register does not cite the ARM Institute "Automated T-Shirt Assembly System" (Henderson Sewing PI, HanesBrands, Apparel Robotics, SwRI; six T-shirt operations; completed 2025) or the April 2026 ARM highlight on closed-loop and tangential robotic sewing. These are the closest public programmes to the proposed cell and should be added to the competitive and research registers.
+- The white paper's reliability arithmetic (per-garment intervention probability ≈0.01 % for a 95 %-confidence 500-garment batch) is consistent with, and stricter than, anything published: best public deformable-object figure is DYNA-1's 99.4 % over 24 h on napkins. No conflict; the literature confirms the white paper's caution.
+- The white paper lists "templates or fixtures" among things vendors avoid (line 1716 context) while the mature Chinese template-sewing category shows fixtures are the proven route to deterministic knit seams; this is a design tension to decide in ST05/ST06, not a factual conflict.
+
+## Open questions and unknowns
+
+| Unknown | Cheapest way to confirm |
+|---|---|
+| Numeric seam accuracy, speed and fabric types in Tang 2025 (IEEE paywall) | Obtain PDF via library access or author request (HKU TransGP). |
+| Whether any robot system sews overlock 504 / coverstitch 406 on 150–220 gsm jersey with vision-steered feed | Ask Henderson Sewing / ARM Institute for the T-shirt project report; bench test with one overlock head and an edge camera on sample fabric. |
+| Single-ply pick-up success on the chosen knit off a vacuum bed (>99.9 % target) | Sample test: Schmalz-class low-pressure vacuum pad with pressure sensing vs pinch gripper vs electroadhesion pad on 200 cycles; record doubles and stretch. |
+| Isaac Sim FEM cloth availability and knit fidelity in the current release | Install current Isaac Sim; run GarmentLab physics demo with M05 drape parameters; compare with a physical drape test. |
+| SoftWear 3rd-generation Sewbot real throughput and Silana's 82 % cost claim | Request demos/quotes (R13 owns competitor evidence). |
+| CreateMe 100-unit MOQ page; UFACTORY Lite 6 price/payload/reach | Re-fetch vendor pages (R13/R-hardware). |
+| Licensing/FTO: SoftWear feed-control patents, Sewbo stiffening patents, UniFolding non-commercial licence | Patent attorney FTO search on the listed US numbers before freezing ST05 feeder design. |
+| Humidity envelope for electroadhesion on cotton jersey | 24-h chamber test at 35–85 % RH with an EA pad. |
+
+## Sources
+
+1. https://github.com/pantor/speedfolding — SpeedFolding code, hardware dependence
+2. https://arxiv.org/abs/2208.10552 — SpeedFolding paper (via alphaXiv report): results, hardware
+3. https://clothfunnels.cs.columbia.edu/ — ClothFunnels project page, team, keypoint detector
+4. https://arxiv.org/abs/2210.09347 — ClothFunnels paper (full text via alphaXiv): real/sim results
+5. https://github.com/real-stanford/cloth-funnels — ClothFunnels code, MIT licence
+6. https://github.com/xiaoxiaoxh/UniFolding — UniFolding code, licence, dependencies
+7. https://proceedings.mlr.press/v229/xue23b/xue23b.pdf — UniFolding CoRL 2023 PDF
+8. https://arxiv.org/abs/2311.01267 — UniFolding paper (full text via alphaXiv): hardware, Table 1
+9. https://arxiv.org/abs/2111.05623 — FabricFlowNet (full text via alphaXiv): Franka setup, results
+10. https://github.com/real-stanford/dextairity — DextAIRity code, stars, licence
+11. https://arxiv.org/abs/2203.01197 — DextAIRity (full text via alphaXiv): three-UR5 setup, coverage tables
+12. https://github.com/real-stanford/flingbot — FlingBot code
+13. https://arxiv.org/abs/2105.03655 — FlingBot (alphaXiv report): hardware, results
+14. https://github.com/GarmentLab/GarmentLab — GarmentLab repo, Isaac Sim 4.0, stars
+15. https://garmentlab.github.io/ — GarmentLab project page
+16. https://arxiv.org/abs/2411.01200 — GarmentLab paper
+17. https://github.com/AlwaySleepy/Garment-Pile — GarmentPile code, stars, Isaac 2023.1.1
+18. https://arxiv.org/abs/2503.09243 and https://arxiv.org/html/2503.09243v1 — GarmentPile results, real-world setup
+19. https://arxiv.org/abs/2505.11032 and https://github.com/wayrise/DexGarmentLab — DexGarmentLab, NeurIPS 2025, Isaac 4.5
+20. https://arxiv.org/abs/2405.06903 and https://arxiv.org/html/2405.06903v1 — UniGarmentManip results, Franka/Kinect setup
+21. https://arxiv.org/abs/2410.11584, https://arxiv.org/html/2410.11584v2, https://github.com/xiaoxiaoxh/DeformPAM — DeformPAM
+22. https://arxiv.org/abs/2308.09987 — ClothesNet
+23. https://arxiv.org/abs/2507.19983 and https://arxiv.org/html/2507.19983v2 — CLASP hardware and success rates
+24. https://arxiv.org/abs/2505.09109 — FoldNet
+25. https://arxiv.org/abs/2609.12433 — FoldNet++ (CoRL 2026)
+26. https://arxiv.org/abs/2609.10243 and https://arxiv.org/html/2609.10243 — RoboFolDeX
+27. https://arxiv.org/abs/2509.03889 — Reactive in-air clothing manipulation (CoRL 2025)
+28. https://arxiv.org/abs/2501.01715, https://proceedings.mlr.press/v270/longhini25a.html, https://github.com/KTH-RPL/cloth-splatting — Cloth-Splatting
+29. https://arxiv.org/abs/2303.13913 and https://github.com/xiaoxiaoxh/GarmentTracking — GarmentTracking, VR-Folding
+30. https://www.dyna.co/research/dyna-1 and https://www.prnewswire.com/news-releases/dyna-robotics-unveils-dyna-1-the-first-commercial-ready-robot-foundation-model-offering-fully-autonomous-round-the-clock-dexterity-302441437.html — DYNA-1 figures
+31. https://www.pi.website/blog/pi0, https://arxiv.org/abs/2410.24164, https://www.pi.website/blog/partner?v=1 — π0 and Weave laundromat deployment
+32. https://arxiv.org/abs/2212.05108 and https://proceedings.mlr.press/v205/sunil23a.html — Sunil et al. visuotactile (white paper [07])
+33. https://dl.acm.org/doi/10.1145/3618351 — GarmentCode (white paper [08])
+34. https://arxiv.org/abs/2412.08603 — Design2GarmentCode (white paper [09])
+35. https://arxiv.org/abs/2605.29407 — Chen et al. phase-conditioned IL (white paper [29])
+36. https://arxiv.org/abs/2607.29464 — Jin et al. DLRoSS (white paper [04])
+37. https://arxiv.org/abs/2608.09528 — Dong et al. GLW-ICP (white paper [06])
+38. https://arxiv.org/abs/2503.00249 and https://arxiv.org/pdf/2503.00249 — Siemens/Sewbo/Levi's robotic sewing
+39. https://arxiv.org/abs/2511.21203 — Texture-matching visual servoing
+40. https://arxiv.org/abs/2608.10648 and https://github.com/bhattner143/top-layer-fab-seg — Top-layer segmentation
+41. https://arxiv.org/abs/2606.16078 — Deployment case study (digital twin, denim)
+42. https://arxiv.org/abs/2510.00814 — RTFF
+43. https://arxiv.org/abs/2606.15171 — Seam-to-Graph
+44. https://arminstitute.org/news/project-highlight-robotic-assembly-garments, https://arminstitute.org/projects/robotic-assembly-of-garments/, https://arminstitute.org/news/bot-couture-highlight, https://arminstitute.org/projects/automated-t-shirt-assembly-system, https://arminstitute.org/news/project-robotic-sewing/ — ARM Institute projects
+45. https://www.sewbo.com/, https://www.sewbo.com/wp/wp-content/uploads/2016/09/sewbo-press-release.pdf, https://patents.justia.com/assignee/sewbo-inc, https://data.epo.org/publication-server/rest/v1.2/patents/EP3565923NWA1/document.html, https://techxplore.com/news/2016-09-sewbo-robot-t-shirt-stiffened-fabric.html — Sewbo and patents
+46. http://www.softwearautomation.com/, https://patents.justia.com/assignee/softwear-automation-inc, https://www.cbinsights.com/company/softwear-automation — SoftWear and patents
+47. https://www.ksl-joining.com/en/portfolio/robotic/kl-502, https://www.ksl-joining.com/en/portfolio/robotic, https://patents.justia.com/assignee/ksl-keilmann-sondermaschinenbau-gmbh — KSL robotic sewing units
+48. https://cordis.europa.eu/project/id/288553, https://cordis.europa.eu/project/id/869855/results, https://cordis.europa.eu/project/id/869963, https://www.merging-project.eu/project/index.html, https://www.merging-project.eu/wp-content/uploads/LEAFLET_2.pdf — EU projects CloPeMa, SOFTMANBOT, MERGING
+49. https://www.richpeace.com/cnc_sewing_for_garment-show-1464.html, https://www.richpeace.com/cnc_sewing_for_garment-show-1157.html, https://www.richpeace.com/list-richpeace_profile.html, https://www.zoje.com/products/automation/ZJ-UA9200L-W-DM-WE5.html, https://www.jacksew.com/large-area-cnc-pattern-sewing-machines, https://www.jacksew.com/pattern-sewing-machines — template sewing machines and reseller prices
+50. https://pmc.ncbi.nlm.nih.gov/articles/PMC11617252 and https://pubmed.ncbi.nlm.nih.gov/39641023 — Kumar et al. 2024 gripper review (Wirth, He, Fleischer figures)
+51. https://ieeexplore.ieee.org/document/9636095 — Digumarti et al. 2021 electroadhesive fingers
+52. https://iopscience.iop.org/article/10.1088/1748-3190/ae6c7e/pdf — Feng et al. 2026 rotational-pinch gripper
+53. https://www.semanticscholar.org/paper/Electrostatic-grippers-for-fabric-handling-Taylor-Monkman/39c3bc38b626f6771e2b9f1893c436aff61060fb — citation list (microneedle gripper 2020, He 2022, RollUP authors)
+54. https://standards.ieee.org/wp-content/uploads/import/governance/iccom/3DBP-Measurement_Fabric_Properties-Virtual_Simulation.pdf — fabric measurement methods review
+55. https://dl.acm.org/doi/10.1145/3550454.3555464 and http://www.cad.zju.edu.cn/home/weiweixu/wwxu2022.files/clothbending.pdf — Feng et al. 2022 drape tester
+56. https://onlinelibrary.wiley.com/doi/10.1111/cgf.15027, https://onlinelibrary.wiley.com/doi/10.1002/cav.2265, https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14750 — Ju et al. 2024 (two papers), Rodriguez-Pardo 2023
+57. https://arxiv.org/pdf/2402.17664, https://arxiv.org/pdf/2212.08790v2, https://arxiv.org/html/2503.16310, https://eprints.gla.ac.uk/360594/2/360594.pdf, https://arxiv.org/pdf/2311.05141, https://www.cs.cmu.edu/~kiranb/clothparameters/bhatEtAl03_clothparameters.pdf, https://arxiv.org/html/2407.01361v2 — parameter estimation and survey
+58. https://github.com/xingyu-lin/softgym, https://arxiv.org/abs/2011.07215, https://daxbench.github.io/, https://ojs.aaai.org/index.php/AAAI/article/view/38894, https://arxiv.org/abs/2511.06434, https://arxiv.org/abs/2508.16749, https://arxiv.org/html/2511.04831v1, https://github.com/isaac-sim/IsaacLab/discussions/587, https://github.com/google-deepmind/mujoco/issues/1433 — benchmarks and simulators
+59. https://arxiv.org/abs/2602.16675, https://arxiv.org/html/2605.18373v1, https://arxiv.org/abs/2603.04158, https://arxiv.org/abs/2604.22363, https://arxiv.org/abs/2606.04269, https://arxiv.org/abs/2606.24552, https://arxiv.org/abs/2609.19817, https://arxiv.org/abs/2609.31452, https://arxiv.org/abs/2610.10462 — 2026 frontier papers (abstracts via alphaXiv discovery)
+60. https://www.lectra.com/en/fashion/products/virga-fashion, https://robotfactory.dk/rpt-textile, https://www.juki.co.jp/en/business/industrial, https://www.youtube.com/watch?v=xaAKeUrWvCE, https://www.tajima.com/tajimag/tag/sai, https://www.brotherdtg.com/gtx300, https://www.prnewswire.com/news-releases/brother-introduces-gtx300-direct-to-garment-and-direct-to-film-hybrid-printer-for-apparel-decorators-302828071.html, https://www.silana.com/product, https://www.createme.com/, https://www.createme.com/company, https://www.resonancecompanies.com/about, https://create.one/, https://www.shimaseiki.com/wholegarment, https://www.printful.com/blog/how-to-make-custom-all-over-print-shirts, https://pinecrestfabrics.com/faq, https://www.iso.org/standard/73934.html, https://www.iso.org/standard/51528.html, https://www.iso.org/obp/ui#!iso:std:iso:6330:ed-4:v1:en, https://www.nist.gov/itl/ai-risk-management-framework, https://www.unep.org/resources/publication/sustainability-and-circularity-textile-value-chain-global-roadmap — white-paper vendor/standard reference checks
+61. research-desk `verify_reference` (OpenAlex) results for white paper [03]–[06]; alphaXiv `discover_papers` listings (two queries, 2026-10-21) — citation verification and 2026 paper discovery

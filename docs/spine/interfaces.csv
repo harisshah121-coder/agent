@@ -1,0 +1,16 @@
+iface_id,from,to,kind,spec,consumer_module
+IF-ST01-ST02-MECH-01,ST01,ST02,MECH,Web enters cutter conveyor at belt height +/-2 mm; 1.8 m open width; tension <= low-tension set point from M05 profile,M05
+IF-ST01-ST09-DATA-01,ST01,ST09,DATA,Let-off speed/position and dancer AI over EtherCAT 1 kHz; edge-guide status IO-Link,M09
+IF-ST02-ST09-DATA-01,ST02,ST09,DATA,Cutter job load / start / done / fault via vendor API (ZCC Modbus TCP class or iECHO cut-file hot folder) 10 Hz,M09
+IF-ST02-ST10-DATA-01,ST02,ST10,DATA,Over-bed 24 MP image per conveyor index; piece pose and cut completeness to M11 within 500 ms,M11
+IF-M04-ST02-DATA-01,ST02,ST02,DATA,Marker as DXF/HPGL with piece IDs and grain constraints from M04,M04
+IF-ST03-ST04-MECH-01,ST03,ST04,MECH,T1 needle bar and T4 vacuum pad on ATI QC-11 tool plates; 6x M5 air; M8 electrical module,M08
+IF-ST03-ST09-PNEU-01,ST03,ST09,PNEU,6 bar supply; needle actuation 5/2 valves on Festo valve terminal; ejector vacuum -60 to -80 kPa with IO-Link level,M09
+IF-ST04-ST09-ELEC-01,ST04,ST09,ELEC,UR10e STO 2 safe DO + 2 safe DI to TwinSAFE; gantry CMMT-AS STO/SS1 over FSoE,M10
+IF-ST04-ST09-DATA-01,ST04,ST09,DATA,Gantry axes via TwinCAT NC PTP over EtherCAT; UR10e via RTDE 500 Hz from ROS 2 (ur_robot_driver),M09
+IF-ST05-ST09-ELEC-01,ST05,ST09,ELEC,Sewing box external I/O: start/stop speed command trim presser-lift (24 V); 360/512 pulse/rev rotation output to fast counter,M09
+IF-ST05-ST10-DATA-01,ST05,ST10,DATA,Needle-area camera 200+ fps ROI; seam edge offset to M11 at <= 10 ms latency,M11
+IF-ST06-ST09-DATA-01,ST06,ST09,DATA,Collar loader roller speeds and rib meter/cut cycle over EtherCAT; differential stretch ratio from M05,M09
+IF-ST07-ST10-DATA-01,ST07,ST10,DATA,16 MP backlit image per garment; dimensions and defects to M11; accept/reject to M14,M11
+IF-ST09-M10-DATA-01,ST09,ST09,DATA,Safety state (zones; e-stop; door; STO groups) published read-only from TwinSAFE to ADS; never writable from software,M10
+IF-ST09-M14-DATA-01,ST09,ST09,DATA,PLC events and counters via ADS/OPC UA to M14 event log at 10 Hz with PTP time,M14

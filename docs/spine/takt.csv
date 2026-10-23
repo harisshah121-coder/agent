@@ -1,0 +1,8 @@
+station,seconds_per_garment,parallel_units,source
+ST01,30,1,R16 F9 budget 0.5 min (overlaps cutting)
+ST02,90,1,R16 F9 budget 1.5 min (est. 9 m cut perimeter per shirt)
+ST03,120,1,R16 F9 budget 2.0 min (5 picks + skeleton removal)
+ST04,288,1,R16 F9 est. occupancy 4.8 min; bottleneck; measure first
+ST05,180,1,R16 F9 overlock budget (est.); coverstitch 180 s on its own head
+ST06,180,1,R16 F9 est. 2.3 min; unmeasured; measure first
+ST07,120,1,R16 F9 budget 2.0 min
