@@ -1,0 +1,156 @@
+<title>Roll-to-Garment Cell</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-height 3D bay with a station rail on the right (stacks below on phones). */
+:root{
+  --bg:#eef0ee; --panel:#f8f9f7; --fg:#1d2321; --muted:#5d6763; --line:#d3d8d4;
+  --accent:#e0a100; --accent-fg:#1d2321; --sel:#0f6aa6; --stage:#dfe3df;
+  --display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141817; --panel:#1b201e; --fg:#e7ebe8; --muted:#97a29d; --line:#2c3431;
+  --accent:#f2b51c; --accent-fg:#141817; --sel:#5fb2e6; --stage:#1f2523; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141817; --panel:#1b201e; --fg:#e7ebe8; --muted:#97a29d; --line:#2c3431;
+  --accent:#f2b51c; --accent-fg:#141817; --sel:#5fb2e6; --stage:#1f2523; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;margin:0}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 340px;height:100%}
+.bay{position:relative;min-width:0;background:var(--stage)}
+canvas{display:block;width:100%;height:100%}
+.hud{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:16px;right:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:none}
+.hud>*{pointer-events:auto}
+h1{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.01em;margin:0 12px 0 0;text-wrap:balance}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+button{font:500 13px/1 var(--body);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 11px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
+button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.legend{position:absolute;left:max(16px,env(safe-area-inset-left,0px));bottom:16px;font-family:var(--mono);font-size:11px;color:var(--muted);max-width:min(560px,calc(100% - 32px))}
+.rail{background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding-block:16px;padding-left:16px;padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px;min-width:0}
+.sum{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
+.sum b{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}
+.st{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 10px;text-align:left;padding:10px;border-radius:6px;border:1px solid transparent;background:transparent;width:100%}
+.st:hover{background:var(--bg)}
+.st[aria-pressed="true"]{border-color:var(--sel);background:var(--bg)}
+.st .id{font-family:var(--mono);font-size:12px;color:var(--sel);padding-top:2px}
+.st .nm{font-weight:500}
+.st .c{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.st ul{grid-column:2/4;margin:0;padding:0;list-style:none;font-size:12px;color:var(--muted);line-height:1.5}
+.st[aria-pressed="false"] ul{display:none}
+.note{font-size:12px;color:var(--muted);line-height:1.5;max-width:65ch}
+@media (max-width:820px){.app{grid-template-columns:1fr;grid-template-rows:62vh auto;height:auto}.bay{height:62vh}.rail{border-left:0;border-top:1px solid var(--line)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="app">
+  <div class="bay" id="bay">
+    <canvas id="c" aria-label="3D model of the roll-to-garment cell"></canvas>
+    <div class="hud">
+      <h1>Roll-to-Garment Cell</h1>
+      <button class="primary" id="play" aria-pressed="true">Pause workflow</button>
+      <button id="iso">Overview</button>
+      <button id="top">Plan view</button>
+      <button id="front">Operator side</button>
+    </div>
+    <div class="legend">Concept model, LOD0/1 · 6.0 × 3.0 m guarded envelope · drag to orbit, scroll to zoom, right-drag to pan · flow runs roll → cutter → gantry pick → sewing → inspection → belt</div>
+  </div>
+  <aside class="rail">
+    <div class="sum"><span class="tag">Development cell, parts</span><b>USD __TOTAL__</b></div>
+    <div id="list" style="display:flex;flex-direction:column;gap:4px"></div>
+    <p class="note">Geometry is sized from vendor datasheets in Build Guide 1. Bought parts (cutter, sewing heads, UR10e) are simplified envelopes until vendor STEP files replace them. Prices are dated 2026-10-21 estimates and reseller quotes.</p>
+  </aside>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+const STATIONS = __STATIONS__;
+const GLB = "__GLB__";
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const canvas = document.getElementById('c'), bay = document.getElementById('bay');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 100);
+const controls = new THREE.OrbitControls(camera, canvas);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x445050, 0.85));
+const sun = new THREE.DirectionalLight(0xffffff, 0.9); sun.position.set(-4, 10, 6); scene.add(sun);
+const grid = new THREE.GridHelper(12, 24, 0x888888, 0x888888); grid.material.opacity = 0.18; grid.material.transparent = true; grid.position.set(3, 0.001, -1.5); scene.add(grid);
+function applyTheme(){ scene.background = new THREE.Color(css('--stage')); }
+applyTheme(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+new MutationObserver(applyTheme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+
+const byPrefix = (root, p) => { const out=[]; root.traverse(o => { if (o.name && o.name.startsWith(p)) out.push(o); }); return out; };
+let model, anim = {}, playing = true;
+const bin = Uint8Array.from(atob(GLB), c => c.charCodeAt(0)).buffer;
+new THREE.GLTFLoader().parse(bin, '', g => {
+  model = g.scene; scene.add(model);
+  model.traverse(o => { if (o.isMesh) { const m=o.material; if (m.transparent || m.opacity < 1) { m.depthWrite=false; } m.side = THREE.DoubleSide; } });
+  const keep = list => list.map(o => ({o, x:o.position.x, y:o.position.y, z:o.position.z}));
+  anim.cutter = keep([...byPrefix(model,'A02 cutting gantry beam'), ...byPrefix(model,'A02 cutting head'), ...byPrefix(model,'A02 gantry side')]);
+  anim.yaxis = keep(['A04 Festo EGC-80','A04 Y carriage','A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 Schmalz'].flatMap(p => byPrefix(model,p)));
+  anim.zaxis = keep(['A04 Z axis','A04 ATI QC-11','A03 T1 needle bar','A03 Schmalz'].flatMap(p => byPrefix(model,p)));
+  anim.roll = [...byPrefix(model,'A01 fabric roll'), ...byPrefix(model,'A01 roll shaft')];
+  anim.rollers = byPrefix(model,'A06 expansion roller');
+  // UR10e pivot about its base axis
+  const ur = byPrefix(model,'A04 UR10e').filter(o => !/pedestal|base/.test(o.name)).concat(byPrefix(model,'A04 Robotiq'));
+  if (ur.length) { const parent = ur[0].parent; const piv = new THREE.Object3D(); piv.position.set(3.3, 0.9, 0); parent.add(piv); piv.updateMatrixWorld(true); ur.forEach(o => piv.attach(o)); anim.ur = piv; }
+  view('iso');
+  buildList();
+});
+
+const t0 = performance.now(); let tPause = 0, tOff = 0;
+function step(now){
+  const t = (playing ? now - tOff : tPause) / 1000;
+  if (model) {
+    const s = Math.sin(t * 0.6);
+    anim.cutter.forEach(a => a.o.position.x = a.x + s * 1.0);
+    const g = (Math.sin(t * 0.45) + 1) / 2;              // 0 at cutter exit, 1 at staging
+    anim.yaxis.forEach(a => a.o.position.x = a.x - 1.2 + g * 2.0);
+    const dip = Math.max(0, Math.cos(t * 0.9)) ** 8 * 0.35;
+    anim.zaxis.forEach(a => a.o.position.z = a.z - dip);
+    anim.roll.forEach(o => o.rotation.y = -t * 0.8);
+    anim.rollers.forEach(o => o.rotation.y = t * 3);
+    if (anim.ur) anim.ur.rotation.z = Math.sin(t * 0.5) * 0.9;
+  }
+  controls.update(); renderer.render(scene, camera); requestAnimationFrame(step);
+}
+function resize(){ const r = bay.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(r.height,1); camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(bay); resize(); requestAnimationFrame(step);
+
+// camera presets (three.js world is Y-up; model x→x, model y→-z, model z→y)
+const P = {iso:[[-3.4,7.4,7.8],[2.9,0.5,-1.4]], top:[[3.0,11,-1.49],[3.0,0,-1.5]], front:[[3.0,1.9,5.2],[3.0,0.9,-1.2]]};
+function tweenTo(pos, tgt){ const p0=camera.position.clone(), q0=controls.target.clone(), p1=new THREE.Vector3(...pos), q1=new THREE.Vector3(...tgt); const T=650, s=performance.now(); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  (function f(){ const k = reduce ? 1 : Math.min(1,(performance.now()-s)/T), e = k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; camera.position.lerpVectors(p0,p1,e); controls.target.lerpVectors(q0,q1,e); if(k<1) requestAnimationFrame(f); })(); }
+function view(k){ tweenTo(...P[k]); }
+['iso','top','front'].forEach(k => document.getElementById(k).onclick = () => { select(null); view(k); });
+const playBtn = document.getElementById('play');
+playBtn.onclick = () => { playing = !playing; const now = performance.now(); if (!playing) tPause = now - tOff; else tOff = now - tPause; playBtn.textContent = playing ? 'Pause workflow' : 'Play workflow'; playBtn.setAttribute('aria-pressed', playing); };
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) playBtn.click();
+
+let highlighted = [];
+function select(st){
+  highlighted.forEach(([m,c]) => m.emissive && m.emissive.copy(c)); highlighted = [];
+  document.querySelectorAll('.st').forEach(b => b.setAttribute('aria-pressed', String(!!st && b.dataset.id === st.id)));
+  if (!st || !st.group || !model) return;
+  const grp = model.getObjectByName(st.group); if (!grp) return;
+  grp.traverse(o => { if (o.isMesh && o.material.emissive) { highlighted.push([o.material, o.material.emissive.clone()]); o.material.emissive = new THREE.Color(css('--sel')).multiplyScalar(0.35); } });
+  const box = new THREE.Box3().setFromObject(grp), c = box.getCenter(new THREE.Vector3()), r = Math.max(1.2, box.getSize(new THREE.Vector3()).length());
+  tweenTo([c.x - r*0.55, c.y + r*0.75, c.z + r*0.95], [c.x, c.y, c.z]);
+}
+function buildList(){
+  const L = document.getElementById('list');
+  STATIONS.forEach(s => {
+    const b = document.createElement('button'); b.className = 'st'; b.dataset.id = s.id; b.setAttribute('aria-pressed','false');
+    b.innerHTML = `<span class="id">${s.id}</span><span class="nm">${s.name}</span><span class="c">${s.cost ? '$' + s.cost.toLocaleString() : 'optional'}</span><ul>${s.parts.map(p => `<li>${p}</li>`).join('')}</ul>`;
+    b.onclick = () => select(b.getAttribute('aria-pressed') === 'true' ? null : s);
+    L.appendChild(b);
+  });
+}
+</script>
