@@ -14,3 +14,5 @@
 | D-010 | 2026-10-22 | Cutter: iECHO TK4S-2516 conveyor (alternate used Zünd G3 L); do not build from components | Accepted | R01 §I |
 | D-011 | 2026-10-22 | Heads: JUKI MO-6814S overlock + MF-7923 UT51 coverstitch with documented-I/O boxes; collar module built in-house | Accepted | R04 |
 | D-012 | 2026-10-22 | Skip separate dossier/gap/seed files; gap register and seed summary live in the project master | Accepted | Owner asked to finish quickly |
+| D-013 | 2026-10-23 | UR10e on a 7th-axis track (P-ST04-007) instead of a fixed pedestal | Accepted | L1 sim: fixed pedestal misses overlock and inspection |
+| D-014 | 2026-10-23 | Add Build Guide 4 (simulation) with seven levels and gates | Accepted | Owner request |

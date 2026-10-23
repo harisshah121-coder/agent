@@ -129,7 +129,7 @@ UR = dict(d1=181, a2=613, a3=572, d4=174, d5=120, d6=117)
 
 def ur10e(x, y, z, q=(0, -60, 100, -130, -90, 0)):
     """Simplified UR10e chain (forward kinematics for link placement)."""
-    p = [box(260, 260, 600, x - 130, y - 130, z - 600, "steel", "A04 UR10e pedestal"),
+    p = [box(260, 260, 540, x - 130, y - 130, z - 540, "steel", "A04 UR10e pedestal"),
          cyl(95, 120, x, y, z + 60, "urgrey", "A04 UR10e base (P-ST04-002)")]
     t1, t2, t3, t4 = [math.radians(a) for a in q[:4]]
     sh = (x, y, z + UR["d1"])
@@ -169,7 +169,12 @@ def a04():
     for i in range(6):
         p.append(cyl(18, 60, gx - 250 + i * 100, 2330, h - 880, "dark", "A03 Schmalz SNG-M needle head"))
     p.append(box(300, 300, 900, 5950 - 2000, 1450 + 1350, 0, "steel", "A04 tool stand"))
-    p += ur10e(3300, 900, 820)
+    # 7th-axis track along the sewing row (P-ST04-007), UR10e on its carriage
+    p.append(box(3400, 300, 180, 1900, 800, 0, "steel", "A04 7th-axis track base (P-ST04-007)"))
+    p.append(box(3400, 40, 40, 1900, 830, 180, "alu", "A04 7th-axis rail 1"))
+    p.append(box(3400, 40, 40, 1900, 1030, 180, "alu", "A04 7th-axis rail 2"))
+    p.append(box(420, 320, 60, 3090, 790, 220, "festo", "A04 7th-axis carriage"))
+    p += ur10e(3300, 950, 820)
     return asm("A04 Manipulation", p)
 
 # ---------------- A05 sewing heads, A06 collar ----------------

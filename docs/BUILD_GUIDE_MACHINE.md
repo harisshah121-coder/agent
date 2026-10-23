@@ -118,6 +118,7 @@ Each station lists requirements (REQ), selected parts (P-IDs, priced in §7), in
 
 ### 3.4 ST04 Manipulation
 - **REQ-ST04-01** Cover 3 m × 1.5 m with 2–5 kg payload; place plies at sewing stations to ±0.5 mm (vision-corrected).
+- **Simulation result**: a fixed pedestal cannot reach the overlock or the inspection table, so the UR10e rides P-ST04-007, a 7th-axis track along the sewing row (Simulation guide §8.1).
 - **Selected**: P-ST04-001 Festo EGC belt gantry (X 3000 mm, 2 × Y 1500 mm, Z) with CMMT-AS EtherCAT drives; P-ST04-002 UR10e on a pedestal at the sewing stations; P-ST04-003 ATI QC-11 tool changer; tools T1–T4 (§3.3, P-ST04-004 Robotiq 2F-85 with printed hard tips as T3); P-ST04-005 GelSight Mini tactile tip; P-ST04-006 RealSense D405 wrist camera. Prototype alternate for the gantry: Vention belt gantry.
 - **Why UR10e**: ROS 2 driver (Universal_Robots_ROS2_Driver), RTDE at 500 Hz for external guidance, MuJoCo Menagerie model, free STEP, PL d safety functions (R02 F1.1, F9; R15). Alternates: FANUC CRX-10iA/L, Doosan M1013 (R02 F1).
 - **Gripper toolbox**: T1 needle bar (panels), T2 small needle head (rib), T3 pinch/edge gripper with tactile tip (alignment at heads), T4 vacuum pad (stabilise), T5 driven-roller edge feeder (phase 2, in-house) (R03 Recommendation).
@@ -258,6 +259,7 @@ Certification route: CE self-declaration for the development cell is not needed 
 | P-ST10-004 | ST10 | LUCID / IDS | Triton TRI050S / GV-5880 + LM12JC + backlight | 5 MP placement and collar cameras with backlights | 3 | 750 | estimate | 2,250 | vendor STEP |
 | P-ST10-005 | ST10 | NVIDIA | Jetson AGX Thor developer kit | Policy-learning and VLA development box | 1 | 3,499 | list | 3,499 | vendor STEP (NVIDIA) |
 | P-ST10-006 | ST10 | Teledyne DALSA | Linea Lite 4k + Kubler 5020 encoder | Line-scan web inspection on unwind (optional in v1) | 0 | 4,500 | estimate | 0 | vendor STEP (Teledyne) |
+| P-ST04-007 | ST04 | Vention | 7th-axis robot track ~3.2 m stroke + carriage plate | Linear track carrying the UR10e along the sewing row (required: fixed pedestal cannot reach overlock or inspection; sim/results/reach_cycle.json) | 1 | 9,000 | estimate | 9,000 | vendor STEP (Vention MachineBuilder) |
 
 | Station | Subtotal USD |
 |---|---|
@@ -265,14 +267,14 @@ Certification route: CE self-declaration for the development cell is not needed 
 | ST01 | 8,885 |
 | ST02 | 30,500 |
 | ST03 | 4,832 |
-| ST04 | 83,578 |
+| ST04 | 92,578 |
 | ST05 | 11,476 |
 | ST06 | 7,550 |
 | ST07 | 10,810 |
 | ST08 | 0 |
 | ST09 | 39,281 |
 | ST10 | 19,949 |
-| **Total** | **247,560** |
+| **Total** | **256,560** |
 <!-- BOM:END -->
 
 ### 7.2 What is not yet in the BOM

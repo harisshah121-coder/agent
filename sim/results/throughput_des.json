@@ -1,0 +1,149 @@
+{
+ "assumptions": {
+  "cutter_s": 90,
+  "gantry_s": 120,
+  "inspection_s": 60,
+  "wip_cap": 4,
+  "mtbf_s": 7200,
+  "mttr_s": 600,
+  "intervention_recovery_mean_s": 180,
+  "yield": 0.95,
+  "shifts_per_case": 300
+ },
+ "cases": [
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "arm_s": 321.2,
+   "p_intervention": 0.0,
+   "mean_accepted": 118.5,
+   "p10": 112,
+   "p90": 125,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 0
+  },
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "arm_s": 321.2,
+   "p_intervention": 0.005,
+   "mean_accepted": 118.1,
+   "p10": 111,
+   "p90": 125,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 0.6
+  },
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "arm_s": 321.2,
+   "p_intervention": 0.01,
+   "mean_accepted": 117.9,
+   "p10": 111,
+   "p90": 124,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 1.2
+  },
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "arm_s": 321.2,
+   "p_intervention": 0.02,
+   "mean_accepted": 117.2,
+   "p10": 110,
+   "p90": 124,
+   "prob_ge_100": 0.99,
+   "mean_interventions": 2.4
+  },
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "arm_s": 321.2,
+   "p_intervention": 0.05,
+   "mean_accepted": 114.4,
+   "p10": 107,
+   "p90": 121,
+   "prob_ge_100": 0.99,
+   "mean_interventions": 6.0
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "arm_s": 286.2,
+   "p_intervention": 0.0,
+   "mean_accepted": 132.1,
+   "p10": 125,
+   "p90": 140,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 0
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "arm_s": 286.2,
+   "p_intervention": 0.005,
+   "mean_accepted": 131.9,
+   "p10": 123,
+   "p90": 139,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 0.7
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "arm_s": 286.2,
+   "p_intervention": 0.01,
+   "mean_accepted": 131.2,
+   "p10": 122,
+   "p90": 139,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 1.4
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "arm_s": 286.2,
+   "p_intervention": 0.02,
+   "mean_accepted": 130.8,
+   "p10": 123,
+   "p90": 139,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 2.7
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "arm_s": 286.2,
+   "p_intervention": 0.05,
+   "mean_accepted": 128.1,
+   "p10": 120,
+   "p90": 136,
+   "prob_ge_100": 1.0,
+   "mean_interventions": 6.6
+  }
+ ],
+ "cases_availability_080": [
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "availability_case": "white paper ~0.80 (MTBF 2 h, MTTR 30 min)",
+   "p_intervention": 0.01,
+   "mean_accepted": 105.4,
+   "p10": 88,
+   "prob_ge_100": 0.72
+  },
+  {
+   "scenario": "B: 7th-axis arm does all seams",
+   "availability_case": "white paper ~0.80 (MTBF 2 h, MTTR 30 min)",
+   "p_intervention": 0.05,
+   "mean_accepted": 101.7,
+   "p10": 86,
+   "prob_ge_100": 0.63
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "availability_case": "white paper ~0.80 (MTBF 2 h, MTTR 30 min)",
+   "p_intervention": 0.01,
+   "mean_accepted": 116.0,
+   "p10": 97,
+   "prob_ge_100": 0.88
+  },
+  {
+   "scenario": "B-opt: gantry presents sleeve hems flat (arm -35 s)",
+   "availability_case": "white paper ~0.80 (MTBF 2 h, MTTR 30 min)",
+   "p_intervention": 0.05,
+   "mean_accepted": 112.7,
+   "p10": 93,
+   "prob_ge_100": 0.81
+  }
+ ]
+}

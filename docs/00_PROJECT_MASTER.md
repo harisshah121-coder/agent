@@ -2,7 +2,7 @@
 
 This is the one document that says what the project is and everything we need to do. v1 adds the research results (docs/research, R01–R16), the three master build guides, the gaps found and the seed case.
 
-**The three guides**: `BUILD_GUIDE_MACHINE.md` (every station, real parts, BOM, assembly, tests) · `BUILD_GUIDE_SOFTWARE.md` (M01–M14, stack, MCP, safety boundary, build order) · `BUILD_GUIDE_3D_MODEL.md` (toolchain, vendor geometry, assemblies A00–A10, simulation, Blender, R3).
+**The four guides**: `BUILD_GUIDE_SIMULATION.md` (seven simulation levels, first results) · `BUILD_GUIDE_MACHINE.md` (every station, real parts, BOM, assembly, tests) · `BUILD_GUIDE_SOFTWARE.md` (M01–M14, stack, MCP, safety boundary, build order) · `BUILD_GUIDE_3D_MODEL.md` (toolchain, vendor geometry, assemblies A00–A10, simulation, Blender, R3).
 
 ## 1. What we are building
 An AI-directed roll-to-garment manufacturing cell: a modular, guarded industrial machine that takes a roll of knit fabric at one end and delivers finished, inspected garments at the other, with one operator supervising and an AI software stack doing the design-to-machine work. First product: a premium short-sleeve T-shirt. The same cell and software are designed to extend to other cut-and-sew garments.
@@ -90,6 +90,8 @@ See white paper appendix E; the spine adds project-specific terms.
 | GAP-08 | Electroadhesion grippers not purchasable; needle marks on jersey unquantified | R03 | Needle + vacuum toolbox; 1,000-cycle wash test | Machine guide §3.3 |
 | GAP-09 | No vendor CAD for cutter and any sewing head | R04, R15 | LOD0 envelopes, NDA requests, 3D scans | 3D guide §4 |
 | GAP-10 | White paper source register misses the ARM Institute automated T-shirt assembly project (2025) | R12 | Add to the register; contact for results | Research log |
+| GAP-12 | A fixed-pedestal UR10e cannot reach the overlock (90 mm short) or inspection table (870 mm short) | sim/results/reach_cycle.json | 7th-axis track added (P-ST04-007) | Simulation guide §8.1 |
+| GAP-13 | Arm occupancy 321 s vs 328 s interval: 2 % margin; only 72 % of shifts reach 100 at 80 % availability | sim/results/throughput_des.json | Gantry presents sleeve hems flat (+13 shirts/shift); MTTR ≤ 10 min | Simulation guide §8.2–8.4 |
 | GAP-11 | Template sewing is the proven deterministic route for knit seams, while the white paper leans against fixtures | R12 | Keep template/automat routes as fallback for hems | Machine guide §3.5 |
 
 ## 11. Seed case (summary; detail in research R13)
@@ -100,6 +102,7 @@ See white paper appendix E; the spine adds project-specific terms.
 - **Raise sizing**: market median seed is USD 4.5M at USD 23.9M post (R13). The owner's USD 10M target is above median and must be justified by the development cell (≈ USD 0.25M parts plus team of 6–8 engineers for 18–24 months) and the first two customer pilot cells; the milestone plan above is the justification.
 
 ## 12. Next actions
+0. 3D concept model and interactive viewer exist (`cad/concept/`, `cad/out/`); first simulations run (`sim/`).
 1. Phase 2 (3D model): checkpoints C1 (vendor geometry register) and C2 (LOD0 envelopes A00–A10) from the 3D guide, then C3 reach study and C4 cycle time.
 2. In parallel: the three bench experiments (overlock presentation, needle-pick, rib stretch) from Machine guide §10.
 3. Quote requests in Machine guide §7.4.

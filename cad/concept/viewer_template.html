@@ -99,8 +99,9 @@ new THREE.GLTFLoader().parse(bin, '', g => {
   anim.roll = [...byPrefix(model,'A01 fabric roll'), ...byPrefix(model,'A01 roll shaft')];
   anim.rollers = byPrefix(model,'A06 expansion roller');
   // UR10e pivot about its base axis
+  const trackParts = keep([...byPrefix(model,'A04 7th-axis carriage'), ...byPrefix(model,'A04 UR10e')]); anim.track = trackParts;
   const ur = byPrefix(model,'A04 UR10e').filter(o => !/pedestal|base/.test(o.name)).concat(byPrefix(model,'A04 Robotiq'));
-  if (ur.length) { const parent = ur[0].parent; const piv = new THREE.Object3D(); piv.position.set(3.3, 0.9, 0); parent.add(piv); piv.updateMatrixWorld(true); ur.forEach(o => piv.attach(o)); anim.ur = piv; }
+  if (ur.length) { const parent = ur[0].parent; const piv = new THREE.Object3D(); piv.position.set(3.3, 0.95, 0); parent.add(piv); piv.updateMatrixWorld(true); ur.forEach(o => piv.attach(o)); anim.ur = piv; }
   view('iso');
   buildList();
 });
@@ -117,7 +118,8 @@ function step(now){
     anim.zaxis.forEach(a => a.o.position.z = a.z - dip);
     anim.roll.forEach(o => o.rotation.y = -t * 0.8);
     anim.rollers.forEach(o => o.rotation.y = t * 3);
-    if (anim.ur) anim.ur.rotation.z = Math.sin(t * 0.5) * 0.9;
+    if (anim.ur) { anim.ur.rotation.z = Math.sin(t * 0.5) * 0.9; anim.ur.position.x = 3.3 + Math.sin(t * 0.25) * 1.2; }
+    if (anim.track) anim.track.filter(a => /carriage|pedestal|base/.test(a.o.name)).forEach(a => a.o.position.x = a.x + Math.sin(t * 0.25) * 1.2);
   }
   controls.update(); renderer.render(scene, camera); requestAnimationFrame(step);
 }

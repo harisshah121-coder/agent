@@ -7,7 +7,7 @@ This repository is the working home of an AI-directed roll-to-garment manufactur
 2. `docs/STATE.md`: where the project is and the next actions.
 3. `docs/00_PROJECT_MASTER.md`: everything the project is about and everything we need to do.
 4. `docs/logs/SESSION_LOG.md` (latest entry) and `docs/logs/DECISIONS.md`.
-5. The guide relevant to the task: `docs/BUILD_GUIDE_MACHINE.md`, `docs/BUILD_GUIDE_SOFTWARE.md`, `docs/BUILD_GUIDE_3D_MODEL.md`, all keyed by `docs/ARCHITECTURE_SPINE.md`.
+5. The guide relevant to the task: `docs/BUILD_GUIDE_MACHINE.md`, `docs/BUILD_GUIDE_SOFTWARE.md`, `docs/BUILD_GUIDE_3D_MODEL.md`, `docs/BUILD_GUIDE_SIMULATION.md`, all keyed by `docs/ARCHITECTURE_SPINE.md`.
 
 ## Where things are
 - `docs/source/`: the white paper (PDF and extracted text, grep it rather than reading it whole).
@@ -16,6 +16,8 @@ This repository is the working home of an AI-directed roll-to-garment manufactur
 - `docs/spine/`: machine-readable registries (parts, interfaces, takt) that the guides reference by ID.
 - `docs/logs/`: session log, decisions, research log, tooling status, audits.
 - `docs/superpowers/`: design specs and implementation plans.
+- `cad/concept/`, `cad/out/`: concept 3D model (build123d), STEP/GLB exports, viewer page generator.
+- `sim/`: MuJoCo reach/cycle and SimPy throughput simulations with results.
 - `scripts/check_docs.py`: consistency checks; run it after editing any guide.
 
 ## Rules for working here
