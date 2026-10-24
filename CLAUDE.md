@@ -16,7 +16,8 @@ This repository is the working home of an AI-directed roll-to-garment manufactur
 - `docs/spine/`: machine-readable registries (parts, interfaces, takt) that the guides reference by ID.
 - `docs/logs/`: session log, decisions, research log, tooling status, audits.
 - `docs/superpowers/`: design specs and implementation plans.
-- `cad/concept/`, `cad/out/`: concept 3D model (build123d), STEP/GLB exports, viewer page generator.
+- `cad/labs/lab1/`: the build-baseline model (D-019) from Ali's Lab 1 STEP files; his raw package goes in `input/` (git-ignored, confidential). Review: `docs/labs/LAB_PACKAGES_REVIEW.md`.
+- `cad/concept/`, `cad/out/`: earlier concept 3D model (reference only since D-019), STEP/GLB exports, viewer page generator.
 - `sim/`: MuJoCo reach/cycle and SimPy throughput simulations with results.
 - `scripts/check_docs.py`: consistency checks; run it after editing any guide.
 

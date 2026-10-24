@@ -1,0 +1,345 @@
+<title>RTG-L1 Bench Rig Model</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: drawing-sheet tool. 3D bay on the left, a title-block style rail on the right; stacks on phones. */
+:root{
+  --bg:#eef0ec; --panel:#fbfbf8; --fg:#1d2321; --muted:#5d6763; --line:#cfd5cf; --stage:#e3e7e2;
+  --accent:#b23a2a; --ink:#1f4f7a; --ok:#2f7d4f; --warn:#a86b12; --bad:#b23a2a; --sel:#1f4f7a;
+  --display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141817; --panel:#1b201e; --fg:#e6ebe8; --muted:#9aa49f; --line:#2f3734; --stage:#1e2422;
+  --accent:#ec7b68; --ink:#7fb4e3; --ok:#63c08b; --warn:#e2a64a; --bad:#ec7b68; --sel:#7fb4e3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141817; --panel:#1b201e; --fg:#e6ebe8; --muted:#9aa49f; --line:#2f3734; --stage:#1e2422;
+  --accent:#ec7b68; --ink:#7fb4e3; --ok:#63c08b; --warn:#e2a64a; --bad:#ec7b68; --sel:#7fb4e3; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.45;margin:0}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 380px;height:100%}
+.bay{position:relative;min-width:0;background:var(--stage)}
+canvas{display:block;width:100%;height:100%;outline:none}
+.hud{position:absolute;left:max(12px,env(safe-area-inset-left,0px));top:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+button,select{font:500 12.5px var(--body);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+button:hover{border-color:var(--sel)} button:focus-visible,select:focus-visible{outline:2px solid var(--sel);outline-offset:1px}
+button.primary{background:var(--ink);border-color:var(--ink);color:var(--panel)}
+.now{position:absolute;left:max(12px,env(safe-area-inset-left,0px));bottom:12px;right:12px;max-width:560px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:0 8px 8px 0;padding:10px 14px}
+.now b{font-family:var(--display);font-size:20px;font-weight:700;display:block;line-height:1.1}
+.now span{color:var(--muted);font-size:12.5px}
+.now .bar{height:3px;background:var(--line);margin-top:8px;border-radius:2px;overflow:hidden}.now .bar i{display:block;height:100%;background:var(--ink)}
+.pick{position:absolute;right:12px;top:52px;max-width:300px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:12px var(--mono)}
+.rail{background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding-block:16px 24px;padding-left:16px;padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.tb{border:1.5px solid var(--fg);display:grid;grid-template-columns:1fr auto}
+.tb div{padding:6px 10px;border-bottom:1px solid var(--line)}
+.tb div:nth-child(odd){border-right:1px solid var(--line)}
+.tb small{display:block;font:500 9.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tb .t{grid-column:1/-1;border-right:0}
+.tb .t b{font:700 24px/1.05 var(--display);text-wrap:balance}
+.tb .st{grid-column:1/-1;border-right:0;border-bottom:0;color:var(--accent);font:500 11px var(--mono)}
+h2{font:700 17px var(--display);margin:0 0 6px;letter-spacing:.01em}
+.lede{margin:0;color:var(--muted);font-size:13px;max-width:62ch}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+ol.steps li{display:grid;grid-template-columns:52px 1fr;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer}
+ol.steps li:hover{background:var(--bg)}
+ol.steps li.on{background:var(--bg);box-shadow:inset 3px 0 0 var(--ink)}
+ol.steps .rig{font:500 11px var(--mono);color:var(--ink);padding-top:2px}
+ol.steps .flag{color:var(--warn);font-size:12px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 10px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font:500 10.5px var(--mono);padding:1px 6px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.ok{color:var(--ok)} .bad{color:var(--bad)} .warnc{color:var(--warn)}
+.parts{display:flex;flex-direction:column;gap:2px}
+.parts button{display:grid;grid-template-columns:70px 1fr;gap:8px;text-align:left;border:0;background:transparent;padding:5px 6px;border-radius:5px}
+.parts button:hover{background:var(--bg)}
+.parts code{font:500 11.5px var(--mono);color:var(--ink)}
+.parts .env code{color:var(--muted)}
+ul.find{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.note{font-size:12px;color:var(--muted);margin:0}
+@media (max-width:860px){.app{grid-template-columns:1fr;grid-template-rows:62vh auto;height:auto}.bay{height:62vh}.rail{border-left:0;border-top:1px solid var(--line)}.pick{display:none}}
+@media (prefers-reduced-motion:reduce){ol.steps li{transition:none}}
+</style>
+<div class="app">
+  <div class="bay" id="bay">
+    <canvas id="c" aria-label="3D model of the RTG-L1 Stage 1 bench area"></canvas>
+    <div class="hud">
+      <button class="primary" id="play" aria-pressed="true">Pause</button>
+      <button id="v-iso">Overview</button><button id="v-top">Plan</button><button id="v-b">Collar rig</button><button id="v-c">Folding table</button>
+      <label for="speed" class="note" style="color:var(--fg)">Speed</label>
+      <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+    </div>
+    <div class="pick" id="pick" hidden></div>
+    <div class="now" id="now"><b>Loading model</b><span>Lab 1 parts from the Rev B.2 STEP files</span><div class="bar"><i style="width:0"></i></div></div>
+  </div>
+  <aside class="rail">
+    <div class="tb">
+      <div class="t"><small>Model</small><b>RTG-L1 Stage 1 bench area</b></div>
+      <div><small>Source</small>Lab 1 structural package</div><div><small>Rev</small>B.2 prelim</div>
+      <div><small>Drawn from</small>His STEP files + build guide</div><div><small>Date</small>2026-10-23</div>
+      <div class="st">Floor positions are provisional: his package has no cell layout. Not for manufacture.</div>
+    </div>
+    <section>
+      <h2>Workflow on the rigs</h2>
+      <p class="lede">One garment through his four Stage 1 rigs. Robot motion is the reach-checked plan; tap a step to jump to it.</p>
+      <ol class="steps" id="steps"></ol>
+    </section>
+    <section>
+      <h2>Cobot reach check</h2>
+      <p class="lede">UR5e class on the 700 mm CP-300 pedestal, tool pointing down. Measured limit at table height: 0.86 m.</p>
+      <div class="tbl"><table><thead><tr><th>Arm</th><th>Task</th><th>Dist.</th><th>Result</th></tr></thead><tbody id="reach"></tbody></table></div>
+    </section>
+    <section>
+      <h2>What the model found</h2>
+      <ul class="find" id="find"></ul>
+    </section>
+    <section>
+      <h2>Parts in the model</h2>
+      <p class="lede">His Lab 1 parts are real geometry. Grey codes are envelopes for items his guide describes but Lab 1 does not draw.</p>
+      <div class="parts" id="parts"></div>
+    </section>
+    <section>
+      <h2>His open issues</h2>
+      <div class="tbl"><table><tbody id="oi"></tbody></table></div>
+      <p class="note" style="margin-top:8px">From the open-issues register, Lab 1 package page 7. Geometry that depends on them is provisional.</p>
+    </section>
+  </aside>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+const CELL_GLB = "__CELL__", RIG_GLB = "__RIG__";
+const RIGMETA = __RIGMETA__, COB = __COBOTS__, LAY = __LAYOUT__;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer;
+const san = s => THREE.PropertyBinding.sanitizeNodeName(s);
+const canvas = document.getElementById('c'), bay = document.getElementById('bay');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.outputEncoding = THREE.sRGBEncoding;
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(38, 1, 0.05, 100);
+const controls = new THREE.OrbitControls(camera, canvas); controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x404848, 0.9));
+const sun = new THREE.DirectionalLight(0xffffff, 0.85); sun.position.set(-3, 9, 5); scene.add(sun);
+function theme(){ scene.background = new THREE.Color(css('--stage')); }
+theme(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', theme);
+new MutationObserver(theme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+// model frame is z-up metres (his CAD); three is y-up
+const world = new THREE.Group(); world.rotation.x = -Math.PI / 2; scene.add(world);
+const M = (x, y, z) => new THREE.Vector3(x, y, z);
+const toThree = v => new THREE.Vector3(v[0], v[2], -v[1]);
+
+// ---------------------------------------------------------------- fabric shapes (illustrative)
+function tee(sleeves, w = 0.25, L = 0.70){
+  const s = new THREE.Shape(), sh = 0.30, nk = 0.09;
+  s.moveTo(-w, -L/2); s.lineTo(w, -L/2); s.lineTo(w, L/2 - 0.17);
+  if (sleeves) { s.lineTo(w + 0.22, L/2 - 0.24); s.lineTo(w + 0.28, L/2 - 0.08); s.lineTo(sh - 0.03, L/2); } else s.lineTo(sh - 0.08, L/2);
+  s.lineTo(nk, L/2); s.quadraticCurveTo(0, L/2 - 0.09, -nk, L/2);
+  if (sleeves) { s.lineTo(-(sh - 0.03), L/2); s.lineTo(-(w + 0.28), L/2 - 0.08); s.lineTo(-(w + 0.22), L/2 - 0.24); } else s.lineTo(-(sh - 0.08), L/2);
+  s.lineTo(-w, L/2 - 0.17); s.lineTo(-w, -L/2); return new THREE.ShapeGeometry(s);
+}
+const fabricMat = new THREE.MeshStandardMaterial({color:0xf1efe8, roughness:0.95, side:THREE.DoubleSide});
+const ribMat = new THREE.MeshStandardMaterial({color:0x2c5d8f, roughness:0.8});
+function flat(geo, x, y, z, rz = 0){ const m = new THREE.Mesh(geo, fabricMat); m.position.set(x, y, z); m.rotation.z = rz; m.visible = false; world.add(m); return m; }
+
+let cell, rigs = {}, fold = null, turn = null, formWrap = null, playing = true, speed = 1, T = 0;
+const F = {};                      // fabric objects
+const loader = new THREE.GLTFLoader();
+loader.parse(b64(CELL_GLB), '', g => {
+  cell = g.scene; world.add(cell);
+  cell.traverse(o => { if (o.isMesh) {   // exported meshes carry no normals: flat shading; only the fence is see-through
+    const see = /fence/i.test(o.name), ca = o.geometry.attributes.color;
+    if (ca) {   // vertex colours are stored as sRGB bytes; three expects linear
+      const lin = new Float32Array(ca.count * 4), c = new THREE.Color();
+      for (let i = 0; i < ca.count; i++) { c.setRGB(ca.getX(i), ca.getY(i), ca.getZ(i)).convertSRGBToLinear(); lin.set([c.r, c.g, c.b, ca.getW(i)], i * 4); }
+      o.geometry.setAttribute('color', new THREE.BufferAttribute(lin, 4));
+    }
+    if (see) { o.material = new THREE.MeshBasicMaterial({color: /door/.test(o.name) ? 0xd98a1f : 0xe0b420, transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide}); return; }
+    o.material.flatShading = true; o.material.side = THREE.DoubleSide;
+    o.material.transparent = see; o.material.depthWrite = !see; o.material.roughness = 0.75; o.material.metalness = 0.05; o.material.needsUpdate = true; } });
+  const top = s => { const hit = []; cell.traverse(o => { if (o.name && o.name.includes(san(s))) hit.push(o); }); return hit.filter(o => !hit.includes(o.parent)); };
+  // folding leaf: pivot on his hinge axis (FT params: 1.5 mm above datum B)
+  const h = LAY.hinge, p0 = M(...h.p0), ax = M(...h.p1).sub(p0).normalize();
+  fold = new THREE.Group(); fold.position.copy(p0); world.add(fold); fold.userData.axis = ax;
+  top('FTMOVE').forEach(o => fold.attach(o));
+  // turntable: stage + cone + form rotate about the RB-500 centre; the form also collapses
+  const fc = LAY.collar_form; turn = new THREE.Group(); turn.position.set(fc[0], fc[1], 0); world.add(turn);
+  ['BUY hollow rotary stage', 'L4 body cradle cone'].forEach(n => top(n).forEach(o => turn.attach(o)));
+  formWrap = new THREE.Group(); turn.add(formWrap); top('L4 collapsing neckline form').forEach(o => formWrap.attach(o));
+  buildParts(top);
+  loader.parse(b64(RIG_GLB), '', r1 => { addRig('A', r1.scene); loader.parse(b64(RIG_GLB), '', r2 => { addRig('B', r2.scene); buildFabric(); view('iso'); }); });
+});
+function addRig(k, root){
+  root.position.set(...COB.base[k]); world.add(root);
+  const links = RIGMETA.links.map(L => ({n: root.getObjectByName(L.name), axis: L.axis ? M(...L.axis) : null})).filter(l => l.n);
+  links.forEach(l => l.rest = l.n.quaternion.clone());
+  root.traverse(o => { if (o.isMesh) o.material.side = THREE.DoubleSide; });
+  const w3 = links[6].n, hs = RIGMETA.heads[k], y = RIGMETA.tcp_offset_y;
+  const head = new THREE.Mesh(new THREE.BoxGeometry(hs[0], 0.04, hs[1]), new THREE.MeshStandardMaterial({color: k === 'A' ? 0x3d4a57 : 0x6b4a2a, roughness:0.6}));
+  head.position.set(0, y - 0.02, 0); w3.add(head);
+  const qc = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, RIGMETA.tool_length - 0.04, 20), new THREE.MeshStandardMaterial({color:0x8a9097}));
+  qc.position.set(0, 0.0996 + (RIGMETA.tool_length - 0.04) / 2, 0); w3.add(qc);
+  const tcp = new THREE.Object3D(); tcp.position.set(0, y + 0.004, 0); w3.add(tcp);
+  rigs[k] = {root, links, tcp, frames: COB.keyframes[k]};
+}
+function buildFabric(){
+  const rt = LAY.registration_table, z = 0.852;
+  F.panel = flat(tee(false), 2.00, 2.05, z, Math.PI / 2);
+  F.butterfly = flat(tee(true), 2.15, 2.20, z, 0);
+  const drape = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.26, 0.26, 40, 1, true), fabricMat); drape.position.set(0, 0, LAY.collar_form[2] - 0.17); drape.rotation.x = Math.PI / 2; drape.visible = false; turn.add(drape); F.drape = drape;
+  F.rib = new THREE.Mesh(new THREE.TorusGeometry(0.085, 0.014, 10, 40), ribMat); F.rib.visible = false; world.add(F.rib);
+  // Rig C: butterfly across the hinge; front half rides the moving leaf
+  const hx = LAY.hinge.p0[0], hy = (LAY.hinge.p0[1] + LAY.hinge.p1[1]) / 2;
+  F.cBack = flat(tee(true, 0.25, 0.70), hx - 0.35, hy, 0.853, -Math.PI / 2);
+  F.cFront = new THREE.Mesh(tee(false, 0.25, 0.70), fabricMat); F.cFront.visible = false; F.cFront.rotation.z = Math.PI / 2; F.cFront.position.set(0.35, hy - LAY.hinge.p0[1], 0.0015); fold.add(F.cFront);
+  F.shirt = flat(tee(true, 0.25, 0.70), hx - 0.35, hy, 0.853, -Math.PI / 2);
+  F.chute = flat(tee(true, 0.25, 0.70), 3.55, 3.0, 0.70, 0); F.chute.rotation.x = -0.70;
+  buildTimeline();
+}
+// ---------------------------------------------------------------- timeline from the reach-checked keyframes
+const fA = () => rigs.A.frames, fB = () => rigs.B.frames;
+let TL = {}, steps = [], TOTAL = 0;
+function tOf(frames, re, offset = 0){ const f = frames.find(f => re.test(f.task)); return f ? f.t + offset : null; }
+function buildTimeline(){
+  const A = fA(), B = fB(), TA = A[A.length - 1].t;
+  const bLift = B.findIndex(f => /lower the rib loop.*\(lift\)/.test(f.task)), TB2 = B[bLift].t;
+  const SEW = 10, COLLAPSE = 1.2, PLACE = 2.5, FOLD = 7, HOLD = 3.5;
+  TL = {TA, bOff: TA, TB2, sew0: TA + TB2 + 0.5};
+  TL.sew1 = TL.sew0 + SEW; TL.col1 = TL.sew1 + COLLAPSE;
+  TL.c0 = TL.col1 + 0.5; TL.f0 = TL.c0 + PLACE; TL.f1 = TL.f0 + FOLD; TL.f2 = TL.f1 + HOLD; TL.f3 = TL.f2 + FOLD;
+  TL.bResume = TL.f3 + 0.3;           // B continues its plan (rig D) here
+  TL.bShift = TL.bResume - TB2;       // B keyframes after the rib-loop lift are delayed by this much
+  TL.end = B[B.length - 1].t + TL.bShift + 2;
+  TOTAL = TL.end;
+  const rel = re => tOf(A, re);
+  steps = [
+    {t: 0, rig: 'Rig A', label: 'Needle head lifts one ply and places it inside 2 mm', who: 'Cobot A'},
+    {t: rel(/carry the butterfly/), rig: 'Rig B', label: 'Butterfly carried and draped over the cradle cone', who: 'Cobot A'},
+    {t: TA, rig: 'Rig B', label: 'Rib loop lifted off the peg and lowered over the form', who: 'Cobot B'},
+    {t: TL.sew0, rig: 'Rig B', label: 'Turntable turns the form past the overlocker; form collapses to 110 mm', who: 'Turntable + form'},
+    {t: TL.c0, rig: 'Rig C', label: 'Butterfly laid on the folding table, shoulders on the hinge', who: 'Out of cobot reach here', flag: true},
+    {t: TL.f0, rig: 'Rig C', label: 'Leaf folds 180°, side seams (head path open, OI-3), leaf reopens', who: 'Folding table'},
+    {t: tOf(B, /grip the body hem.*\(dwell\)/, TL.bShift) - 2.5, rig: 'Rig D', label: 'Hem pulled to the turning tube; shirt exits to the chute', who: 'Cobot B'},
+  ];
+  const ol = document.getElementById('steps');
+  ol.innerHTML = steps.map((s, i) => `<li data-i="${i}"><span class="rig">${s.rig}</span><span>${s.label}<br><span class="${s.flag ? 'flag' : 'note'}">${s.who}</span></span></li>`).join('');
+  ol.querySelectorAll('li').forEach(li => li.onclick = () => { T = steps[+li.dataset.i].t + 0.01; });
+}
+function sampleQ(frames, t){
+  if (t <= frames[0].t) return frames[0].q;
+  for (let i = 1; i < frames.length; i++) if (t <= frames[i].t) {
+    const a = frames[i - 1], b = frames[i], u = (t - a.t) / Math.max(1e-6, b.t - a.t), e = u * u * (3 - 2 * u);
+    return a.q.map((q, j) => q + (b.q[j] - q) * e);
+  }
+  return frames[frames.length - 1].q;
+}
+function setRig(k, q){ const r = rigs[k]; for (let j = 0; j < 6; j++) { const L = r.links[j + 1]; L.n.quaternion.copy(L.rest).multiply(new THREE.Quaternion().setFromAxisAngle(L.axis, q[j])); } }
+const tcpWorld = k => { const v = new THREE.Vector3(); rigs[k].tcp.getWorldPosition(v); return world.worldToLocal(v); };
+function carry(obj, k, dz = 0){ const p = tcpWorld(k); obj.position.set(p.x, p.y, p.z + dz); obj.visible = true; }
+
+function update(t){
+  if (!rigs.B || !TL.end) return;
+  const A = fA(), B = fB();
+  setRig('A', sampleQ(A, t));
+  const tb = t < TL.bOff ? 0 : (t - TL.bOff <= TL.TB2 ? t - TL.bOff : (t < TL.bResume ? TL.TB2 : t - TL.bShift));
+  setRig('B', sampleQ(B, tb));
+  world.updateMatrixWorld(true);
+  // Rig A panel: on the table, on the head between pick and place, then placed
+  const aPick = tOf(A, /lift one ply.*\(dwell\)/) + 1.0, aPlace = tOf(A, /place the panel.*\(dwell\)/) + 1.0;
+  if (t < aPick) { F.panel.position.set(2.00, 2.05, 0.852); F.panel.visible = true; }
+  else if (t < aPlace) carry(F.panel, 'A', -0.002);
+  else { F.panel.position.set(2.30, 2.15, 0.852); F.panel.visible = t < tOf(A, /carry the butterfly/); }
+  // Rig B butterfly: on the table, carried, draped on the cone
+  const bPick = tOf(A, /carry the butterfly.*\(dwell\)/) + 1.0, bDrape = tOf(A, /drape the butterfly.*\(dwell\)/) + 1.0;
+  F.butterfly.visible = t >= tOf(A, /carry the butterfly/) - 3 && t < bDrape;
+  if (F.butterfly.visible) { if (t < bPick) F.butterfly.position.set(2.15, 2.20, 0.852); else carry(F.butterfly, 'A', -0.002); }
+  F.drape.visible = t >= bDrape && t < TL.col1 + 0.3;
+  // rib loop: on the peg, carried by B, on the form, sewn
+  const rPick = tOf(B, /lift the folded rib loop.*\(dwell\)/, TL.bOff) + 1.0, rPlace = tOf(B, /lower the rib loop.*\(dwell\)/, TL.bOff) + 1.0;
+  if (t < rPick) { F.rib.position.set(3.35, 0.85, 1.02); F.rib.visible = t > TL.bOff - 6; F.rib.parent !== world && world.attach(F.rib); }
+  else if (t < rPlace) { if (F.rib.parent !== world) world.attach(F.rib); carry(F.rib, 'B', -0.01); }
+  else if (t < TL.col1 + 0.3) { if (F.rib.parent !== formWrap) { formWrap.attach(F.rib); F.rib.position.set(0, 0, LAY.collar_form[2] - 0.02); } F.rib.visible = true; }
+  else F.rib.visible = false;
+  // turntable: one turn while the collar is sewn; form 170 mm expanded, collapses to 110 mm
+  const sew = Math.min(1, Math.max(0, (t - TL.sew0) / (TL.sew1 - TL.sew0)));
+  turn.rotation.z = -sew * Math.PI * 2;
+  const col = Math.min(1, Math.max(0, (t - TL.sew1) / (TL.col1 - TL.sew1))), reset = t < TL.sew0 - 2 || t > TL.end - 1;
+  const d = reset ? 1 : 1 - col * (1 - 110 / 170); formWrap.scale.set(d, d, 1);
+  // Rig C: butterfly on the folding table; fold to 180 and back
+  const onC = t >= TL.c0 && t < tOf(B, /grip the body hem.*\(dwell\)/, TL.bShift) + 1.0;
+  F.cBack.visible = onC && t < TL.f3; F.cFront.visible = onC && t < TL.f3;
+  const k = t < TL.f0 ? 0 : t < TL.f1 ? (t - TL.f0) / (TL.f1 - TL.f0) : t < TL.f2 ? 1 : t < TL.f3 ? 1 - (t - TL.f2) / (TL.f3 - TL.f2) : 0;
+  const e = k * k * (3 - 2 * k); fold.quaternion.setFromAxisAngle(fold.userData.axis, -e * Math.PI);
+  // Rig D: closed shirt on the fixed leaf, pulled by the hem to the tube, out to the chute
+  const hGrip = tOf(B, /grip the body hem.*\(dwell\)/, TL.bShift) + 1.0, tube = tOf(B, /present the hem.*\(dwell\)/, TL.bShift) + 1.0;
+  F.shirt.visible = t >= TL.f3 && t < tube;
+  if (F.shirt.visible) { if (t < hGrip) F.shirt.position.set(LAY.hinge.p0[0] - 0.35, (LAY.hinge.p0[1] + LAY.hinge.p1[1]) / 2, 0.853); else carry(F.shirt, 'B', -0.36); }
+  F.chute.visible = t >= tube; if (F.chute.visible) { const s = Math.min(1, (t - tube) / 1.6); F.chute.position.set(3.55, 2.80 + 0.45 * s, 0.86 - 0.38 * s); }
+  // status line
+  let si = 0; steps.forEach((s, i) => { if (t >= s.t) si = i; });
+  document.querySelectorAll('#steps li').forEach((li, i) => li.classList.toggle('on', i === si));
+  const now = document.getElementById('now'), s = steps[si];
+  now.innerHTML = `<b>${s.rig} · ${s.label}</b><span>${s.who} · ${t.toFixed(1)} s of ${TOTAL.toFixed(0)} s · motion times are estimates</span><div class="bar"><i style="width:${(t / TOTAL * 100).toFixed(1)}%"></i></div>`;
+}
+// ---------------------------------------------------------------- side panel content
+function buildParts(top){
+  const groups = {};
+  cell.children.forEach(o => { const n = o.name.replace(/_/g, ' '); const key = n.split(' | ')[0].replace(/ #\d+$/, ''); if (/^floor|fence panel/.test(key)) return; (groups[key] = groups[key] || []).push(o); });
+  const el = document.getElementById('parts');
+  el.innerHTML = Object.keys(groups).sort().map(k => {
+    const m = k.match(/^L1 ([A-Z]{2}-\d{3})/), env = !m;
+    const code = m ? m[1] : (k.split(' ')[0]);
+    const name = m ? k.replace(/^L1 [A-Z]{2}-\d{3} /, '') : k.replace(/^(BUY|L1|L2|L3|L4|FABRIC) /, '');
+    return `<button class="${env ? 'env' : ''}" data-k="${encodeURIComponent(k)}"><code>${code}</code><span>${name}</span></button>`;
+  }).join('');
+  el.querySelectorAll('button').forEach(b => b.onclick = () => focusOn(groups[decodeURIComponent(b.dataset.k)]));
+  const rows = [];
+  for (const k of ['A', 'B']) COB.reach[k].forEach(r => rows.push(`<tr><td class="n">${k}</td><td>${r.task}</td><td class="n">${r.horizontal_distance_m.toFixed(2)} m</td><td>${/reached/.test(r.status) ? '<span class="pill ok">reached</span>' : /blocked/.test(r.status) ? '<span class="pill warnc">blocked</span>' : '<span class="pill bad">out of reach</span>'}</td></tr>`));
+  document.getElementById('reach').innerHTML = rows.join('');
+  const n = Object.values(COB.reach).flat(), ok = n.filter(r => /reached/.test(r.status)).length;
+  document.getElementById('find').innerHTML = [
+    `<li><b>${ok} of ${n.length} cobot tasks</b> from his rig descriptions are reachable and collision-free in this layout, checked against every Lab 1 part.</li>`,
+    `<li><b>The folding table is the gap.</b> Laying the butterfly on the hinge and pinching the side-seam edge need 1.0 to 2.3 m of reach; a UR5e-class arm on a fixed pedestal reaches 0.86 m. This belongs with OI-3 and OI-6: a longer-reach arm, a pedestal on the table's hinge end, or a carrier.</li>`,
+    `<li><b>The RT-104 camera uprights</b> stand mid-way along both long edges of the registration table, exactly where a pedestal cobot works across the table. Cobot A had to move 300 mm sideways to clear one.</li>`,
+    `<li><b>Two cobots serve Rig B together</b> (drape, then rib loop), so Rigs A, C and D cannot run at the same time as Rig B with two arms; his timeline overlaps them.</li>`,
+    `<li>His FT-200 STEP labels the moving leaf's skin "fixed sheet" and repeats some part names; the model renames them from his check.py motion group.</li>`
+  ].join('');
+  const OI = [['OI-1','Fold drive, stopping and holding'],['OI-2','Rotary stage selection and adapter'],['OI-3','Fold → release → align → sew handoff'],['OI-4','Vacuum air distribution and fabric holding'],['OI-5','Closed-gap tolerance stack and full-motion clearance'],['OI-6','Robot selection vs pedestal'],['OI-7','Garment construction sign-off'],['OI-8','Logistics']];
+  document.getElementById('oi').innerHTML = OI.map(([a, b]) => `<tr><td class="n">${a}</td><td>${b}</td></tr>`).join('');
+}
+function focusOn(objs){
+  if (!objs || !objs.length) return; const box = new THREE.Box3(); objs.forEach(o => box.expandByObject(o));
+  const c = box.getCenter(new THREE.Vector3()), r = Math.max(0.6, box.getSize(new THREE.Vector3()).length());
+  tween([c.x + r * 0.8, c.y + r * 0.7, c.z + r * 0.9], c.toArray());
+  const p = document.getElementById('pick'); p.hidden = false; p.textContent = objs[0].name.replace(/_/g, ' ').replace(/ #\d+$/, '');
+}
+// ---------------------------------------------------------------- camera, picking, loop
+const V = {iso: [[-1.6, 5.2, 4.2], [3.0, 0.6, -2.0]], top: [[3.0, 9.5, -1.99], [3.0, 0, -2.0]], b: [[2.2, 2.3, 0.9], [2.7, 0.9, -1.0]], c: [[2.6, 2.6, 0.6], [4.2, 0.8, -1.6]]};
+function tween(p, q){ const p0 = camera.position.clone(), q0 = controls.target.clone(), p1 = new THREE.Vector3(...p), q1 = new THREE.Vector3(...q), s = performance.now(), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  (function f(){ const k = reduce ? 1 : Math.min(1, (performance.now() - s) / 700), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; camera.position.lerpVectors(p0, p1, e); controls.target.lerpVectors(q0, q1, e); if (k < 1) requestAnimationFrame(f); })(); }
+function view(k){ tween(...V[k]); }
+['iso', 'top', 'b', 'c'].forEach(k => document.getElementById('v-' + k).onclick = () => view(k));
+const playBtn = document.getElementById('play');
+playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? 'Pause' : 'Play'; playBtn.setAttribute('aria-pressed', playing); };
+document.getElementById('speed').onchange = e => speed = +e.target.value;
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(); let down = null;
+canvas.addEventListener('pointerdown', e => down = [e.clientX, e.clientY]);
+canvas.addEventListener('pointerup', e => {
+  if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 4 || !cell) return;
+  const r = canvas.getBoundingClientRect(); mouse.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
+  ray.setFromCamera(mouse, camera); const hit = ray.intersectObjects(world.children, true).find(h => h.object.visible && !/fence/.test(h.object.name));
+  const p = document.getElementById('pick');
+  if (!hit) { p.hidden = true; return; }
+  let o = hit.object; while (o.parent && o.parent !== cell && o.parent !== fold && o.parent !== turn && o.parent !== formWrap && o.parent !== world) o = o.parent;
+  p.hidden = false; p.textContent = (o.name || 'robot / fabric').replace(/_/g, ' ').replace(/FTMOVE /, '').replace(/ #\d+$/, '');
+});
+function resize(){ const w = bay.clientWidth, h = bay.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(bay); resize();
+let last = performance.now();
+function loop(now){ const dt = Math.min(0.1, (now - last) / 1000); last = now; if (playing && TOTAL) T = (T + dt * speed) % TOTAL; update(T); controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); }
+requestAnimationFrame(loop);
+</script>

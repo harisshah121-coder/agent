@@ -20,8 +20,12 @@ Phase 1 (research and master build guides): **done**. Phase 2 (3D model): next.
 | Model audit | PASS: docs/logs/MODEL_AUDIT.md (all parts placed, dimensions, zero collisions) |
 | Draft PR | Blocked: the GitHub repo has no default branch |
 
+## Build baseline (D-019)
+Ali's four-lab plan. Lab 1 (structure) Rev B.2 is modelled in cad/labs/lab1/ (artifact https://claude.ai/artifact/XDeJpD6HcjT2GAJpaxhoqM). Lab 2 package expected next; extend the model when it arrives. Review: docs/labs/LAB_PACKAGES_REVIEW.md.
+
 ## Next actions
-0. Close the gap (4.7 % arm margin, 79 % of shifts): MTTR target, shorter regrasp, bench seam timing; add the gantry timeline to L1 (Simulation guide §8.5).
+0. Ask Ali for the master floor layout and who serves the folding table (review section 5); model Lab 2 when it arrives.
+1. (Concept model, reference only) Close the gap (4.7 % arm margin, 79 % of shifts): MTTR target, shorter regrasp, bench seam timing; add the gantry timeline to L1 (Simulation guide §8.5).
 1. 3D guide checkpoint C1: vendor geometry register (`cad/vendor/REGISTER.csv`).
 2. 3D guide checkpoint C2: LOD0 envelopes for A00–A10 in build123d on the floor plan.
 3. C3 reach study and C4 cycle-time study in MuJoCo.

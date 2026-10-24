@@ -1,0 +1,692 @@
+{
+ "note": "Positions provisional (his package has no cell layout); tasks from his rig descriptions; UR5e geometry from MuJoCo Menagerie; tool stack length estimated.",
+ "tool_length_m": 0.12,
+ "reach": {
+  "A": [
+   {
+    "task": "Rig A: lift one ply in the pick zone of the registration table",
+    "point": [
+     2.0,
+     2.05,
+     0.88
+    ],
+    "horizontal_distance_m": 0.667,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance)",
+    "point": [
+     2.3,
+     2.15,
+     0.88
+    ],
+    "horizontal_distance_m": 0.765,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig B step 1: carry the butterfly from the registration table",
+    "point": [
+     2.15,
+     2.15,
+     0.88
+    ],
+    "horizontal_distance_m": 0.75,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig B step 1: drape the butterfly over the cradle cone",
+    "point": [
+     2.7,
+     0.9,
+     1.06
+    ],
+    "horizontal_distance_m": 0.743,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig C: lay the hemmed butterfly on the folding table, shoulder line on the hinge",
+    "point": [
+     4.387,
+     1.6,
+     0.88
+    ],
+    "horizontal_distance_m": 2.246,
+    "status": "OUT OF REACH"
+   }
+  ],
+  "B": [
+   {
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg",
+    "point": [
+     3.35,
+     0.85,
+     1.05
+    ],
+    "horizontal_distance_m": 0.559,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig B step 2: lower the rib loop over the form",
+    "point": [
+     2.7,
+     0.9,
+     1.08
+    ],
+    "horizontal_distance_m": 0.743,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig C: edge-pinch the top layer at the side-seam line",
+    "point": [
+     4.1,
+     1.9,
+     0.884
+    ],
+    "horizontal_distance_m": 0.986,
+    "status": "OUT OF REACH"
+   },
+   {
+    "task": "Rig D: grip the body hem at the fixed leaf edge",
+    "point": [
+     3.72,
+     1.6,
+     0.88
+    ],
+    "horizontal_distance_m": 0.511,
+    "status": "reached, collision-free"
+   },
+   {
+    "task": "Rig D: present the hem at the turning tube mouth",
+    "point": [
+     3.25,
+     1.8,
+     1.02
+    ],
+    "horizontal_distance_m": 0.4,
+    "status": "reached, collision-free"
+   }
+  ]
+ },
+ "keyframes": {
+  "A": [
+   {
+    "t": 0.0,
+    "q": [
+     1.5708,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "park"
+   },
+   {
+    "t": 1.2,
+    "q": [
+     1.5708,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig A: lift one ply in the pick zone of the registration table"
+   },
+   {
+    "t": 2.6,
+    "q": [
+     4.737067097022933,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig A: lift one ply in the pick zone of the registration table"
+   },
+   {
+    "t": 4.2,
+    "q": [
+     4.737067097022933,
+     -1.177632511443025,
+     1.2699776919183943,
+     -1.6645534153359018,
+     -1.571216300472836,
+     0.19746940987254807
+    ],
+    "task": "Rig A: lift one ply in the pick zone of the registration table"
+   },
+   {
+    "t": 5.0,
+    "q": [
+     4.7370586088856825,
+     -1.110562571251617,
+     1.4875500811848028,
+     -1.9488824488511503,
+     -1.5711722357887414,
+     0.19745695083783282
+    ],
+    "task": "Rig A: lift one ply in the pick zone of the registration table"
+   },
+   {
+    "t": 6.0,
+    "q": [
+     4.7370586088856825,
+     -1.110562571251617,
+     1.4875500811848028,
+     -1.9488824488511503,
+     -1.5711722357887414,
+     0.19745695083783282
+    ],
+    "task": "Rig A: lift one ply in the pick zone of the registration table (dwell)"
+   },
+   {
+    "t": 6.8,
+    "q": [
+     4.737067097022933,
+     -1.177632511443025,
+     1.2699776919183943,
+     -1.6645534153359018,
+     -1.571216300472836,
+     0.19746940987254807
+    ],
+    "task": "Rig A: lift one ply in the pick zone of the registration table (lift)"
+   },
+   {
+    "t": 8.0,
+    "q": [
+     4.737067097022933,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance)"
+   },
+   {
+    "t": 9.4,
+    "q": [
+     4.338917623200459,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance)"
+   },
+   {
+    "t": 11.0,
+    "q": [
+     4.338917623200459,
+     -0.9101806121373525,
+     0.8575704890930236,
+     -1.5201446481081322,
+     -1.571161002957057,
+     0.22346628651813547
+    ],
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance)"
+   },
+   {
+    "t": 11.8,
+    "q": [
+     4.338967631803542,
+     -0.8784766161935773,
+     1.1120421846133524,
+     -1.805737676813154,
+     -1.5711390801281502,
+     0.22351524946618698
+    ],
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance)"
+   },
+   {
+    "t": 12.8,
+    "q": [
+     4.338967631803542,
+     -0.8784766161935773,
+     1.1120421846133524,
+     -1.805737676813154,
+     -1.5711390801281502,
+     0.22351524946618698
+    ],
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance) (dwell)"
+   },
+   {
+    "t": 13.6,
+    "q": [
+     4.338917623200459,
+     -0.9101806121373525,
+     0.8575704890930236,
+     -1.5201446481081322,
+     -1.571161002957057,
+     0.22346628651813547
+    ],
+    "task": "Rig A: place the panel in the live zone (2 mm tolerance) (lift)"
+   },
+   {
+    "t": 14.8,
+    "q": [
+     4.338917623200459,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig B step 1: carry the butterfly from the registration table"
+   },
+   {
+    "t": 16.2,
+    "q": [
+     4.53280699034103,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig B step 1: carry the butterfly from the registration table"
+   },
+   {
+    "t": 17.8,
+    "q": [
+     4.53280699034103,
+     -0.954630363929107,
+     0.930304417313533,
+     -1.5478593674908763,
+     -1.5710708635301207,
+     0.2199675376314917
+    ],
+    "task": "Rig B step 1: carry the butterfly from the registration table"
+   },
+   {
+    "t": 18.6,
+    "q": [
+     4.532828196711957,
+     -0.9160056436681534,
+     1.1755857545924513,
+     -1.831360867208534,
+     -1.5710605149250387,
+     0.21998734036976458
+    ],
+    "task": "Rig B step 1: carry the butterfly from the registration table"
+   },
+   {
+    "t": 19.6,
+    "q": [
+     4.532828196711957,
+     -0.9160056436681534,
+     1.1755857545924513,
+     -1.831360867208534,
+     -1.5710605149250387,
+     0.21998734036976458
+    ],
+    "task": "Rig B step 1: carry the butterfly from the registration table (dwell)"
+   },
+   {
+    "t": 20.4,
+    "q": [
+     4.53280699034103,
+     -0.954630363929107,
+     0.930304417313533,
+     -1.5478593674908763,
+     -1.5710708635301207,
+     0.2199675376314917
+    ],
+    "task": "Rig B step 1: carry the butterfly from the registration table (lift)"
+   },
+   {
+    "t": 21.6,
+    "q": [
+     4.53280699034103,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig B step 1: drape the butterfly over the cradle cone"
+   },
+   {
+    "t": 23.0,
+    "q": [
+     2.22231391390583,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig B step 1: drape the butterfly over the cradle cone"
+   },
+   {
+    "t": 24.6,
+    "q": [
+     2.22231391390583,
+     -0.8513656679816932,
+     0.3849925332457673,
+     -1.1051940313506405,
+     -1.5707249887610153,
+     0.2180890750865904
+    ],
+    "task": "Rig B step 1: drape the butterfly over the cradle cone"
+   },
+   {
+    "t": 25.4,
+    "q": [
+     2.2225258319313492,
+     -0.9570350796627993,
+     0.7803069140594094,
+     -1.3953224978535137,
+     -1.5709935162338469,
+     0.21830078529337812
+    ],
+    "task": "Rig B step 1: drape the butterfly over the cradle cone"
+   },
+   {
+    "t": 26.4,
+    "q": [
+     2.2225258319313492,
+     -0.9570350796627993,
+     0.7803069140594094,
+     -1.3953224978535137,
+     -1.5709935162338469,
+     0.21830078529337812
+    ],
+    "task": "Rig B step 1: drape the butterfly over the cradle cone (dwell)"
+   },
+   {
+    "t": 27.2,
+    "q": [
+     2.22231391390583,
+     -0.8513656679816932,
+     0.3849925332457673,
+     -1.1051940313506405,
+     -1.5707249887610153,
+     0.2180890750865904
+    ],
+    "task": "Rig B step 1: drape the butterfly over the cradle cone (lift)"
+   },
+   {
+    "t": 28.7,
+    "q": [
+     1.5708,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "park"
+   }
+  ],
+  "B": [
+   {
+    "t": 0.0,
+    "q": [
+     1.5708,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "park"
+   },
+   {
+    "t": 1.2,
+    "q": [
+     1.5708,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg"
+   },
+   {
+    "t": 2.6,
+    "q": [
+     1.5083612577195629,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg"
+   },
+   {
+    "t": 4.2,
+    "q": [
+     1.5083612577195629,
+     -1.4187398600729244,
+     1.1456652851866105,
+     -1.2985704757551868,
+     -1.5707201064376926,
+     -0.06231525982960434
+    ],
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg"
+   },
+   {
+    "t": 5.0,
+    "q": [
+     1.5084842964418512,
+     -1.4515781669336125,
+     1.4914936893593824,
+     -1.6125223790517715,
+     -1.5706346560262492,
+     -0.06219233428755104
+    ],
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg"
+   },
+   {
+    "t": 6.0,
+    "q": [
+     1.5084842964418512,
+     -1.4515781669336125,
+     1.4914936893593824,
+     -1.6125223790517715,
+     -1.5706346560262492,
+     -0.06219233428755104
+    ],
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg (dwell)"
+   },
+   {
+    "t": 6.8,
+    "q": [
+     1.5083612577195629,
+     -1.4187398600729244,
+     1.1456652851866105,
+     -1.2985704757551868,
+     -1.5707201064376926,
+     -0.06231525982960434
+    ],
+    "task": "Rig B step 2: lift the folded rib loop off the Lab 2 peg (lift)"
+   },
+   {
+    "t": 9.2,
+    "q": [
+     0.5563563133194979,
+     -0.7602010342143316,
+     0.15466729415133929,
+     -0.9657382763669883,
+     -1.5707362692914655,
+     -0.18109670770621278
+    ],
+    "task": "Rig B step 2: lower the rib loop over the form"
+   },
+   {
+    "t": 10.0,
+    "q": [
+     0.5563947537248817,
+     -0.9441720318402641,
+     0.7077085701261367,
+     -1.334998910909452,
+     -1.5707560690311204,
+     -0.18105824996320805
+    ],
+    "task": "Rig B step 2: lower the rib loop over the form"
+   },
+   {
+    "t": 11.0,
+    "q": [
+     0.5563947537248817,
+     -0.9441720318402641,
+     0.7077085701261367,
+     -1.334998910909452,
+     -1.5707560690311204,
+     -0.18105824996320805
+    ],
+    "task": "Rig B step 2: lower the rib loop over the form (dwell)"
+   },
+   {
+    "t": 11.8,
+    "q": [
+     0.5563563133194979,
+     -0.7602010342143316,
+     0.15466729415133929,
+     -0.9657382763669883,
+     -1.5707362692914655,
+     -0.18109670770621278
+    ],
+    "task": "Rig B step 2: lower the rib loop over the form (lift)"
+   },
+   {
+    "t": 14.2,
+    "q": [
+     3.2784290593502563,
+     -1.5552316364636838,
+     1.731100645888551,
+     -1.7471400050823234,
+     -1.5708333454661796,
+     -0.2649547648073331
+    ],
+    "task": "Rig D: grip the body hem at the fixed leaf edge"
+   },
+   {
+    "t": 15.0,
+    "q": [
+     3.2785857637103613,
+     -1.4582203711205026,
+     1.9517128535642534,
+     -2.064030348065194,
+     -1.5709640835219423,
+     -0.26479871302214236
+    ],
+    "task": "Rig D: grip the body hem at the fixed leaf edge"
+   },
+   {
+    "t": 16.0,
+    "q": [
+     3.2785857637103613,
+     -1.4582203711205026,
+     1.9517128535642534,
+     -2.064030348065194,
+     -1.5709640835219423,
+     -0.26479871302214236
+    ],
+    "task": "Rig D: grip the body hem at the fixed leaf edge (dwell)"
+   },
+   {
+    "t": 16.8,
+    "q": [
+     3.2784290593502563,
+     -1.5552316364636838,
+     1.731100645888551,
+     -1.7471400050823234,
+     -1.5708333454661796,
+     -0.2649547648073331
+    ],
+    "task": "Rig D: grip the body hem at the fixed leaf edge (lift)"
+   },
+   {
+    "t": 18.0,
+    "q": [
+     3.2784290593502563,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig D: present the hem at the turning tube mouth"
+   },
+   {
+    "t": 19.4,
+    "q": [
+     4.370617121949087,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "Rig D: present the hem at the turning tube mouth"
+   },
+   {
+    "t": 21.0,
+    "q": [
+     4.370617121949087,
+     -1.8242751011682992,
+     1.6073204933267426,
+     -1.3544995425567314,
+     -1.570871446456407,
+     -0.3410896509371159
+    ],
+    "task": "Rig D: present the hem at the turning tube mouth"
+   },
+   {
+    "t": 21.8,
+    "q": [
+     4.371121391819834,
+     -1.8415905510148995,
+     1.9257636215477436,
+     -1.654885002117336,
+     -1.5710336688493145,
+     -0.34058696155367607
+    ],
+    "task": "Rig D: present the hem at the turning tube mouth"
+   },
+   {
+    "t": 22.8,
+    "q": [
+     4.371121391819834,
+     -1.8415905510148995,
+     1.9257636215477436,
+     -1.654885002117336,
+     -1.5710336688493145,
+     -0.34058696155367607
+    ],
+    "task": "Rig D: present the hem at the turning tube mouth (dwell)"
+   },
+   {
+    "t": 23.6,
+    "q": [
+     4.370617121949087,
+     -1.8242751011682992,
+     1.6073204933267426,
+     -1.3544995425567314,
+     -1.570871446456407,
+     -0.3410896509371159
+    ],
+    "task": "Rig D: present the hem at the turning tube mouth (lift)"
+   },
+   {
+    "t": 25.1,
+    "q": [
+     1.5708,
+     -1.9,
+     2.2,
+     -1.9,
+     -1.5708,
+     0.0
+    ],
+    "task": "park"
+   }
+  ]
+ }
+}

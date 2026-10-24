@@ -14,3 +14,69 @@ WARNING Fri Oct 23 23:19:48 2026: Attach conflict when attaching 'robotiq_2f85' 
 impratio: parent has 1 (default), child has 10, keeping parent value
 cone: parent has 0 (default), child has 1, keeping parent value
 
+WARNING Sat Oct 24 00:03:54 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:03:54 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:04:15 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:04:15 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:04:45 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:04:45 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:05:08 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:05:08 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:05:29 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:05:29 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:05:47 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:05:47 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:06:03 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:06:03 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:06:27 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:06:27 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:06:39 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:06:39 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:07:58 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:07:58 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:08:17 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
+WARNING Sat Oct 24 00:08:17 2026: Attach conflict when attaching 'ur5e', policy is 'warning'
+integrator: parent has 0 (default), child has 3, keeping parent value
+
